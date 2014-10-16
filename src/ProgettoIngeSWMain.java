@@ -19,6 +19,8 @@ public class ProgettoIngeSWMain {
 		mod.creaMerge();
 		mod.creaNodoFinale();
 		mod.stampaModello();
+		
+		// COMMENTO DI TEST PER GITHUB
 
 	}
 
