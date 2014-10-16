@@ -21,6 +21,7 @@ public class ProgettoIngeSWMain {
 		mod.stampaModello();
 		
 		// COMMENTO DI TEST PER GITHUB
+		// MODIFICATO DA REDS
 
 	}
 
