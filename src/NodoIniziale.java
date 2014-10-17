@@ -8,4 +8,3 @@ public class NodoIniziale extends Entita {
 		super(id_tipo, id);
 	}
 }
-sdgfsdgdfhfdh
