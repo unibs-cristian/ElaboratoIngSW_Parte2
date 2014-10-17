@@ -13,4 +13,9 @@ public class Azione extends Entita {
 		
 		// rubanoob
 	}
+	
+	public void Rossinoob() {
+		
+		//rossinoob
+	}
 }
