@@ -1,3 +1,5 @@
+import java.util.Vector;
+
 // Classe che crea e stampa il menu' e ritorna un intero corrispondente all'opzione scelta.
 
 public class Menu 
@@ -7,9 +9,9 @@ public class Menu
 	private final static String RICHIESTA_INSERIMENTO = "Inserisci il numero corrispondente all'opzione desiderata: ";
 		
 	private String titolo;
-	private String [] voci;
+	private Vector<String> voci;
 		
-	public Menu(String _titolo, String [] _voci)
+	public Menu(String _titolo, Vector<String> _voci)
 	{
 		titolo = _titolo;
 		voci = _voci;
@@ -18,7 +20,7 @@ public class Menu
 	public int scegli()
 	{
 		stampa();
-		return (UtilitaGenerale.leggiInteroConLimite(RICHIESTA_INSERIMENTO, 0, voci.length));
+		return (UtilitaGenerale.leggiInteroConLimite(RICHIESTA_INSERIMENTO, 0, voci.size()));
 	}
 		
 	private void stampa()
@@ -26,9 +28,9 @@ public class Menu
 		System.out.println(CORNICE);
 		System.out.println(titolo);
 		System.out.println(CORNICE);
-		for(int i = 0; i < voci.length; i++)
+		for(int i = 0; i < voci.size(); i++)
 		{
-			System.out.println((i + 1) + " --> " + voci[i]);
+			System.out.println((i + 1) + " --> " + voci.get(i));
 		}
 		System.out.println();
 		System.out.println(VOCE_USCITA);
