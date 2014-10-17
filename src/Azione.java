@@ -11,6 +11,6 @@ public class Azione extends Entita {
 	
 	public void action() {
 		
-		System.out.println("QUESTA E' DA MODIFICARE");
+		System.out.println("no ai russi!!!!!!!");
 	}
 }
