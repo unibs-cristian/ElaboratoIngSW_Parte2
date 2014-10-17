@@ -8,10 +8,6 @@ public class Azione extends Entita {
 		
 		super(id_tipo, id);
 	}
-	public int fdanculostoragecrearxjrigbsdfhukbvgf()
-	{
-		return 342345345;
-	}
 	
 	public int maancheno()
 	{
