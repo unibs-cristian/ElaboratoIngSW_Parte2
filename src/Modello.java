@@ -70,11 +70,13 @@ public class Modello {
 		return elementoPrecedente;
 	}
 	
+	/*
 	public int creaMerge() {
 		
 	//	for
 	return 1;
 	}
+	*/
 	
 	public void stampaModello () {
 		

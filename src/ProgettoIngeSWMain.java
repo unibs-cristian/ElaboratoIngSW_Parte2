@@ -3,6 +3,7 @@ public class ProgettoIngeSWMain {
 
 	public static void main(String[] args) {
 		
+		//poi mettiamo il menù
 	/*
 		Modello mod = new Modello();
 		mod.creaNodoIniziale();
