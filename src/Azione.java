@@ -9,8 +9,8 @@ public class Azione extends Entita {
 		super(id_tipo, id);
 	}
 	
-	public int ora()
-	{
-		return 1;
+	public void zanellina() {
+		
+		
 	}
 }
