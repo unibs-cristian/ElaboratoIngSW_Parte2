@@ -3,7 +3,7 @@ public class ProgettoIngeSWMain {
 
 	public static void main(String[] args) {
 		
-	/*
+	/*456456
 		Modello mod = new Modello();
 		mod.creaNodoIniziale();
 		mod.creaAzione(null);
