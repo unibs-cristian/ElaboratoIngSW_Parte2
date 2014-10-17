@@ -2,29 +2,40 @@ import java.util.*;
 
 public class Modello {
 
-	private String nomeModello;
-	private String descrizioneModello;
-	public Vector <Entita> elencoElementi;
+	private String nome;
+	private String descrizione;
+	public Vector <Entita> elencoEntita;
 	private int idAzione = 0;
 	private int idFlusso = 0;
 	private int idBranch = 0;
 	
-	public Modello (String _nomeModello) {
-		nomeModello = _nomeModello;
-		elencoElementi = new Vector<Entita>();
+	public Modello (String _nome, String _descrizione) {
+		nome = _nome;
+		descrizione = _descrizione;
+		elencoEntita = new Vector<Entita>();
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public String getDescrizione() {
+		return descrizione;
+	}
+	
+	public Vector <Entita> getElencoEntita() {
+		return elencoEntita;
 	}
 	
 	public void aggiungiEntita (Entita entita) {
 		
-		elencoElementi.add(entita);
+		elencoEntita.add(entita);
 	}
 	
 	public void creaNodoIniziale () {
 		
-		NodoIniziale nodo_i = new NodoIniziale(0);
+		NodoIniziale nodo_i = new NodoIniziale();
 		aggiungiEntita(nodo_i);
-		
-		System.out.println("Nodo Iniziale creato con ID: "+nodo_i.getIdTipo()+nodo_i.getId());
 	}
 	
 	public void creaAzione (Entita elementoBranch) {
@@ -32,8 +43,6 @@ public class Modello {
 		Azione action = new Azione(idAzione);
 		idAzione++;
 		aggiungiEntita(action);
-		
-		System.out.println("Azione creata con ID: "+action.getIdTipo()+action.getId());
 		creaFlusso(elementoBranch, action);
 	}
 	
@@ -43,8 +52,8 @@ public class Modello {
 		idFlusso++;
 		
 		if(entitaPrecedenteBranch == null) {		
-			int elementoPrecedente = elencoElementi.size()-2;
-			Entita entitaPrecedente = elencoElementi.get(elementoPrecedente);
+			int elementoPrecedente = elencoEntita.size()-2;
+			Entita entitaPrecedente = elencoEntita.get(elementoPrecedente);
 			entitaPrecedente.setEntitaSuccessiva(entitaSuccessiva);
 			entitaSuccessiva.setEntitaPrecedente(entitaPrecedente);
 		}
@@ -66,7 +75,7 @@ public class Modello {
 	
 	public int creaBranch() {
 		
-		int elementoPrecedente = elencoElementi.size()-1;
+		int elementoPrecedente = elencoEntita.size()-1;
 		return elementoPrecedente;
 	}
 	
@@ -82,9 +91,9 @@ public class Modello {
 		
 		System.out.println();
 		
-		for(int i=0; i<elencoElementi.size(); i++) {
+		for(int i=0; i<elencoEntita.size(); i++) {
 			
-			Entita e = elencoElementi.get(i);
+			Entita e = elencoEntita.get(i);
 			System.out.println();
 			System.out.println("-- ID Entita': "+e.getIdTipo()+e.getId()+" --");
 			System.out.print("Precedenti: ");

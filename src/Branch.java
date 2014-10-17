@@ -5,6 +5,6 @@ public class Branch extends Entita {
 	
 	public Branch (int id) {
 		
-		super(id_tipo, id);
+		super(id_tipo);
 	}
 }

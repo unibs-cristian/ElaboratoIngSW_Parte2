@@ -4,17 +4,17 @@ import java.util.Vector;
 
 public class Menu 
 {
-	private final static String CORNICE = "*************************************";
-	private final static String VOCE_USCITA = "0 --> Esci";
-	private final static String RICHIESTA_INSERIMENTO = "Inserisci il numero corrispondente all'opzione desiderata: ";
+	public final static String CORNICE = "*************************************";
+	public final static String VOCE_USCITA = "0 --> Esci";
+	public final static String RICHIESTA_INSERIMENTO = "Inserisci il numero corrispondente all'opzione desiderata: ";
 		
 	private String titolo;
 	private Vector<String> voci;
 		
-	public Menu(String _titolo, Vector<String> _voci)
+	public Menu(String _titolo)
 	{
 		titolo = _titolo;
-		voci = _voci;
+		voci = new Vector<>();
 	}
 		
 	public int scegli()

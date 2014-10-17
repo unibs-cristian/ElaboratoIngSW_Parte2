@@ -5,7 +5,7 @@ public class Merge extends Entita {
 	
 	public Merge(int id) {
 		
-		super(id_tipo, id);
+		super(id_tipo);
 	}
 
 }

@@ -6,7 +6,7 @@ public class Flusso extends Entita {
 	
 	public Flusso (int id) {
 		
-		super(id_tipo, id);
+		super(id_tipo);
 		
 	}
 

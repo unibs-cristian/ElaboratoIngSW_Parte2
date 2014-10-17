@@ -3,8 +3,8 @@ public class NodoIniziale extends Entita {
 
 	public final static String id_tipo = "NI";
 	
-	public NodoIniziale(int id) {
+	public NodoIniziale() {
 
-		super(id_tipo, id);
+		super(id_tipo);
 	}
 }

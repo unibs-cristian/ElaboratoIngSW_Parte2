@@ -3,14 +3,14 @@ import java.util.*;
 public class Entita {
 
 	private String id_tipo;
-	private int id;
+	private static int id;
 	private Vector <Entita> entitaPrecedenti;
 	private Vector <Entita> entitaSuccessive;
 	
-	public Entita (String id_tipo, int id) {
+	public Entita (String id_tipo) {
 		
 		this.id_tipo = id_tipo;
-		this.id = id;
+		id++;
 		entitaPrecedenti = new Vector <Entita> ();
 		entitaSuccessive = new Vector <Entita> ();
 	}
