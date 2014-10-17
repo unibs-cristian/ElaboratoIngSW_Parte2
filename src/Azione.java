@@ -13,4 +13,9 @@ public class Azione extends Entita {
 	{
 		return 1;
 	}
+	
+	public void asdasd()
+	{
+		asdasd;
+	}
 }
