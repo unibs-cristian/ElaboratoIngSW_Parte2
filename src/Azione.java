@@ -8,14 +8,4 @@ public class Azione extends Entita {
 		
 		super(id_tipo, id);
 	}
-	
-	public void Rubanoob() {
-		
-		// rubanoob
-	}
-	
-	public void Rossinoob() {
-		
-		//rossinoob
-	}
 }
