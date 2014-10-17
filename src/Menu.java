@@ -14,8 +14,6 @@ public class Menu
 		titolo = _titolo;
 		voci = _voci;
 	}
-	
-	public 
 		
 	public int scegli()
 	{
