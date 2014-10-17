@@ -8,9 +8,4 @@ public class Azione extends Entita {
 		
 		super(id_tipo, id);
 	}
-	
-	public void zanellinaPanevinaHeee() {
-		
-		System.out.println("hueheuheuehu");
-	}
 }
