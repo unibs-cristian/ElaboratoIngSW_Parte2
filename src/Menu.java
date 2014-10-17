@@ -1,4 +1,4 @@
-// Classe che crea e stampa il menù e ritorna un intero corrispondente all'opzione scelta.
+// Classe che crea e stampa il menu' e ritorna un intero corrispondente all'opzione scelta.
 
 public class Menu 
 {

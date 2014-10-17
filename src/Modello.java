@@ -9,8 +9,8 @@ public class Modello {
 	private int idFlusso = 0;
 	private int idBranch = 0;
 	
-	public Modello () {
-		
+	public Modello (String _nomeModello) {
+		nomeModello = _nomeModello;
 		elencoElementi = new Vector<Entita>();
 	}
 	
