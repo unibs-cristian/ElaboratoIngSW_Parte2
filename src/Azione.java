@@ -12,4 +12,9 @@ public class Azione extends Entita {
 	{
 		return 342345345;
 	}
+	
+	public int maancheno()
+	{
+		return 1;
+	}
 }
