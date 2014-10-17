@@ -9,7 +9,7 @@ public class Azione extends Entita {
 		super(id_tipo, id);
 	}
 	
-	public int ora2()
+	public int ora()
 	{
 		return 1;
 	}
