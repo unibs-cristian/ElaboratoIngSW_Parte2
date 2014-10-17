@@ -23,5 +23,10 @@ public class ProgettoIngeSWMain {
 		mod.stampaModello();
 	*/
 	}
+	
+	public void zanellinaPanevina() {
+		
+		System.out.println("hueheuheuehu");
+	}
 
 }
