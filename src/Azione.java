@@ -8,14 +8,4 @@ public class Azione extends Entita {
 		
 		super(id_tipo, id);
 	}
-	
-	public int maancheno()
-	{
-		return 1;
-	}
-	
-	public void asdasd()
-	{
-		asdasd;
-	}
 }
