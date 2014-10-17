@@ -72,7 +72,8 @@ public class Modello {
 	
 	public int creaMerge() {
 		
-		for
+	//	for
+	return 1;
 	}
 	
 	public void stampaModello () {
