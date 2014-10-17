@@ -6,5 +6,6 @@ public class Azione extends Entita {
 	public Azione(int id) {
 		
 		super(id_tipo, id);
+		
 	}
 }
