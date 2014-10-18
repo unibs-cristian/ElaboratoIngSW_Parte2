@@ -4,12 +4,11 @@ import java.util.Vector;
 
 public class Menu 
 {
-	public final static String CORNICE = "*************************************";
-	public final static String VOCE_USCITA = "0 --> Esci";
+	public final static String CORNICE = "------------------------------------------------------------";
 	public final static String RICHIESTA_INSERIMENTO = "Inserisci il numero corrispondente all'opzione desiderata: ";
-		
+	
 	private String titolo;
-	private Vector<String> voci;
+	private Vector <String> voci;
 		
 	public Menu(String _titolo)
 	{
@@ -20,7 +19,30 @@ public class Menu
 	public int scegli()
 	{
 		stampa();
-		return (UtilitaGenerale.leggiInteroConLimite(RICHIESTA_INSERIMENTO, 0, voci.size()));
+		return (UtilitaGenerale.leggiInteroConLimite2(RICHIESTA_INSERIMENTO, 0, voci.size()));
+	}
+	
+	/*public Vector <String> ottieniOpzioniDisponibili(Modello m)
+	{
+		Entita ultimaEntita = m.getUltimaEntita();
+		if(ultimaEntita.getIdTipo()=="NI")
+		{
+			voci.add(MSG_INSERIMENTO_BRANCH);
+			voci.add(MSG_INSERIMENTO_FORK);
+			voci.add(MSG_INSERIMENTO_AZIONE);
+		}
+		if(ultimaEntita.getIdTipo()=="BR")
+		{ 
+			
+		}
+		voci.add(MSG_VISUALIZZAZIONE_MODELLO);
+		voci.add(MSG_USCITA_INSERIMENTO);
+		return voci;
+	} */
+	
+	public void addVoce(String daAggiungere)
+	{
+		voci.add(daAggiungere);
 	}
 		
 	private void stampa()
@@ -31,9 +53,6 @@ public class Menu
 		for(int i = 0; i < voci.size(); i++)
 		{
 			System.out.println((i + 1) + " --> " + voci.get(i));
-		}
-		System.out.println();
-		System.out.println(VOCE_USCITA);
-		System.out.println();		
+		}		
 	}	
 }

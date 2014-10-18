@@ -1,14 +1,14 @@
 import java.util.*;
 
 public class Modello {
-
+	
+	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo : \n";
+	public final static String MSG_DESCRIZIONE_AZIONE = "Fornire una breve descrizione dell'azione che si sta inserendo : \n";
+	
 	private String nome;
 	private String descrizione;
 	public Vector <Entita> elencoEntita;
-	private int idAzione = 0;
-	private int idFlusso = 0;
-	private int idBranch = 0;
-	
+
 	public Modello (String _nome, String _descrizione) {
 		nome = _nome;
 		descrizione = _descrizione;
@@ -27,6 +27,24 @@ public class Modello {
 		return elencoEntita;
 	}
 	
+	public Entita getUltimaEntita()
+	{
+		int numeroEntita = elencoEntita.size()-1;
+		return elencoEntita.elementAt(numeroEntita);
+	}
+	
+	public int getNumeroAzioni() {
+		int contatore_Azioni = 0;
+		int numero_entita = elencoEntita.size();   //Si può mettere il metodo in fase di refactoring al posto della variabile locale.
+		for (int i=0; i<numero_entita; i++)
+		{
+			Entita e = elencoEntita.elementAt(i);
+			if (e.getIdTipo()=="AZ" || e.getIdTipo()=="AZC")
+				contatore_Azioni++;
+		}
+		return contatore_Azioni;
+	}
+	
 	public void aggiungiEntita (Entita entita) {
 		
 		elencoEntita.add(entita);
@@ -38,15 +56,19 @@ public class Modello {
 		aggiungiEntita(nodo_i);
 	}
 	
-	public void creaAzione (Entita elementoBranch) {
-		
-		Azione action = new Azione(idAzione);
-		idAzione++;
+	public void creaAzione () {
+		String tit = UtilitaGenerale.leggiString(MSG_TITOLO_AZIONE);
+		String descr = UtilitaGenerale.leggiString(MSG_DESCRIZIONE_AZIONE);
+		Azione action = new Azione(tit,descr);
 		aggiungiEntita(action);
-		creaFlusso(elementoBranch, action);
+		//Aggiornamento successori dell'entità precedente
+		Entita prec = elencoEntita.elementAt(elencoEntita.size()-2);
+		prec.setEntitaSuccessiva(action);
+		//Settaggio dei predecessori dell'entità appena inserita
+		action.setEntitaPrecedente(elencoEntita.elementAt(elencoEntita.size()-2));
 	}
 	
-	public void creaFlusso (Entita entitaPrecedenteBranch, Entita entitaSuccessiva) {
+	/*public void creaFlusso (Entita entitaPrecedenteBranch, Entita entitaSuccessiva) {
 		
 		Flusso flux = new Flusso(idFlusso);
 		idFlusso++;
@@ -62,23 +84,13 @@ public class Modello {
 			entitaPrecedenteBranch.setEntitaSuccessiva(entitaSuccessiva);
 			entitaSuccessiva.setEntitaPrecedente(entitaPrecedenteBranch);
 		}
-	}
+	} */
 	
 	public void creaNodoFinale () {
 		
 		NodoFinale nodo_f = new NodoFinale(1);
 		aggiungiEntita(nodo_f);
-		
-		System.out.println("Nodo Finale creato con ID: "+nodo_f.getIdTipo()+nodo_f.getId());
-		creaFlusso(null, nodo_f);
 	}
-	
-	public int creaBranch() {
-		
-		int elementoPrecedente = elencoEntita.size()-1;
-		return elementoPrecedente;
-	}
-	
 	
 	public int creaMerge() {
 		
@@ -86,29 +98,28 @@ public class Modello {
 	return 1;
 	}
 	
+	public boolean isEmpty() {
+		return elencoEntita.isEmpty();
+	}
 	
-	public void stampaModello () {
+	public boolean nodoFinalePresente() {
+		Entita e = getUltimaEntita();
+		if(e.getIdTipo() == "NF")
+			return true;
+		else 
+			return false;
+	}
+	
+	public String toString() {
 		
-		System.out.println();
+		StringBuffer risultato = new StringBuffer();
+		System.out.println("NOME MODELLO : "+nome+"\n\n");
+		System.out.println("DESCRIZIONE MODELLO : "+descrizione+"\n\n");
 		
 		for(int i=0; i<elencoEntita.size(); i++) {
-			
 			Entita e = elencoEntita.get(i);
-			System.out.println();
-			System.out.println("-- ID Entita': "+e.getIdTipo()+e.getId()+" --");
-			System.out.print("Precedenti: ");
-			for (int j=0; j<e.getEntitaPrecedenti().size(); j++) {
-				
-				Entita ePrec = e.getEntitaPrecedenti().get(j);
-				System.out.print(""+ePrec.getIdTipo()+ePrec.getId()+"\t");
-			}
-			System.out.println("");
-			System.out.print("Successivi: ");
-			for (int j=0; j<e.getEntitaSuccessive().size(); j++) {
-				
-				Entita ePrec = e.getEntitaSuccessive().get(j);
-				System.out.println(""+ePrec.getIdTipo()+ePrec.getId()+"\t");
-			}	
-		}
-	}
+			risultato.append(e.toString());
+		}  
+		return risultato.toString();
+	} 
 }

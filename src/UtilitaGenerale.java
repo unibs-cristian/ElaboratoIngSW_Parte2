@@ -44,7 +44,35 @@ public class UtilitaGenerale
    		return str;
     }
 	
-	public static int leggiInteroConLimite(String messaggio, int min, int max)
+	public static int leggiInteroConLimite1(String messaggio, int min)
+	{
+		boolean finito = false;
+    	int valoreLetto = 0;
+	    do
+	    {
+	    	System.out.print(messaggio);
+	    	if(lettore.hasNextInt())
+	    	{
+	    		valoreLetto = lettore.nextInt();
+	    		if(valoreLetto >= min)
+	    		{
+	    			finito = true;
+	    		}
+	    		else
+	    			{
+	    				System.out.println(MEX_NUM_NON_VALIDO);
+	    			}
+	    	}
+	    	else
+	    	{
+	    		System.out.println(ERRORE);
+	    		String daButtare = lettore.next();
+	    	}
+	    } while(!finito);
+	   	return valoreLetto;
+	}
+	
+	public static int leggiInteroConLimite2(String messaggio, int min, int max)
 	{
     	boolean finito = false;
     	int valoreLetto = 0;

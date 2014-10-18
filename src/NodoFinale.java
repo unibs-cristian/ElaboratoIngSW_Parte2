@@ -2,7 +2,7 @@
 public class NodoFinale extends Entita 
 {
 	
-	public final static String id_tipo = "NF";
+	public final static String id_tipo = "NODO_FINALE";
 	
 	public NodoFinale(int id) {
 	
