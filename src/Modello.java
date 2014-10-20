@@ -2,8 +2,8 @@ import java.util.*;
 
 public class Modello {
 	
-	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo : \n";
-	public final static String MSG_DESCRIZIONE_AZIONE = "Fornire una breve descrizione dell'azione che si sta inserendo : \n";
+	public final static String MSG_TITOLO_AZIONE = "\nDigitare il titolo dell'azione che si sta inserendo: ";
+	public final static String MSG_DESCRIZIONE_AZIONE = "Fornire una breve descrizione dell'azione che si sta inserendo: ";
 	
 	private String nome;
 	private String descrizione;
@@ -113,7 +113,7 @@ public class Modello {
 	public String toString() {
 		
 		StringBuffer risultato = new StringBuffer();
-		System.out.println("NOME MODELLO : "+nome+"\n\n");
+		System.out.println("\nNOME MODELLO : "+nome);
 		System.out.println("DESCRIZIONE MODELLO : "+descrizione+"\n\n");
 		
 		for(int i=0; i<elencoEntita.size(); i++) {

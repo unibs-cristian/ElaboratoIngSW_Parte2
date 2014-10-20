@@ -4,8 +4,8 @@ import java.util.Vector;
 
 public class Menu 
 {
-	public final static String CORNICE = "------------------------------------------------------------";
-	public final static String RICHIESTA_INSERIMENTO = "Inserisci il numero corrispondente all'opzione desiderata: ";
+	public final static String CORNICE = "\n----------------------------------------------------------------------------";
+	public final static String RICHIESTA_INSERIMENTO = "Selezione > ";
 	
 	private String titolo;
 	private Vector <String> voci;
@@ -13,7 +13,7 @@ public class Menu
 	public Menu(String _titolo)
 	{
 		titolo = _titolo;
-		voci = new Vector<>();
+		voci = new Vector<String>();
 	}
 		
 	public int scegli()
@@ -48,7 +48,7 @@ public class Menu
 	private void stampa()
 	{
 		System.out.println(CORNICE);
-		System.out.println(titolo);
+		System.out.print(titolo);
 		System.out.println(CORNICE);
 		for(int i = 0; i < voci.size(); i++)
 		{

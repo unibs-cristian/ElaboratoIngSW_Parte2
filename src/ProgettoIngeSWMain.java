@@ -2,27 +2,27 @@
 public class ProgettoIngeSWMain {
 	public final static int MIN_RAMI = 2;
 	public final static String MSG_NUM_RAMI = "Inserire il numero di rami d'uscita del branch (minimo 2): \n";
-	public final static String CORNICE = "-----------------------------------------------------------------------\n";
-	public final static String TITOLO_MENU_PRINCIPALE = "Menu Principale\n";
-	public final static String TITOLO_INSERIMENTO_MODELLO = "Menu Inserimento\n"; 
-	public final static String MSG_NOME_MODELLO = "Inserire il nome del nuovo modello :\n";
-	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello :\n";
-	public final static String MSG_BENVENUTO = "Benvenuto! Questo programma ti consente di inserire e caricare modelli.\n";
+	public final static String CORNICE = "\n----------------------------------------------------------------------------";
+	public final static String TITOLO_MENU_PRINCIPALE = "Menu Principale";
+	public final static String TITOLO_INSERIMENTO_MODELLO = "Menu Inserimento"; 
+	public final static String MSG_NOME_MODELLO = "\nInserire il nome del nuovo modello: ";
+	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello: ";
+	public final static String MSG_BENVENUTO = "Benvenuto! Questo programma ti consente di inserire e caricare modelli.";
 	public final static String MSG_SALUTO = "Grazie per aver usato il nostro programma! A presto.\n";
 	public final static String MSG_USCITA_PROGRAMMA = "Esci dal programma.\n";
 	public final static String MSG_ERRORE = "L'opzione inserita è inesistente. Inserire un'opzione valida.\n";
 	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! L'ultima entità inserita è un nodo finale.\nImpossibile inserire nuove entità.\nEliminare il nodo finale per poter inserire nuovamente.\n";
-	public final static String MSG_INSERIMENTO_AZIONE = "Inserisci una nuova azione.\n";
-	public final static String MSG_INSERIMENTO_BRANCH = "Inserisci un nuovo branch.\n";
-	public final static String MSG_INSERIMENTO_FORK = "Inserisci un nuovo fork.\n";
+	public final static String MSG_INSERIMENTO_AZIONE = "Inserisci una nuova azione.";
+	public final static String MSG_INSERIMENTO_BRANCH = "Inserisci un nuovo branch.";
+	public final static String MSG_INSERIMENTO_FORK = "Inserisci un nuovo fork.";
 	public final static String MSG_INSERIMENTO_MERGE = "Inserisci il merge relativo.\n";
 	public final static String MSG_INSERIMENTO_JOIN = "Inserisci il join relativo al fork.\n";
-	public final static String MSG_MODIFICA_MODELLO = "Modifica il modello.\n";
-	public final static String MSG_VISUALIZZAZIONE_MODELLO = "Visualizza il modello.\n";
+	public final static String MSG_MODIFICA_MODELLO = "Modifica il modello.";
+	public final static String MSG_VISUALIZZAZIONE_MODELLO = "Visualizza il modello.";
 	public final static String MSG_USCITA_INSERIMENTO = "Torna al menu principale.\n";
 	public final static String MSG_NUOVO_MODELLO = "Crea nuovo modello";
 	public final static String MSG_CARICAMENTO_MODELLO = "Carica modello";
-	public final static String MSG_INSERIMENTO_NODO_FINALE = "Inserisci il nodo finale.\n";
+	public final static String MSG_INSERIMENTO_NODO_FINALE = "Inserisci il nodo finale.";
 	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale è necessario che nel modello sia\npresente almeno un'azione.\n";	
 	public final static String MSG_COND_BRANCH = "Scrivere la condizione relativa al ramo %d del branch.\n";
 	
@@ -45,8 +45,7 @@ public class ProgettoIngeSWMain {
 					inserimentoEntita(m);
 					break;
 				case 2: System.out.println("Funzionalità non ancora implementata.\n"); break;
-				case 3:
-						finito = true; break;
+				case 3: finito = true; break;
 				default : System.out.println(MSG_ERRORE); break;
 			}
 		} while(finito == false);
@@ -146,7 +145,7 @@ public class ProgettoIngeSWMain {
 //	public static void caricamentoModello() {};
 	public static void benvenuto()
 	{
-		System.out.println(CORNICE);
+		System.out.println(CORNICE+"\n");
 		System.out.println(MSG_BENVENUTO);
 	}
 	
