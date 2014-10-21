@@ -176,6 +176,7 @@ public class Modello {
 		
 		NodoFinale nodo_f = new NodoFinale(1);
 		aggiungiEntita(nodo_f);
+		aggiornaPredSucc(nodo_f);
 	}
 	
 	public void creaMerge(Branch brAssociato) {

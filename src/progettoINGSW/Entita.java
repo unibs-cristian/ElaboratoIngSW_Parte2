@@ -6,7 +6,7 @@ public class Entita {
 	public final static String CORNICE = "\n-----------------------------------------------------------\n";
 	public final static String MSG_ENTITA = "Entita' n. %d    %s";
 	public final static String MSG_ENTITA_PRECEDENTI = "Entita' precedenti: \n";
-	public final static String MSG_ENTITA_SUCCESSIVE = "Entita' successive: \n";
+	public final static String MSG_ENTITA_SUCCESSIVE = "\nEntita' successive: \n";
 	
 	private String id_tipo;
 	private static int contatore = 0;
@@ -67,7 +67,7 @@ public class Entita {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(MSG_ENTITA_PRECEDENTI);
 		if(entitaPrecedenti.isEmpty())
-			risultato.append("Nessuna\n");
+			risultato.append("Nessuna.");
 		else
 		{		
 			for (int i=0; i<entitaPrecedenti.size(); i++) {
