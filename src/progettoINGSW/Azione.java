@@ -2,7 +2,7 @@ package progettoINGSW;
 
 public class Azione extends Entita {
 	
-	public final static String id_tipo = "AZIONE";
+	public final static String ID_TIPO = "AZIONE";
 	public final static String MSG_TITOLO_AZIONE = "Titolo azione : %s\n";
 	public final static String MSG_DESCR_AZIONE = "Descrizione : %s\n";
 	private String titolo;
@@ -12,7 +12,7 @@ public class Azione extends Entita {
 	
 	public Azione(String _titolo, String _descrizione) {
 		
-		super(id_tipo);
+		super(ID_TIPO);
 		titolo = _titolo;
 		descrizione = _descrizione;
 		contatoreAzioni++;

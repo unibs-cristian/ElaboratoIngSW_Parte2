@@ -3,7 +3,7 @@ import java.util.Vector;
 
 public class Branch extends Entita {
 
-	public final static String id_tipo = "BRANCH";
+	public final static String ID_TIPO = "BRANCH";
 	
 	private static int contatoreBranch = 0;
 	private int numeroRami;
@@ -11,7 +11,7 @@ public class Branch extends Entita {
 	private Vector <RamoBranch> elencoRami;
 	
 	public Branch (int _numeroRami) {
-		super(id_tipo);
+		super(ID_TIPO);
 		numeroRami = _numeroRami;
 		contatoreBranch++;
 		idBranch = contatoreBranch;

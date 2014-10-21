@@ -2,12 +2,12 @@ package progettoINGSW;
 
 public class Flusso extends Entita {
 
-	public final static String id_tipo = "FL";
+	public final static String ID_TIPO = "FL";
 	private boolean scattato = false;
 	
 	public Flusso (int id) {
 		
-		super(id_tipo);
+		super(ID_TIPO);
 		
 	}
 
