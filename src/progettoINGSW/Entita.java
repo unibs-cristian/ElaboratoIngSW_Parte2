@@ -4,9 +4,9 @@ import java.util.*;
 public class Entita {
 	
 	public final static String CORNICE = "\n-----------------------------------------------------------\n";
-	public final static String MSG_ENTITA = "Entita n¬∞ %d    %s";
-	public final static String MSG_ENTITA_PRECEDENTI = "Entit√† precedenti : \n";
-	public final static String MSG_ENTITA_SUCCESSIVE = "Entit√† successive : \n";
+	public final static String MSG_ENTITA = "Entita' n. %d    %s";
+	public final static String MSG_ENTITA_PRECEDENTI = "Entita'†precedenti: \n";
+	public final static String MSG_ENTITA_SUCCESSIVE = "Entita'†successive: \n";
 	
 	private String id_tipo;
 	private static int contatore = 0;

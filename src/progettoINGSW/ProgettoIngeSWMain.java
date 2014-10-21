@@ -1,14 +1,14 @@
 package progettoINGSW;
 
 public class ProgettoIngeSWMain {
-	public final static String CORNICE = "-----------------------------------------------------------------------\n";
-	public final static String TITOLO_MENU_PRINCIPALE = "Menu Principale\n"; 
-	public final static String MSG_NOME_MODELLO = "Inserire il nome del nuovo modello :\n";
-	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello :\n";
-	public final static String MSG_BENVENUTO = "Benvenuto! Questo programma ti consente di inserire e caricare modelli.\n";
+	public final static String CORNICE = "---------------------------------------------------------------------------------\n";
+	public final static String TITOLO_MENU_PRINCIPALE = "Menu Principale"; 
+	public final static String MSG_NOME_MODELLO = "\nInserire il nome del nuovo modello: ";
+	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello: ";
+	public final static String MSG_BENVENUTO = "Benvenuto! Questo programma ti consente di inserire e caricare modelli.";
 	public final static String MSG_SALUTO = "Grazie per aver usato il nostro programma! A presto.\n";
 	public final static String MSG_USCITA_PROGRAMMA = "Esci dal programma.\n";
-	public final static String MSG_ERRORE = "L'opzione inserita è inesistente. Inserire un'opzione valida.\n";
+	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	public final static String MSG_NUOVO_MODELLO = "Crea nuovo modello";
 	public final static String MSG_CARICAMENTO_MODELLO = "Carica modello";
 	

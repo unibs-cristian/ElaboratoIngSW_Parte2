@@ -3,27 +3,27 @@ import java.util.*;
 
 public class Modello {
 	
-	public final static String TITOLO_INSERIMENTO_MODELLO = "Menu Inserimento\n";
-	public final static String MSG_INSERIMENTO_AZIONE = "Inserisci una nuova azione.\n";
-	public final static String MSG_INSERIMENTO_BRANCH = "Inserisci un nuovo branch.\n";
-	public final static String MSG_INSERIMENTO_FORK = "Inserisci un nuovo fork.\n";
-	public final static String MSG_INSERIMENTO_MERGE = "Inserisci un merge.\n";
-	public final static String MSG_INSERIMENTO_JOIN = "Inserisci un join.\n";
-	public final static String MSG_INSERIMENTO_NODO_FINALE = "Inserisci il nodo finale.\n";
-	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! L'ultima entità inserita è un nodo finale.\nImpossibile inserire nuove entità.\nEliminare il nodo finale per poter inserire nuovamente.\n";
-	public final static String MSG_MODIFICA_MODELLO = "Modifica il modello.\n";
-	public final static String MSG_VISUALIZZAZIONE_MODELLO = "Visualizza il modello.\n";
+	public final static String TITOLO_INSERIMENTO_MODELLO = "Menu Inserimento";
+	public final static String MSG_INSERIMENTO_AZIONE = "Inserisci una nuova azione.";
+	public final static String MSG_INSERIMENTO_BRANCH = "Inserisci un nuovo branch.";
+	public final static String MSG_INSERIMENTO_FORK = "Inserisci un nuovo fork.";
+	public final static String MSG_INSERIMENTO_MERGE = "Inserisci un merge.";
+	public final static String MSG_INSERIMENTO_JOIN = "Inserisci un join.";
+	public final static String MSG_INSERIMENTO_NODO_FINALE = "Inserisci il nodo finale.";
+	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! L'ultima entita'� inserita e' un nodo finale.\nImpossibile inserire nuove entità.\nEliminare il nodo finale per poter inserire nuovamente.\n";
+	public final static String MSG_MODIFICA_MODELLO = "Modifica il modello.";
+	public final static String MSG_VISUALIZZAZIONE_MODELLO = "Visualizza il modello.";
 	public final static String MSG_USCITA_INSERIMENTO = "Torna al menu principale.\n";
-	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo : \n";
-	public final static String MSG_DESCRIZIONE_AZIONE = "Fornire una breve descrizione dell'azione che si sta inserendo : \n";
-	public final static String MSG_NUM_RAMI = "Inserire il numero di rami d'uscita del branch (minimo 2): \n";
+	public final static String MSG_TITOLO_AZIONE = "\nDigitare il titolo dell'azione che si sta inserendo: ";
+	public final static String MSG_DESCRIZIONE_AZIONE = "Fornire una breve descrizione dell'azione che si sta inserendo: ";
+	public final static String MSG_NUM_RAMI = "Inserire il numero di rami d'uscita del branch (minimo 2): ";
 	public final static String MSG_COND_BRANCH = "Scrivere la condizione relativa al ramo %d del branch.\n";
-	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale è necessario che nel modello sia\npresente almeno un'azione.\n";	
-	public final static String MSG_ERRORE = "L'opzione inserita è inesistente. Inserire un'opzione valida.\n";
+	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale e' necessario che nel modello sia\npresente almeno un'azione.\n";	
+	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	public final static String MSG_RAMO_BRANCH = "Ramo numero ";
 	public final static String MSG_ERRORE_MERGE = "Impossibile inserire il merge. Nessun branch da chiudere.\n";
-	public final static String MSG_ERRORE_MERGE_2 = "Errore! Impossibile chiudere il merge. Nessuna entità tra il merge e il branch da chiudere.\n";
-	public final static String MSG_INSERIMENTO_ENTITA_RAMO = "\nInserire le entità relative al ramo n° ";
+	public final static String MSG_ERRORE_MERGE_2 = "Errore! Impossibile chiudere il merge. Nessuna entita'� tra il merge e il branch da chiudere.\n";
+	public final static String MSG_INSERIMENTO_ENTITA_RAMO = "\nInserire le entita'�relative al ramo n� ";
 	public final static int MIN_RAMI = 2;
 	
 	private String nome;
@@ -325,7 +325,7 @@ public class Modello {
 	public String toString() {
 		
 		StringBuffer risultato = new StringBuffer();
-		System.out.println("NOME MODELLO : "+nome+"\n\n");
+		System.out.println("\nNOME MODELLO : "+nome);
 		System.out.println("DESCRIZIONE MODELLO : "+descrizione+"\n\n");
 		
 		for(int i=0; i<elencoEntita.size(); i++) {

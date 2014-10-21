@@ -5,7 +5,7 @@ import java.util.Vector;
 
 public class Menu 
 {
-	public final static String CORNICE = "\n----------------------------------------------------------------------------";
+	public final static String CORNICE = "\n---------------------------------------------------------------------------------";
 	public final static String RICHIESTA_INSERIMENTO = "Selezione > ";
 	
 	private String titolo;
