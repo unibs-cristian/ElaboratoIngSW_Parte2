@@ -4,15 +4,16 @@ import java.util.*;
 public class Entita {
 	
 	public final static String CORNICE = "\n-----------------------------------------------------------\n";
-	public final static String MSG_ENTITA = "Entita n� %d    ";
-	public final static String MSG_ENTITA_PRECEDENTI = "Entit� precedenti : \n";
-	public final static String MSG_ENTITA_SUCCESSIVE = "Entit� successive : \n";
+	public final static String MSG_ENTITA = "Entita n° %d    %s";
+	public final static String MSG_ENTITA_PRECEDENTI = "Entità precedenti : \n";
+	public final static String MSG_ENTITA_SUCCESSIVE = "Entità successive : \n";
 	
 	private String id_tipo;
 	private static int contatore = 0;
 	private int id;
 	private Vector <Entita> entitaPrecedenti;
 	private Vector <Entita> entitaSuccessive;
+	private RamoBranch ramoBr;
 	
 	public Entita (String id_tipo) {
 		
@@ -21,6 +22,7 @@ public class Entita {
 		id=contatore;
 		entitaPrecedenti = new Vector <Entita> ();
 		entitaSuccessive = new Vector <Entita> ();
+		ramoBr = null;
 	}
 	
 	public String getIdTipo () {
@@ -53,31 +55,35 @@ public class Entita {
 		return entitaSuccessive;
 	}
 	
+	public RamoBranch getRamoBranch() {
+		return ramoBr;
+	}
+	
+	public void setBranchAssociato(RamoBranch rbr) {
+		ramoBr = rbr;
+	}
+	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(CORNICE);
-		risultato.append(String.format(MSG_ENTITA, id, id_tipo));
-		risultato.append("\n");
 		risultato.append(MSG_ENTITA_PRECEDENTI);
 		if(entitaPrecedenti.isEmpty())
-			risultato.append("Nessuna.\n");
+			risultato.append("Nessuna\n");
 		else
 		{		
-			System.out.println("Passato da qui.\n");
 			for (int i=0; i<entitaPrecedenti.size(); i++) {
 				Entita ePrec = entitaPrecedenti.elementAt(i);
-				risultato.append("- "+"- "+String.format(MSG_ENTITA,ePrec.id,ePrec.id_tipo));
+				risultato.append("- "+String.format(MSG_ENTITA,ePrec.getId(),ePrec.getIdTipo()));
 			}
 		}
 		risultato.append("\n");
 		risultato.append(MSG_ENTITA_SUCCESSIVE);
 		if(entitaSuccessive.isEmpty())
-			risultato.append("Nessuna.\n");
+			risultato.append("Nessuna\n");
 		else
 		{
 			for (int i=0; i<entitaSuccessive.size(); i++) {		
 				Entita eSucc = entitaSuccessive.elementAt(i);
-				risultato.append("- "+String.format(MSG_ENTITA,eSucc.id,eSucc.id_tipo));   
+				risultato.append("- "+String.format(MSG_ENTITA,eSucc.getId(),eSucc.getIdTipo()));   
 			}
 		}
 		return risultato.toString();
