@@ -2,8 +2,8 @@ package progettoINGSW;
 
 public class Azione extends Entita {
 	
-	public final static String ID_TIPO = "AZIONE";
-	public final static String MSG_TITOLO_AZIONE = "Titolo azione : %s\n";
+	public final static String id_tipo = "AZIONE";
+	public final static String MSG_TITOLO_AZIONE = "%d\nTitolo azione : %s\n";
 	public final static String MSG_DESCR_AZIONE = "Descrizione : %s\n";
 	private String titolo;
 	private String descrizione;
@@ -12,7 +12,7 @@ public class Azione extends Entita {
 	
 	public Azione(String _titolo, String _descrizione) {
 		
-		super(ID_TIPO);
+		super(id_tipo);
 		titolo = _titolo;
 		descrizione = _descrizione;
 		contatoreAzioni++;
@@ -42,9 +42,10 @@ public class Azione extends Entita {
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
+		risultato.append(CORNICE);
+		risultato.append(String.format(MSG_ENTITA, super.getId(), id_tipo));
+		risultato.append(String.format(MSG_TITOLO_AZIONE,idAzione,titolo));
 		risultato.append(super.toString());
-		risultato.append(String.format(MSG_TITOLO_AZIONE,titolo));
-		risultato.append(String.format(MSG_DESCR_AZIONE,descrizione));
 		return risultato.toString();
 	}
 }
