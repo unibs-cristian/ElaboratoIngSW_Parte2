@@ -19,7 +19,7 @@ public class Branch extends Entita {
 		contatoreBranch++;
 		idBranch = contatoreBranch;
 		mergeAssociato = null;
-		elencoRami = new Vector<>();
+		elencoRami = new Vector<RamoBranch>();
 	}
 	
 	public int getIdBranch() {
