@@ -17,7 +17,7 @@ public class Modello {
 	public final static String MSG_TITOLO_AZIONE = "\nDigitare il titolo dell'azione che si sta inserendo: ";
 	public final static String MSG_DESCRIZIONE_AZIONE = "Fornire una breve descrizione dell'azione che si sta inserendo: ";
 	public final static String MSG_NUM_RAMI = "Inserire il numero di rami d'uscita del branch (minimo 2): ";
-	public final static String MSG_COND_BRANCH = "Scrivere la condizione relativa al ramo %d del branch.\n";
+	public final static String MSG_COND_BRANCH = "Scrivere la condizione relativa al ramo %d del branch.";
 	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale e' necessario che nel modello sia\npresente almeno un'azione.\n";	
 	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	public final static String MSG_RAMO_BRANCH = "Ramo numero ";
@@ -122,12 +122,12 @@ public class Modello {
 		//Creazione rami
 		for(int i=1; i<=numRami; i++)
 		{
-			System.out.println(MSG_RAMO_BRANCH + i + "\n");
-			String cond = UtilitaGenerale.leggiString(MSG_COND_BRANCH);
+			System.out.println(MSG_RAMO_BRANCH + i +"\n");
+			String cond = UtilitaGenerale.leggiString(String.format(MSG_COND_BRANCH,i));
 			RamoBranch r = new RamoBranch(cond);
 			b.aggiungiRamo(r);
 			System.out.println(MSG_INSERIMENTO_ENTITA_RAMO + i + "\n");
-			inserimentoEntita(r);
+			menuInserimentoEntita(r);
 			if(ramoCorrente == null)
 			{
 				Vector <Entita> entitaRamoR = r.getEntitaRamo();
@@ -183,7 +183,7 @@ public class Modello {
 		Merge m = new Merge(brAssociato);
 		aggiungiEntita(m);
 		
-		//I predecessori del merge sono le ultime entit√† di ciascun ramo.
+		//I predecessori del merge sono le ultime entita'† di ciascun ramo.
 		Vector <RamoBranch> rami = brAssociato.getElencoRami();
 		for (int i=0; i<rami.size(); i++)
 		{
@@ -194,7 +194,7 @@ public class Modello {
 		}
 	}
 	
-	public void inserimentoEntita(RamoBranch ramoCorrente) {
+	public void menuInserimentoEntita(RamoBranch ramoCorrente) {
 		Menu menuInserimentoEntita = new Menu(TITOLO_INSERIMENTO_MODELLO);
 		menuInserimentoEntita.addVoce(MSG_INSERIMENTO_AZIONE);
 		menuInserimentoEntita.addVoce(MSG_INSERIMENTO_BRANCH);
