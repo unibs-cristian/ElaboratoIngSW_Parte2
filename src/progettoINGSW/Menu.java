@@ -1,3 +1,4 @@
+package progettoINGSW;
 import java.util.Vector;
 
 // Classe che crea e stampa il menu' e ritorna un intero corrispondente all'opzione scelta.

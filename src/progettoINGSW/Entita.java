@@ -1,11 +1,12 @@
+package progettoINGSW;
 import java.util.*;
 
 public class Entita {
 	
 	public final static String CORNICE = "\n-----------------------------------------------------------\n";
-	public final static String MSG_ENTITA = "Entita n° %d    ";
-	public final static String MSG_ENTITA_PRECEDENTI = "Entità precedenti : \n";
-	public final static String MSG_ENTITA_SUCCESSIVE = "Entità successive : \n";
+	public final static String MSG_ENTITA = "Entita nï¿½ %d    ";
+	public final static String MSG_ENTITA_PRECEDENTI = "Entitï¿½ precedenti : \n";
+	public final static String MSG_ENTITA_SUCCESSIVE = "Entitï¿½ successive : \n";
 	
 	private String id_tipo;
 	private static int contatore = 0;

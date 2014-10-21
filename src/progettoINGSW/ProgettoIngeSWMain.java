@@ -1,3 +1,4 @@
+package progettoINGSW;
 
 public class ProgettoIngeSWMain {
 	public final static int MIN_RAMI = 2;
@@ -10,8 +11,8 @@ public class ProgettoIngeSWMain {
 	public final static String MSG_BENVENUTO = "Benvenuto! Questo programma ti consente di inserire e caricare modelli.";
 	public final static String MSG_SALUTO = "Grazie per aver usato il nostro programma! A presto.\n";
 	public final static String MSG_USCITA_PROGRAMMA = "Esci dal programma.\n";
-	public final static String MSG_ERRORE = "L'opzione inserita è inesistente. Inserire un'opzione valida.\n";
-	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! L'ultima entità inserita è un nodo finale.\nImpossibile inserire nuove entità.\nEliminare il nodo finale per poter inserire nuovamente.\n";
+	public final static String MSG_ERRORE = "L'opzione inserita ï¿½ inesistente. Inserire un'opzione valida.\n";
+	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! L'ultima entitï¿½ inserita ï¿½ un nodo finale.\nImpossibile inserire nuove entitï¿½.\nEliminare il nodo finale per poter inserire nuovamente.\n";
 	public final static String MSG_INSERIMENTO_AZIONE = "Inserisci una nuova azione.";
 	public final static String MSG_INSERIMENTO_BRANCH = "Inserisci un nuovo branch.";
 	public final static String MSG_INSERIMENTO_FORK = "Inserisci un nuovo fork.";
@@ -23,7 +24,7 @@ public class ProgettoIngeSWMain {
 	public final static String MSG_NUOVO_MODELLO = "Crea nuovo modello";
 	public final static String MSG_CARICAMENTO_MODELLO = "Carica modello";
 	public final static String MSG_INSERIMENTO_NODO_FINALE = "Inserisci il nodo finale.";
-	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale è necessario che nel modello sia\npresente almeno un'azione.\n";	
+	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale ï¿½ necessario che nel modello sia\npresente almeno un'azione.\n";	
 	public final static String MSG_COND_BRANCH = "Scrivere la condizione relativa al ramo %d del branch.\n";
 	
 	public static void main(String[] args) {
@@ -44,7 +45,7 @@ public class ProgettoIngeSWMain {
 					m.creaNodoIniziale();
 					inserimentoEntita(m);
 					break;
-				case 2: System.out.println("Funzionalità non ancora implementata.\n"); break;
+				case 2: System.out.println("Funzionalitï¿½ non ancora implementata.\n"); break;
 				case 3: finito = true; break;
 				default : System.out.println(MSG_ERRORE); break;
 			}
@@ -132,11 +133,11 @@ public class ProgettoIngeSWMain {
 			RamoBranch r = new RamoBranch(b, cond);
 			
 		}
-		//Aggiornamento successori dell'entità precedente     (da rivedere in fase di refactoring. Si ripete e può essere messo in classe Modello)
+		//Aggiornamento successori dell'entitï¿½ precedente     (da rivedere in fase di refactoring. Si ripete e puï¿½ essere messo in classe Modello)
 		
 		Entita prec = elencoEntita.elementAt(elencoEntita.size()-2);
 		prec.setEntitaSuccessiva(b);
-		//Settaggio dei predecessori dell'entità appena inserita
+		//Settaggio dei predecessori dell'entitï¿½ appena inserita
 		b.setEntitaPrecedente(elencoEntita.elementAt(elencoEntita.size()-2));
 		int elementoPrecedente = elencoEntita.size()-1;
 		return elementoPrecedente;

@@ -1,3 +1,4 @@
+package progettoINGSW;
 import java.util.*;
 
 public class Modello {
@@ -35,12 +36,11 @@ public class Modello {
 	
 	public int getNumeroAzioni() {
 		int contatore_Azioni = 0;
-		int numero_entita = elencoEntita.size();   //Si può mettere il metodo in fase di refactoring al posto della variabile locale.
+		int numero_entita = elencoEntita.size();   //Si puï¿½ mettere il metodo in fase di refactoring al posto della variabile locale.
 		for (int i=0; i<numero_entita; i++)
 		{
 			Entita e = elencoEntita.elementAt(i);
-			//if (e.getIdTipo()=="AZ" || e.getIdTipo()=="AZC") ??
-			if (e.getIdTipo()=="AZIONE")
+			if (e.getIdTipo()=="AZ" || e.getIdTipo()=="AZC")
 				contatore_Azioni++;
 		}
 		return contatore_Azioni;
@@ -62,10 +62,10 @@ public class Modello {
 		String descr = UtilitaGenerale.leggiString(MSG_DESCRIZIONE_AZIONE);
 		Azione action = new Azione(tit,descr);
 		aggiungiEntita(action);
-		//Aggiornamento successori dell'entità precedente
+		//Aggiornamento successori dell'entitï¿½ precedente
 		Entita prec = elencoEntita.elementAt(elencoEntita.size()-2);
 		prec.setEntitaSuccessiva(action);
-		//Settaggio dei predecessori dell'entità appena inserita
+		//Settaggio dei predecessori dell'entitï¿½ appena inserita
 		action.setEntitaPrecedente(elencoEntita.elementAt(elencoEntita.size()-2));
 	}
 	
@@ -91,11 +91,6 @@ public class Modello {
 		
 		NodoFinale nodo_f = new NodoFinale(1);
 		aggiungiEntita(nodo_f);
-		//Aggiornamento successori dell'entità precedente AGGIUNTO DA REDS
-		Entita prec = elencoEntita.elementAt(elencoEntita.size()-2);
-		prec.setEntitaSuccessiva(nodo_f);
-		//Settaggio dei predecessori dell'entità appena inserita AGGIUNTO DA REDS
-		nodo_f.setEntitaPrecedente(elencoEntita.elementAt(elencoEntita.size()-2));
 	}
 	
 	public int creaMerge() {

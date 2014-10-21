@@ -1,3 +1,4 @@
+package progettoINGSW;
 
 public class Merge extends Entita {
 
