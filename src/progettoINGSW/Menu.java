@@ -23,24 +23,6 @@ public class Menu
 		return (UtilitaGenerale.leggiInteroConLimite2(RICHIESTA_INSERIMENTO, 0, voci.size()));
 	}
 	
-	/*public Vector <String> ottieniOpzioniDisponibili(Modello m)
-	{
-		Entita ultimaEntita = m.getUltimaEntita();
-		if(ultimaEntita.getIdTipo()=="NI")
-		{
-			voci.add(MSG_INSERIMENTO_BRANCH);
-			voci.add(MSG_INSERIMENTO_FORK);
-			voci.add(MSG_INSERIMENTO_AZIONE);
-		}
-		if(ultimaEntita.getIdTipo()=="BR")
-		{ 
-			
-		}
-		voci.add(MSG_VISUALIZZAZIONE_MODELLO);
-		voci.add(MSG_USCITA_INSERIMENTO);
-		return voci;
-	} */
-	
 	public void addVoce(String daAggiungere)
 	{
 		voci.add(daAggiungere);
