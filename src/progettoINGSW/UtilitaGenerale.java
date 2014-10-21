@@ -12,6 +12,8 @@ public class UtilitaGenerale
 	private static final String ERRORE = "ERRORE! Il valore fornito ha un formato non compatibile";
 	private static final String MEX_ERRORE = "\n\nAttenzione! Opzione non consentita. Digitare 'Y' per Si, 'N' per No";
 	private static final String MEX_RICHIESTA = "\nCosa desideri fare? Digita 'Y' se vuoi inserire un altro CD, 'N' per uscire: ";
+	private final static char RISPOSTA_SI='S';
+	private final static char RISPOSTA_NO='N';
 	private static String _String;
     private static char _char;
     private static BufferedReader br;
@@ -160,4 +162,20 @@ public class UtilitaGenerale
     	 
     	return(_char);
     }
+    
+    /**
+     * Metodo che si occupa di chiedere all'utente di rispondere si o no ad un messaggio.
+     * @param messaggio Testo a video della domanda alla quale rispondere.
+     * @return Restituisce true in caso di risposta affermativa e false in caso di risposta negativa.
+     */
+    public static boolean yesOrNo(String messaggio)
+	  {
+		  String mioMessaggio = messaggio + "(" + RISPOSTA_SI + "/" + RISPOSTA_NO + ")";
+		  char valoreLetto = leggiUpperChar(mioMessaggio,String.valueOf(RISPOSTA_SI) + "//" + String.valueOf(RISPOSTA_NO));
+		  
+		  if (valoreLetto == RISPOSTA_SI)
+			return true;
+		  else
+			return false;
+	  }
 }
