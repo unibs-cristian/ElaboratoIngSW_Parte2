@@ -14,6 +14,7 @@ public class UtilitaGenerale
 	private static final String MEX_RICHIESTA = "\nCosa desideri fare? Digita 'Y' se vuoi inserire un altro CD, 'N' per uscire: ";
 	private final static char RISPOSTA_SI='S';
 	private final static char RISPOSTA_NO='N';
+	private final static String ERRORE_AMMISSIBILI= "Attenzione: i caratteri ammissibili sono: ";
 	private static String _String;
     private static char _char;
     private static BufferedReader br;
@@ -177,5 +178,29 @@ public class UtilitaGenerale
 			return true;
 		  else
 			return false;
+	  }
+    
+    /**
+     * Metodo che si occupa di far scegliere tramite un carattere.
+     * @param messaggio Testo a video che ti chiede la scelta.
+     * @param ammissibili Caratteri ammissibili.
+     * @return Restituisce il primo carattere di una Stringa date le scelte ammissibili.
+     */
+    public static char leggiUpperChar (String messaggio, String ammissibili)
+	  {
+	   boolean finito = false;
+	   char valoreLetto = '\0';
+	   do
+	   {
+	   valoreLetto = leggiChar(messaggio);
+	   valoreLetto = Character.toUpperCase(valoreLetto);
+	   if (ammissibili.indexOf(valoreLetto) != -1)
+		   finito  = true;
+	   else
+		   System.out.println(ERRORE_AMMISSIBILI + ammissibili);
+	   } 
+	   while (!finito);
+	   
+	   return valoreLetto;
 	  }
 }

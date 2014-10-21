@@ -1,5 +1,7 @@
 package progettoINGSW;
 
+import java.io.File;
+
 public class ProgettoIngeSWMain {
 	public final static String CORNICE = "-----------------------------------------------------------------------\n";
 	public final static String TITOLO_MENU_PRINCIPALE = "Menu Principale\n"; 
@@ -11,6 +13,7 @@ public class ProgettoIngeSWMain {
 	public final static String MSG_ERRORE = "L'opzione inserita è inesistente. Inserire un'opzione valida.\n";
 	public final static String MSG_NUOVO_MODELLO = "Crea nuovo modello";
 	public final static String MSG_CARICAMENTO_MODELLO = "Carica modello";
+	private static final String MSG_NOME_MODELLO_PREESISTENTE = "Nome modello da caricare:";
 	
 	public static void main(String[] args) {
 		benvenuto();
@@ -30,7 +33,15 @@ public class ProgettoIngeSWMain {
 					m.creaNodoIniziale();
 					m.inserimentoEntita(null);
 					break;
-				case 2: System.out.println("Funzionalità non ancora implementata.\n"); break;
+				case 2: 
+					{
+						File nomeFile = new File(UtilitaGenerale.leggiString(MSG_NOME_MODELLO_PREESISTENTE));
+						Modello modelloCaricato = null;
+						SalvaCarica.caricaFile(nomeFile, modelloCaricato);
+						modelloCaricato.creaNodoIniziale();
+						modelloCaricato.inserimentoEntita(null);
+					}
+					break;
 				case 3:
 						finito = true; break;
 				default : System.out.println(MSG_ERRORE); break;
