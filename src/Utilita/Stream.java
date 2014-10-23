@@ -1,19 +1,18 @@
-package progettoINGSW;
+package Utilita;
 
 import java.io.*;
-import Utilita.*;
 
 /**
  * Classe di utilita'. Contiene metodi per lo stream di un oggetto.
  * @author Lorenzo Rubagotti
  */
-public class SalvaCarica implements Serializable
+public class Stream implements Serializable
 {
 			private static final long serialVersionUID = 1L;
 			
 			private static final String MSG_OK_FILE = "File caricato correttamente.";
 			private static final String MSG_SALVA = "File salvato correttamente";
-			private static final String DOMANDA_SOVRASCRIVERE = "File gia' presente. Sovrascrivere? ";
+			private static final String DOMANDA_SOVRASCRIVERE = "File già presente. Sovrascrivere? ";
 			private static final String NO_CLOSE = "ATTENZIONE: PROBLEMI CON LA CHIUSURA DEL FILE ";
 			private static final String NO_FILE = "ATTENZIONE: NON TROVO IL FILE ";
 			private static final String NO_READ = "ATTENZIONE: PROBLEMI CON LA LETTURA DEL FILE ";
@@ -21,7 +20,7 @@ public class SalvaCarica implements Serializable
 			private static final String NO_WRITE = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
 
 			/**
-			 * Metodo automatico per caricare un file.
+			 * Metodo per caricare un file automatizzando tutto.
 			 * @param f File in questione.
 			 * @param oggetto Oggetto da caricare.
 			 * @return Restituisce l'oggetto caricato.
@@ -64,7 +63,7 @@ public class SalvaCarica implements Serializable
 		    		{
 		    		if (controlloSovrascrittura)
 		    			{
-		    			if (UtilitaGenerale.yesOrNo(DOMANDA_SOVRASCRIVERE) )
+		    			if (Util.yesOrNo(DOMANDA_SOVRASCRIVERE) )
 		    				salvaSingoloOggetto(f, oggetto);
 		    			}
 		    		else

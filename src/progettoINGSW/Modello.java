@@ -1,5 +1,6 @@
 package progettoINGSW;
 import java.util.*;
+import Utilita.*;
 
 public class Modello {
 	
@@ -205,7 +206,7 @@ public class Modello {
 		vociMenuInserimentoEntita.add(MSG_MODIFICA_MODELLO);
 		vociMenuInserimentoEntita.add(MSG_VISUALIZZAZIONE_MODELLO);
 		vociMenuInserimentoEntita.add(MSG_USCITA_INSERIMENTO);
-		Menu menuInserimentoEntita = new Menu(TITOLO_INSERIMENTO_MODELLO, vociMenuInserimentoEntita);
+		Menuasd menuInserimentoEntita = new Menuasd(TITOLO_INSERIMENTO_MODELLO, vociMenuInserimentoEntita);
 		
 		boolean insFinito = false;
 		do {

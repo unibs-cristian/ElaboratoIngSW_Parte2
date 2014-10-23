@@ -1,5 +1,7 @@
 package progettoINGSW;
 
+import Utilita.*;
+
 public class Merge extends Entita {
 
 	public final static String id_tipo = "MERGE";

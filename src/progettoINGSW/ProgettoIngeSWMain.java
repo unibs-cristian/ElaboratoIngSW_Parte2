@@ -2,6 +2,7 @@ package progettoINGSW;
 
 import java.io.File;
 import java.util.Vector;
+import Utilita.*;
 
 public class ProgettoIngeSWMain {
 	public final static String CORNICE = "---------------------------------------------------------------------------------\n";
@@ -16,7 +17,7 @@ public class ProgettoIngeSWMain {
 	public final static String MSG_CARICAMENTO_MODELLO = "Carica modello";
 	private static final String MSG_NOME_MODELLO_PREESISTENTE = "Nome modello da caricare:";
 	
-	@SuppressWarnings("null")
+	@SuppressWarnings({ "null", "unused" })
 	public static void main(String[] args) {
 		benvenuto();
 		Vector<String> vociMenuPrincipale = new Vector<String>();
@@ -24,7 +25,7 @@ public class ProgettoIngeSWMain {
 		vociMenuPrincipale.add(MSG_NUOVO_MODELLO);
 		vociMenuPrincipale.add(MSG_CARICAMENTO_MODELLO);
 		vociMenuPrincipale.add(MSG_USCITA_PROGRAMMA);
-		Menu menuPrincipale = new Menu(TITOLO_MENU_PRINCIPALE, vociMenuPrincipale);
+		Menuasd menuPrincipale = new Menuasd(TITOLO_MENU_PRINCIPALE, vociMenuPrincipale);
 		
 		boolean finito = false;
 		do {
@@ -41,8 +42,11 @@ public class ProgettoIngeSWMain {
 						File nomeFile = new File(UtilitaGenerale.leggiString(MSG_NOME_MODELLO_PREESISTENTE));
 						Modello modelloCaricato = null;
 						SalvaCarica.caricaFile(nomeFile, modelloCaricato);
-						modelloCaricato.creaNodoIniziale();
-						modelloCaricato.menuInserimentoEntita(null);
+						if(modelloCaricato != null)
+						{
+							modelloCaricato.creaNodoIniziale();
+							modelloCaricato.menuInserimentoEntita(null);						
+						}
 					}
 					break;
 				case 3:

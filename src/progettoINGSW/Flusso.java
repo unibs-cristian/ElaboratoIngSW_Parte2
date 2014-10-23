@@ -1,5 +1,7 @@
 package progettoINGSW;
 
+import Utilita.*;
+
 public class Flusso extends Entita {
 
 	public final static String ID_TIPO = "FL";

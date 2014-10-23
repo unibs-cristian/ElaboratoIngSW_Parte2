@@ -4,7 +4,7 @@ import java.util.Vector;
 // Classe che crea e stampa il menu' e ritorna un intero corrispondente all'opzione scelta.
 
 
- public class Menu 
+ public class Menuasd 
  
 {
 	public final static String CORNICE = "\n---------------------------------------------------------------------------------";
@@ -13,7 +13,7 @@ import java.util.Vector;
 	private String titolo;
 	private Vector <String> voci;
 		
-	public Menu(String _titolo, Vector<String> _voci)
+	public Menuasd(String _titolo, Vector<String> _voci)
 	{
 		titolo = _titolo;
 		voci = _voci;

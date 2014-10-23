@@ -1,5 +1,6 @@
 package progettoINGSW;
 import java.util.*;
+import Utilita.*;
 
 public class Entita {
 	

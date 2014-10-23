@@ -1,5 +1,7 @@
 package progettoINGSW;
 
+import Utilita.*;
+
 public class NodoIniziale extends Entita {
 
 	public final static String id_tipo = "NODO_INIZIALE";
