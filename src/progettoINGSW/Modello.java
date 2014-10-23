@@ -310,6 +310,7 @@ public class Modello {
 		Branch ultimoBranch = elencoBranch.elementAt(elencoBranch.size()-1);
 		if(ultimoBranch.getMerge()==null)
 		{
+			elencoBranch.remove(elencoBranch.size()-1);
 			return ultimoBranch;
 		}
 		else
