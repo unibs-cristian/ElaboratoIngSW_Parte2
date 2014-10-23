@@ -16,6 +16,7 @@ public class ProgettoIngeSWMain {
 	public final static String MSG_CARICAMENTO_MODELLO = "Carica modello";
 	private static final String MSG_NOME_MODELLO_PREESISTENTE = "Nome modello da caricare:";
 	
+	@SuppressWarnings("null")
 	public static void main(String[] args) {
 		benvenuto();
 		Vector<String> vociMenuPrincipale = new Vector<String>();

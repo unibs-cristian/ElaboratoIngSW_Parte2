@@ -70,7 +70,8 @@ public class UtilitaGenerale
 	    	else
 	    	{
 	    		System.out.println(ERRORE);
-	    		String daButtare = lettore.next();
+	    		@SuppressWarnings("unused")
+				String daButtare = lettore.next();
 	    	}
 	    } while(!finito);
 	   	return valoreLetto;
@@ -98,7 +99,8 @@ public class UtilitaGenerale
 	    	else
 	    	{
 	    		System.out.println(ERRORE);
-	    		String daButtare = lettore.next();
+	    		@SuppressWarnings("unused")
+				String daButtare = lettore.next();
 	    	}
 	    } while(!finito);
 	   	return valoreLetto;
@@ -120,7 +122,8 @@ public class UtilitaGenerale
     		else
     		{
     			System.out.println(ERRORE_STRINGA);
-    			String daButtare = lettore.next();
+    			@SuppressWarnings("unused")
+				String daButtare = lettore.next();
     		}
     	} while(!finito);
     	return valoreLetto;	
