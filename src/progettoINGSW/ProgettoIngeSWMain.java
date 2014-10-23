@@ -31,7 +31,7 @@ public class ProgettoIngeSWMain {
 					String descrizione_modello = UtilitaGenerale.leggiString(MSG_DESCRIZIONE_MODELLO);
 					Modello m = new Modello(nome_modello, descrizione_modello);
 					m.creaNodoIniziale();
-					m.inserimentoEntita(null);
+					m.menuInserimentoEntita(null);
 					break;
 				case 2: 
 					{
@@ -39,7 +39,7 @@ public class ProgettoIngeSWMain {
 						Modello modelloCaricato = null;
 						SalvaCarica.caricaFile(nomeFile, modelloCaricato);
 						modelloCaricato.creaNodoIniziale();
-						modelloCaricato.inserimentoEntita(null);
+						modelloCaricato.menuInserimentoEntita(null);
 					}
 					break;
 				case 3:
