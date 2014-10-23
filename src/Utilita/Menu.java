@@ -7,12 +7,15 @@ import java.util.Vector;
  */
 public class Menu
 {
-	private static Vector<String> listaOpzioni;
+	private Vector<String> listaOpzioni;
 
 	private final static String RICHIESTA_INSERIMENTO = "Digita il numero dell'opzione desiderata > ";
+
+	private String nomeMenu;
 	
-	public Menu(Vector<String> _listaOpzioni)
+	public Menu(String _nomeMenu, Vector<String> _listaOpzioni)
 	{
+		nomeMenu = _nomeMenu;
 		listaOpzioni = _listaOpzioni;
 	}
 
@@ -20,7 +23,7 @@ public class Menu
 	 * Metodo per aggiungere un'opzione al menu'.
 	 * @param opzione Opzione da aggiungere.
 	 */
-	public static void aggiungiOpzione(String opzione)
+	public void aggiungiOpzione(String opzione)
 	{
 		listaOpzioni.add(opzione);
 	}
@@ -29,11 +32,11 @@ public class Menu
 	 * Metodo per visualizzare e scegliere la voce del menu'.
 	 * @return Restituisce il numero scelto.
 	 */
-	public static int scegliVoce()
+	public int scegliVoce()
 	{
 		System.out.println();
 		
-		GUI.incorniciaMenu("MENU'", listaOpzioni, 0);
+		GUI.incorniciaMenu(nomeMenu, listaOpzioni, 0);
 		
 		System.out.println();
 		return Util.leggiIntCompreso(1, listaOpzioni.size(), RICHIESTA_INSERIMENTO);

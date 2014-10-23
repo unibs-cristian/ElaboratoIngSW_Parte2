@@ -5,16 +5,16 @@ import Utilita.*;
 public class Modello {
 	
 	public final static String TITOLO_INSERIMENTO_MODELLO = "Menu Inserimento";
-	public final static String MSG_INSERIMENTO_AZIONE = "Inserisci una nuova azione.";
-	public final static String MSG_INSERIMENTO_BRANCH = "Inserisci un nuovo branch.";
-	public final static String MSG_INSERIMENTO_FORK = "Inserisci un nuovo fork.";
-	public final static String MSG_INSERIMENTO_MERGE = "Inserisci un merge.";
-	public final static String MSG_INSERIMENTO_JOIN = "Inserisci un join.";
-	public final static String MSG_INSERIMENTO_NODO_FINALE = "Inserisci il nodo finale.";
+	public final static String MSG_INSERIMENTO_AZIONE = "1 - Inserisci una nuova azione.";
+	public final static String MSG_INSERIMENTO_BRANCH = "2 - Inserisci un nuovo branch.";
+	public final static String MSG_INSERIMENTO_MERGE = "3 - Inserisci un merge.";
+	public final static String MSG_INSERIMENTO_FORK = "4 - Inserisci un nuovo fork.";
+	public final static String MSG_INSERIMENTO_JOIN = "5 - Inserisci un join.";
+	public final static String MSG_INSERIMENTO_NODO_FINALE = "6 - Inserisci il nodo finale.";
 	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! L'ultima entita'� inserita e' un nodo finale.\nImpossibile inserire nuove entità.\nEliminare il nodo finale per poter inserire nuovamente.\n";
-	public final static String MSG_MODIFICA_MODELLO = "Modifica il modello.";
-	public final static String MSG_VISUALIZZAZIONE_MODELLO = "Visualizza il modello.";
-	public final static String MSG_USCITA_INSERIMENTO = "Torna al menu principale.\n";
+	public final static String MSG_MODIFICA_MODELLO = "7 - Modifica il modello.";
+	public final static String MSG_VISUALIZZAZIONE_MODELLO = "8 - Visualizza il modello.";
+	public final static String MSG_USCITA_INSERIMENTO = "9 - Torna al menu principale.";
 	public final static String MSG_TITOLO_AZIONE = "\nDigitare il titolo dell'azione che si sta inserendo: ";
 	public final static String MSG_DESCRIZIONE_AZIONE = "Fornire una breve descrizione dell'azione che si sta inserendo: ";
 	public final static String MSG_NUM_RAMI = "Inserire il numero di rami d'uscita del branch (minimo 2): ";
@@ -104,8 +104,8 @@ public class Modello {
 	}
 	
 	public void creaAzione (RamoBranch ramoCorrente) {
-		String tit = UtilitaGenerale.leggiString(MSG_TITOLO_AZIONE);
-		String descr = UtilitaGenerale.leggiString(MSG_DESCRIZIONE_AZIONE);
+		String tit = Util.leggiString(MSG_TITOLO_AZIONE);
+		String descr = Util.leggiString(MSG_DESCRIZIONE_AZIONE);
 		Azione action = new Azione(tit,descr);
 		aggiungiEntita(action);
 		if(ramoCorrente == null) {	
@@ -115,7 +115,7 @@ public class Modello {
 	}
 	
 	public void creaBranch(RamoBranch ramoCorrente) {
-		int numRami = UtilitaGenerale.leggiInteroConLimite1(MSG_NUM_RAMI, MIN_RAMI);
+		int numRami = Util.leggiIntConMinimo(MSG_NUM_RAMI, MIN_RAMI);
 		Branch b = new Branch(numRami);
 		aggiungiEntita(b);
 		aggiungiBranch(b);
@@ -124,7 +124,7 @@ public class Modello {
 		for(int i=1; i<=numRami; i++)
 		{
 			System.out.println(MSG_RAMO_BRANCH + i +"\n");
-			String cond = UtilitaGenerale.leggiString(String.format(MSG_COND_BRANCH,i));
+			String cond = Util.leggiString(String.format(MSG_COND_BRANCH,i));
 			RamoBranch r = new RamoBranch(cond);
 			b.aggiungiRamo(r);
 			System.out.println(MSG_INSERIMENTO_ENTITA_RAMO + i + "\n");
@@ -206,11 +206,11 @@ public class Modello {
 		vociMenuInserimentoEntita.add(MSG_MODIFICA_MODELLO);
 		vociMenuInserimentoEntita.add(MSG_VISUALIZZAZIONE_MODELLO);
 		vociMenuInserimentoEntita.add(MSG_USCITA_INSERIMENTO);
-		Menuasd menuInserimentoEntita = new Menuasd(TITOLO_INSERIMENTO_MODELLO, vociMenuInserimentoEntita);
+		Menu menuInserimentoEntita = new Menu(TITOLO_INSERIMENTO_MODELLO, vociMenuInserimentoEntita);
 		
 		boolean insFinito = false;
 		do {
-			switch(menuInserimentoEntita.scegli()) {
+			switch(menuInserimentoEntita.scegliVoce()) {
 				case 1:     //Inserimento azione.
 					if(!(nodoFinalePresente()))
 					{

@@ -54,12 +54,11 @@ public class GUI
 			{
 			rigaLato();
 			System.out.print(incolonna(menu.get(i), lunghezzaMassima));
-			
 			rigaLato();
+			
 			//Divisione per ogni riga.
 			if(spuntaDivisioneRighe == 1)
 				rigaSotto(lunghezzaMassima);
-			//
 			
 			if (i != menu.size() - 1)
 				System.out.println();
@@ -67,7 +66,7 @@ public class GUI
 		//toglie l'ultima riga (che sarebbe altrimenti ripetuta), se attivata la divisione per ogni riga.
 		if(spuntaDivisioneRighe == 0)
 			rigaSotto(lunghezzaMassima);
-		//
+		
 		System.out.println();
 	}
 	
