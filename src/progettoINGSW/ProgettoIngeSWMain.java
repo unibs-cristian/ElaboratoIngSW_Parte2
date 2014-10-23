@@ -1,6 +1,7 @@
 package progettoINGSW;
 
 import java.io.File;
+import java.util.Vector;
 
 public class ProgettoIngeSWMain {
 	public final static String CORNICE = "---------------------------------------------------------------------------------\n";
@@ -17,11 +18,12 @@ public class ProgettoIngeSWMain {
 	
 	public static void main(String[] args) {
 		benvenuto();
+		Vector<String> vociMenuPrincipale = new Vector<String>();
 		
-		Menu menuPrincipale = new Menu(TITOLO_MENU_PRINCIPALE);
-		menuPrincipale.addVoce(MSG_NUOVO_MODELLO);
-		menuPrincipale.addVoce(MSG_CARICAMENTO_MODELLO);
-		menuPrincipale.addVoce(MSG_USCITA_PROGRAMMA);
+		vociMenuPrincipale.add(MSG_NUOVO_MODELLO);
+		vociMenuPrincipale.add(MSG_CARICAMENTO_MODELLO);
+		vociMenuPrincipale.add(MSG_USCITA_PROGRAMMA);
+		Menu menuPrincipale = new Menu(TITOLO_MENU_PRINCIPALE, vociMenuPrincipale);
 		
 		boolean finito = false;
 		do {

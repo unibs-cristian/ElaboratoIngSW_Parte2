@@ -10,7 +10,7 @@ public class Modello {
 	public final static String MSG_INSERIMENTO_MERGE = "Inserisci un merge.";
 	public final static String MSG_INSERIMENTO_JOIN = "Inserisci un join.";
 	public final static String MSG_INSERIMENTO_NODO_FINALE = "Inserisci il nodo finale.";
-	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! L'ultima entita'  inserita e' un nodo finale.\nImpossibile inserire nuove entitÃ .\nEliminare il nodo finale per poter inserire nuovamente.\n";
+	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! L'ultima entita'ï¿½ inserita e' un nodo finale.\nImpossibile inserire nuove entitÃ .\nEliminare il nodo finale per poter inserire nuovamente.\n";
 	public final static String MSG_MODIFICA_MODELLO = "Modifica il modello.";
 	public final static String MSG_VISUALIZZAZIONE_MODELLO = "Visualizza il modello.";
 	public final static String MSG_USCITA_INSERIMENTO = "Torna al menu principale.\n";
@@ -22,8 +22,8 @@ public class Modello {
 	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	public final static String MSG_RAMO_BRANCH = "Ramo numero ";
 	public final static String MSG_ERRORE_MERGE = "Impossibile inserire il merge. Nessun branch da chiudere.\n";
-	public final static String MSG_ERRORE_MERGE_2 = "Errore! Impossibile chiudere il merge. Nessuna entita'  tra il merge e il branch da chiudere.\n";
-	public final static String MSG_INSERIMENTO_ENTITA_RAMO = "\nInserire le entita' relative al ramo n° ";
+	public final static String MSG_ERRORE_MERGE_2 = "Errore! Impossibile chiudere il merge. Nessuna entita'ï¿½ tra il merge e il branch da chiudere.\n";
+	public final static String MSG_INSERIMENTO_ENTITA_RAMO = "\nInserire le entita'ï¿½relative al ramo nï¿½ ";
 	public final static int MIN_RAMI = 2;
 	
 	private String nome;
@@ -183,7 +183,7 @@ public class Modello {
 		Merge m = new Merge(brAssociato);
 		aggiungiEntita(m);
 		
-		//I predecessori del merge sono le ultime entita'  di ciascun ramo.
+		//I predecessori del merge sono le ultime entita'ï¿½ di ciascun ramo.
 		Vector <RamoBranch> rami = brAssociato.getElencoRami();
 		for (int i=0; i<rami.size(); i++)
 		{
@@ -195,16 +195,17 @@ public class Modello {
 	}
 	
 	public void menuInserimentoEntita(RamoBranch ramoCorrente) {
-		Menu menuInserimentoEntita = new Menu(TITOLO_INSERIMENTO_MODELLO);
-		menuInserimentoEntita.addVoce(MSG_INSERIMENTO_AZIONE);
-		menuInserimentoEntita.addVoce(MSG_INSERIMENTO_BRANCH);
-		menuInserimentoEntita.addVoce(MSG_INSERIMENTO_MERGE);
-		menuInserimentoEntita.addVoce(MSG_INSERIMENTO_FORK);
-		menuInserimentoEntita.addVoce(MSG_INSERIMENTO_JOIN);
-		menuInserimentoEntita.addVoce(MSG_INSERIMENTO_NODO_FINALE);
-		menuInserimentoEntita.addVoce(MSG_MODIFICA_MODELLO);
-		menuInserimentoEntita.addVoce(MSG_VISUALIZZAZIONE_MODELLO);
-		menuInserimentoEntita.addVoce(MSG_USCITA_INSERIMENTO);
+		Vector<String> vociMenuInserimentoEntita = new Vector<String>();
+		vociMenuInserimentoEntita.add(MSG_INSERIMENTO_AZIONE);
+		vociMenuInserimentoEntita.add(MSG_INSERIMENTO_BRANCH);
+		vociMenuInserimentoEntita.add(MSG_INSERIMENTO_MERGE);
+		vociMenuInserimentoEntita.add(MSG_INSERIMENTO_FORK);
+		vociMenuInserimentoEntita.add(MSG_INSERIMENTO_JOIN);
+		vociMenuInserimentoEntita.add(MSG_INSERIMENTO_NODO_FINALE);
+		vociMenuInserimentoEntita.add(MSG_MODIFICA_MODELLO);
+		vociMenuInserimentoEntita.add(MSG_VISUALIZZAZIONE_MODELLO);
+		vociMenuInserimentoEntita.add(MSG_USCITA_INSERIMENTO);
+		Menu menuInserimentoEntita = new Menu(TITOLO_INSERIMENTO_MODELLO, vociMenuInserimentoEntita);
 		
 		boolean insFinito = false;
 		do {
