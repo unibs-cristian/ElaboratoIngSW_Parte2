@@ -7,11 +7,10 @@ import java.util.Vector;
  */
 public class Menu
 {
-	private Vector<String> listaOpzioni;
-
 	private final static String RICHIESTA_INSERIMENTO = "Digita il numero dell'opzione desiderata > ";
 
 	private String nomeMenu;
+	private Vector<String> listaOpzioni;
 	
 	public Menu(String _nomeMenu, Vector<String> _listaOpzioni)
 	{

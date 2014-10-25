@@ -11,13 +11,58 @@ public class GUI
 {
 
 	private final static String SPAZIO = " ";
-	
-	@SuppressWarnings("unused")
 	private final static String ACAPO = "\n";
+	private final static String RIGASOTTO = "=";
+	private final static String RIGALATO = "|";
+	private final static int MARGINE = 2;
+	private final static int FATTORE_INCREMENTO = 5;
 	
-	private static final String RIGASOTTO = "=";
-	private static final String RIGALATO = "|";
-	private static final int MARGINE = 2;
+	private static int rientro;
+	
+	/**
+	 * Incrementa il valore che serve per indentare di una
+	 * quantita' pari ad un fattore di incremento fissato
+	 */
+	public static void incrementaRientro() {
+		rientro = rientro + FATTORE_INCREMENTO;
+	}
+	
+	/**
+	 * Decrementa il valore che serve per indentare di una
+	 * quantita' pari ad un fattore di incremento fissato
+	 */
+	public static void decrementaRientro() {
+		rientro = rientro - FATTORE_INCREMENTO;
+	}
+	
+	/**
+	 * Fornisce il valore che serve per indentare
+	 * correttamente il codice in fase di visualizzazione
+	 * del modello
+	 * @return rientro Quantita' necessaria per l'indentazione.
+	 */
+	public static int getRientro () {
+		return rientro;
+	}
+	
+	/**
+	 * Assegna al valore che serve per indentare
+	 * correttamente il codice in fase di visualizzazione
+	 * del modello un certo valore.
+	 * @param val Quantita' da assegnare come valore della variabile rientro.
+	 */
+	public static void setRientro (int val) {
+		rientro = val;
+	}
+	
+	/**
+	 * Va a capo dopo aver stampato il testo 
+	 * @param testo Testo dopo cui andare a capo.
+	 */
+	public static void aCapoDopo(String testo)
+	{
+		System.out.println(testo);
+	}
 	
 	/**
 	 * Metodo che incornicia una stringa. Ideale per il titolo.
@@ -70,6 +115,15 @@ public class GUI
 		System.out.println();
 	}
 	
+	public static String indenta(String testo, String carattere, int profondita)
+	{
+		StringBuffer daRestituire = new StringBuffer();
+		for(int i = 0; i<profondita; i++)
+			daRestituire.append(carattere);
+		daRestituire.append(testo+ACAPO);
+		return daRestituire.toString();
+	}
+	
 	//Chiamata rigaSotto perche' pronta per quello scopo, se la uso sopra devo sistemarla con un a capo.
 	/**
 	 * Metodo che visualizza la riga sotto di cio' che si incornicia.
@@ -95,7 +149,7 @@ public class GUI
 	 * @param messaggio Messaggio che chiede cosa fare.
 	 * @return Restituisce il numero acquisito.
 	 */
-	public static int imputDialog(String messaggio)
+	public static int inputDialog(String messaggio)
 	{
 		String input = JOptionPane.showInputDialog(messaggio);
 		Integer numero = Integer.parseInt(input);
