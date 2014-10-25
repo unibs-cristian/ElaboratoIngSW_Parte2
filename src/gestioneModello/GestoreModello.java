@@ -12,8 +12,6 @@ public class GestoreModello {
 	public final static String MSG_TITOLO_MENU_BRANCH = "MENU GESTIONE BRANCH\n\nCosa si desidera fare?";
 	public final static String MSG_TITOLO_MENU_CICLO = "MENU GESTIONE CICLO\n\nCosa si desidera fare?";
 	public final static String MSG_TITOLO_MENU_FORK = "MENU GESTIONE FORK\n\nCosa si desidera fare?";
-	public final static Vector <String> OPZIONI_MENU_INSERIMENTO= new Vector<String>();
-	public final static Vector <String> OPZIONI_MENU_SECONDARIO = new Vector<String>();
 	
 	public final static String MSG_INSERIMENTO_AZIONE = "1 - Inserimento Azione";
 	public final static String MSG_INSERIMENTO_BRANCH = "2 - Inserimento Branch";
@@ -70,15 +68,16 @@ public class GestoreModello {
 	}
 		
 	public void menuInserimentoPrimario() {
-		Menu menuInserimentoEntita = new Menu(MSG_TITOLO_MENU_INSERIMENTO_MODELLO,OPZIONI_MENU_INSERIMENTO);
-		menuInserimentoEntita.aggiungiOpzione(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
-		menuInserimentoEntita.aggiungiOpzione(MSG_INSERIMENTO_BRANCH);      //Voce 2 --> branch
-		menuInserimentoEntita.aggiungiOpzione(MSG_INSERIMENTO_CICLO);       //Voce 3 --> ciclo
-		menuInserimentoEntita.aggiungiOpzione(MSG_INSERIMENTO_FORK);        //Voce 4 --> fork 
-		menuInserimentoEntita.aggiungiOpzione(MSG_MODIFICA_MODELLO);        //Voce 5 --> modifica modello
-		menuInserimentoEntita.aggiungiOpzione(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
-		menuInserimentoEntita.aggiungiOpzione(MSG_USCITA_INSERIMENTO);      //Voce 7 --> ritorna al menu' principale (aggiungere richiesta di salvataggio modello)
-		menuInserimentoEntita.aggiungiOpzione(MSG_INSERIMENTO_NODO_FINALE); //Voce 8 --> nodo finale
+		Vector<String> opzioniMenuInserimento = new Vector<String>();
+		opzioniMenuInserimento.add(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
+		opzioniMenuInserimento.add(MSG_INSERIMENTO_BRANCH);      //Voce 2 --> branch
+		opzioniMenuInserimento.add(MSG_INSERIMENTO_CICLO);       //Voce 3 --> ciclo
+		opzioniMenuInserimento.add(MSG_INSERIMENTO_FORK);        //Voce 4 --> fork 
+		opzioniMenuInserimento.add(MSG_MODIFICA_MODELLO);        //Voce 5 --> modifica modello
+		opzioniMenuInserimento.add(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
+		opzioniMenuInserimento.add(MSG_USCITA_INSERIMENTO);      //Voce 7 --> ritorna al menu' principale (aggiungere richiesta di salvataggio modello)
+		opzioniMenuInserimento.add(MSG_INSERIMENTO_NODO_FINALE); //Voce 8 --> nodo finale
+		Menu menuInserimentoEntita = new Menu(MSG_TITOLO_MENU_INSERIMENTO_MODELLO,opzioniMenuInserimento);
 		
 		boolean insFinito = false;
 		GUI.setRientro(0);
@@ -142,14 +141,15 @@ public class GestoreModello {
 			case OPZ_FORK: t=MSG_TITOLO_MENU_FORK; break;
 			}
 		
-			Menu menuSecondario = new Menu(t,OPZIONI_MENU_SECONDARIO);
-			OPZIONI_MENU_SECONDARIO.add(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
-			OPZIONI_MENU_SECONDARIO.add(MSG_INSERIMENTO_BRANCH);      //Voce 2 --> branch
-			OPZIONI_MENU_SECONDARIO.add(MSG_INSERIMENTO_CICLO);       //Voce 3 --> ciclo
-			OPZIONI_MENU_SECONDARIO.add(MSG_INSERIMENTO_FORK);        //Voce 4 --> fork 
-			OPZIONI_MENU_SECONDARIO.add(MSG_MODIFICA_MODELLO);        //Voce 5 --> modifica modello
-			OPZIONI_MENU_SECONDARIO.add(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
-			OPZIONI_MENU_SECONDARIO.add(MSG_CHIUSURA_RAMO);           //Voce 7 --> Chiudi ramo
+			Vector <String> opzioniMenuSecondario = new Vector<String>();
+			opzioniMenuSecondario.add(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
+			opzioniMenuSecondario.add(MSG_INSERIMENTO_BRANCH);      //Voce 2 --> branch
+			opzioniMenuSecondario.add(MSG_INSERIMENTO_CICLO);       //Voce 3 --> ciclo
+			opzioniMenuSecondario.add(MSG_INSERIMENTO_FORK);        //Voce 4 --> fork 
+			opzioniMenuSecondario.add(MSG_MODIFICA_MODELLO);        //Voce 5 --> modifica modello
+			opzioniMenuSecondario.add(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
+			opzioniMenuSecondario.add(MSG_CHIUSURA_RAMO);           //Voce 7 --> Chiudi ramo
+			Menu menuSecondario = new Menu(t,opzioniMenuSecondario);
 			
 			for(int i=0; i<e.getRami().length; i++)
 			{
