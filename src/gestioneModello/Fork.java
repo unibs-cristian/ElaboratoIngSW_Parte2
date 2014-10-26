@@ -6,9 +6,9 @@ import Utilita.GUI;
 
 public class Fork implements Entita {
 	
-	public final static String MSG_FORK = "- FORK N. %d : %s\n";
+	public final static String MSG_FORK = "{ FORK N. %d : %s\n";
 	public final static String MSG_ENTITA_RAMO_FORK = "ENTITA' RAMO PARALLELO N. %d";
-	public final static String MSG_JOIN = "JOIN N. %d\n";
+	public final static String MSG_JOIN = "JOIN N. %d }\n";
 	
 	private int id;
 	private int idFork;
@@ -78,11 +78,12 @@ public class Fork implements Entita {
 	
 	public String toString()
 	{
+		System.out.println("Chiamato il toString()...");
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(GUI.indenta(String.format(MSG_FORK, idFork, titolo.toUpperCase()),SPAZIO,valoreIndentazione));
 		for(int i=0; i<elencoRami.length; i++) {
-			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_FORK, i+1), SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
-			risultato.append(GUI.indenta(elencoRami[i].toString(), SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
+			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_FORK, i+1), SPAZIO, valoreIndentazione));
+			risultato.append(elencoRami[i].toString());
 		}
 		risultato.append(GUI.indenta(String.format(MSG_JOIN, idFork), SPAZIO, valoreIndentazione));
 		return risultato.toString();

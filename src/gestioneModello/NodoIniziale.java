@@ -2,6 +2,8 @@ package gestioneModello;
 
 import java.util.Vector;
 
+import Utilita.GUI;
+
 public class NodoIniziale implements Entita {
 
 	public final static String MSG_TITOLO_NI = "NODO_INIZIALE";
@@ -40,7 +42,7 @@ public class NodoIniziale implements Entita {
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(MSG_TITOLO_NI);
+		risultato.append(GUI.aCapoDopo(MSG_TITOLO_NI));
 		return risultato.toString();
 	}
 }

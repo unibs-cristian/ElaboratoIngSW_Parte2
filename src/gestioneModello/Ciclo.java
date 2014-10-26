@@ -5,14 +5,14 @@ import Utilita.GUI;
 
 public class Ciclo implements Entita {
 
-	public final static String MSG_CICLO = "- CICLO N. %d : %s\nMERGE N. %d\n";
+	public final static String MSG_CICLO = "< CICLO N. %d : %s\nMERGE N. %d\n";
 	public final static String MSG_CICLO_COND_INIZIALE = "CICLO A CONDIZIONE INIZIALE";
 	public final static String MSG_CICLO_COND_FINALE = "CICLO A CONDIZIONE FINALE\n";
 	public final static String MSG_ATTIVITA_INIZIALI = "ENTITA' RAMO N.1 (ATTIVITA' INIZIALI)";
 	public final static String MSG_COND_USCITA = "ENTITA' RAMO N.2 (CONDIZIONE DI USCITA)";
 	public final static String MSG_RAMO_VUOTO = "Nessuna\n";
 	public final static String MSG_COND_PERMANENZA_CICLO = "ENTITA RAMO N.3 (CONDIZIONE DI PERMANENZA NEL CICLO)\n";
-	public final static String MSG_BRANCH_CICLO = "- BRANCH N. %d\n";
+	public final static String MSG_BRANCH_CICLO = "- BRANCH N. %d >";
 	
 	public final static int NUM_RAMI_CICLO = 3;
 	

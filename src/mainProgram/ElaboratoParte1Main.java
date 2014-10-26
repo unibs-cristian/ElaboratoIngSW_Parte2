@@ -9,7 +9,7 @@ import gestioneModello.Modello;
 
 public class ElaboratoParte1Main {
 
-	public final static String TITOLO_MENU_PRINCIPALE = "BENVENUTO NEL MENU' PRINCIPALE"; 
+	public final static String TITOLO_MENU_PRINCIPALE = "BENVENUTO NEL MENU' PRINCIPALE\n\nCosa si desidera fare?"; 
 	public final static String MSG_NUOVO_MODELLO = "1 - Crea nuovo modello";
 	public final static String MSG_CARICAMENTO_MODELLO = "2 - Carica modello";
 	public final static String MSG_USCITA_PROGRAMMA = "3 - Esci dal programma.";

@@ -1,19 +1,36 @@
 package gestioneModello;
 
 import java.util.Vector;
-
 import Utilita.GUI;
 
+/**
+ * Classe che istanzia oggetti di tipo Azione. Un'azione e' un'entita' semplice che puo' essere aggiunta 
+ * ad altre entita' complesse, come Branch, Cicli, Fork o Modelli.
+ * @authors Sampietri Cristian, Rossi Pietro, Rubagotti Lorenzo
+ *
+ */
 public class Azione implements Entita {
 	
-	public final static String ID_TIPO = "AZIONE N. %d : %s\n";
+	/** Costante di tipo stringa per il metodo toString dell'azione */
+	public final static String ID_TIPO = "AZIONE N. %d : %s";
 	
+	/** 
+	 * Variabili di istanza. L'id e' un identificatore univoco che viene incrementato per ogni entita' inserita.
+	 */
 	private int id;
+	/** Numero progressivo dell'azione inserita */
 	private int idAzione;
+	/** Titolo sintetico dell'azione */
 	private String titolo;
+	/** Variabile di istanza usata in fase di stampa a video del modello */
 	private int valoreIndentazione;
+	/** Contatore di istanze di Azione */
 	private static int contatoreAzioni = 1;
 	
+	/**
+	 * Costruttore della classe
+	 * @param _titolo
+	 */
 	public Azione(String _titolo) {
 		id = GestoreModello.contatoreEntita;
 		idAzione = contatoreAzioni;
@@ -58,7 +75,7 @@ public class Azione implements Entita {
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(GUI.indenta(String.format(ID_TIPO, idAzione, titolo), SPAZIO, valoreIndentazione));
+		risultato.append(GUI.aCapoDopo(String.format(ID_TIPO, idAzione, titolo)));
 		return risultato.toString();
 	}	
 }

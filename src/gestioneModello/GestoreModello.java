@@ -30,15 +30,16 @@ public class GestoreModello {
 	public final static String MSG_TITOLO_FORK = "Digitare il titolo del costrutto fork-join che si sta inserendo: ";
 	public final static String MSG_NUM_RAMI_BRANCH = "Quanti flussi d'uscita si vuole che abbia il nuovo Branch? ->";
 	public final static String MSG_NUM_RAMI_FORK = "Quanti rami si vuole che abbia il fork? ->";
-
+	public final static String MSG_NUOVA_ENTITA = "La nuova entita' e' stata aggiunta a %s";
+	
 	public final static int MIN_RAMI = 2;
 	
-	public final static String MSG_RAMO_BRANCH = "BRANCH %s - INSERIMENTO ENTITA' PER IL RAMO N. %d";
-	public final static String MSG_RAMO_FORK = "FORK %s - INSERIMENTO ENTITA' PER IL FLUSSO PARALLELO N. %d";
-	public final static String MSG_RAMO_SUCC = "Per chiudere il ramo corrente e passare al successivo selezionare l'opzione 'Chiudere ramo corrente'.\n";
-	public final static String MSG_CHIUSURA_BRANCH = "Tutti i rami del Branch N.%d sono stati completati ed è stato creato il relativo Merge N.%d";
+	public final static String MSG_RAMO_BRANCH = "%s (ID = %d) - INSERIMENTO ENTITA' PER IL RAMO N. %d";
+	public final static String MSG_RAMO_FORK = "%s (ID = %d) - INSERIMENTO ENTITA' PER IL RAMO PARALLELO N. %d";
+	public final static String MSG_RAMO_SUCC = "Per chiudere il ramo corrente selezionare l'opzione 'Chiudere ramo corrente'.\n";
+	public final static String MSG_CHIUSURA_BRANCH = "Tutti i rami di %s (ID = %d) sono stati completati ed è stato creato il relativo Merge N.%d";
 	public final static String MSG_CHIUSURA_CICLO = "E' stato completato l'inserimento di tutti i rami del Ciclo N.%d";
-	public final static String MSG_CHIUSURA_FORK = "Tutti i flussi paralleli del Fork N.%d sono stati completati ed è stato creato il relativo Join N.%d";
+	public final static String MSG_CHIUSURA_FORK = "Tutti i rami paralleli di %s (ID = %d) sono stati completati ed è stato creato il relativo Join N.%d";
 	public final static String MSG_ATTIVITA_INIZIALI_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'ATTIVITA' INIZIALI'.\nNel caso in cui tale ramo venga lasciato vuoto verra' creato un ciclo\na condizione iniziale, altrimenti il ciclo sarà a condizione finale.\n";
 	public final static String MSG_ATTIVITA_COND_USCITA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE D'USCITA'.\nTale ramo può essere lasciato vuoto.";
 	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo può essere lasciato vuoto (se non sono vuoti gli altri due rami)";
@@ -98,6 +99,7 @@ public class GestoreModello {
 					
 				case 4 :
 					inserimentoFork(mod,0);
+					break;
 					
 				case 5: 
 					System.out.println(String.format(MSG_ULTIMA_ENTITA, mod.getUltimaEntita().getNome(), mod.getUltimaEntita().getId()));
@@ -133,7 +135,7 @@ public class GestoreModello {
 	
 	public void menuInserimentoSecondario(Entita e, int tipo) {
 			String t = "";
-			GUI.incrementaRientro();
+			
 			//METTERE METODO AUSILIARIO IN FASE DI REFACTORING !!!!
 			switch(tipo) {
 			case OPZ_BRANCH: t=MSG_TITOLO_MENU_BRANCH; break;
@@ -154,7 +156,7 @@ public class GestoreModello {
 			for(int i=0; i<e.getRami().length; i++)
 			{
 				switch(tipo) {
-				case OPZ_BRANCH: System.out.println(String.format(MSG_RAMO_BRANCH, e.getNome(), i+1));
+				case OPZ_BRANCH: System.out.println(String.format(MSG_RAMO_BRANCH, e.getNome(), e.getId(), i+1));
 								 System.out.println(MSG_RAMO_SUCC);
 								 break;
 				case OPZ_CICLO:
@@ -172,7 +174,7 @@ public class GestoreModello {
 						System.out.println(String.format(MSG_ATTIVITA_COND_PERMANENZA_CICLO, e.getNome())); break;
 					}
 				}
-				case OPZ_FORK:   System.out.println(String.format(MSG_RAMO_FORK, e.getNome(), i+1));
+				case OPZ_FORK:   System.out.println(String.format(MSG_RAMO_FORK, e.getNome(), e.getId(), i+1));
 				                 System.out.println(MSG_RAMO_SUCC);
 				                 break;
 				}
@@ -215,17 +217,16 @@ public class GestoreModello {
 						System.out.println(mod.toString()); 
 						break;
 					
-					case 7: esci = true; GUI.decrementaRientro(); break;  
+					case 7: esci = true; break;  
 						
 					default : System.out.println(MSG_ERRORE);	
 					}
 				} while(!esci);
-			}
-			
+			} 
 			switch(tipo) {
-			case OPZ_BRANCH: System.out.println(String.format(MSG_CHIUSURA_BRANCH, e.getId(), e.getId())); break;
+			case OPZ_BRANCH: System.out.println(String.format(MSG_CHIUSURA_BRANCH, e.getNome(), e.getId(), e.getId())); break;
 			case OPZ_CICLO: System.out.println(String.format(MSG_CHIUSURA_CICLO, e.getId())); break;
-			case OPZ_FORK: System.out.println(String.format(MSG_CHIUSURA_FORK, e.getId(), e.getId())); break;
+			case OPZ_FORK: System.out.println(String.format(MSG_CHIUSURA_FORK, e.getNome(), e.getId(), e.getId())); break;
 			}
 	}
 	
@@ -233,28 +234,32 @@ public class GestoreModello {
 		String t = Util.leggiString(MSG_TITOLO_AZIONE);
 		Azione action = new Azione(t);
 		e.addEntita(action, qualeRamo);
-		System.out.println("Aggiunta all'entita' "+e.getNome());
+		System.out.println(String.format(MSG_NUOVA_ENTITA,e.getNome()));
 	}
 	
 	public void inserimentoBranch(Entita e, int qualeRamo) {
 		String t = Util.leggiString(MSG_TITOLO_BRANCH);
 		int n = Util.leggiIntConMinimo(MSG_NUM_RAMI_BRANCH, MIN_RAMI);
 		Branch b = new Branch(t, n);
+		GUI.incrementaRientro();
 		for (int i=0; i<b.getNumeroRami(); i++)
 			b.getRami()[i] = new Ramo();
 		e.addEntita(b, qualeRamo);
-		System.out.println("Aggiunta all'entita' "+e.getNome());
+		System.out.println(String.format(MSG_NUOVA_ENTITA,e.getNome()));
 		menuInserimentoSecondario(b,OPZ_BRANCH);
+		GUI.decrementaRientro();
 	}
 	
 	public void inserimentoCiclo(Entita e, int qualeRamo) {
 		String t = Util.leggiString(MSG_TITOLO_CICLO);
 		Ciclo c = new Ciclo(t);
+		GUI.incrementaRientro();
 		for (int i=0; i<c.getNumeroRami(); i++)
 			c.getRami()[i] = new Ramo();
 		e.addEntita(c, qualeRamo);
-		System.out.println("Aggiunta all'entita' "+e.getNome());
+		System.out.println(String.format(MSG_NUOVA_ENTITA,e.getNome()));
 		menuInserimentoSecondario(c,OPZ_CICLO);
+		GUI.decrementaRientro();
 	}
 	
 	public void inserimentoFork(Entita e, int qualeRamo) {
@@ -263,9 +268,11 @@ public class GestoreModello {
 		Fork temp = new Fork(t, n);
 		for (int i=0; i<temp.getNumeroRami(); i++)
 			temp.getRami()[i] = new Ramo();
+		GUI.incrementaRientro();
 		e.addEntita(temp, qualeRamo);
-		System.out.println("Aggiunta all'entita' "+e.getNome());
+		System.out.println(String.format(MSG_NUOVA_ENTITA,e.getNome()));
 		menuInserimentoSecondario(temp,OPZ_FORK);
+		GUI.decrementaRientro();
 	}
 	
 	public void inserimentoNodoFinale () {

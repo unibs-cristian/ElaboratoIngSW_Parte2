@@ -58,10 +58,12 @@ public class GUI
 	/**
 	 * Va a capo dopo aver stampato il testo 
 	 * @param testo Testo dopo cui andare a capo.
+	 * @return La stringa testo più un carattere a capo posto in fondo ad essa.
 	 */
-	public static void aCapoDopo(String testo)
+	public static String aCapoDopo(String testo)
 	{
-		System.out.println(testo);
+		String str = testo+ACAPO;
+		return str;
 	}
 	
 	/**

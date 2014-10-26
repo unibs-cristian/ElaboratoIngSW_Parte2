@@ -83,7 +83,7 @@ public class Modello implements Entita {
 		
 		for(int i=0; i<elencoEntita.size(); i++) {
 			Entita e = elencoEntita.get(i);
-			risultato.append(e.toString()+"\n");
+			risultato.append(e.toString());
 		}  
 		return risultato.toString();
 	}
