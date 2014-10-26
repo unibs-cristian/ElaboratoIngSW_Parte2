@@ -48,6 +48,7 @@ public class GestoreModello {
 	public final static String MSG_RICHIESTA_SALVATAGGIO = "Ritorno al menu' principale. Tutti i progressi non salvati andranno persi.\nSi desidera salvare il modello? (y/n)";
 	public final static String MSG_ULTIMA_ENTITA = "E' stata eliminata l'entita' di nome %s (id %d)";
 	public final static String MSG_NODO_FINALE = "Nodo finale inserito per il modello %s";
+	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! Nel modello e' gia' presente il Nodo Finale.\nPer poter inserire nuove entita' eliminare il Nodo Finale.";
 	
 	public final static String MSG_RAMI_BRANCH = "Quanti rami si vuole che abbia il branch?";
 	public final static String MSG_DESCRIZIONE_AZIONE = "Fornire una breve descrizione dell'azione che si sta inserendo: ";
@@ -86,21 +87,53 @@ public class GestoreModello {
 		
 		do {
 			switch(menuInserimentoEntita.scegliVoce()) {
-				case 1:    
-					inserimentoAzione(mod,0);
-					break;
+				case 1:
+					if(mod.nodoFinalePresente()==false)
+					{
+						inserimentoAzione(mod,0);
+						break;
+					}
+					else
+					{
+						System.out.println(MSG_NODO_FINALE_PRESENTE);
+						break;
+					}
 
 				case 2:   
-					inserimentoBranch(mod,0);      
-					break;
+					if(mod.nodoFinalePresente()==false)
+					{
+						inserimentoBranch(mod,0);
+						break;
+					}
+					else
+					{
+						System.out.println(MSG_NODO_FINALE_PRESENTE);
+						break;
+					}
 				
 				case 3 : 
-					inserimentoCiclo(mod,0);
-					break;
+					if(mod.nodoFinalePresente()==false)
+					{
+						inserimentoCiclo(mod,0);
+						break;
+					}
+					else
+					{
+						System.out.println(MSG_NODO_FINALE_PRESENTE);
+						break;
+					}
 					
 				case 4 :
-					inserimentoFork(mod,0);
-					break;
+					if(mod.nodoFinalePresente()==false)
+					{
+						inserimentoFork(mod,0);
+						break;
+					}
+					else
+					{
+						System.out.println(MSG_NODO_FINALE_PRESENTE);
+						break;
+					}
 					
 				case 5: 
 					System.out.println(String.format(MSG_ULTIMA_ENTITA, mod.getUltimaEntita().getNome(), mod.getUltimaEntita().getId()));
@@ -120,8 +153,16 @@ public class GestoreModello {
 				case 8 :
 					if(getNumeroAzioni()>=1)
 					{
-						inserimentoNodoFinale();
-						break;
+						if(mod.nodoFinalePresente()==false)
+						{
+							inserimentoNodoFinale();
+							break;
+						}
+						else
+						{
+							System.out.println(MSG_NODO_FINALE_PRESENTE);
+							break;
+						}
 					}
 					else
 					{

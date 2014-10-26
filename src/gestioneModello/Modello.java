@@ -1,8 +1,6 @@
 package gestioneModello;
 import java.util.*;
 
-import Utilita.GUI;
-
 public class Modello implements Entita {
 	
 	public final static String MSG_NOME_MODELLO = "NOME MODELLO : %s\n";
@@ -69,14 +67,14 @@ public class Modello implements Entita {
 			elencoEntita.remove(elencoEntita.size()-1);
 	}
 	
-	public Ramo[] getRami() {
-		return null;
+	public boolean nodoFinalePresente() {
+		Entita e = getUltimaEntita();
+		if(e.getNome()==NodoFinale.MSG_TITOLO_NF)
+			return true;
+		else
+			return false;
 	}
 	
-	public int getIndentazione() {
-		return 0;
-	}
-
 	public String toString() {
 		
 		StringBuffer risultato = new StringBuffer();
@@ -89,5 +87,13 @@ public class Modello implements Entita {
 			risultato.append("\n");
 		}  
 		return risultato.toString();
+	}
+	
+	public Ramo[] getRami() {
+		return null;
+	}
+	
+	public int getIndentazione() {
+		return 0;
 	}
 }
