@@ -4,7 +4,6 @@ import java.util.*;
 public interface Entita {
 	
 	public final static String SPAZIO = " ";
-	public final static int INCREMENTO_INDENTAZIONE = 2;
 	
 	public void addEntita(Entita e, int qualeRamo);
 	

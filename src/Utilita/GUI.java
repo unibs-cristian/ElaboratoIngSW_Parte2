@@ -10,12 +10,12 @@ import javax.swing.JOptionPane;
 public class GUI
 {
 
-	private final static String SPAZIO = " ";
-	private final static String ACAPO = "\n";
-	private final static String RIGASOTTO = "=";
-	private final static String RIGALATO = "|";
-	private final static int MARGINE = 2;
-	private final static int FATTORE_INCREMENTO = 5;
+	public final static String SPAZIO = " ";
+	public final static String ACAPO = "\n";
+	public final static String RIGASOTTO = "=";
+	public final static String RIGALATO = "|";
+	public final static int MARGINE = 2;
+	public final static int FATTORE_INCREMENTO = 5;
 	
 	private static int rientro;
 	

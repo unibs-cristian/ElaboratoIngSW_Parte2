@@ -5,14 +5,14 @@ import Utilita.GUI;
 
 public class Ciclo implements Entita {
 
-	public final static String MSG_CICLO = "< CICLO N. %d : %s\nMERGE N. %d\n";
+	public final static String MSG_CICLO = "< CICLO N. %d : %s\nMERGE N. %d";
 	public final static String MSG_CICLO_COND_INIZIALE = "CICLO A CONDIZIONE INIZIALE";
-	public final static String MSG_CICLO_COND_FINALE = "CICLO A CONDIZIONE FINALE\n";
+	public final static String MSG_CICLO_COND_FINALE = "CICLO A CONDIZIONE FINALE";
 	public final static String MSG_ATTIVITA_INIZIALI = "ENTITA' RAMO N.1 (ATTIVITA' INIZIALI)";
 	public final static String MSG_COND_USCITA = "ENTITA' RAMO N.2 (CONDIZIONE DI USCITA)";
-	public final static String MSG_RAMO_VUOTO = "Nessuna\n";
-	public final static String MSG_COND_PERMANENZA_CICLO = "ENTITA RAMO N.3 (CONDIZIONE DI PERMANENZA NEL CICLO)\n";
-	public final static String MSG_BRANCH_CICLO = "- BRANCH N. %d >";
+	public final static String MSG_RAMO_VUOTO = "Nessuna";
+	public final static String MSG_COND_PERMANENZA_CICLO = "ENTITA RAMO N.3 (CONDIZIONE DI PERMANENZA NEL CICLO)";
+	public final static String MSG_BRANCH_CICLO = "BRANCH N. %d >";
 	
 	public final static int NUM_RAMI_CICLO = 3;
 	
@@ -32,10 +32,10 @@ public class Ciclo implements Entita {
 		titolo = _titolo;
 		numRami = NUM_RAMI_CICLO;
 		elencoRami = new Ramo [NUM_RAMI_CICLO];  // Ramo 1 : eventuali attività iniziali    Ramo 2 : condizione uscita ciclo    Ramo 3 : condizione di permanenza nel ciclo
-		contatoreCicli++;
-		GestoreModello.contatoreEntita++;
 		elencoEntita = new Vector<Entita>();
 		valoreIndentazione = GUI.getRientro();
+		contatoreCicli++;
+		GestoreModello.contatoreEntita++;
 	}
 	
 	public int getId() {
@@ -85,32 +85,32 @@ public class Ciclo implements Entita {
 	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(GUI.indenta(String.format(MSG_CICLO, idCiclo, titolo.toUpperCase(), idCiclo), SPAZIO, valoreIndentazione));
+		risultato.append(GUI.indenta(String.format(MSG_CICLO, idCiclo, titolo.toUpperCase(), idCiclo), SPAZIO, valoreIndentazione-GUI.FATTORE_INCREMENTO));
 		if(elencoRami[0].getEntitaRamo().isEmpty())
 		{
-			risultato.append(GUI.indenta(MSG_CICLO_COND_INIZIALE,SPAZIO,valoreIndentazione+INCREMENTO_INDENTAZIONE));
-			risultato.append(GUI.indenta(MSG_ATTIVITA_INIZIALI, SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
-			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
+			risultato.append(GUI.indenta(MSG_CICLO_COND_INIZIALE,SPAZIO,valoreIndentazione));
+			risultato.append(GUI.indenta(MSG_ATTIVITA_INIZIALI, SPAZIO, valoreIndentazione));
+			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione+GUI.FATTORE_INCREMENTO));
 		}
 		else
 		{
-			risultato.append(GUI.indenta(MSG_CICLO_COND_FINALE, SPAZIO,valoreIndentazione+INCREMENTO_INDENTAZIONE));
-			risultato.append(GUI.indenta(MSG_ATTIVITA_INIZIALI, SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
+			risultato.append(GUI.indenta(MSG_CICLO_COND_FINALE, SPAZIO,valoreIndentazione));
+			risultato.append(GUI.indenta(MSG_ATTIVITA_INIZIALI, SPAZIO, valoreIndentazione));
 			for(int j=0; j<elencoRami[0].getEntitaRamo().size(); j++) {
-				risultato.append(GUI.indenta(elencoRami[0].toString(),SPAZIO,valoreIndentazione+INCREMENTO_INDENTAZIONE));
+				risultato.append(GUI.indenta(elencoRami[0].toString(),SPAZIO,valoreIndentazione));
 			}
 		}
-		risultato.append(GUI.indenta(MSG_COND_USCITA, SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
+		risultato.append(GUI.indenta(MSG_COND_USCITA, SPAZIO, valoreIndentazione));
 		if(elencoRami[1].getEntitaRamo().isEmpty())
-			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
+			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione+GUI.FATTORE_INCREMENTO));
 		else
-			risultato.append(GUI.indenta(elencoRami[1].toString(),SPAZIO,valoreIndentazione+INCREMENTO_INDENTAZIONE));
-		risultato.append(GUI.indenta(MSG_COND_PERMANENZA_CICLO, SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
+			risultato.append(GUI.indenta(elencoRami[1].toString(),SPAZIO,valoreIndentazione));
+		risultato.append(GUI.indenta(MSG_COND_PERMANENZA_CICLO, SPAZIO, valoreIndentazione));
 		if(elencoRami[2].getEntitaRamo().isEmpty())
-			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
+			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione+GUI.FATTORE_INCREMENTO));
 		else
-			risultato.append(GUI.indenta(elencoRami[2].toString(), SPAZIO, valoreIndentazione+INCREMENTO_INDENTAZIONE));
-		risultato.append(GUI.indenta(String.format(MSG_BRANCH_CICLO, idCiclo), SPAZIO, valoreIndentazione));
+			risultato.append(GUI.indenta(elencoRami[2].toString(), SPAZIO, valoreIndentazione));
+		risultato.append(GUI.indenta(String.format(MSG_BRANCH_CICLO, idCiclo), SPAZIO, valoreIndentazione - GUI.FATTORE_INCREMENTO));
 		return risultato.toString();
 	}
 }

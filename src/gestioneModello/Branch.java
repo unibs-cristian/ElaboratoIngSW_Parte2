@@ -4,7 +4,7 @@ import Utilita.*;
 
 public class Branch implements Entita {
 	
-	public final static String MSG_BRANCH = "[ BRANCH N. %d : %s\n";
+	public final static String MSG_BRANCH = "[ BRANCH N. %d : %s";
 	public final static String MSG_ENTITA_RAMO_BRANCH = "ENTITA' RAMO N. %d";
 	public final static String MSG_MERGE = "MERGE N. %d ]";
 	
@@ -78,12 +78,12 @@ public class Branch implements Entita {
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(GUI.indenta(String.format(MSG_BRANCH, idBranch, titolo.toUpperCase()), SPAZIO, valoreIndentazione));
+		risultato.append(GUI.indenta(String.format(MSG_BRANCH, idBranch, titolo.toUpperCase()), SPAZIO, valoreIndentazione-GUI.FATTORE_INCREMENTO));
 		for(int i=0; i<elencoRami.length; i++) {
 			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_BRANCH, i+1), SPAZIO, valoreIndentazione));
 			risultato.append(elencoRami[i].toString());
 		}
-		risultato.append(GUI.indenta(String.format(MSG_MERGE, idBranch), SPAZIO, valoreIndentazione));
+		risultato.append(GUI.indenta(String.format(MSG_MERGE, idBranch), SPAZIO, valoreIndentazione-GUI.FATTORE_INCREMENTO));
 		return risultato.toString();
 	}
 }

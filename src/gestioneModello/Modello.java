@@ -1,6 +1,8 @@
 package gestioneModello;
 import java.util.*;
 
+import Utilita.GUI;
+
 public class Modello implements Entita {
 	
 	public final static String MSG_NOME_MODELLO = "NOME MODELLO : %s\n";
@@ -84,6 +86,7 @@ public class Modello implements Entita {
 		for(int i=0; i<elencoEntita.size(); i++) {
 			Entita e = elencoEntita.get(i);
 			risultato.append(e.toString());
+			risultato.append("\n");
 		}  
 		return risultato.toString();
 	}

@@ -75,7 +75,7 @@ public class Azione implements Entita {
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(GUI.aCapoDopo(String.format(ID_TIPO, idAzione, titolo)));
+		risultato.append(String.format(ID_TIPO, idAzione, titolo));
 		return risultato.toString();
 	}	
 }
