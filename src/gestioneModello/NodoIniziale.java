@@ -12,10 +12,17 @@ public class NodoIniziale implements Entita {
 	
 	public NodoIniziale() {
 		id = GestoreModello.contatoreEntita;
-		GestoreModello.contatoreEntita++;
+		GestoreModello.contatoreEntita=1;
 	}
 	
 	public void addEntita(Entita e, int qualeRamo) {}
+	
+	public Entita cercaId(int idDaCercare) {
+		if(id == idDaCercare)
+			return this;
+		else 
+			return null;
+	}
 	
 	public int getId() {
 		return id;
@@ -37,6 +44,10 @@ public class NodoIniziale implements Entita {
 	
 	public Ramo[] getRami() {
 		return null;
+	}
+	
+	public boolean rimuoviEntitaAt(int id) {
+		return false;
 	}
 	
 	public String toString()

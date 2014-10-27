@@ -1,5 +1,6 @@
 package gestioneModello;
 import java.util.Vector;
+
 import Utilita.*;
 
 public class Branch implements Entita {
@@ -28,6 +29,21 @@ public class Branch implements Entita {
 		valoreIndentazione = GUI.getRientro();
 		contatoreBranch++;
 		GestoreModello.contatoreEntita++;
+	}
+	
+	public Entita cercaId(int idDaCercare) {
+		Entita trovato = null;
+		if(id == idDaCercare)
+			trovato = this;
+		else
+		{
+			Vector <Entita> listaEntita = getEntita();
+			for(int i=0; i<listaEntita.size(); i++) {
+				Entita e = listaEntita.elementAt(i);
+				trovato = e.cercaId(idDaCercare);
+			}
+		}
+		return trovato;
 	}
 
 	public int getId() {
@@ -73,6 +89,41 @@ public class Branch implements Entita {
 	
 	public int getIndentazione() {
 		return valoreIndentazione;
+	}
+	
+	public boolean rimuoviEntitaAt(int id) {
+		Entita daEliminare = null;
+
+		//Ricerca l'entita' da eliminare tra le entita' interne
+		for(int i=0; i<elencoEntita.size(); i++) {
+			Entita e = elencoEntita.elementAt(i);
+			//Se la trova la elimina dalle entita' che compongono this e restituisce true
+			if(e.getId()==id)
+			{
+				daEliminare = e;
+				elencoEntita.remove(i);
+				System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
+				return true;
+			}
+		}
+		/*
+		 * Se non ha trovato l'entita' da eliminare tra i componenti di this, la cerca nei componenti dei 
+		 * componenti e così via, in maniera ricorsiva */
+		if(daEliminare == null)
+			for(int i=0; i<elencoEntita.size(); i++) {
+				Entita e = elencoEntita.elementAt(i);
+				/*
+				 * Quando il metodo applicato ad una delle attivita' componenti restituisce true, il metodo 
+				 * restituisce true.
+				 */
+				if(e.rimuoviEntitaAt(id)==true)
+					return true;      
+			}
+		/*
+		 * Viene restituito false se il metodo applicato a ciascuna entita' componente non ha mai restituito 
+		 * un valore true.
+		 */
+		return false;
 	}
 	
 	public String toString()

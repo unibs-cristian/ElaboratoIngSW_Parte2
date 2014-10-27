@@ -60,6 +60,13 @@ public class Azione implements Entita {
 		return elencoEntita;
 	}
 	
+	public Entita cercaId(int idDaCercare) {
+		if(id == idDaCercare)
+			return this;
+		else 
+			return null;
+	}
+	
 	public void decrementaContatore() {
 		contatoreAzioni--;
 	}
@@ -70,6 +77,10 @@ public class Azione implements Entita {
 	
 	public Ramo[] getRami() {
 		return null;
+	}
+	
+	public boolean rimuoviEntitaAt(int id) {
+		return false;
 	}
 	
 	public String toString()

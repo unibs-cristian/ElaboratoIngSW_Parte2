@@ -38,16 +38,6 @@ public class Modello implements Entita {
 		return nome;
 	}
 	
-	public Entita getUltimaEntita()
-	{
-		int numeroEntita = elencoEntita.size()-1;
-		return elencoEntita.elementAt(numeroEntita);
-	}
-	
-	public Entita getEntitaInPosizione(int i) {
-		return elencoEntita.elementAt(i);
-	}
-	
 	public GestoreModello getGm() {
 		return gm;
 	}
@@ -60,11 +50,21 @@ public class Modello implements Entita {
 		elencoEntita.add(e);
 	}
 	
-	public void eliminaUltimoElemento() {
+	public void eliminaUltimaEntita() {
 		if(elencoEntita.size()<=1)     
 			System.out.println(MSG_ERRORE_MODIFICA);
 		else
-			elencoEntita.remove(elencoEntita.size()-1);
+		{
+			int i = GestoreModello.contatoreEntita-1;
+			boolean finito = false;
+			while(finito == false)
+			{
+				if(rimuoviEntitaAt(i) == false)
+					i--;
+				else
+					finito = true;
+			}
+		}
 	}
 	
 	public boolean nodoFinalePresente() {
@@ -73,6 +73,48 @@ public class Modello implements Entita {
 			return true;
 		else
 			return false;
+	}
+	
+	public Entita cercaId(int idDaCercare) {
+		Entita e = null;
+		for (int i = 0; i < elencoEntita.size(); i++) 
+		{
+			e = elencoEntita.get(i);
+			// Chiama il metodo di ricerca per id di ciascuna entita' inserita nel modello.
+			e = e.cercaId(idDaCercare);
+		}
+		/*
+		 * Se e e' null significa che l'entita' con id idDaCercare non e' stata trovata. Parte dunque la ricerca 
+		 * diminuendo di una unita' l'id da cercare. Cio' e' utile in caso di eliminazioni successive di piu' 
+		 * entita'.
+		 */
+		while(e == null)
+			e = cercaId(idDaCercare-1);
+		return e;
+	}
+	
+	public Entita getUltimaEntita() {
+		int idUltima = GestoreModello.contatoreEntita-1;
+		return cercaId(idUltima);
+	} 
+	
+	// Rimuove l'entita' con tale id, se la trova
+	public boolean rimuoviEntitaAt(int id) {
+		Entita e = null;
+		for (int i = 0; i < elencoEntita.size(); i++) 
+		{
+			e = elencoEntita.get(i);
+			if(e.getId()==id)
+			{
+				elencoEntita.remove(i);
+				System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
+				return true; 
+			}
+			else
+				if(e.rimuoviEntitaAt(id))
+					return true;
+		}
+		return false;
 	}
 	
 	public String toString() {

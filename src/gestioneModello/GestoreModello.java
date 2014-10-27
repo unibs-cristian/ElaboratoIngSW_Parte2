@@ -22,6 +22,7 @@ public class GestoreModello {
 	public final static String MSG_USCITA_INSERIMENTO = "7 - Tornare al menu principale";
 	public final static String MSG_CHIUSURA_RAMO = "7 - Chidere ramo corrente";
 	public final static String MSG_INSERIMENTO_NODO_FINALE = "8 - Inserimento Nodo Finale";
+	public final static String MSG_SALVATAGGIO_MODELLO = "9 - Salvataggio Modello";
 	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	
 	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo: ";
@@ -46,7 +47,7 @@ public class GestoreModello {
 	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo può essere lasciato vuoto (se non sono vuoti gli altri due rami)";
 	
 	public final static String MSG_RICHIESTA_SALVATAGGIO = "Ritorno al menu' principale. Tutti i progressi non salvati andranno persi.\nSi desidera salvare il modello? (y/n)";
-	public final static String MSG_ULTIMA_ENTITA = "E' stata eliminata l'entita' di nome %s (id %d)";
+	public final static String MSG_ENTITA_ELIMINATA = "E' stata eliminata l'entita' di nome %s (id %d)";
 	public final static String MSG_NODO_FINALE = "Nodo finale inserito per il modello %s";
 	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! Nel modello e' gia' presente il Nodo Finale.\nPer poter inserire nuove entita' eliminare il Nodo Finale.";
 	
@@ -80,6 +81,7 @@ public class GestoreModello {
 		opzioniMenuInserimento.add(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
 		opzioniMenuInserimento.add(MSG_USCITA_INSERIMENTO);      //Voce 7 --> ritorna al menu' principale (aggiungere richiesta di salvataggio modello)
 		opzioniMenuInserimento.add(MSG_INSERIMENTO_NODO_FINALE); //Voce 8 --> nodo finale
+		opzioniMenuInserimento.add(MSG_SALVATAGGIO_MODELLO);     //Voce 9 --> salvataggio modello 
 		Menu menuInserimentoEntita = new Menu(MSG_TITOLO_MENU_INSERIMENTO_MODELLO,opzioniMenuInserimento);
 		
 		boolean insFinito = false;
@@ -135,11 +137,15 @@ public class GestoreModello {
 						break;
 					}
 					
-				case 5: 
-					System.out.println(String.format(MSG_ULTIMA_ENTITA, mod.getUltimaEntita().getNome(), mod.getUltimaEntita().getId()));
-					mod.eliminaUltimoElemento();
+				case 5:
+					/*
+					 *  Quando non e' presente il solo nodo iniziale, elimina l'ultima entita' inserita, 
+					 *  ovvero quella con id più alto.
+					 */
+				//	if(contatoreEntita > 1)
+				//		System.out.println(String.format(MSG_ENTITA_ELIMINATA, mod.getUltimaEntita().getNome(), mod.getUltimaEntita().getId()));
+					mod.eliminaUltimaEntita();
 					break;
-					
 				case 6: 
 					System.out.println(mod.toString()); 
 					break;
@@ -169,6 +175,11 @@ public class GestoreModello {
 						System.out.println(MSG_MODELLO_INCOMPLETO);
 						break;
 					}
+					
+				case 9 : 
+					System.out.println("Salvataggio da implementare");
+					//TODO implementare salvataggio 
+					break;
 					
 				default : System.out.println(MSG_ERRORE); break;
 			}
@@ -240,21 +251,47 @@ public class GestoreModello {
 						inserimentoFork(e,i);
 						break;
 					
-					case 5: //Controlla che ci sia almeno un'entita' inserita nel ramo corrente, altrimenti elimina il branch ed esci.
-						/*if(ramoCorrente.getEntitaRamo().isEmpty())
+					case 5:
+					{	
+						//TODO eliminazione entita' da menu' secondario
+						Ramo r = e.getRami()[i];
+						/*
+						 *Se il ramo corrente e' il primo ed e' vuoto, viene eliminata l'entita' di cui si sta facendo
+						 *l'inserimento e quindi si esce anche dal menu' di inserimento
+						 */
+						if(i==0 && r.isEmpty())
 						{
-							eliminaUltimoElemento();
+						//	System.out.println(String.format(MSG_ENTITA_ELIMINATA, mod.getUltimaEntita().getNome(), mod.getUltimaEntita().getId()));
+							mod.eliminaUltimaEntita();
+							i = e.getRami().length;
 							esci = true;
 							break;
 						}
-						else
+						/*
+						 * Se il ramo corrente e' vuoto ma non e' il primo ramo, viene eliminata l'ultima entita' 
+						 * inserita nel ramo precedente e si torna all'inserimento delle entita' per quel ramo.
+						 */
+						else if(i!=0 && r.isEmpty())
 						{
-							eliminaUltimoElemento();
+							Ramo prec = e.getRami()[i-1];
+							Entita daEliminare = prec.getEntitaRamo().elementAt(prec.getEntitaRamo().size()-1);
+							System.out.println(String.format(MSG_ENTITA_ELIMINATA, daEliminare.getNome(), daEliminare.getId())); 
+							prec.eliminaEntitaRamo(prec.getEntitaRamo().size()-1); //Verificare in caso il precedente è vuoto 
 							break;
 						}
-						*/
-						System.out.println("Work in progress...");
-						break;
+						/*
+						 * Se il ramo corrente non e' vuoto si elimina l'ultima entita' inserita nel ramo.
+						 */
+						else
+						{
+							r.eliminaEntitaRamo(r.getEntitaRamo().size()-1);
+							Entita daEliminare = r.getEntitaRamo().elementAt(r.getEntitaRamo().size()-1);
+							System.out.println(String.format(MSG_ENTITA_ELIMINATA, daEliminare.getNome(), daEliminare.getId())); 
+							r.eliminaEntitaRamo(r.getEntitaRamo().size()-1);
+							break;
+						}
+						
+					}
 					case 6: 
 						System.out.println(mod.toString()); 
 						break;

@@ -13,6 +13,13 @@ public class NodoFinale implements Entita
 		GestoreModello.contatoreEntita++;
 	}
 	
+	public Entita cercaId(int idDaCercare) {
+		if(id == idDaCercare)
+			return this;
+		else 
+			return null;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -31,6 +38,10 @@ public class NodoFinale implements Entita
 	}
 	
 	public void addEntita(Entita e, int qualeRamo) {}
+	
+	public boolean rimuoviEntitaAt(int id) {
+		return false;
+	}
 	
 	public Ramo[] getRami() {
 		return null;

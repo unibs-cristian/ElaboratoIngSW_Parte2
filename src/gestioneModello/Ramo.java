@@ -19,6 +19,14 @@ public class Ramo {
 		entitaRamo.addElement(daAggiungere);
 	}
 	
+	public boolean isEmpty() {
+		return entitaRamo.isEmpty();
+	}
+	
+	public void eliminaEntitaRamo(int i) {
+		entitaRamo.remove(i);
+	}
+	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		for(int i=0; i<entitaRamo.size(); i++) 
