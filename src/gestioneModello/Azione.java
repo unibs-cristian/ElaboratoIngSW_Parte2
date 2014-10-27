@@ -27,6 +27,8 @@ public class Azione implements Entita {
 	/** Contatore di istanze di Azione */
 	private static int contatoreAzioni = 1;
 	
+	//TODO Azioni composte
+	
 	/**
 	 * Costruttore della classe
 	 * @param _titolo

@@ -101,22 +101,26 @@ public class Ciclo implements Entita {
 	
 	public boolean rimuoviEntitaAt(int id) {
 		Entita daEliminare = null;
-
-		//Ricerca l'entita' da eliminare tra le entita' interne
-		for(int i=0; i<elencoEntita.size(); i++) {
-			Entita e = elencoEntita.elementAt(i);
-			//Se la trova la elimina dalle entita' che compongono this e restituisce true
-			if(e.getId()==id)
-			{
-				daEliminare = e;
-				elencoEntita.remove(i);
-				System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
-				return true;
+		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
+		for (int i=0; i<elencoRami.length; i++) {
+			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
+			//Ricerca l'entita' da eliminare tra le entita' interne del ramo i-esimo
+			for(int j=0; j<entitaRamo.size(); j++) {
+				Entita e = entitaRamo.elementAt(j);
+				//Se la trova la elimina dalle entita' del ramo i-esimo di this e restituisce true
+				if(e.getId()==id)
+				{
+					daEliminare = e;
+					elencoRami[i].eliminaEntitaRamo(j);
+					System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
+					return true;
+				}
 			}
 		}
 		/*
-		 * Se non ha trovato l'entita' da eliminare tra i componenti di this, la cerca nei componenti dei 
-		 * componenti e così via, in maniera ricorsiva */
+		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
+		 * componenti dei componenti e così via, in maniera ricorsiva 
+		 */
 		if(daEliminare == null)
 			for(int i=0; i<elencoEntita.size(); i++) {
 				Entita e = elencoEntita.elementAt(i);
@@ -125,7 +129,7 @@ public class Ciclo implements Entita {
 				 * restituisce true.
 				 */
 				if(e.rimuoviEntitaAt(id)==true)
-					return true;      
+					return true;   
 			}
 		/*
 		 * Viene restituito false se il metodo applicato a ciascuna entita' componente non ha mai restituito 

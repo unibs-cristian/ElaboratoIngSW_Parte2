@@ -138,13 +138,7 @@ public class GestoreModello {
 					}
 					
 				case 5:
-					/*
-					 *  Quando non e' presente il solo nodo iniziale, elimina l'ultima entita' inserita, 
-					 *  ovvero quella con id più alto.
-					 */
-				//	if(contatoreEntita > 1)
-				//		System.out.println(String.format(MSG_ENTITA_ELIMINATA, mod.getUltimaEntita().getNome(), mod.getUltimaEntita().getId()));
-					mod.eliminaUltimaEntita();
+					mod.eliminaUltimaEntita();   
 					break;
 				case 6: 
 					System.out.println(mod.toString()); 
@@ -256,41 +250,25 @@ public class GestoreModello {
 						//TODO eliminazione entita' da menu' secondario
 						Ramo r = e.getRami()[i];
 						/*
-						 *Se il ramo corrente e' il primo ed e' vuoto, viene eliminata l'entita' di cui si sta facendo
-						 *l'inserimento e quindi si esce anche dal menu' di inserimento
+						 * Se il ramo corrente e' vuoto, non viene eliminata alcuna entita' e viene stampato a
+						 * video un opportuno messaggio d'errore.
+						 * L'eliminazione dell'entita' composta deve avvenire da menu' principale ed avviene dopo 
+						 * aver eliminato tutte le sottoentita' che la compongono.
 						 */
-						if(i==0 && r.isEmpty())
+						if(r.isEmpty())
 						{
-						//	System.out.println(String.format(MSG_ENTITA_ELIMINATA, mod.getUltimaEntita().getNome(), mod.getUltimaEntita().getId()));
-							mod.eliminaUltimaEntita();
-							i = e.getRami().length;
-							esci = true;
+							System.out.println(Modello.MSG_ERRORE_MODIFICA);
 							break;
 						}
-						/*
-						 * Se il ramo corrente e' vuoto ma non e' il primo ramo, viene eliminata l'ultima entita' 
-						 * inserita nel ramo precedente e si torna all'inserimento delle entita' per quel ramo.
-						 */
-						else if(i!=0 && r.isEmpty())
-						{
-							Ramo prec = e.getRami()[i-1];
-							Entita daEliminare = prec.getEntitaRamo().elementAt(prec.getEntitaRamo().size()-1);
-							System.out.println(String.format(MSG_ENTITA_ELIMINATA, daEliminare.getNome(), daEliminare.getId())); 
-							prec.eliminaEntitaRamo(prec.getEntitaRamo().size()-1); //Verificare in caso il precedente è vuoto 
-							break;
-						}
+						else {
 						/*
 						 * Se il ramo corrente non e' vuoto si elimina l'ultima entita' inserita nel ramo.
 						 */
-						else
-						{
-							r.eliminaEntitaRamo(r.getEntitaRamo().size()-1);
 							Entita daEliminare = r.getEntitaRamo().elementAt(r.getEntitaRamo().size()-1);
 							System.out.println(String.format(MSG_ENTITA_ELIMINATA, daEliminare.getNome(), daEliminare.getId())); 
 							r.eliminaEntitaRamo(r.getEntitaRamo().size()-1);
 							break;
 						}
-						
 					}
 					case 6: 
 						System.out.println(mod.toString()); 

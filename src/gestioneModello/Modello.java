@@ -117,6 +117,7 @@ public class Modello implements Entita {
 		return false;
 	}
 	
+	//TODO migliorare indentazione
 	public String toString() {
 		
 		StringBuffer risultato = new StringBuffer();
