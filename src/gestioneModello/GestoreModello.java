@@ -2,9 +2,9 @@ package gestioneModello;
 
 import java.util.Vector;
 
-import Utilita.GUI;
-import Utilita.Menu;
-import Utilita.Util;
+import utilita.GUI;
+import utilita.Menu;
+import utilita.Util;
 
 public class GestoreModello {
 

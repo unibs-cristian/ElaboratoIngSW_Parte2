@@ -3,7 +3,7 @@ package mainProgram;
 import java.io.File;
 import java.util.Vector;
 
-import Utilita.*;
+import utilita.*;
 import gestioneModello.Modello;
 
 public class ElaboratoParte1Main {

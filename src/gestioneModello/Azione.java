@@ -1,7 +1,8 @@
 package gestioneModello;
 
 import java.util.Vector;
-import Utilita.GUI;
+
+import utilita.GUI;
 
 /**
  * Classe che istanzia oggetti di tipo Azione. Un'azione e' un'entita' semplice che puo' essere aggiunta 

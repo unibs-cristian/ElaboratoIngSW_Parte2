@@ -2,7 +2,7 @@ package gestioneModello;
 
 import java.util.Vector;
 
-import Utilita.GUI;
+import utilita.GUI;
 
 public class Fork implements Entita {
 	

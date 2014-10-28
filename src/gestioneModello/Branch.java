@@ -1,7 +1,7 @@
 package gestioneModello;
 import java.util.Vector;
 
-import Utilita.*;
+import utilita.*;
 
 public class Branch implements Entita {
 	
