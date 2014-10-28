@@ -7,31 +7,51 @@ public class Modello implements Entita {
 	public final static String MSG_DESCRIZIONE_MODELLO = "DESCRIZIONE MODELLO : %s\n\n";
 	public final static String MSG_ERRORE_MODIFICA = "Errore. Non è presente alcuna entita' da eliminare.";
 	
-	private static int contatoreModello = 1;	
-	private int idModello;
 	private String nome;
 	private String descrizione;
 	private GestoreModello gm;
-	public Vector <Entita> elencoEntita;
+	private Vector <Entita> elencoEntita;
+	private static int contatoreModello = 1;
+	private int idModello;
+	
+	/**  */
+	private static Modello instance = null;
 	
 	/** Costruttore del modello */
-	public Modello (String _nome, String _descrizione) {
+	private Modello() {
+		elencoEntita = new Vector<Entita>();
+		gm = new GestoreModello(this);
 		idModello = contatoreModello;
+		contatoreModello++;
+	}
+	
+	private Modello (String _nome, String _descrizione) {
 		nome = _nome;
 		descrizione = _descrizione;
 		elencoEntita = new Vector<Entita>();
-		contatoreModello++;
 		gm = new GestoreModello(this);
 		NodoIniziale ni = new NodoIniziale();
 		elencoEntita.add(ni);
-	}
-	
-	public Vector <Entita> getEntita() {
-		return elencoEntita;
+		idModello = contatoreModello;
+		contatoreModello++;
 	}
 	
 	public int getId() {
 		return idModello;
+	}
+	
+	public static Modello getInstance() {
+		if(instance == null)
+			instance = new Modello();
+		return instance;
+	}
+	
+	public static void cambiaModello(Modello nuovo) {
+		instance = nuovo;
+	}
+	
+	public Vector <Entita> getEntita() {
+		return elencoEntita;
 	}
 	
 	public String getNome() {
@@ -115,6 +135,14 @@ public class Modello implements Entita {
 					return true;
 		}
 		return false;
+	}
+	
+	public void setNome(String unNome) {
+		nome = unNome;
+	}
+	
+	public void setDescrizione(String unaDescrizione) {
+		descrizione = unaDescrizione;
 	}
 	
 	//TODO migliorare indentazione

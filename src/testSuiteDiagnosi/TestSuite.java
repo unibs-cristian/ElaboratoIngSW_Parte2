@@ -8,9 +8,20 @@ public class TestSuite {
 	private Vector <ClasseEquivalenza> elencoClassi;
 	private Modello mod;
 	
-	public TestSuite(Modello _mod) {
-		mod = _mod;
+	private static TestSuite instance = null;
+	
+	private TestSuite() {
 		elencoClassi = new Vector <ClasseEquivalenza>();
+	}
+	
+	public static TestSuite getInstance() {
+		if(instance==null)
+			instance = new TestSuite();
+		return instance;
+	}
+	
+	public static void cambiaTestSuite(TestSuite nuovo) {
+		instance = nuovo;
 	}
 	
 	//Metodo per restituire le azioni "coinvolte" nel TS
@@ -50,5 +61,9 @@ public class TestSuite {
 	
 	public Modello getModello() {
 		return mod;
+	}
+	
+	public void setModello(Modello m) {
+		mod = m;
 	}
 }
