@@ -7,7 +7,6 @@ import testSuiteDiagnosi.TestSuite;
 import utilita.*;
 import gestioneModello.Modello;
 import gestioneModello.NodoIniziale;
-import testSuiteDiagnosi.TestSuite;
 
 public class ElaboratoParte1Main {
 
@@ -25,7 +24,8 @@ public class ElaboratoParte1Main {
 	public final static String MSG_NO_MODELLO = "Errore! Nessun modello inserito.";
 	public final static String MSG_STAMPA_MOD_CORRENTE = "STAMPA DEL MODELLO CORRENTE\n";
 	public final static String MSG_MODELLO_CARICATO = "Il modello %s e' stato caricato con successo.";
-	
+	public final static String MSG_INS_CLASSE_EQ = "CLASSE DI EQUIVALENZA N. %d - INSERIMENTO INFORMAZIONI";
+	public final static String MSG_CONTINUA_SI_NO = "Si desidera inserire un'altra classe di equivalenza?";
 	
 	public final static String MSG_NOME_MODELLO = "Inserire il nome del nuovo modello: ";
 	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello: ";
@@ -117,7 +117,11 @@ public class ElaboratoParte1Main {
 		TestSuite ts = TestSuite.getInstance();
 		Modello modelloCorrente = Modello.getInstance();
 		ts.setModello(modelloCorrente);
-		
+		//Inserimento delle classi di equivalenza per il TS considerato
+		int i=1;
+		do {
+			System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
+		} while(Util.yesOrNo(MSG_CONTINUA_SI_NO));	
 	}
 	
 	public static void caricamentoModello() {

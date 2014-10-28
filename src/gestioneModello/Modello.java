@@ -13,14 +13,16 @@ public class Modello implements Entita {
 	private Vector <Entita> elencoEntita;
 	private static int contatoreModello = 1;
 	private int idModello;
+	private String idTipo;
 	
-	/**  */
+	/** L'istanza (unica) di modello su cui il sistema lavora e' inizialmente null. */
 	private static Modello instance = null;
 	
-	/** Costruttore del modello */
+	/** Costruttore del modello. Poiche' si usa il Pattern Singleton, il costruttore e' private. */
 	private Modello() {
 		elencoEntita = new Vector<Entita>();
 		gm = new GestoreModello(this);
+		idTipo = ID_TIPO_MODELLO;
 		idModello = contatoreModello;
 		contatoreModello++;
 	}
@@ -46,12 +48,17 @@ public class Modello implements Entita {
 		return false;
 	}
 	
+	/** 
+	 * Rappresenta il punto di accesso univoco secondo il pattern Singleton. L'istanza (unica) di modello
+	 * puo' essere ottenuta all'esterno tramite questo metodo.
+     */
 	public static Modello getInstance() {
 		if(instance == null)
 			instance = new Modello();
 		return instance;
 	}
 	
+	/** Consente di cambiare il modello (unico) su cui si lavora assegnando il nuovo modello all'attributo instance */
 	public static void cambiaModello(Modello nuovo) {
 		instance = nuovo;
 	}
@@ -175,6 +182,6 @@ public class Modello implements Entita {
 	}
 	
 	public String getIdTipo() {
-		return null;
+		return idTipo;
 	}
 }

@@ -26,7 +26,7 @@ public class Ciclo implements Entita {
 	private Vector<Entita> elencoEntita;
 	private int valoreIndentazione;
 	/** Identificatore del tipo */
-	private static String idTipo = "CI";
+	private String idTipo;
 	
 	public Ciclo(String _titolo)
 	{
@@ -34,8 +34,9 @@ public class Ciclo implements Entita {
 		idCiclo = contatoreCicli;
 		titolo = _titolo;
 		numRami = NUM_RAMI_CICLO;
-		elencoRami = new Ramo [NUM_RAMI_CICLO];  // Ramo 1 : eventuali attività iniziali    Ramo 2 : condizione uscita ciclo    Ramo 3 : condizione di permanenza nel ciclo
+		elencoRami = new Ramo [NUM_RAMI_CICLO];  //TODO potrebbero bastare 2 rami   Ramo 1 : eventuali attività iniziali    Ramo 2 : condizione uscita ciclo    Ramo 3 : condizione di permanenza nel ciclo
 		elencoEntita = new Vector<Entita>();
+		idTipo = ID_TIPO_CICLO;
 		valoreIndentazione = GUI.getRientro();
 		contatoreCicli++;
 		GestoreModello.contatoreEntita++;

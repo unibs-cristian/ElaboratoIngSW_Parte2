@@ -19,7 +19,7 @@ public class Fork implements Entita {
 	private int valoreIndentazione;
 	private static int contatoreFork = 1;
 	/** Identificatore del tipo */
-	private static String idTipo = "FO";
+	private String idTipo;
 	
 	public Fork(String _titolo, int _numRami) {
 		id = GestoreModello.contatoreEntita;
@@ -28,6 +28,7 @@ public class Fork implements Entita {
 		numRami = _numRami;
 		elencoRami = new Ramo[numRami];
 		elencoEntita = new Vector<Entita>();
+		idTipo = ID_TIPO_FORK;
 		valoreIndentazione = GUI.getRientro();
 		contatoreFork++;
 		GestoreModello.contatoreEntita++;

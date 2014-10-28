@@ -9,7 +9,6 @@ public class Branch implements Entita {
 	public final static String MSG_ENTITA_RAMO_BRANCH = "ENTITA' RAMO N. %d";
 	public final static String MSG_MERGE = "MERGE N. %d ]";
 	
-	
 	private int id;
 	private int idBranch;
 	private String titolo;
@@ -17,20 +16,21 @@ public class Branch implements Entita {
 	private Ramo[] elencoRami;
 	private Vector <Entita> elencoEntita;
 	private int valoreIndentazione;
-	private static int contatoreBranch = 1;
 	/** Identificatore del tipo */
-	private static String idTipo = "BR";
+	private String idTipo;
+	private static int contatoreBranch = 1;
 	
 	public Branch (String _titolo, int _numeroRami) {
 		id = GestoreModello.contatoreEntita;
+		idBranch = contatoreBranch;
 		titolo = _titolo;
 		numeroRami = _numeroRami;
 		elencoRami = new Ramo [numeroRami];
-		idBranch = contatoreBranch;
+		idTipo = ID_TIPO_BRANCH;
 		elencoEntita = new Vector<Entita>();
 		valoreIndentazione = GUI.getRientro();
-		contatoreBranch++;
 		GestoreModello.contatoreEntita++;
+		contatoreBranch++;
 	}
 	
 	public Entita cercaId(int idDaCercare) {

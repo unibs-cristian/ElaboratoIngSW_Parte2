@@ -24,6 +24,12 @@ public class TestSuite {
 		instance = nuovo;
 	}
 	
+	public static boolean isNull() {
+		if(instance==null)
+			return true;
+		return false;
+	}
+	
 	//Metodo per restituire le azioni "coinvolte" nel TS
 	public Vector <Azione> getAzioniClassi() {
 		Vector <Azione> azioniTS = new Vector<Azione>();

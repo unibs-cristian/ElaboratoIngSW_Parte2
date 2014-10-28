@@ -28,7 +28,7 @@ public class Azione implements Entita {
 	/** Contatore di istanze di Azione */
 	private static int contatoreAzioni = 1;
 	/** Identificatore del tipo */
-	private static String idTipo = "AZ";
+	private String idTipo;
 	
 	//TODO Azioni composte
 	
@@ -43,6 +43,7 @@ public class Azione implements Entita {
 		contatoreAzioni++;
 		valoreIndentazione=GUI.getRientro();
 		GestoreModello.contatoreEntita++;
+		idTipo = ID_TIPO_AZIONE;
 	}
 	
 	public String getTitolo() {
