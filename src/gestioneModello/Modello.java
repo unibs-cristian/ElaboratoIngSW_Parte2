@@ -40,6 +40,12 @@ public class Modello implements Entita {
 		return idModello;
 	}
 	
+	public static boolean isNull() {
+		if(instance == null)
+			return true;
+		return false;
+	}
+	
 	public static Modello getInstance() {
 		if(instance == null)
 			instance = new Modello();

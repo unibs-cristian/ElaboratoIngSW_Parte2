@@ -15,7 +15,7 @@ public class ElaboratoParte1Main {
 	public final static String MSG_NUOVO_MODELLO = "1 - Crea Nuovo Modello";
 	public final static String MSG_VISUALIZZAZIONE_MODELLO = "2 - Visualizza Modello";
 	public final static String MSG_INS_TEST_SUITE = "3 - Inserimento Test Suite";
-	public final static String MSG_VISUALIZZAZIONE_DIAGNOSI = "4- Visualizza Insiemi delle Diagnosi";
+	public final static String MSG_VISUALIZZAZIONE_DIAGNOSI = "4 - Visualizza Insiemi delle Diagnosi";
 	public final static String MSG_VISUALIZZAZIONE_PROBABILITA = "5 - Visualizza Probabilita' e Distanze";
 	public final static String MSG_VISUALIZZAZIONE_REPORT = "6 - Visualizza Report Completo";
 	public final static String MSG_CARICAMENTO_MODELLO = "7 - Carica";
@@ -44,8 +44,8 @@ public class ElaboratoParte1Main {
 		vociMenuPrincipale.add(MSG_INS_TEST_SUITE);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_DIAGNOSI);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_PROBABILITA);
-		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_REPORT);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_PROBABILITA);
+		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_REPORT);
 		vociMenuPrincipale.add(MSG_CARICAMENTO_MODELLO);
 		vociMenuPrincipale.add(MSG_USCITA_PROGRAMMA);
 		Menu menuPrincipale = new Menu(TITOLO_MENU_PRINCIPALE, vociMenuPrincipale);
@@ -103,14 +103,14 @@ public class ElaboratoParte1Main {
 	}
 	
 	public static void visualizzaModelloCorrente() {
-		Modello daVisualizzare = Modello.getInstance();
-		if(daVisualizzare!=null)
+		if(Modello.isNull())
+			System.out.println(MSG_NO_MODELLO);
+		else 
 		{
+			Modello daVisualizzare = Modello.getInstance();
 			System.out.println(MSG_STAMPA_MOD_CORRENTE);
 			System.out.println(daVisualizzare.toString());
 		}
-		else 
-			System.out.println(MSG_NO_MODELLO);
 	}
 	
 	public static void inserimentoTS() { 
