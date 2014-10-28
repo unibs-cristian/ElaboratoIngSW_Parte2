@@ -27,6 +27,8 @@ public class Azione implements Entita {
 	private int valoreIndentazione;
 	/** Contatore di istanze di Azione */
 	private static int contatoreAzioni = 1;
+	/** Identificatore del tipo */
+	private static String idTipo = "AZ";
 	
 	//TODO Azioni composte
 	
@@ -91,5 +93,9 @@ public class Azione implements Entita {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(String.format(ID_TIPO, idAzione, titolo));
 		return risultato.toString();
+	}
+
+	public String getIdTipo() {
+		return idTipo;
 	}	
 }

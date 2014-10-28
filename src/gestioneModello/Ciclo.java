@@ -25,6 +25,8 @@ public class Ciclo implements Entita {
 	private static int contatoreCicli = 1;
 	private Vector<Entita> elencoEntita;
 	private int valoreIndentazione;
+	/** Identificatore del tipo */
+	private static String idTipo = "CI";
 	
 	public Ciclo(String _titolo)
 	{
@@ -167,5 +169,9 @@ public class Ciclo implements Entita {
 			risultato.append(GUI.indenta(elencoRami[2].toString(), SPAZIO, valoreIndentazione));
 		risultato.append(GUI.indenta(String.format(MSG_BRANCH_CICLO, idCiclo), SPAZIO, valoreIndentazione - GUI.FATTORE_INCREMENTO));
 		return risultato.toString();
+	}
+	
+	public String getIdTipo() {
+		return idTipo;
 	}
 }

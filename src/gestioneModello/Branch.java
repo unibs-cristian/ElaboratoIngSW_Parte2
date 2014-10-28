@@ -18,6 +18,8 @@ public class Branch implements Entita {
 	private Vector <Entita> elencoEntita;
 	private int valoreIndentazione;
 	private static int contatoreBranch = 1;
+	/** Identificatore del tipo */
+	private static String idTipo = "BR";
 	
 	public Branch (String _titolo, int _numeroRami) {
 		id = GestoreModello.contatoreEntita;
@@ -140,5 +142,9 @@ public class Branch implements Entita {
 		}
 		risultato.append(GUI.indenta(String.format(MSG_MERGE, idBranch), SPAZIO, valoreIndentazione-GUI.FATTORE_INCREMENTO));
 		return risultato.toString();
+	}
+	
+	public String getIdTipo() {
+		return idTipo;
 	}
 }

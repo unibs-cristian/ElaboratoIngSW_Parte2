@@ -23,5 +23,7 @@ public interface Entita {
 	public boolean rimuoviEntitaAt(int id);
 	
 	public String toString();
+	
+	public String getIdTipo();
 }
 

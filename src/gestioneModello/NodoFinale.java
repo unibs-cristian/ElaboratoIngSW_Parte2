@@ -7,6 +7,8 @@ public class NodoFinale implements Entita
 	public final static String MSG_TITOLO_NF = "NODO_FINALE";
 	
 	private int id;
+	/** Identificatore del tipo */
+	private static String idTipo = "NF";
 	
 	public NodoFinale() {
 		id = GestoreModello.contatoreEntita;
@@ -52,5 +54,9 @@ public class NodoFinale implements Entita
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(MSG_TITOLO_NF);
 		return risultato.toString();
+	}
+	
+	public String getIdTipo() {
+		return idTipo;
 	}
 }

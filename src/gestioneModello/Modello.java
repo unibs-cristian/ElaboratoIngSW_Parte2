@@ -139,4 +139,8 @@ public class Modello implements Entita {
 	public int getIndentazione() {
 		return 0;
 	}
+	
+	public String getIdTipo() {
+		return null;
+	}
 }

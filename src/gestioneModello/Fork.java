@@ -18,6 +18,8 @@ public class Fork implements Entita {
 	private Vector<Entita> elencoEntita;
 	private int valoreIndentazione;
 	private static int contatoreFork = 1;
+	/** Identificatore del tipo */
+	private static String idTipo = "FO";
 	
 	public Fork(String _titolo, int _numRami) {
 		id = GestoreModello.contatoreEntita;
@@ -140,5 +142,9 @@ public class Fork implements Entita {
 		}
 		risultato.append(GUI.indenta(String.format(MSG_JOIN, idFork), SPAZIO, valoreIndentazione - GUI.FATTORE_INCREMENTO));
 		return risultato.toString();
+	}
+	
+	public String getIdTipo() {
+		return idTipo;
 	}
 }

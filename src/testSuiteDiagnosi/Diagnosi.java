@@ -19,7 +19,14 @@ public class Diagnosi {
 	public void eseguiDiagnosi () {
 		
 		elencoClassi = testSuite.getClassi();
-		
+		for(int i=0; i<elencoClassi.size(); i++) {
+			ClasseEquivalenza classe = elencoClassi.get(i);
+			Vector<String> elementi = classe.getElementi();
+			
+			for(int j=0; j<elementi.size(); j++) {
+								
+			}
+		}
 		creaArray();
 	}
 	

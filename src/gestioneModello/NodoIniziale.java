@@ -9,6 +9,8 @@ public class NodoIniziale implements Entita {
 	public final static String MSG_TITOLO_NI = "NODO_INIZIALE";
 	
 	private int id;
+	/** Identificatore del tipo */
+	private static String idTipo = "NI";
 	
 	public NodoIniziale() {
 		id = GestoreModello.contatoreEntita;
@@ -55,5 +57,9 @@ public class NodoIniziale implements Entita {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(GUI.aCapoDopo(MSG_TITOLO_NI));
 		return risultato.toString();
+	}
+	
+	public String getIdTipo() {
+		return idTipo;
 	}
 }
