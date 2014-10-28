@@ -1,4 +1,4 @@
-package gestioneModello;
+package testSuiteDiagnosi;
 
 import java.util.Vector;
 
