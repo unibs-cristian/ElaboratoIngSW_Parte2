@@ -1,5 +1,5 @@
 package testSuiteDiagnosi;
 
-public class TsetSuite {
+public class TestSuite {
 
 }
