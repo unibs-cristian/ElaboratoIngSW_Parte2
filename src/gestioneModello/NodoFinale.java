@@ -63,4 +63,8 @@ public class NodoFinale implements Entita
 	public String getIdTipo() {
 		return idTipo;
 	}
+	
+	public Vector <Entita> getAzioni() {
+		return null;
+	}
 }

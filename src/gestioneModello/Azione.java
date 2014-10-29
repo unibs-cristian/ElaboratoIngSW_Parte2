@@ -102,5 +102,9 @@ public class Azione implements Entita {
 
 	public String getIdTipo() {
 		return idTipo;
-	}	
+	}
+	
+	public Vector <Entita> getAzioni() {
+		return null;
+	}
 }

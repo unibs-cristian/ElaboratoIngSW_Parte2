@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import testSuiteDiagnosi.TestSuite;
 import utilita.*;
+import gestioneModello.Entita;
 import gestioneModello.Modello;
 import gestioneModello.NodoIniziale;
 
@@ -122,6 +123,7 @@ public class ElaboratoParte1Main {
 		do {
 			System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
 			do {
+				
 					
 			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
 			
@@ -143,6 +145,12 @@ public class ElaboratoParte1Main {
 	
 	public static void saluta()
 	{
+		Vector <Entita> elencoAzioni = Modello.getInstance().getAzioni();
+		for(int i=0; i<elencoAzioni.size(); i++)
+		{
+			System.out.println(elencoAzioni.elementAt(i).getNome());
+			System.out.println("Entrato");
+		}
 		System.out.print(MSG_SALUTO);
 	}
 }

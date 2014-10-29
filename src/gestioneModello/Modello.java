@@ -5,7 +5,7 @@ public class Modello implements Entita {
 	
 	public final static String MSG_NOME_MODELLO = "NOME MODELLO : %s\n";
 	public final static String MSG_DESCRIZIONE_MODELLO = "DESCRIZIONE MODELLO : %s\n\n";
-	public final static String MSG_ERRORE_MODIFICA = "Errore. Non è presente alcuna entita' da eliminare.";
+	public final static String MSG_ERRORE_MODIFICA = "Errore. Non e' presente alcuna entita' da eliminare.";
 	
 	private String nome;
 	private String descrizione;
@@ -125,13 +125,32 @@ public class Modello implements Entita {
 		return e;
 	}
 	
-	public Vector<Entita> getAzioniModello() {
+	//Metodo che restituisce tutte le azioni contenute nel modello.
+	public Vector<Entita> getAzioni() {
 		Vector <Entita> risultato = new Vector<Entita>();
 		for(int i=0; i<elencoEntita.size()-1; i++) {
 			Entita e = elencoEntita.elementAt(i);
+			// Se e' un'azione la aggiunge al Vector da restituire
 			if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
-				risultato.add(e);
+				if(giaPresente(e.getNome())==false)
+				{
+					risultato.add(e);
+					System.out.println("Aggiunta");
+				}
+			// Se non e' un'azione, cerca le azioni nelle entita' figlie
+			else {
+				Vector <Entita> azioniEntita = new Vector<Entita>();
+				azioniEntita = e.getAzioni();
+				if(azioniEntita!=null)
+					for(int j=0; j<azioniEntita.size(); j++)
+						if(e.giaPresente(azioniEntita.elementAt(j).getNome())==false)
+						{
+							System.out.println("Aggiunta");
+							risultato.add(azioniEntita.elementAt(j));
+						}
+			}
 		}
+		return risultato;
 	}
 	
 	public Entita getUltimaEntita() {
