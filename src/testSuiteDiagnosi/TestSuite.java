@@ -19,7 +19,7 @@ public class TestSuite {
 			instance = new TestSuite();
 		return instance;
 	}
-	
+	 
 	public static void cambiaTestSuite(TestSuite nuovo) {
 		instance = nuovo;
 	}
@@ -28,6 +28,10 @@ public class TestSuite {
 		if(instance==null)
 			return true;
 		return false;
+	}
+	
+	public void addClasseEquivalenza(ClasseEquivalenza clEq) {
+		elencoClassi.add(clEq);
 	}
 	
 	//Metodo per restituire le azioni "coinvolte" nel TS
@@ -63,6 +67,10 @@ public class TestSuite {
 	// Le classi di equivalenza verranno inserite dall'utente come le entita' nel modello.
 	public Vector <ClasseEquivalenza> getElencoClassi() {
 		return elencoClassi;
+	}
+	
+	public ClasseEquivalenza getClasseAt(int indice) {
+		return elencoClassi.elementAt(indice);
 	}
 	
 	public Modello getModello() {
