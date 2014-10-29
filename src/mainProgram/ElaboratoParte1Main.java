@@ -3,11 +3,14 @@ package mainProgram;
 import java.io.File;
 import java.util.Vector;
 
+import testSuiteDiagnosi.ClasseEquivalenza;
 import testSuiteDiagnosi.TestSuite;
 import utilita.*;
+import gestioneModello.Azione;
 import gestioneModello.Entita;
 import gestioneModello.Modello;
 import gestioneModello.NodoIniziale;
+import testSuiteDiagnosi.*;
 
 public class ElaboratoParte1Main {
 
@@ -68,8 +71,6 @@ public class ElaboratoParte1Main {
 				
 				case 4:
 					System.out.println("Visualizzazione insiemi delle diagnosi minimali da implementare...");
-					TestSuite ts = TestSuite.getInstance();
-					
 					break;	
 					
 				case 5:
@@ -120,16 +121,21 @@ public class ElaboratoParte1Main {
 		TestSuite ts = TestSuite.getInstance();
 		Modello modelloCorrente = Modello.getInstance();
 		ts.setModello(modelloCorrente);
+		
+		ClasseEquivalenza c1 = new ClasseEquivalenza(2);
+		Vector <Azione> insCamm1 = new Vector<Azione>();
+		
+		Coppia coppia1 = new Coppia(insCamm1, "KO");
 		//Inserimento delle classi di equivalenza per il TS considerato
-		int i=1;
+	/*	int i=1;
 		do {
 			System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
 			do {
 				
 					
-			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
+			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));  
 			
-		} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
+		} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	   */
 	}
 	
 	public static void caricamentoModello() {
