@@ -43,11 +43,11 @@ public class Diagnosi {
 				Vector<Azione> azioni = coppia.getInsiemeCammino();
 				String valRil = coppia.getValoreRilevazione();
 				
-				/** Faccio passare l'elencoAzioni e controllo se l'azione è presente nella Coppia. */
+				/** Faccio passare l'elencoAzioni e controllo se l'azione Ã¨ presente nella Coppia. */
 				for(int y=0; y<elencoAzioni.size(); y++) {
 					Azione azioneElenco = elencoAzioni.get(y);
 					
-					/** Se viene trovata, metto 0 se il valore della coppia è OK, 1 se il valore della coppia è KO. Metto -1 se non viene trovata. */
+					/** Se viene trovata, metto 0 se il valore della coppia Ã¨ OK, 1 se il valore della coppia Ã¨ KO. Metto -1 se non viene trovata. */
 					for(int k=0; k<azioni.size(); k++) {
 						if(azioneElenco.getNome() == azioni.get(k).getNome()) {
 							if(valRil == "OK")
@@ -62,7 +62,7 @@ public class Diagnosi {
 				}
 			}
 			
-			/** Elaboro la matrice (metto a 0 le colonne dove è presente uno 0. */
+			/** Elaboro la matrice (metto a 0 le colonne dove Ã¨ presente uno 0. */
 			for (int s=0; s<elencoAzioni.size(); s++) {
 				
 				boolean okTrovato = false;
@@ -114,7 +114,7 @@ public class Diagnosi {
 				risultatoAzioni.add(valoreAzione);
 			}
 			
-			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilità */
+			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilitÃ  */
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
@@ -123,7 +123,6 @@ public class Diagnosi {
 	}	
 	
 	public int getId() {
-		
 		return id;
 	}
 }
