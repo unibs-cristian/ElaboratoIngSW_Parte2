@@ -22,7 +22,7 @@ public interface Entita {
 	public Vector <Entita> getEntita();
 	
 	public String getNome();
-	
+	 
 	public Ramo[] getRami();
 	
 	public int getIndentazione();

@@ -239,7 +239,7 @@ public class GestoreModello {
 					case 4 :
 						inserimentoFork(e,i);
 						break;
-					
+					 
 					case 5:
 					{	
 						//TODO eliminazione entita' da menu' secondario

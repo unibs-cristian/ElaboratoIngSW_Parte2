@@ -19,7 +19,7 @@ public class TestSuite {
 			instance = new TestSuite();
 		return instance;
 	}
-	
+	 
 	public static void cambiaTestSuite(TestSuite nuovo) {
 		instance = nuovo;
 	}

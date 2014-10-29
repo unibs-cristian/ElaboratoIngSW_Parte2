@@ -38,7 +38,7 @@ public class NodoFinale implements Entita
 		daRestituire.add(this);
 		return daRestituire;
 	}
-	
+	 
 	public boolean giaPresente(String nome) {
 		return nome==ID_TIPO_NODO_FINALE;	
 	}	

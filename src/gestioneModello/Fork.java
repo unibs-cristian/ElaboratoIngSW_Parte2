@@ -96,7 +96,7 @@ public class Fork implements Entita {
 		}
 		return false;	
 	}
-	
+	 
 	public boolean ramiTuttiVuoti() {
 		for(int i=0; i<elencoRami.length; i++)
 			if (elencoRami[i].getEntitaRamo().isEmpty() == false)

@@ -14,7 +14,7 @@ public class Ramo {
 	public Vector<Entita> getEntitaRamo() {
 		return entitaRamo;
 	}
-	
+	 
 	public void aggiungiEntitaRamo(Entita daAggiungere) {
 		entitaRamo.addElement(daAggiungere);
 	}

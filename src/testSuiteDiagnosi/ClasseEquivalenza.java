@@ -17,7 +17,7 @@ public class ClasseEquivalenza {
 		camminoGlobale = new Vector<Entita>();
 		elencoCoppie = new Vector<Coppia>(); 
 	}
-	
+	 
 	public int getCardinalita() {
 		return cardinalita;
 	}

@@ -52,7 +52,7 @@ public class NodoIniziale implements Entita {
 	public boolean giaPresente(String nome) {
 		return false;
 	}
-	
+
 	public boolean rimuoviEntitaAt(int id) {
 		return false;
 	}

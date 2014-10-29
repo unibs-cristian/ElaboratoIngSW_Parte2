@@ -125,6 +125,15 @@ public class Modello implements Entita {
 		return e;
 	}
 	
+	public Vector<Entita> getAzioniModello() {
+		Vector <Entita> risultato = new Vector<Entita>();
+		for(int i=0; i<elencoEntita.size()-1; i++) {
+			Entita e = elencoEntita.elementAt(i);
+			if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
+				risultato.add(e);
+		}
+	}
+	
 	public Entita getUltimaEntita() {
 		int idUltima = GestoreModello.contatoreEntita-1;
 		return cercaId(idUltima);

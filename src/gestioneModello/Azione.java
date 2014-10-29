@@ -72,7 +72,7 @@ public class Azione implements Entita {
 	public int getId() {
 		return id;
 	}
-	
+	 
 	public String getNome() {
 		return titolo;
 	}
