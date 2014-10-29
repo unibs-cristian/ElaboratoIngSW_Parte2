@@ -46,14 +46,21 @@ public class Diagnosi {
 		
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
+			
+			System.out.println("1) Selezione Classe "+i);
+			
 			ClasseEquivalenza classe = elencoClassi.get(i);
 			Vector<Coppia> insiemeDiCopertura = classe.getElencoCoppie();
 			
 			/** Creo la matrice che ha Azioni sulle COLONNE e ogni elenco Azioni della Coppia sulle RIGHE. */
 			int[][] matrice = new int[insiemeDiCopertura.size()][elencoAzioni.size()];
+			
+			System.out.println("1) Creazione Matrice");
 
 			/** Seleziono l'elenco di azioni di un elemento dell'insieme di copertura. */
 			for(int c=0; c<insiemeDiCopertura.size(); c++) {
+				
+				System.out.println("1) Selezione Coppia "+c);
 				
 				/** Ottengo una coppia elencoAzioniCoppia-valoreRilevazione. */
 				Coppia coppia = insiemeDiCopertura.get(c);
@@ -61,15 +68,23 @@ public class Diagnosi {
 				Vector<Azione> azioni = coppia.getInsiemeCammino();
 				String valRil = coppia.getValoreRilevazione();
 				
+				System.out.println("1) Rilevazione Coppia "+c+" : "+valRil);
+				
 				/** Faccio passare l'elencoAzioni e controllo se l'azione e' presente nella Coppia. */
 				for(int y=0; y<elencoAzioni.size(); y++) {
 					Azione azioneElenco = elencoAzioni.get(y);
 					
 					/** Se viene trovata, metto 0 se il valore della coppia e' OK, 1 se il valore della coppia e' KO. Metto -1 se non viene trovata. */
 					for(int k=0; k<azioni.size(); k++) {
+						
+						System.out.println("1) Nome Azione: "+azioneElenco.getNome());
+						
 						if(azioneElenco.getNome() == azioni.get(k).getNome()) {
-							if(valRil == "OK")
+							if(valRil == "OK") {
+								System.out.println("1) Valore Rilevato: "+valRil);
 								matrice[c][y] = 0;
+								System.out.println("Qui c'e' zero: matrice[c][y]");
+							}
 							else if(valRil == "KO") 
 								matrice[c][y] = 1;
 						}
