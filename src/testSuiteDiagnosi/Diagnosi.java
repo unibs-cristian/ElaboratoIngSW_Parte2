@@ -185,19 +185,22 @@ public Vector<Float> eseguiDiagnosiMetodo2 () {
 		/** Creazione matrice finale per passaggio risultati a ProbabilitaMetodo2. */
 		matriceClassiPerProbabilita2 = new int[righeMatriceFinale][elencoAzioni.size()];
 		
-		int ultimaRiga = 0;
-		int ultimaColonna = 0;		
+		int ultimaRiga = 0;	
 		
+		/** Faccio passare il vettore delle Matrici  e recupero ogni Matrice rappresentante ogni Classe. */
 		for(int v=0; v<vettoreMatriciRisultato.size(); v++) {
 			int lengthMatrice = vettoreMatriciRisultato.get(v)[0].length;
 			int[][] matriceTemp = new int[lengthMatrice][elencoAzioni.size()];
+			
+			/** Inserisco una matrice di Classe in una temporanea di dimensione uguale. */
 			matriceTemp = vettoreMatriciRisultato.get(v);
 			
 			for(int r=ultimaRiga; r<righeMatriceFinale; r++) {
-				for(int c=ultimaColonna; c<elencoAzioni.size(); c++) {
+				for(int c=0; c<elencoAzioni.size(); c++) {
+					/** Copio la matrice temporanea nella grossa matrice finale. */
 					matriceClassiPerProbabilita2[r][c] = matriceTemp[r][c];
-					ultimaColonna = c+1;
 				}
+				/** Tengo in memoria la prima riga libera per poter partire dalla posizione corretta nell'inserimento della prossima matrice. */
 				ultimaRiga = r+1;
 			}
 		}
