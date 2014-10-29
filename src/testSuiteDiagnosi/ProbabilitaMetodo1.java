@@ -30,7 +30,7 @@ public class ProbabilitaMetodo1
 			
 			for (int j = 0; j < vettoreRisultatiProbabilitaClassi.get(i).size() - 1; j++)
 			{
-				if (vettoreRisultatiProbabilitaClassi.get(j).get(i) != null)
+				if (vettoreRisultatiProbabilitaClassi.get(j).get(i) != -1)
 					{
 						numeratoreClassi.set(i, numeratoreClassi.get(i) + vettoreRisultatiProbabilitaClassi.get(j).get(i) );
 						denominatoreClassi.set(i, denominatoreClassi.get(i) + cardinalita );

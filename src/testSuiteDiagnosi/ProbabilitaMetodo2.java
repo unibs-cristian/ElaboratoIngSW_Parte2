@@ -4,16 +4,19 @@ import java.util.Vector;
 
 public class ProbabilitaMetodo2 
 {
-	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
+	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, int[][] matriceRisultatiTestSuite)
 	{
 		Vector<Integer> risultato = new Vector<Integer>(); 
 		Vector<Vector<Integer>> vettoreRisultatiProbabilitaAzioni = new Vector<Vector<Integer>>();
 		
+		testSuite.getAzioniClassi().size(); --> x
+		
+		/*
 		Vector<String> vettoreValoriRilevazione = new Vector<String>();
 		for (int i = 0; i < testSuite.getElencoClassi().size() - 1; i++)
 			for (int j = 0; j < testSuite.getElencoClassi().get(i).getElencoCoppie().size() - 1; j++)
 				vettoreValoriRilevazione.add(testSuite.getElencoClassi().get(i).getElencoCoppie().get(j).getValoreRilevazione() );
-		
+		*/
 		
 		for ( int i = 0; i < testSuite.getElencoClassi().size() -1; i++)
 		{
