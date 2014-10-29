@@ -25,7 +25,8 @@ public class ElaboratoParte1Main {
 	public final static String MSG_STAMPA_MOD_CORRENTE = "STAMPA DEL MODELLO CORRENTE\n";
 	public final static String MSG_MODELLO_CARICATO = "Il modello %s e' stato caricato con successo.";
 	public final static String MSG_INS_CLASSE_EQ = "CLASSE DI EQUIVALENZA N. %d - INSERIMENTO INFORMAZIONI";
-	public final static String MSG_CONTINUA_SI_NO = "Si desidera inserire un'altra classe di equivalenza?";
+	public final static String MSG_CONTINUA_SI_NO_CE = "Si desidera inserire un'altra classe di equivalenza?";
+	public final static String MSG_CONTINUA_SI_NO_COPPIA = "Si desidera inserire un'altra coppia (insieme del cammino ; valore della rilevazione)?";
 	
 	public final static String MSG_NOME_MODELLO = "Inserire il nome del nuovo modello: ";
 	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello: ";
@@ -43,7 +44,6 @@ public class ElaboratoParte1Main {
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_MODELLO);
 		vociMenuPrincipale.add(MSG_INS_TEST_SUITE);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_DIAGNOSI);
-		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_PROBABILITA);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_PROBABILITA);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_REPORT);
 		vociMenuPrincipale.add(MSG_CARICAMENTO_MODELLO);
@@ -121,7 +121,11 @@ public class ElaboratoParte1Main {
 		int i=1;
 		do {
 			System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-		} while(Util.yesOrNo(MSG_CONTINUA_SI_NO));	
+			do {
+					
+			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
+			
+		} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
 	}
 	
 	public static void caricamentoModello() {
