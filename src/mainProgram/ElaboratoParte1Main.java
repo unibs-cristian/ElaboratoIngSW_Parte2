@@ -71,6 +71,9 @@ public class ElaboratoParte1Main {
 				
 				case 4:
 					System.out.println("Visualizzazione insiemi delle diagnosi minimali da implementare...");
+					TestSuite ts = TestSuite.getInstance();
+					Diagnosi d1 = new Diagnosi(1, ts);
+					Diagnosi d2 = new Diagnosi(2, ts);
 					break;	
 					
 				case 5:
