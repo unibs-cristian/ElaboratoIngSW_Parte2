@@ -69,6 +69,16 @@ public class Branch implements Entita {
 		}
 		return elencoEntita;
 	}
+	 
+	public boolean giaPresente(String nome) {
+		elencoEntita = getEntita();
+		for(int i=0; i<elencoEntita.size(); i++) {
+			Entita e = elencoEntita.elementAt(i);
+				if(e.giaPresente(nome))
+					return true;
+		}
+		return false;	
+	}
 	
 	public void addEntita(Entita e) {
 		elencoEntita.add(e);
@@ -113,7 +123,7 @@ public class Branch implements Entita {
 		}
 		/*
 		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
-		 * componenti dei componenti e così via, in maniera ricorsiva 
+		 * componenti dei componenti e cosÃ¬ via, in maniera ricorsiva 
 		 */
 		if(daEliminare == null)
 			for(int i=0; i<elencoEntita.size(); i++) {
