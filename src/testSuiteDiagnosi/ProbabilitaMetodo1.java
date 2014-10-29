@@ -1,4 +1,4 @@
-package gestioneModello;
+package testSuiteDiagnosi;
 
 import java.util.Vector;
 
@@ -8,10 +8,10 @@ public class ProbabilitaMetodo1
 	{
 		Vector<Integer> risultato = new Vector<Integer>(); 
 		Vector<Vector<Integer>> vettoreRisultatiProbabilitaClassi = new Vector<Vector<Integer>>();
-		for ( int i = 0; i < testSuite.getClassi().size() -1; i++)
+		for ( int i = 0; i < testSuite.getElencoClassi().size() -1; i++)
 		{
 			Vector<Integer> risultatoProbabilitaClasse = new Vector<Integer>();
-			int cardinalita = testSuite.getClassi().get(i).getCardinalita;
+			int cardinalita = testSuite.getElencoClassi().get(i).getCardinalita();
 			
 			if (cardinalita > 1)
 				risultatoProbabilitaClasse = calcolaProbabilitaClasse(cardinalita, vettoreRisultatiTestSuite.get(i) );
@@ -26,7 +26,7 @@ public class ProbabilitaMetodo1
 		
 		for (int i = 0; i < vettoreRisultatiProbabilitaClassi.size() - 1; i++)
 		{
-			int cardinalita = testSuite.getClassi().get(i).getCardinalita;
+			int cardinalita = testSuite.getElencoClassi().get(i).getCardinalita();
 			
 			for (int j = 0; j < vettoreRisultatiProbabilitaClassi.get(i).size() - 1; j++)
 			{
