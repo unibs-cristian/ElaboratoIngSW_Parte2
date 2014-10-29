@@ -9,6 +9,7 @@ public class NodoIniziale implements Entita {
 	public final static String MSG_TITOLO_NI = "NODO_INIZIALE";
 	
 	private int id;
+	
 	/** Identificatore del tipo */
 	private static String idTipo = "NI";
 	
@@ -48,6 +49,10 @@ public class NodoIniziale implements Entita {
 		return null;
 	}
 	
+	public boolean giaPresente(String nome) {
+		return false;
+	}
+
 	public boolean rimuoviEntitaAt(int id) {
 		return false;
 	}
