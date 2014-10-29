@@ -4,9 +4,9 @@ import java.util.Vector;
 
 public class ProbabilitaMetodo1 
 {
-	public static Vector<Integer> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
+	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
 	{
-		Vector<Integer> risultato = new Vector<Integer>(); 
+		Vector<Float> risultato = new Vector<Float>(); 
 		Vector<Vector<Integer>> vettoreRisultatiProbabilitaClassi = new Vector<Vector<Integer>>();
 		for ( int i = 0; i < testSuite.getElencoClassi().size() -1; i++)
 		{
@@ -21,8 +21,8 @@ public class ProbabilitaMetodo1
 			vettoreRisultatiProbabilitaClassi.add(risultatoProbabilitaClasse);
 		}
 		
-		Vector<Integer> numeratoreClassi = new Vector<Integer>();
-		Vector<Integer> denominatoreClassi = new Vector<Integer>();
+		Vector<Float> numeratoreClassi = new Vector<Float>();
+		Vector<Float> denominatoreClassi = new Vector<Float>();
 		
 		for (int i = 0; i < vettoreRisultatiProbabilitaClassi.size() - 1; i++)
 		{
