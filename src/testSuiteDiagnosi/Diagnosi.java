@@ -22,13 +22,16 @@ public class Diagnosi {
 		
 		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
+		eseguiDiagnosi();
 	}
 	
 	public void eseguiDiagnosi() {
-		if(tipoDiagnosi == 1)
+		if(tipoDiagnosi == 1) {
 			eseguiDiagnosiMetodo1();
-		else
+		}
+		else {
 			eseguiDiagnosiMetodo2();
+		}
 	}
 	
 	public void eseguiDiagnosiMetodo1 () {
@@ -150,7 +153,7 @@ public void eseguiDiagnosiMetodo2 () {
 		
 		Vector<int[][]> vettoreMatriciRisultato = new Vector<int[][]>();
 		int[][] matriceClassiPerProbabilita2;
-		
+
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
 			ClasseEquivalenza classe = elencoClassi.get(i);
