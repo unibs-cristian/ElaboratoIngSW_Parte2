@@ -22,6 +22,7 @@ public class Modello implements Entita {
 	/** Costruttore del modello. Poiche' si usa il Pattern Singleton, il costruttore e' private. */
 	private Modello() {
 		elencoEntita = new Vector<Entita>();
+		elencoAzioni = new Vector<Azione>();
 		gm = new GestoreModello(this);
 		idTipo = ID_TIPO_MODELLO;
 		idModello = contatoreModello;
