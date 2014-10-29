@@ -70,6 +70,16 @@ public class Branch implements Entita {
 		return elencoEntita;
 	}
 	
+	public boolean giaPresente(String nome) {
+		elencoEntita = getEntita();
+		for(int i=0; i<elencoEntita.size(); i++) {
+			Entita e = elencoEntita.elementAt(i);
+				if(e.giaPresente(nome))
+					return true;
+		}
+		return false;	
+	}
+	
 	public void addEntita(Entita e) {
 		elencoEntita.add(e);
 	}		

@@ -94,6 +94,16 @@ public class Ciclo implements Entita {
 	public Ramo[] getRami() {
 		return elencoRami;
 	}
+	
+	public boolean giaPresente(String nome) {
+		elencoEntita = getEntita();
+		for(int i=0; i<elencoEntita.size(); i++) {
+			Entita e = elencoEntita.elementAt(i);
+				if(e.giaPresente(nome))
+					return true;
+		}
+		return false;	
+	}
 
 	public boolean ramiTuttiVuoti() {
 		for(int i=0; i<elencoRami.length; i++)

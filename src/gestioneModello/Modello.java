@@ -101,8 +101,7 @@ public class Modello implements Entita {
 	}
 	
 	public boolean nodoFinalePresente() {
-		Entita e = getUltimaEntita();
-		if(e.getNome()==NodoFinale.MSG_TITOLO_NF)
+		if(giaPresente(ID_TIPO_NODO_FINALE))
 			return true;
 		else
 			return false;
@@ -130,6 +129,24 @@ public class Modello implements Entita {
 		int idUltima = GestoreModello.contatoreEntita-1;
 		return cercaId(idUltima);
 	} 
+	
+	public boolean giaPresente(String nome) {
+		/* 
+		 * Controlla anche se il nome del modello e' gia' presente, per impedire l'inserimento di modelli con
+		 * lo stesso nome	
+		 */
+		Boolean trovato = false;
+		if(this.nome.equalsIgnoreCase(nome))
+			return true;
+		else
+			for(int i=0; i<elencoEntita.size(); i++) {
+				if(elencoEntita.elementAt(i).getNome().equalsIgnoreCase(nome)) 
+					return true;
+				else 
+					trovato = elencoEntita.elementAt(i).giaPresente(nome);
+			}
+		return trovato;
+	}
 	
 	// Rimuove l'entita' con tale id, se la trova
 	public boolean rimuoviEntitaAt(int id) {

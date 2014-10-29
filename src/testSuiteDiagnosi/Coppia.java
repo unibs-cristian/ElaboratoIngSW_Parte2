@@ -19,6 +19,4 @@ public class Coppia {
 	public Vector <Azione> getInsiemeCammino() {
 		return insiemeCammino;
 	}
-	
-	
 }
