@@ -64,9 +64,13 @@ public class Diagnosi {
 				
 				/** Ottengo una coppia elencoAzioniCoppia-valoreRilevazione. */
 				Coppia coppia = insiemeDiCopertura.get(c);
+				
 				/** Ottengo il vector di Azioni della Coppia e il valore. */
 				Vector<Azione> azioni = coppia.getInsiemeCammino();
 				String valRil = coppia.getValoreRilevazione();
+				
+				for(int x=0; x<azioni.size(); x++)
+					System.out.println("1) Nome Azione: "+azioni.get(i).getNome());
 				
 				System.out.println("1) Rilevazione Coppia "+c+" : "+valRil);
 				
