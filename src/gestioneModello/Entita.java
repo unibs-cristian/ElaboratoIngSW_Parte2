@@ -27,8 +27,6 @@ public interface Entita {
 	
 	public int getIndentazione();
 	
-	public boolean giaPresente(String nome);
-	
 	public boolean rimuoviEntitaAt(int id);
 	
 	public String toString();

@@ -46,6 +46,18 @@ public class Azione implements Entita {
 		idTipo = ID_TIPO_AZIONE;
 	}
 	
+	public String getTitolo() {
+		return titolo;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public String getNome() {
+		return titolo;
+	}
+	 
 	public void addEntita(Entita e, int qualeRamo) {}
 	
 	public Vector<Entita> getEntita() {
@@ -63,22 +75,6 @@ public class Azione implements Entita {
 	
 	public void decrementaContatore() {
 		contatoreAzioni--;
-	}
-	
-	public String getTitolo() {
-		return titolo;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
-	public String getNome() {
-		return titolo;
-	}
-	
-	public boolean giaPresente(String nome) {
-		return titolo.equalsIgnoreCase(nome);
 	}
 	
 	public int getIndentazione() {

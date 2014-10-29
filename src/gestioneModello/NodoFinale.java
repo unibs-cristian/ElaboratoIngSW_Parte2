@@ -39,10 +39,6 @@ public class NodoFinale implements Entita
 		return daRestituire;
 	}
 	
-	public boolean giaPresente(String nome) {
-		return nome==ID_TIPO_NODO_FINALE;	
-	}	
-	
 	public void addEntita(Entita e, int qualeRamo) {}
 	
 	public boolean rimuoviEntitaAt(int id) {

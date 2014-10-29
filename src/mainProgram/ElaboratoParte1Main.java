@@ -44,6 +44,7 @@ public class ElaboratoParte1Main {
 		vociMenuPrincipale.add(MSG_INS_TEST_SUITE);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_DIAGNOSI);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_PROBABILITA);
+		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_PROBABILITA);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_REPORT);
 		vociMenuPrincipale.add(MSG_CARICAMENTO_MODELLO);
 		vociMenuPrincipale.add(MSG_USCITA_PROGRAMMA);

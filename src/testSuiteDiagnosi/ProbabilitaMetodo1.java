@@ -1,17 +1,17 @@
-package testSuiteDiagnosi;
+package gestioneModello;
 
 import java.util.Vector;
 
 public class ProbabilitaMetodo1 
 {
-	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
+	public Vector<Integer> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
 	{
-		Vector<Float> risultato = new Vector<Float>(); 
+		Vector<Integer> risultato = new Vector<Integer>(); 
 		Vector<Vector<Integer>> vettoreRisultatiProbabilitaClassi = new Vector<Vector<Integer>>();
-		for ( int i = 0; i < testSuite.getElencoClassi().size() -1; i++)
+		for ( int i = 0; i < testSuite.getClassi().size() -1; i++)
 		{
 			Vector<Integer> risultatoProbabilitaClasse = new Vector<Integer>();
-			int cardinalita = testSuite.getElencoClassi().get(i).getCardinalita();
+			int cardinalita = testSuite.getClassi().get(i).getCardinalita;
 			
 			if (cardinalita > 1)
 				risultatoProbabilitaClasse = calcolaProbabilitaClasse(cardinalita, vettoreRisultatiTestSuite.get(i) );
@@ -21,12 +21,12 @@ public class ProbabilitaMetodo1
 			vettoreRisultatiProbabilitaClassi.add(risultatoProbabilitaClasse);
 		}
 		
-		Vector<Float> numeratoreClassi = new Vector<Float>();
-		Vector<Float> denominatoreClassi = new Vector<Float>();
+		Vector<Integer> numeratoreClassi = new Vector<Integer>();
+		Vector<Integer> denominatoreClassi = new Vector<Integer>();
 		
 		for (int i = 0; i < vettoreRisultatiProbabilitaClassi.size() - 1; i++)
 		{
-			int cardinalita = testSuite.getElencoClassi().get(i).getCardinalita();
+			int cardinalita = testSuite.getClassi().get(i).getCardinalita;
 			
 			for (int j = 0; j < vettoreRisultatiProbabilitaClassi.get(i).size() - 1; j++)
 			{
