@@ -131,6 +131,8 @@ public class Diagnosi {
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
+			
+			stampaDiagnosi(matrice);
 		}
 		
 		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
@@ -221,6 +223,8 @@ public void eseguiDiagnosiMetodo2 () {
 		ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
 		risultatoFinaleProbabilita = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
 		
+		stampaDiagnosi(matriceClassiPerProbabilita2);
+		
 		stampaRisultati(risultatoFinaleProbabilita);
 		//return risultatoFinaleProbabilita;
 	}
@@ -237,5 +241,16 @@ public void eseguiDiagnosiMetodo2 () {
 		
 			System.out.println("" + i + ") P(" + action + ") = " + result);
 		}
+	}
+	
+	public void stampaDiagnosi(int[][] matrice) {
+		for(int i=0; i<matrice.length; i++) {
+			for(int j=0; j<matrice[0].length; j++) {
+				
+				System.out.print(matrice[i][j]);
+			}
+			System.out.println("");
+		}
+		System.out.println("\n\n");
 	}
 }
