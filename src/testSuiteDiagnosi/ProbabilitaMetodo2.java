@@ -2,9 +2,9 @@ package testSuiteDiagnosi;
 
 import java.util.Vector;
 
-public class ProbabilitaMetodo2 
+public class ProbabilitaMetodo2
 {
-	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, int[][] matriceRisultatiTestSuite)
+	public Vector<Float> calcolaProbabilita (TestSuite testSuite, int[][] matriceRisultatiTestSuite)
 	{
 		Vector<Float> risultato = new Vector<Float>();
 		
