@@ -1,7 +1,6 @@
 package gestioneModello;
 
 import java.util.Vector;
-
 import utilita.GUI;
 import utilita.Menu;
 import utilita.Util;
@@ -33,18 +32,19 @@ public class GestoreModello {
 	public final static String MSG_NUM_RAMI_FORK = "Quanti rami si vuole che abbia il fork? ->";
 	public final static String MSG_NUOVA_ENTITA = "La nuova entita' %s e' stata aggiunta a %s";
 	public final static String MSG_ERRORE_RAMI = "Tutti i rami di %s sono vuoti. Impossibile creare l'entita'.\nInserire nuovamente le entita' per i singoli rami.";
+	public final static String MSG_DUPLICATO = "Errore! E' gia' presente nel modello un'entita' con lo stesso nome. Si prega di inserire un nome diverso.";
 	
 	public final static int MIN_RAMI = 2;
 	
 	public final static String MSG_RAMO_BRANCH = "%s (ID = %d) - INSERIMENTO ENTITA' PER IL RAMO N. %d";
 	public final static String MSG_RAMO_FORK = "%s (ID = %d) - INSERIMENTO ENTITA' PER IL RAMO PARALLELO N. %d";
 	public final static String MSG_RAMO_SUCC = "Per chiudere il ramo corrente selezionare l'opzione 'Chiudere ramo corrente'.\n";
-	public final static String MSG_CHIUSURA_BRANCH = "Tutti i rami di %s (ID = %d) sono stati completati ed Ë stato creato il relativo Merge N.%d";
+	public final static String MSG_CHIUSURA_BRANCH = "Tutti i rami di %s (ID = %d) sono stati completati ed √® stato creato il relativo Merge N.%d";
 	public final static String MSG_CHIUSURA_CICLO = "E' stato completato l'inserimento di tutti i rami del Ciclo N.%d";
-	public final static String MSG_CHIUSURA_FORK = "Tutti i rami paralleli di %s (ID = %d) sono stati completati ed Ë stato creato il relativo Join N.%d";
-	public final static String MSG_ATTIVITA_INIZIALI_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'ATTIVITA' INIZIALI'.\nNel caso in cui tale ramo venga lasciato vuoto verra' creato un ciclo\na condizione iniziale, altrimenti il ciclo sar‡ a condizione finale.\n";
-	public final static String MSG_ATTIVITA_COND_USCITA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE D'USCITA'.\nTale ramo puÚ essere lasciato vuoto.";
-	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo puÚ essere lasciato vuoto (se non sono vuoti gli altri due rami)";
+	public final static String MSG_CHIUSURA_FORK = "Tutti i rami paralleli di %s (ID = %d) sono stati completati ed √® stato creato il relativo Join N.%d";
+	public final static String MSG_ATTIVITA_INIZIALI_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'ATTIVITA' INIZIALI'.\nNel caso in cui tale ramo venga lasciato vuoto verra' creato un ciclo\na condizione iniziale, altrimenti il ciclo sar√† a condizione finale.\n";
+	public final static String MSG_ATTIVITA_COND_USCITA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE D'USCITA'.\nTale ramo pu√≤ essere lasciato vuoto.";
+	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo pu√≤ essere lasciato vuoto (se non sono vuoti gli altri due rami)";
 	
 	public final static String MSG_RICHIESTA_SALVATAGGIO = "Ritorno al menu' principale. Tutti i progressi non salvati andranno persi.\nSi desidera salvare il modello? (y/n)";
 	public final static String MSG_ENTITA_ELIMINATA = "E' stata eliminata l'entita' di nome %s (id %d)";
@@ -52,12 +52,7 @@ public class GestoreModello {
 	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! Nel modello e' gia' presente il Nodo Finale.\nPer poter inserire nuove entita' eliminare il Nodo Finale.";
 	
 	public final static String MSG_RAMI_BRANCH = "Quanti rami si vuole che abbia il branch?";
-	public final static String MSG_DESCRIZIONE_AZIONE = "Fornire una breve descrizione dell'azione che si sta inserendo: ";
-	public final static String MSG_COND_BRANCH = "Scrivere la condizione relativa al ramo n∞ %d del branch.\n";
-	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale e' necessario che nel modello sia\npresente almeno un'azione.\n";	
-	public final static String MSG_ERRORE_MERGE = "Impossibile inserire il merge. Nessun branch da chiudere.\n";
-	public final static String MSG_ERRORE_MERGE_2 = "Errore! Impossibile chiudere il merge. Nessuna entita'† tra il merge e il branch da chiudere.\n";
-	public final static String MSG_INSERIMENTO_ENTITA_RAMO = "\nInserire le entita'†relative al ramo n∞ ";
+	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale e' necessario che nel modello sia presente almeno un'azione.";	
 	
 	public final static int OPZ_BRANCH = 1;
 	public final static int OPZ_CICLO = 2;
@@ -244,7 +239,7 @@ public class GestoreModello {
 					case 4 :
 						inserimentoFork(e,i);
 						break;
-					
+					 
 					case 5:
 					{	
 						//TODO eliminazione entita' da menu' secondario
@@ -288,14 +283,28 @@ public class GestoreModello {
 	}
 	
 	public void inserimentoAzione (Entita e, int qualeRamo) {
-		String t = Util.leggiString(MSG_TITOLO_AZIONE);
+		Boolean presente = false;
+		String t;
+		do {
+			t = Util.leggiString(MSG_TITOLO_AZIONE);
+			presente = mod.giaPresente(t);
+			if(presente)
+				System.out.println(MSG_DUPLICATO);
+		} while(presente==true);
 		Azione action = new Azione(t);
 		e.addEntita(action, qualeRamo);
 		System.out.println(String.format(MSG_NUOVA_ENTITA,action.getNome(),e.getNome()));
 	}
 	
 	public void inserimentoBranch(Entita e, int qualeRamo) {
-		String t = Util.leggiString(MSG_TITOLO_BRANCH);
+		String t;
+		Boolean presente = false;
+		do {
+			t = Util.leggiString(MSG_TITOLO_BRANCH);
+			presente = mod.giaPresente(t);
+			if(presente)
+				System.out.println(MSG_DUPLICATO);
+		} while(presente==true);
 		int n = Util.leggiIntConMinimo(MSG_NUM_RAMI_BRANCH, MIN_RAMI);
 		Branch b = new Branch(t, n);
 		GUI.incrementaRientro();
@@ -314,7 +323,14 @@ public class GestoreModello {
 	}
 	
 	public void inserimentoCiclo(Entita e, int qualeRamo) {
-		String t = Util.leggiString(MSG_TITOLO_CICLO);
+		String t;
+		Boolean presente = false;
+		do {
+			t = Util.leggiString(MSG_TITOLO_BRANCH);
+			presente = mod.giaPresente(t);
+			if(presente)
+				System.out.println(MSG_DUPLICATO);
+		} while(presente==true);
 		Ciclo c = new Ciclo(t);
 		for (int i=0; i<c.getNumeroRami(); i++)
 			c.getRami()[i] = new Ramo();
@@ -332,7 +348,14 @@ public class GestoreModello {
 	}
 	
 	public void inserimentoFork(Entita e, int qualeRamo) {
-		String t = Util.leggiString(MSG_TITOLO_FORK);
+		String t;
+		Boolean presente = false;
+		do {
+			t = Util.leggiString(MSG_TITOLO_BRANCH);
+			presente = mod.giaPresente(t);
+			if(presente)
+				System.out.println(MSG_DUPLICATO);
+		} while(presente==true);
 		int n = Util.leggiIntConMinimo(MSG_NUM_RAMI_FORK, MIN_RAMI);
 		Fork temp = new Fork(t, n);
 		for (int i=0; i<temp.getNumeroRami(); i++)
