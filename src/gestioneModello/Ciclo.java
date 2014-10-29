@@ -34,7 +34,7 @@ public class Ciclo implements Entita {
 		idCiclo = contatoreCicli;
 		titolo = _titolo;
 		numRami = NUM_RAMI_CICLO;
-		elencoRami = new Ramo [NUM_RAMI_CICLO];  //TODO potrebbero bastare 2 rami   Ramo 1 : eventuali attivit‡ iniziali    Ramo 2 : condizione uscita ciclo    Ramo 3 : condizione di permanenza nel ciclo
+		elencoRami = new Ramo [NUM_RAMI_CICLO];  //TODO potrebbero bastare 2 rami   Ramo 1 : eventuali attivit√† iniziali    Ramo 2 : condizione uscita ciclo    Ramo 3 : condizione di permanenza nel ciclo
 		elencoEntita = new Vector<Entita>();
 		idTipo = ID_TIPO_CICLO;
 		valoreIndentazione = GUI.getRientro();
@@ -132,7 +132,7 @@ public class Ciclo implements Entita {
 		}
 		/*
 		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
-		 * componenti dei componenti e cosÏ via, in maniera ricorsiva 
+		 * componenti dei componenti e cos√¨ via, in maniera ricorsiva 
 		 */
 		if(daEliminare == null)
 			for(int i=0; i<elencoEntita.size(); i++) {

@@ -5,7 +5,7 @@ public class Modello implements Entita {
 	
 	public final static String MSG_NOME_MODELLO = "NOME MODELLO : %s\n";
 	public final static String MSG_DESCRIZIONE_MODELLO = "DESCRIZIONE MODELLO : %s\n\n";
-	public final static String MSG_ERRORE_MODIFICA = "Errore. Non è presente alcuna entita' da eliminare.";
+	public final static String MSG_ERRORE_MODIFICA = "Errore. Non Ã¨ presente alcuna entita' da eliminare.";
 	
 	private String nome;
 	private String descrizione;

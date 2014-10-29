@@ -124,7 +124,7 @@ public class Fork implements Entita {
 		}
 		/*
 		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
-		 * componenti dei componenti e così via, in maniera ricorsiva 
+		 * componenti dei componenti e cosÃ¬ via, in maniera ricorsiva 
 		 */
 		if(daEliminare == null)
 			for(int i=0; i<elencoEntita.size(); i++) {

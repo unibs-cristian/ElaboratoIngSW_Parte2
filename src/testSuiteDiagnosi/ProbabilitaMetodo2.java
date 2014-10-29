@@ -2,12 +2,19 @@ package testSuiteDiagnosi;
 
 import java.util.Vector;
 
-public class ProbabilitaMetodo1 
+public class ProbabilitaMetodo2 
 {
-	public Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
+	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
 	{
-		Vector<Float> risultato = new Vector<Float>(); 
-		Vector<Vector<Integer>> vettoreRisultatiProbabilitaClassi = new Vector<Vector<Integer>>();
+		Vector<Integer> risultato = new Vector<Integer>(); 
+		Vector<Vector<Integer>> vettoreRisultatiProbabilitaAzioni = new Vector<Vector<Integer>>();
+		
+		Vector<String> vettoreValoriRilevazione = new Vector<String>();
+		for (int i = 0; i < testSuite.getElencoClassi().size() - 1; i++)
+			for (int j = 0; j < testSuite.getElencoClassi().get(i).getElencoCoppie().size() - 1; j++)
+				vettoreValoriRilevazione.add(testSuite.getElencoClassi().get(i).getElencoCoppie().get(j).getValoreRilevazione() );
+		
+		
 		for ( int i = 0; i < testSuite.getElencoClassi().size() -1; i++)
 		{
 			Vector<Integer> risultatoProbabilitaClasse = new Vector<Integer>();
@@ -21,8 +28,8 @@ public class ProbabilitaMetodo1
 			vettoreRisultatiProbabilitaClassi.add(risultatoProbabilitaClasse);
 		}
 		
-		Vector<Float> numeratoreClassi = new Vector<Float>();
-		Vector<Float> denominatoreClassi = new Vector<Float>();
+		Vector<Integer> numeratoreClassi = new Vector<Integer>();
+		Vector<Integer> denominatoreClassi = new Vector<Integer>();
 		
 		for (int i = 0; i < vettoreRisultatiProbabilitaClassi.size() - 1; i++)
 		{
@@ -30,7 +37,7 @@ public class ProbabilitaMetodo1
 			
 			for (int j = 0; j < vettoreRisultatiProbabilitaClassi.get(i).size() - 1; j++)
 			{
-				if (vettoreRisultatiProbabilitaClassi.get(j).get(i) != null)
+				if (vettoreRisultatiProbabilitaClassi.get(j).get(i) != -1)
 					{
 						numeratoreClassi.set(i, numeratoreClassi.get(i) + vettoreRisultatiProbabilitaClassi.get(j).get(i) );
 						denominatoreClassi.set(i, denominatoreClassi.get(i) + cardinalita );
@@ -41,16 +48,6 @@ public class ProbabilitaMetodo1
 				
 		}
 		return risultato;
-	}
-	
-	private Vector<Integer> calcolaProbabilitaClasse (int cardinalita, Vector<Integer> vettoreRisultatiClasse)
-	{
-		Vector<Integer> risultatoProbabilitaClasse = new Vector<Integer>();
-		for (int i = 0; i < vettoreRisultatiClasse.size() - 1; i++)
-		{
-			risultatoProbabilitaClasse.set(i, cardinalita * vettoreRisultatiClasse.get(i) );
-		}
-		return risultatoProbabilitaClasse;
 	}
 
 }
