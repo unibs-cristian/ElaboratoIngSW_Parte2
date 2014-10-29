@@ -1,4 +1,5 @@
 package gestioneModello;
+import java.awt.geom.NoninvertibleTransformException;
 import java.util.*;
 
 public class Modello implements Entita {
@@ -128,28 +129,28 @@ public class Modello implements Entita {
 	//Metodo che restituisce tutte le azioni contenute nel modello.
 	public Vector<Entita> getAzioni() {
 		Vector <Entita> risultato = new Vector<Entita>();
-		for(int i=0; i<elencoEntita.size()-1; i++) {
+		for(int i=0; i<elencoEntita.size(); i++) {
 			Entita e = elencoEntita.elementAt(i);
 			// Se e' un'azione la aggiunge al Vector da restituire
-			if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
-				if(giaPresente(e.getNome())==false)
-				{
+			if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE)) 
 					risultato.add(e);
-					System.out.println("Aggiunta");
-				}
 			// Se non e' un'azione, cerca le azioni nelle entita' figlie
 			else {
 				Vector <Entita> azioniEntita = new Vector<Entita>();
 				azioniEntita = e.getAzioni();
 				if(azioniEntita!=null)
-					for(int j=0; j<azioniEntita.size(); j++)
-						if(e.giaPresente(azioniEntita.elementAt(j).getNome())==false)
-						{
-							System.out.println("Aggiunta");
+					for(int j=0; j<azioniEntita.size(); j++) {
+						Entita entity = azioniEntita.elementAt(j);
+						boolean nonInserire = false;
+						for(int k=0; k<risultato.size(); k++) {
+							if(risultato.elementAt(k).getId()==entity.getId())
+								nonInserire = true;
+						}
+						if(nonInserire==false)
 							risultato.add(azioniEntita.elementAt(j));
 						}
+					}
 			}
-		}
 		return risultato;
 	}
 	
@@ -160,8 +161,8 @@ public class Modello implements Entita {
 	
 	public boolean giaPresente(String nome) {
 		/* 
-		 * Controlla anche se il nome del modello e' gia' presente, per impedire l'inserimento di modelli con
-		 * lo stesso nome	
+		 * Controlla anche se il nome del modello o dell'entita' da inserire in esso  e' gia' 
+		 * presente, per impedire l'inserimento di entita' aventi lo stesso nome.
 		 */
 		Boolean trovato = false;
 		if(this.nome.equalsIgnoreCase(nome))
