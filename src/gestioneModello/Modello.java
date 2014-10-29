@@ -1,5 +1,4 @@
 package gestioneModello;
-import java.awt.geom.NoninvertibleTransformException;
 import java.util.*;
 
 public class Modello implements Entita {
@@ -12,6 +11,7 @@ public class Modello implements Entita {
 	private String descrizione;
 	private GestoreModello gm;
 	private Vector <Entita> elencoEntita;
+	private Vector <Azione> elencoAzioni;
 	private static int contatoreModello = 1;
 	private int idModello;
 	private String idTipo;
@@ -84,6 +84,10 @@ public class Modello implements Entita {
 		elencoEntita.add(e);
 	}
 	
+	public void addAzione(Azione a) {
+		elencoAzioni.add(a);
+	}
+	
 	public void eliminaUltimaEntita() {
 		if(elencoEntita.size()<=1)     
 			System.out.println(MSG_ERRORE_MODIFICA);
@@ -99,6 +103,10 @@ public class Modello implements Entita {
 					finito = true;
 			}
 		}
+	}
+	
+	public Vector<Azione> getElencoAzioni() {
+		return elencoAzioni;
 	}
 	
 	public boolean nodoFinalePresente() {
@@ -124,32 +132,6 @@ public class Modello implements Entita {
 		while(e == null)
 			e = cercaId(idDaCercare-1);
 		return e;
-	}
-	
-	public Vector <Entita> ottieniEntitaModello() {
-		Vector <Entita> daRestituire = new Vector<Entita>();
-		for(int i=0; i<elencoEntita.size(); i++) {
-			Entita e = elencoEntita.elementAt(i);
-			daRestituire.add(e);
-			Vector <Entita> entitaInterne = e.getEntita();
-			for(int j=0; j<entitaInterne.size(); j++) {
-				daRestituire.add(entitaInterne.elementAt(j));
-			}
-		}
-		return daRestituire;
-	}
- 	
-	//Metodo che restituisce tutte le azioni contenute nel modello.
-	public Vector<Entita> getAzioni() {
-		Vector <Entita> risultato = new Vector<Entita>();
-		Vector <Entita> entMod = ottieniEntitaModello();
-		for(int i=0; i<entMod.size(); i++) {
-			Entita e = entMod.elementAt(i);
-			// Se e' un'azione la aggiunge al Vector da restituire
-			if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE)) 
-				risultato.add(e);
-		}
-		return risultato;
 	}
 	
 	public Entita getUltimaEntita() {
@@ -227,5 +209,9 @@ public class Modello implements Entita {
 	
 	public String getIdTipo() {
 		return idTipo;
+	}
+
+	public Vector<Entita> getAzioni() {    //TODO toglierlo dall'interfaccia
+		return null;
 	}
 }

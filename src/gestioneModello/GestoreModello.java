@@ -293,6 +293,7 @@ public class GestoreModello {
 		} while(presente==true);
 		Azione action = new Azione(t);
 		e.addEntita(action, qualeRamo);
+		mod.addAzione(action);
 		System.out.println(String.format(MSG_NUOVA_ENTITA,action.getNome(),e.getNome()));
 	}
 	
