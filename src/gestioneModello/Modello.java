@@ -5,7 +5,7 @@ public class Modello implements Entita {
 	
 	public final static String MSG_NOME_MODELLO = "NOME MODELLO : %s\n";
 	public final static String MSG_DESCRIZIONE_MODELLO = "DESCRIZIONE MODELLO : %s\n\n";
-	public final static String MSG_ERRORE_MODIFICA = "Errore. Non è presente alcuna entita' da eliminare.";
+	public final static String MSG_ERRORE_MODIFICA = "Errore. Non Ã¨ presente alcuna entita' da eliminare.";
 	
 	private String nome;
 	private String descrizione;
@@ -101,8 +101,7 @@ public class Modello implements Entita {
 	}
 	
 	public boolean nodoFinalePresente() {
-		Entita e = getUltimaEntita();
-		if(e.getNome()==NodoFinale.MSG_TITOLO_NF)
+		if(giaPresente(ID_TIPO_NODO_FINALE))
 			return true;
 		else
 			return false;
@@ -126,10 +125,37 @@ public class Modello implements Entita {
 		return e;
 	}
 	
+	public Vector<Entita> getAzioniModello() {
+		Vector <Entita> risultato = new Vector<Entita>();
+		for(int i=0; i<elencoEntita.size()-1; i++) {
+			Entita e = elencoEntita.elementAt(i);
+			if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
+				risultato.add(e);
+		}
+	}
+	
 	public Entita getUltimaEntita() {
 		int idUltima = GestoreModello.contatoreEntita-1;
 		return cercaId(idUltima);
 	} 
+	
+	public boolean giaPresente(String nome) {
+		/* 
+		 * Controlla anche se il nome del modello e' gia' presente, per impedire l'inserimento di modelli con
+		 * lo stesso nome	
+		 */
+		Boolean trovato = false;
+		if(this.nome.equalsIgnoreCase(nome))
+			return true;
+		else
+			for(int i=0; i<elencoEntita.size(); i++) {
+				if(elencoEntita.elementAt(i).getNome().equalsIgnoreCase(nome)) 
+					return true;
+				else 
+					trovato = elencoEntita.elementAt(i).giaPresente(nome);
+			}
+		return trovato;
+	}
 	
 	// Rimuove l'entita' con tale id, se la trova
 	public boolean rimuoviEntitaAt(int id) {
