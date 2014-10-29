@@ -133,9 +133,13 @@ public class ElaboratoParte1Main {
 	public static void caricamentoModello() {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO_PREESISTENTE));
 		Modello modelloCaricato = null;
-		Stream.caricaFile(nomeFile, modelloCaricato);
-		Modello.cambiaModello(modelloCaricato);
-		System.out.println(MSG_MODELLO_CARICATO);
+		modelloCaricato = (Modello) Stream.caricaFile(nomeFile, modelloCaricato);
+		if (modelloCaricato != null)
+		{
+			Modello.cambiaModello(modelloCaricato);
+			System.out.printf(MSG_MODELLO_CARICATO, nomeFile);
+			System.out.println();
+		}
 	};
 	
 	public static void benvenuto()

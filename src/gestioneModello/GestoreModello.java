@@ -1,8 +1,11 @@
 package gestioneModello;
 
+import java.io.File;
 import java.util.Vector;
+
 import utilita.GUI;
 import utilita.Menu;
+import utilita.Stream;
 import utilita.Util;
 
 public class GestoreModello {
@@ -57,6 +60,8 @@ public class GestoreModello {
 	public final static int OPZ_BRANCH = 1;
 	public final static int OPZ_CICLO = 2;
 	public final static int OPZ_FORK = 3;
+	
+	private static final String MSG_NOME_MODELLO = "Come vuoi chiamare il modello?";
 
 	protected static int contatoreEntita = 0;
 	
@@ -166,8 +171,8 @@ public class GestoreModello {
 					}
 					
 				case 9 : 
-					System.out.println("Salvataggio da implementare");
-					//TODO implementare salvataggio 
+						File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO));
+						Stream.salvaFile(nomeFile, mod, true);
 					break;
 					
 				default : System.out.println(MSG_ERRORE); break;
