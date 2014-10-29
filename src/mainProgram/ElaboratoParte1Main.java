@@ -72,6 +72,8 @@ public class ElaboratoParte1Main {
 				case 4:
 					System.out.println("Visualizzazione insiemi delle diagnosi minimali da implementare...");
 					TestSuite ts = TestSuite.getInstance();
+					if(ts==null)
+						System.out.println("TS nullo");
 					Diagnosi d1 = new Diagnosi(1, ts);
 					Diagnosi d2 = new Diagnosi(2, ts);
 					break;	
@@ -178,6 +180,9 @@ public class ElaboratoParte1Main {
 		Coppia coppia8 = new Coppia(insCamm8, "OK");
 		c3.addCoppia(coppia8);
 		
+		ts.addClasseEquivalenza(c1);
+		ts.addClasseEquivalenza(c2);
+		ts.addClasseEquivalenza(c3);
 		//Inserimento delle classi di equivalenza per il TS considerato
 	/*	int i=1;
 		do {
