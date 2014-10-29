@@ -5,7 +5,7 @@ import gestioneModello.Azione;
 
 public class Diagnosi {
 
-	private int id;
+	private int tipoDiagnosi;
 	private TestSuite testSuite;
 	private Vector<ClasseEquivalenza> elencoClassi;
 	private Vector<Azione> elencoAzioni;
@@ -18,13 +18,20 @@ public class Diagnosi {
 		-1: !KO
 		-2: !OK 	*/
 	
-	public Diagnosi (int id, TestSuite testSuite) {
+	public Diagnosi (int tipoDiagnosi, TestSuite testSuite) {
 		
-		this.id = id;
+		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
 	}
 	
-	public Vector<Float> eseguiDiagnosiMetodo1 () {
+	public void eseguiDiagnosi() {
+		if(tipoDiagnosi == 1)
+			eseguiDiagnosiMetodo1();
+		else
+			eseguiDiagnosiMetodo2();
+	}
+	
+	public void eseguiDiagnosiMetodo1 () {
 		
 		/** Inizializzo i vettori che servono per i risultati da passare a calcolo probabilita'. */
 		risultatoAzioni = new Vector<Integer>();
@@ -128,10 +135,12 @@ public class Diagnosi {
 		
 		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
 		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
-		return risultatoFinaleProbabilita;
+		
+		stampaRisultati(risultatoFinaleProbabilita);
+		//return risultatoFinaleProbabilita;
 	}
 	
-public Vector<Float> eseguiDiagnosiMetodo2 () {
+public void eseguiDiagnosiMetodo2 () {
 		
 		int righeMatriceFinale = 0;
 		elencoClassi = testSuite.getElencoClassi();
@@ -211,10 +220,22 @@ public Vector<Float> eseguiDiagnosiMetodo2 () {
 		/** Invio risultati. */
 		ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
 		risultatoFinaleProbabilita = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
-		return risultatoFinaleProbabilita;
+		
+		stampaRisultati(risultatoFinaleProbabilita);
+		//return risultatoFinaleProbabilita;
 	}
 	
-	public int getId() {
-		return id;
+	public int tipoDiagnosi() {
+		return tipoDiagnosi;
+	}
+	
+	public void stampaRisultati(Vector<Float> risultato) {
+		System.out.println("RISULTATO PROBABILITA' CON METODO "+tipoDiagnosi);
+		for(int i=0; i<risultato.size(); i++) {
+			String action = elencoAzioni.get(i).getNome();
+			Float result = risultato.get(i);
+		
+			System.out.println("" + i + ") P(" + action + ") = " + result);
+		}
 	}
 }

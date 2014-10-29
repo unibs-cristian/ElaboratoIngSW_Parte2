@@ -68,6 +68,8 @@ public class ElaboratoParte1Main {
 				
 				case 4:
 					System.out.println("Visualizzazione insiemi delle diagnosi minimali da implementare...");
+					TestSuite ts = TestSuite.getInstance();
+					
 					break;	
 					
 				case 5:
@@ -133,13 +135,9 @@ public class ElaboratoParte1Main {
 	public static void caricamentoModello() {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO_PREESISTENTE));
 		Modello modelloCaricato = null;
-		modelloCaricato = (Modello) Stream.caricaFile(nomeFile, modelloCaricato);
-		if (modelloCaricato != null)
-		{
-			Modello.cambiaModello(modelloCaricato);
-			System.out.printf(MSG_MODELLO_CARICATO, nomeFile);
-			System.out.println();
-		}
+		Stream.caricaFile(nomeFile, modelloCaricato);
+		Modello.cambiaModello(modelloCaricato);
+		System.out.println(MSG_MODELLO_CARICATO);
 	};
 	
 	public static void benvenuto()
