@@ -126,31 +126,29 @@ public class Modello implements Entita {
 		return e;
 	}
 	
+	public Vector <Entita> ottieniEntitaModello() {
+		Vector <Entita> daRestituire = new Vector<Entita>();
+		for(int i=0; i<elencoEntita.size(); i++) {
+			Entita e = elencoEntita.elementAt(i);
+			daRestituire.add(e);
+			Vector <Entita> entitaInterne = e.getEntita();
+			for(int j=0; j<entitaInterne.size(); j++) {
+				daRestituire.add(entitaInterne.elementAt(j));
+			}
+		}
+		return daRestituire;
+	}
+ 	
 	//Metodo che restituisce tutte le azioni contenute nel modello.
 	public Vector<Entita> getAzioni() {
 		Vector <Entita> risultato = new Vector<Entita>();
-		for(int i=0; i<elencoEntita.size(); i++) {
-			Entita e = elencoEntita.elementAt(i);
+		Vector <Entita> entMod = ottieniEntitaModello();
+		for(int i=0; i<entMod.size(); i++) {
+			Entita e = entMod.elementAt(i);
 			// Se e' un'azione la aggiunge al Vector da restituire
 			if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE)) 
-					risultato.add(e);
-			// Se non e' un'azione, cerca le azioni nelle entita' figlie
-			else {
-				Vector <Entita> azioniEntita = new Vector<Entita>();
-				azioniEntita = e.getAzioni();
-				if(azioniEntita!=null)
-					for(int j=0; j<azioniEntita.size(); j++) {
-						Entita entity = azioniEntita.elementAt(j);
-						boolean nonInserire = false;
-						for(int k=0; k<risultato.size(); k++) {
-							if(risultato.elementAt(k).getId()==entity.getId())
-								nonInserire = true;
-						}
-						if(nonInserire==false)
-							risultato.add(azioniEntita.elementAt(j));
-						}
-					}
-			}
+				risultato.add(e);
+		}
 		return risultato;
 	}
 	
