@@ -22,10 +22,12 @@ public interface Entita {
 	public Vector <Entita> getEntita();
 	
 	public String getNome();
-	
+	 
 	public Ramo[] getRami();
 	
 	public int getIndentazione();
+	
+	public boolean giaPresente(String nome);
 	
 	public boolean rimuoviEntitaAt(int id);
 	
