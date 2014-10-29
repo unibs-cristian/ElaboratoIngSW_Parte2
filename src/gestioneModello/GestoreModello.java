@@ -327,7 +327,7 @@ public class GestoreModello {
 		String t;
 		Boolean presente = false;
 		do {
-			t = Util.leggiString(MSG_TITOLO_BRANCH);
+			t = Util.leggiString(MSG_TITOLO_CICLO);
 			presente = mod.giaPresente(t);
 			if(presente)
 				System.out.println(MSG_DUPLICATO);

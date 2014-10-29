@@ -70,7 +70,6 @@ public class ElaboratoParte1Main {
 					break;
 				
 				case 4:
-					System.out.println("Visualizzazione insiemi delle diagnosi minimali da implementare...");
 					TestSuite ts = TestSuite.getInstance();
 					if(ts==null)
 						System.out.println("TS nullo");
@@ -210,12 +209,6 @@ public class ElaboratoParte1Main {
 	
 	public static void saluta()
 	{
-		Vector <Entita> elencoAzioni = Modello.getInstance().getAzioni();
-		for(int i=0; i<elencoAzioni.size(); i++)
-		{
-			System.out.println(elencoAzioni.elementAt(i).getNome());
-			System.out.println("Entrato");
-		}
 		System.out.print(MSG_SALUTO);
 	}
 }

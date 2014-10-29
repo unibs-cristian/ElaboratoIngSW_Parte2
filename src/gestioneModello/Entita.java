@@ -17,8 +17,6 @@ public interface Entita {
 	
 	public Entita cercaId(int idDaCercare);
 	
-	public Vector <Entita> getAzioni();
-	
 	public int getId();
 	
 	public Vector <Entita> getEntita();

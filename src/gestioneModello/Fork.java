@@ -49,25 +49,6 @@ public class Fork implements Entita {
 		return trovato;
 	}
 	
-	public Vector<Entita> getAzioni() {
-		Vector <Entita> res = new Vector<Entita>();
-		elencoEntita = getEntita();
-		for(int i=0; i<elencoEntita.size(); i++) {
-			if(elencoEntita.elementAt(i).getIdTipo()==ID_TIPO_AZIONE)
-				if(!giaPresente(elencoEntita.elementAt(i).getNome()))
-					res.add(elencoEntita.elementAt(i));
-			else {
-				Vector <Entita> azioniEntita = new Vector<Entita>();
-				azioniEntita = elencoEntita.elementAt(i).getAzioni();
-				if(azioniEntita!=null)
-					for(int j=0; j<azioniEntita.size(); j++)
-						if(!giaPresente(azioniEntita.elementAt(j).getNome()))
-							res.add(azioniEntita.elementAt(j));
-			}
-		}
-		return res;
-	}
-	
 	public int getId() {
 		return id;
 	}

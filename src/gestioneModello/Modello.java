@@ -211,8 +211,4 @@ public class Modello implements Entita {
 	public String getIdTipo() {
 		return idTipo;
 	}
-
-	public Vector<Entita> getAzioni() {    //TODO toglierlo dall'interfaccia
-		return null;
-	}
 }
