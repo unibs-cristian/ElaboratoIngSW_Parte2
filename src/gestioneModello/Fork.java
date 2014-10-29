@@ -87,6 +87,16 @@ public class Fork implements Entita {
 		return valoreIndentazione;
 	}
 	
+	public boolean giaPresente(String nome) {
+		elencoEntita = getEntita();
+		for(int i=0; i<elencoEntita.size(); i++) {
+			Entita e = elencoEntita.elementAt(i);
+				if(e.giaPresente(nome))
+					return true;
+		}
+		return false;	
+	}
+	 
 	public boolean ramiTuttiVuoti() {
 		for(int i=0; i<elencoRami.length; i++)
 			if (elencoRami[i].getEntitaRamo().isEmpty() == false)
@@ -114,7 +124,7 @@ public class Fork implements Entita {
 		}
 		/*
 		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
-		 * componenti dei componenti e così via, in maniera ricorsiva 
+		 * componenti dei componenti e cosÃ¬ via, in maniera ricorsiva 
 		 */
 		if(daEliminare == null)
 			for(int i=0; i<elencoEntita.size(); i++) {
