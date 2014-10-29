@@ -13,6 +13,11 @@ public class Diagnosi {
 	private Vector<Vector<Integer>> risultatoClassiPerProbabilita;
 	private Vector<Float> risultatoFinaleProbabilita1;
 	
+	/* 	 2: OK
+		 1: KO
+		-1: !KO
+		-2: !OK 	*/
+	
 	public Diagnosi (int id, TestSuite testSuite) {
 		
 		this.id = id;
@@ -21,7 +26,7 @@ public class Diagnosi {
 		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
 	}
 	
-	public void eseguiDiagnosi () {
+	public Vector<Float> eseguiDiagnosiMetodo1 () {
 		
 		elencoClassi = testSuite.getElencoClassi();
 		elencoAzioni = testSuite.getAzioniClassi();
@@ -120,7 +125,83 @@ public class Diagnosi {
 		
 		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
 		risultatoFinaleProbabilita1 = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
-	}	
+		return risultatoFinaleProbabilita1;
+	}
+	
+public void eseguiDiagnosiMetodo2 () {
+		
+		int righeMatriceFinale = 0;
+		elencoClassi = testSuite.getElencoClassi();
+		elencoAzioni = testSuite.getAzioniClassi();
+		
+		/** Seleziono una classe per volta. */
+		for(int i=0; i<elencoClassi.size(); i++) {
+			ClasseEquivalenza classe = elencoClassi.get(i);
+			Vector<Coppia> insiemeDiCopertura = classe.getElencoCoppie();
+			
+			/** Creo la matrice che ha Azioni sulle COLONNE e ogni elenco Azioni della Coppia sulle RIGHE. */
+			int[][] matrice = new int[insiemeDiCopertura.size()][elencoAzioni.size()];
+
+			/** Seleziono l'elenco di azioni di un elemento dell'insieme di copertura. */
+			for(int c=0; c<insiemeDiCopertura.size(); c++) {
+				
+				/** Ottengo una coppia elencoAzioniCoppia-valoreRilevazione. */
+				Coppia coppia = insiemeDiCopertura.get(c);
+				/** Ottengo il vector di Azioni della Coppia e il valore. */
+				Vector<Azione> azioni = coppia.getInsiemeCammino();
+				String valRil = coppia.getValoreRilevazione();
+				
+				/** Faccio passare l'elencoAzioni e controllo se l'azione e' presente nella Coppia. */
+				for(int y=0; y<elencoAzioni.size(); y++) {
+					Azione azioneElenco = elencoAzioni.get(y);
+					
+					/** Se viene trovata, metto 0 se il valore della coppia e' OK, 1 se il valore della coppia e' KO. Metto -1 se non viene trovata. */
+					for(int k=0; k<azioni.size(); k++) {
+						if(azioneElenco.getNome() == azioni.get(k).getNome()) {
+							if(valRil == "OK")
+								matrice[c][y] = 0;
+							else if(valRil == "KO") 
+								matrice[c][y] = 1;
+						}
+						else {
+							matrice[y][c] = -1;							
+						}
+					}					
+				}
+			}
+			
+			/** Calcolo risultati ed inserimento in vettore. */
+			for(int s=0; s<elencoAzioni.size(); s++) {
+				
+				/** Calcolo risultati */
+				boolean fineCalcoloAzione = false;
+				int valoreAzione = -1;
+				int f=0;
+				
+				do {
+					if(matrice[f][s] == 0 || matrice[f][s] == -1) {
+						valoreAzione = 0;
+						fineCalcoloAzione = true;
+					}
+					
+					if(matrice[f][s] == 1) {
+						valoreAzione = 1;
+					}
+					
+					f++;
+				} while(f<insiemeDiCopertura.size() || fineCalcoloAzione);
+				
+				/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
+				risultatoAzioni.add(valoreAzione);
+			}
+			
+			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
+			risultatoClassiPerProbabilita.add(risultatoAzioni);
+		}
+		
+		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		risultatoFinaleProbabilita1 = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+	}
 	
 	public int getId() {
 		return id;
