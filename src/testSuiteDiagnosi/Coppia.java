@@ -15,10 +15,8 @@ public class Coppia {
 	public String getValoreRilevazione() {
 		return valoreRilevazione;
 	}
-	
+	 
 	public Vector <Azione> getInsiemeCammino() {
 		return insiemeCammino;
 	}
-	
-	
 }
