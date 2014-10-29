@@ -22,12 +22,15 @@ public class Diagnosi {
 		
 		this.id = id;
 		this.testSuite = testSuite;
-		risultatoAzioni = new Vector<Integer>();
-		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
 	}
 	
 	public Vector<Float> eseguiDiagnosiMetodo1 () {
 		
+		/** Inizializzo i vettori che servono per i risultati da passare a calcolo probabilita'. */
+		risultatoAzioni = new Vector<Integer>();
+		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
+		
+		/** Ottengo vettori di classi e azioni da test suite. */
 		elencoClassi = testSuite.getElencoClassi();
 		elencoAzioni = testSuite.getAzioniClassi();
 		
