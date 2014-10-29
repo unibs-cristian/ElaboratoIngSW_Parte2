@@ -124,8 +124,57 @@ public class ElaboratoParte1Main {
 		
 		ClasseEquivalenza c1 = new ClasseEquivalenza(2);
 		Vector <Azione> insCamm1 = new Vector<Azione>();
-		
+		Vector <Azione> insGlobale = modelloCorrente.getElencoAzioni();
+		insCamm1.add(insGlobale.elementAt(0));
+		insCamm1.add(insGlobale.elementAt(2));
+		insCamm1.add(insGlobale.elementAt(3));
+		insCamm1.add(insGlobale.elementAt(4));
 		Coppia coppia1 = new Coppia(insCamm1, "KO");
+		Vector <Azione> insCamm2 = new Vector<Azione>();
+		insCamm2.add(insGlobale.elementAt(0));
+		Coppia coppia2 = new Coppia(insCamm2, "OK");
+		c1.addCoppia(coppia1);
+		c1.addCoppia(coppia2);
+		
+		ClasseEquivalenza c2 = new ClasseEquivalenza(1);
+		Vector <Azione> insCamm3 = new Vector<Azione>();
+		insCamm3.add(insGlobale.elementAt(0));
+		insCamm3.add(insGlobale.elementAt(2));
+		insCamm3.add(insGlobale.elementAt(3));
+		insCamm3.add(insGlobale.elementAt(4));
+		Coppia coppia3 = new Coppia(insCamm3, "KO");
+		Vector <Azione> insCamm4 = new Vector<Azione>();
+		insCamm4.add(insGlobale.elementAt(0));
+		Coppia coppia4 = new Coppia(insCamm4, "OK");
+		c2.addCoppia(coppia3);
+		c2.addCoppia(coppia4);
+		Vector <Azione> insCamm5 = new Vector<Azione>();
+		insCamm5.add(insGlobale.elementAt(0));
+		insCamm5.add(insGlobale.elementAt(2));
+		insCamm5.add(insGlobale.elementAt(3));
+		Coppia coppia5 = new Coppia(insCamm5, "KO");
+		c2.addCoppia(coppia5);
+		
+		ClasseEquivalenza c3 = new ClasseEquivalenza(1);
+		Vector <Azione> insCamm6 = new Vector<Azione>();
+		insCamm6.add(insGlobale.elementAt(0));
+		insCamm6.add(insGlobale.elementAt(1));
+		insCamm6.add(insGlobale.elementAt(2));
+		insCamm6.add(insGlobale.elementAt(3));
+		insCamm6.add(insGlobale.elementAt(5));
+		Coppia coppia6 = new Coppia(insCamm6, "KO");
+		Vector <Azione> insCamm7 = new Vector<Azione>();
+		insCamm7.add(insGlobale.elementAt(0));
+		Coppia coppia7 = new Coppia(insCamm7, "OK");
+		c3.addCoppia(coppia6);
+		c3.addCoppia(coppia7);
+		Vector <Azione> insCamm8 = new Vector<Azione>();
+		insCamm8.add(insGlobale.elementAt(0));
+		insCamm8.add(insGlobale.elementAt(1));
+		insCamm8.add(insGlobale.elementAt(2));
+		Coppia coppia8 = new Coppia(insCamm8, "OK");
+		c3.addCoppia(coppia8);
+		
 		//Inserimento delle classi di equivalenza per il TS considerato
 	/*	int i=1;
 		do {

@@ -22,6 +22,10 @@ public class ClasseEquivalenza {
 		return cardinalita;
 	}
 	
+	public void addCoppia(Coppia daAggiungere) {
+		elencoCoppie.add(daAggiungere);
+	}
+	
 	public Vector <Coppia> getElencoCoppie() {
 		return elencoCoppie;
 	}
