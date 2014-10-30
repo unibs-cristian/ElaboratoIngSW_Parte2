@@ -1,7 +1,9 @@
 package testSuiteDiagnosi;
 
 import java.util.Vector;
+
 import gestioneModello.Azione;
+import gestioneModello.Modello;
 
 public class Diagnosi {
 
@@ -46,7 +48,8 @@ public class Diagnosi {
 		elencoClassi = testSuite.getElencoClassi();
 		
 		System.out.println("Prima di elencoAzioni");
-		elencoAzioni = testSuite.getAzioniTS();
+		Modello mod = Modello.getInstance();
+		elencoAzioni = mod.getElencoAzioni();
 		System.out.println("Dopo elencoAzioni");
 		
 		System.out.println("1) Elenco Azioni");
