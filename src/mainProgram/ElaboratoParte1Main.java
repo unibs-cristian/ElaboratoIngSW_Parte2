@@ -122,6 +122,8 @@ public class ElaboratoParte1Main {
 		String nome_modello = Util.leggiString(MSG_NOME_MODELLO);
 		String descrizione_modello = Util.leggiString(MSG_DESCRIZIONE_MODELLO);
 		Modello m = Modello.getInstance();
+		m = null;
+		m = Modello.getInstance();
 		m.setNome(nome_modello);
 		m.setDescrizione(descrizione_modello);
 		NodoIniziale ni = new NodoIniziale();
