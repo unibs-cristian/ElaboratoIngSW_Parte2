@@ -22,8 +22,6 @@ public class Diagnosi {
 		
 		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
-		System.out.println("Chiamato diagnosi!");
-		eseguiDiagnosi();
 	}
 	
 	public void eseguiDiagnosi() {
