@@ -81,7 +81,9 @@ public class ElaboratoParte1Main {
 				case 4:
 					TestSuite ts = TestSuite.getInstance();
 					if(ts==null)
-						System.out.println("TS nullo");
+						System.out.println("TS nullo!");
+					else
+						System.out.println("TS rilevato!");
 					Diagnosi d1 = new Diagnosi(1, ts);
 					Diagnosi d2 = new Diagnosi(2, ts);
 					break;	
@@ -223,7 +225,6 @@ public class ElaboratoParte1Main {
 				ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita,cammGlob);
 				ts.addClasseEquivalenza(ce);
 				System.out.println(MSG_INS_COP);
-				i++;
 				//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
 				do {
 					CamminoAzioni insCamm = new CamminoAzioni();
