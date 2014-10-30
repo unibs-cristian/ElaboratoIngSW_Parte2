@@ -23,7 +23,7 @@ public class Coppia {
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("Insieme del cammino ---> " + insiemeCammino.toString() + "\n");
-		risultato.append("Valore della rilevazione ---> "+valoreRilevazione);
+		risultato.append("Valore della rilevazione ---> "+valoreRilevazione + "\n");
 		return risultato.toString();
 	}
 }

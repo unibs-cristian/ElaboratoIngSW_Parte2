@@ -43,7 +43,6 @@ public class GestoreModello {
 	public final static String MSG_CHIUSURA_CICLO = "E' stato completato l'inserimento di tutti i rami del Ciclo N.%d";
 	public final static String MSG_CHIUSURA_FORK = "Tutti i rami paralleli di %s (ID = %d) sono stati completati ed e' stato creato il relativo Join N.%d";
 	public final static String MSG_ATTIVITA_INIZIALI_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'ATTIVITA' INIZIALI'.\nNel caso in cui tale ramo venga lasciato vuoto verra' creato un ciclo\na condizione iniziale, altrimenti il ciclo sara'  a condizione finale.\n";
-	public final static String MSG_ATTIVITA_COND_USCITA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE D'USCITA'.\nTale ramo puo' essere lasciato vuoto.";
 	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo puo' essere lasciato vuoto (se non sono vuoti gli altri due rami)";
 	
 	public final static String MSG_RICHIESTA_SALVATAGGIO = "Ritorno al menu' principale. Tutti i progressi non salvati andranno persi.\nSi desidera salvare il modello? (y/n)";
@@ -210,10 +209,6 @@ public class GestoreModello {
 					}
 					else if(i==1)
 					{
-						System.out.println(String.format(MSG_ATTIVITA_COND_USCITA_CICLO, e.getNome())); break;
-					}
-					else if(i==2)
-					{
 						System.out.println(String.format(MSG_ATTIVITA_COND_PERMANENZA_CICLO, e.getNome())); break;
 					}
 				}
@@ -243,7 +238,6 @@ public class GestoreModello {
 					 
 					case 5:
 					{	
-						//TODO eliminazione entita' da menu' secondario
 						Ramo r = e.getRami()[i];
 						/*
 						 * Se il ramo corrente e' vuoto, non viene eliminata alcuna entita' e viene stampato a

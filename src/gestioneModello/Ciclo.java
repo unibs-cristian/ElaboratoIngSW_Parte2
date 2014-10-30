@@ -15,7 +15,7 @@ public class Ciclo implements Entita {
 	public final static String MSG_COND_PERMANENZA_CICLO = "ENTITA RAMO N.3 (CONDIZIONE DI PERMANENZA NEL CICLO)";
 	public final static String MSG_BRANCH_CICLO = "BRANCH N. %d >";
 	
-	public final static int NUM_RAMI_CICLO = 3;
+	public final static int NUM_RAMI_CICLO = 2;
 	
 	private int id;
 	private int idCiclo;
@@ -34,7 +34,7 @@ public class Ciclo implements Entita {
 		idCiclo = contatoreCicli;
 		titolo = _titolo;
 		numRami = NUM_RAMI_CICLO;
-		elencoRami = new Ramo [NUM_RAMI_CICLO];  //TODO potrebbero bastare 2 rami   Ramo 1 : eventuali attività iniziali    Ramo 2 : condizione uscita ciclo    Ramo 3 : condizione di permanenza nel ciclo
+		elencoRami = new Ramo [NUM_RAMI_CICLO]; 
 		elencoEntita = new Vector<Entita>();
 		idTipo = ID_TIPO_CICLO;
 		valoreIndentazione = GUI.getRientro();
@@ -171,11 +171,6 @@ public class Ciclo implements Entita {
 				risultato.append(GUI.indenta(elencoRami[0].toString(),SPAZIO,valoreIndentazione));
 			}
 		}
-		risultato.append(GUI.indenta(MSG_COND_USCITA, SPAZIO, valoreIndentazione));
-		if(elencoRami[1].getEntitaRamo().isEmpty())
-			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione+GUI.FATTORE_INCREMENTO));
-		else
-			risultato.append(GUI.indenta(elencoRami[1].toString(),SPAZIO,valoreIndentazione));
 		risultato.append(GUI.indenta(MSG_COND_PERMANENZA_CICLO, SPAZIO, valoreIndentazione));
 		if(elencoRami[2].getEntitaRamo().isEmpty())
 			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione+GUI.FATTORE_INCREMENTO));
