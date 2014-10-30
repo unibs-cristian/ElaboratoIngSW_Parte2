@@ -161,6 +161,8 @@ public class Modello implements Entita {
 			if(e.getId()==id)
 			{
 				elencoEntita.remove(i);
+				if(e.getIdTipo()==ID_TIPO_AZIONE)
+					rimuoviAzione(e.getNome());
 				System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
 				return true; 
 			}
@@ -169,6 +171,12 @@ public class Modello implements Entita {
 					return true;
 		}
 		return false;
+	}
+	
+	public void rimuoviAzione(String nomeAzione) {
+		for(int i=0; i<elencoAzioni.size(); i++)
+			if(elencoAzioni.elementAt(i).getNome().equalsIgnoreCase(nomeAzione))
+				elencoAzioni.remove(i);
 	}
 	
 	public void setNome(String unNome) {
@@ -180,8 +188,7 @@ public class Modello implements Entita {
 	}
 	
 	//TODO migliorare indentazione
-	public String toString() {
-		
+	public String toString() {		
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(String.format(MSG_NOME_MODELLO, nome));
 		risultato.append(String.format(MSG_DESCRIZIONE_MODELLO, descrizione));

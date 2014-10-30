@@ -108,7 +108,7 @@ public class Fork implements Entita {
 	public boolean rimuoviEntitaAt(int id) {
 		Entita daEliminare = null;
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
-		for (int i=0; i<numRami; i++) {
+		for (int i=0; i<elencoRami.length; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
 			//Ricerca l'entita' da eliminare tra le entita' interne del ramo i-esimo
 			for(int j=0; j<entitaRamo.size(); j++) {
@@ -118,6 +118,8 @@ public class Fork implements Entita {
 				{
 					daEliminare = e;
 					elencoRami[i].eliminaEntitaRamo(j);
+					if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
+						Modello.getInstance().rimuoviAzione(e.getNome());
 					System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
 					return true;
 				}
@@ -125,7 +127,7 @@ public class Fork implements Entita {
 		}
 		/*
 		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
-		 * componenti dei componenti e così via, in maniera ricorsiva 
+		 * componenti dei componenti e cosi' via, in maniera ricorsiva 
 		 */
 		if(daEliminare == null)
 			for(int i=0; i<elencoEntita.size(); i++) {

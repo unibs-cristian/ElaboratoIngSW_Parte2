@@ -7,7 +7,6 @@ import testSuiteDiagnosi.ClasseEquivalenza;
 import testSuiteDiagnosi.TestSuite;
 import utilita.*;
 import gestioneModello.Azione;
-import gestioneModello.Entita;
 import gestioneModello.Modello;
 import gestioneModello.NodoIniziale;
 import testSuiteDiagnosi.*;
@@ -211,8 +210,7 @@ public class ElaboratoParte1Main {
 				System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
 				//Inserimento cardinalita', creazione classe di equivalenza e aggiunta al TS
 				int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
-				ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita);
-				ts.addClasseEquivalenza(ce);
+				
 				CamminoAzioni cammGlob = new CamminoAzioni();
 				System.out.println(MSG_CAMM_GLOBALE_1);
 				//Inserimento cammino globale
@@ -222,6 +220,8 @@ public class ElaboratoParte1Main {
 						cammGlob.aggiungiAzione(a);
 				}
 				System.out.println("Cammino Globale ---> " + cammGlob.toString());
+				ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita,cammGlob);
+				ts.addClasseEquivalenza(ce);
 				System.out.println(MSG_INS_COP);
 				//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
 				do {

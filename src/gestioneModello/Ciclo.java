@@ -126,6 +126,8 @@ public class Ciclo implements Entita {
 				{
 					daEliminare = e;
 					elencoRami[i].eliminaEntitaRamo(j);
+					if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
+						Modello.getInstance().rimuoviAzione(e.getNome());
 					System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
 					return true;
 				}
@@ -133,7 +135,7 @@ public class Ciclo implements Entita {
 		}
 		/*
 		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
-		 * componenti dei componenti e così via, in maniera ricorsiva 
+		 * componenti dei componenti e cosi' via, in maniera ricorsiva 
 		 */
 		if(daEliminare == null)
 			for(int i=0; i<elencoEntita.size(); i++) {
