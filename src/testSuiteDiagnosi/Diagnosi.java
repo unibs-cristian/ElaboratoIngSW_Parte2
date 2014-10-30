@@ -95,7 +95,7 @@ public class Diagnosi {
 					
 					if(azioneInCoppia) {
 						if(valRil.equalsIgnoreCase("OK")) {
-							matrice[c][a] = 0;
+							matrice[c][a] = 2;
 						}
 						else if(valRil.equalsIgnoreCase("KO")) 
 							matrice[c][a] = 1;
@@ -105,57 +105,66 @@ public class Diagnosi {
 					}
 					
 				}
-				
+			}
+			
+			System.out.println("Creazione matrice base..");
+			stampaDiagnosi(matrice);
+			
 			/** Elaboro la matrice (metto a 0 le colonne dove e' presente uno 0. */
-			for (int s=0; s<elencoAzioni.size(); s++) {
+			for (int col=0; col<elencoAzioni.size(); col++) {
 				
-				boolean okTrovato = false;
+				boolean dueTrovato = false;
 				
-				for(int f=0; f<insiemeDiCopertura.size(); f++) {
-					int valore = matrice[f][s];
+				for(int riga=0; riga<insiemeDiCopertura.size(); riga++) {
+					int valore = matrice[riga][col];
 					
-					if(!okTrovato) {
-						if(valore == 0) {
+					if(!dueTrovato) {
+						if(valore == 2) {
 							/** Inserisco -2 negli spazi vuoti di elementi OK */
 							for(int k=0; k<elencoAzioni.size(); k++) {
-								if(matrice[f][k] != 1 && matrice[f][k] != 0)
-									matrice[f][k] = -2;								
+								if(matrice[riga][k] == -1)
+									matrice[riga][k] = -2;								
 							}
-							okTrovato = true;
-							f=-1;
+							dueTrovato = true;
+							riga=-1;
 						}
 					}
 					else {
 						if(valore == 1) {
-							matrice[f][s] = 0;
+							matrice[riga][col] = 2;
 						}						
 					}
 				}
 			}
-			}
+			
+			System.out.println("Generazione matrice elaborata..");
+			stampaDiagnosi(matrice);
+			
 			/** Calcolo risultati ed inserimento in vettore. */
-/*			for(int s=0; s<elencoAzioni.size(); s++) {
+			for(int s=0; s<elencoAzioni.size(); s++) {
 				
 				/** Calcolo risultati */
-/*				boolean fineCalcoloAzione = false;
-				int valoreAzione = -1;
+				boolean fineCalcoloAzione = false;
+				int valoreAzione = 10;
+				int valoreTempAzione = 10;
 				int f=0;
 				
 				do {
-					if(matrice[f][s] == 0 || matrice[f][s] == -1) {
+					if(matrice[f][s] == 2) {
 						valoreAzione = 0;
 						fineCalcoloAzione = true;
-					}
-					
-					if(matrice[f][s] == 1) {
-						valoreAzione = 1;
-					}
-					
+					} 
+					else {
+						valoreTempAzione = matrice[f][s];
+						}
+
 					f++;
-				} while(f<insiemeDiCopertura.size() || fineCalcoloAzione);
+				} while(f<insiemeDiCopertura.size() && !fineCalcoloAzione);
 				
 				/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
-/*				risultatoAzioni.add(valoreAzione);
+				risultatoAzioni.add(valoreAzione);
+				
+				System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
 			}
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
@@ -277,7 +286,7 @@ public void eseguiDiagnosiMetodo2 () {
 		for(int i=0; i<matrice.length; i++) {
 			for(int j=0; j<matrice[0].length; j++) {
 				
-				System.out.print(matrice[i][j]);
+				System.out.print(matrice[i][j]+"\t");
 			}
 			System.out.println("");
 		}
