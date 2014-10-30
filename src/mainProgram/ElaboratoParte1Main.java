@@ -134,16 +134,14 @@ public class ElaboratoParte1Main {
 	public static void inserimentoTS() { 
 		TestSuite ts = TestSuite.getInstance();
 		boolean continua = false;
-		Modello modelloCorrente = null;
 		if(Modello.isNull()==false) {
-			modelloCorrente = Modello.getInstance();
+			Modello modelloCorrente = Modello.getInstance();
 			ts.setModello(modelloCorrente);
-		}
-		else 
-		{
-			System.out.println(MSG_NO_MODELLO);
 			continua = true;
 		}
+		else 
+			System.out.println(MSG_NO_MODELLO);
+			
 	/*	ClasseEquivalenza c1 = new ClasseEquivalenza(2);
 		Vector <Azione> insCamm1 = new Vector<Azione>();
 		Vector <Azione> insGlobale = modelloCorrente.getElencoAzioni();
@@ -204,6 +202,7 @@ public class ElaboratoParte1Main {
 		//Inserimento delle classi di equivalenza per il TS considerato
 	
 		if(continua) {
+			Modello modelloCorrente = Modello.getInstance();
 			System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
 			Vector <Azione> azioniModello = modelloCorrente.getElencoAzioni();
 			int i=1;
@@ -222,7 +221,7 @@ public class ElaboratoParte1Main {
 					if(Util.yesOrNo(String.format(MSG_AGGIUNTA_CAMM_GLOBALE,azioniModello.elementAt(j).getNome())))
 						cammGlob.aggiungiAzione(a);
 				}
-				System.out.println(cammGlob.toString());
+				System.out.println("Cammino Globale ---> " + cammGlob.toString());
 				System.out.println(MSG_INS_COP);
 				//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
 				do {
@@ -236,10 +235,10 @@ public class ElaboratoParte1Main {
 					 
 					for(int j=0; j<cammGlob.getNumeroAzioni(); j++) {
 						Azione a = cammGlob.getAzioneAt(j);
-						if(Util.yesOrNo(String.format(MSG_AGGIUNTA_INS_CAMM,azioniModello.elementAt(j).getNome())))
+						if(Util.yesOrNo(String.format(MSG_AGGIUNTA_INS_CAMM,cammGlob.getAzioneAt(j).getNome())))
 							insCamm.aggiungiAzione(a);
 					}
-					System.out.println(insCamm.toString());
+					System.out.println("Insieme del Cammino ---> " + insCamm.toString());
 					String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
 					Coppia c = new Coppia(insCamm, valoreRilevazione);
 					ce.addCoppia(c);

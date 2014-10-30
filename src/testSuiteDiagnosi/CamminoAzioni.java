@@ -30,7 +30,7 @@ public class CamminoAzioni {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(getAzioneAt(0).getNome());
 		for(int i=1; i<insiemeCammino.size(); i++)
-			risultato.append("\n," + getAzioneAt(i).getNome());
+			risultato.append("," + getAzioneAt(i).getNome());
 			return risultato.toString();
 	}
 }
