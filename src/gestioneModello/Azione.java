@@ -54,8 +54,8 @@ public class Azione implements Entita {
 		return elencoEntita;
 	}
 	
-	public Entita cercaId(int idDaCercare) {
-		if(id == idDaCercare)
+	public Entita cercaPerNome(String nomeDaCercare) {
+		if(titolo.equalsIgnoreCase(nomeDaCercare))
 			return this;
 		else 
 			return null;

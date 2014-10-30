@@ -8,15 +8,16 @@ public class NodoFinale implements Entita
 	
 	private int id;
 	/** Identificatore del tipo */
-	private static String idTipo = "NF";
+	private static String idTipo;
 	
 	public NodoFinale() {
 		id = GestoreModello.contatoreEntita;
 		GestoreModello.contatoreEntita++;
+		idTipo = ID_TIPO_NODO_FINALE;
 	}
 	
-	public Entita cercaId(int idDaCercare) {
-		if(id == idDaCercare)
+	public Entita cercaPerNome(String nomeDaCercare) {
+		if(idTipo == nomeDaCercare)
 			return this;
 		else 
 			return null;

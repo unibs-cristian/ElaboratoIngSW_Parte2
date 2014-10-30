@@ -15,7 +15,7 @@ public interface Entita {
 	
 	public void addEntita(Entita e, int qualeRamo);
 	
-	public Entita cercaId(int idDaCercare);
+	public Entita cercaPerNome(String nomeDaCercare);
 	
 	public int getId();
 	

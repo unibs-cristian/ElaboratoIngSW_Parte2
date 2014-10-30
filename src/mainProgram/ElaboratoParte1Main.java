@@ -14,7 +14,7 @@ import testSuiteDiagnosi.*;
 
 public class ElaboratoParte1Main {
 
-	public final static String TITOLO_MENU_PRINCIPALE = "BENVENUTO NEL MENU' PRINCIPALE\n\nCosa si desidera fare?"; 
+	public final static String MSG_TITOLO_MENU_PRINCIPALE = "BENVENUTO NEL MENU' PRINCIPALE\n\nCosa si desidera fare?"; 
 	public final static String MSG_NUOVO_MODELLO = "1 - Crea Nuovo Modello";
 	public final static String MSG_VISUALIZZAZIONE_MODELLO = "2 - Visualizza Modello";
 	public final static String MSG_INS_TEST_SUITE = "3 - Inserimento Test Suite";
@@ -28,6 +28,9 @@ public class ElaboratoParte1Main {
 	public final static String MSG_NO_MODELLO = "Errore! Nessun modello inserito.";
 	public final static String MSG_STAMPA_MOD_CORRENTE = "STAMPA DEL MODELLO CORRENTE\n";
 	public final static String MSG_MODELLO_CARICATO = "Il modello %s e' stato caricato con successo.";
+	public final static String MSG_TS = "\n\nCREAZIONE DEL TEST SUITE RELATIVO AL MODELLO %s\n\n";
+	public final static String MSG_CAMM_GLOBALE_1 = "Scegliere le azioni facenti parte del cammino globale relativo alla classe di equivalenza.";
+	public final static String MSG_CAMM_GLOBALE_2 = "Cammino Globale --> ";
 	public final static String MSG_INS_CLASSE_EQ = "CLASSE DI EQUIVALENZA N. %d - INSERIMENTO INFORMAZIONI";
 	public final static String MSG_CONTINUA_SI_NO_CE = "Si desidera inserire un'altra classe di equivalenza?";
 	public final static String MSG_CONTINUA_SI_NO_COPPIA = "Si desidera inserire un'altra coppia (insieme del cammino ; valore della rilevazione)?";
@@ -52,7 +55,7 @@ public class ElaboratoParte1Main {
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_REPORT);
 		vociMenuPrincipale.add(MSG_CARICAMENTO_MODELLO);
 		vociMenuPrincipale.add(MSG_USCITA_PROGRAMMA);
-		Menu menuPrincipale = new Menu(TITOLO_MENU_PRINCIPALE, vociMenuPrincipale);
+		Menu menuPrincipale = new Menu(MSG_TITOLO_MENU_PRINCIPALE, vociMenuPrincipale);
 		
 		boolean finito = false;
 		do {
@@ -123,10 +126,18 @@ public class ElaboratoParte1Main {
 	
 	public static void inserimentoTS() { 
 		TestSuite ts = TestSuite.getInstance();
-		Modello modelloCorrente = Modello.getInstance();
-		ts.setModello(modelloCorrente);
-		
-		ClasseEquivalenza c1 = new ClasseEquivalenza(2);
+		boolean continua = false;
+		Modello modelloCorrente = null;
+		if(Modello.isNull()==false) {
+			modelloCorrente = Modello.getInstance();
+			ts.setModello(modelloCorrente);
+		}
+		else 
+		{
+			System.out.println(MSG_NO_MODELLO);
+			continua = true;
+		}
+	/*	ClasseEquivalenza c1 = new ClasseEquivalenza(2);
 		Vector <Azione> insCamm1 = new Vector<Azione>();
 		Vector <Azione> insGlobale = modelloCorrente.getElencoAzioni();
 		insCamm1.add(insGlobale.elementAt(0));
@@ -140,6 +151,7 @@ public class ElaboratoParte1Main {
 		c1.addCoppia(coppia1);
 		c1.addCoppia(coppia2);
 		
+		/*
 		ClasseEquivalenza c2 = new ClasseEquivalenza(1);
 		Vector <Azione> insCamm3 = new Vector<Azione>();
 		insCamm3.add(insGlobale.elementAt(0));
@@ -177,23 +189,36 @@ public class ElaboratoParte1Main {
 		insCamm8.add(insGlobale.elementAt(1));
 		insCamm8.add(insGlobale.elementAt(2));
 		Coppia coppia8 = new Coppia(insCamm8, "OK");
-		c3.addCoppia(coppia8);
+		c3.addCoppia(coppia8);       */
 		
-		ts.addClasseEquivalenza(c1);
-		ts.addClasseEquivalenza(c2);
-		ts.addClasseEquivalenza(c3);
+	//	ts.addClasseEquivalenza(c1);
+	//	ts.addClasseEquivalenza(c2);
+	//	ts.addClasseEquivalenza(c3);   */
 		//Inserimento delle classi di equivalenza per il TS considerato
-	/*	int i=1;
-		do {
-			System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-			do {
-				
-					
-			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));  
-			
-		} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	   */
-	}
 	
+		if(continua) {
+			System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
+			Vector <Azione> azioniModello = modelloCorrente.getElencoAzioni();
+			int i=1;
+			do {
+				System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
+				CamminoAzioni cammGlob = new CamminoAzioni();
+				System.out.println(MSG_CAMM_GLOBALE_1);
+				for(int j=0; j<azioniModello.size(); j++) {
+					Azione a = azioniModello.elementAt(j);
+					if(Util.yesOrNo(MSG_AGGIUNTA_CAMM_GLOBALE))
+						a.
+				}
+				String inputUtente = Util.leggiString(MSG_CAMM_GLOBALE_2);
+				String elencoNumeri = 
+				do {
+					
+					
+				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));  
+			
+			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
+		}
+		
 	public static void caricamentoModello() {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO_PREESISTENTE));
 		Modello modelloCaricato = null;

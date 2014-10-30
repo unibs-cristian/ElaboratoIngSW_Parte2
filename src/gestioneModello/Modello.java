@@ -117,28 +117,22 @@ public class Modello implements Entita {
 			return false;
 	}
 	
-	public Entita cercaId(int idDaCercare) {
-		Entita e = null;
+	/**
+	 * Cerca un'entita' per nome (il quale e' associato univocamente ad un'entita') e se la 
+	 * trova la restituisce, altrimenti restituisce null.
+	 */
+	public Entita cercaPerNome(String nomeDaCercare) {
 		for (int i = 0; i < elencoEntita.size(); i++) 
 		{
-			e = elencoEntita.get(i);
-			// Chiama il metodo di ricerca per id di ciascuna entita' inserita nel modello.
-			e = e.cercaId(idDaCercare);
+			Entita e = elencoEntita.get(i);
+			// Chiama il metodo di ricerca per nome di ciascuna entita' inserita nel modello.
+			// Se la trova la restituisce
+			e = e.cercaPerNome(nomeDaCercare);
+			if(e!=null)   
+				return e;
 		}
-		/*
-		 * Se e e' null significa che l'entita' con id idDaCercare non e' stata trovata. Parte dunque la ricerca 
-		 * diminuendo di una unita' l'id da cercare. Cio' e' utile in caso di eliminazioni successive di piu' 
-		 * entita'.
-		 */
-		while(e == null)
-			e = cercaId(idDaCercare-1);
-		return e;
+		return null;
 	}
-	
-	public Entita getUltimaEntita() {
-		int idUltima = GestoreModello.contatoreEntita-1;
-		return cercaId(idUltima);
-	} 
 	
 	public boolean giaPresente(String nome) {
 		/* 

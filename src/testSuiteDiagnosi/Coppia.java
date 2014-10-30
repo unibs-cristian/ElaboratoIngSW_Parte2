@@ -4,10 +4,10 @@ import java.util.Vector;
 import gestioneModello.Azione;
 
 public class Coppia {
-	private Vector<Azione> insiemeCammino;
+	private CamminoAzioni insiemeCammino;
 	private String valoreRilevazione;
 	
-	public Coppia(Vector <Azione> _insiemeCammino, String _valoreRilevazione) {
+	public Coppia(CamminoAzioni _insiemeCammino, String _valoreRilevazione) {
 		insiemeCammino = _insiemeCammino;
 		valoreRilevazione = _valoreRilevazione;
 	}
@@ -16,7 +16,7 @@ public class Coppia {
 		return valoreRilevazione;
 	}
 	 
-	public Vector <Azione> getInsiemeCammino() {
+	public CamminoAzioni getInsiemeCammino() {
 		return insiemeCammino;
 	}
 }

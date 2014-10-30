@@ -117,6 +117,10 @@ public class GUI
 		System.out.println();
 	}
 	
+	public static String togliCarattereStringa(String daElaborare, char daTogliere) {
+		return daElaborare.replace("-","");
+	}
+	
 	public static String indenta(String testo, String carattere, int profondita)
 	{
 		StringBuffer daRestituire = new StringBuffer();

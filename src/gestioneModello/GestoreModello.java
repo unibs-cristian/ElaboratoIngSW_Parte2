@@ -8,9 +8,9 @@ import utilita.Util;
 public class GestoreModello {
 
 	public final static String MSG_TITOLO_MENU_INSERIMENTO_MODELLO = "BENVENUTO NEL MENU INSERIMENTO MODELLO\n\nCosa si desidera fare?";
-	public final static String MSG_TITOLO_MENU_BRANCH = "MENU GESTIONE BRANCH %s\n\nCosa si desidera fare?";
-	public final static String MSG_TITOLO_MENU_CICLO = "MENU GESTIONE CICLO %s\n\nCosa si desidera fare?";
-	public final static String MSG_TITOLO_MENU_FORK = "MENU GESTIONE FORK %s\n\nCosa si desidera fare?";
+	public final static String MSG_TITOLO_MENU_BRANCH = "MENU GESTIONE BRANCH %s - RAMO %d\n\nCosa si desidera fare?";
+	public final static String MSG_TITOLO_MENU_CICLO = "MENU GESTIONE CICLO %s - RAMO %d\n\nCosa si desidera fare?";
+	public final static String MSG_TITOLO_MENU_FORK = "MENU GESTIONE FORK %s - RAMO %d\n\nCosa si desidera fare?";
 	
 	public final static String MSG_INSERIMENTO_AZIONE = "1 - Inserimento Azione";
 	public final static String MSG_INSERIMENTO_BRANCH = "2 - Inserimento Branch";
@@ -25,9 +25,9 @@ public class GestoreModello {
 	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	
 	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo: ";
-	public final static String MSG_TITOLO_BRANCH = "Digitare il titolo del branch che si sta inserendo: ";
-	public final static String MSG_TITOLO_CICLO = "Digitare il titolo del ciclo che si sta inserendo. ";
-	public final static String MSG_TITOLO_FORK = "Digitare il titolo del costrutto fork-join che si sta inserendo: ";
+	public final static String MSG_TITOLO_BRANCH = "Digitare il titolo del Branch che si sta inserendo: ";
+	public final static String MSG_TITOLO_CICLO = "Digitare il titolo del Ciclo che si sta inserendo. ";
+	public final static String MSG_TITOLO_FORK = "Digitare il titolo del costrutto Fork-Join che si sta inserendo: ";
 	public final static String MSG_NUM_RAMI_BRANCH = "Quanti flussi d'uscita si vuole che abbia il nuovo Branch? ->";
 	public final static String MSG_NUM_RAMI_FORK = "Quanti rami si vuole che abbia il fork? ->";
 	public final static String MSG_NUOVA_ENTITA = "La nuova entita' %s e' stata aggiunta a %s";
@@ -193,10 +193,11 @@ public class GestoreModello {
 			opzioniMenuSecondario.add(MSG_MODIFICA_MODELLO);        //Voce 5 --> modifica modello
 			opzioniMenuSecondario.add(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
 			opzioniMenuSecondario.add(MSG_CHIUSURA_RAMO);           //Voce 7 --> Chiudi ramo
-			Menu menuSecondario = new Menu(String.format(t, e.getNome()),opzioniMenuSecondario);
 			
 			for(int i=0; i<e.getRami().length; i++)
 			{
+				Menu menuSecondario = new Menu(String.format(t, e.getNome(), i+1),opzioniMenuSecondario);
+				
 				switch(tipo) {
 				case OPZ_BRANCH: System.out.println(String.format(MSG_RAMO_BRANCH, e.getNome(), e.getId(), i+1));
 								 System.out.println(MSG_RAMO_SUCC);
@@ -352,7 +353,7 @@ public class GestoreModello {
 		String t;
 		Boolean presente = false;
 		do {
-			t = Util.leggiString(MSG_TITOLO_BRANCH);
+			t = Util.leggiString(MSG_TITOLO_FORK);
 			presente = mod.giaPresente(t);
 			if(presente)
 				System.out.println(MSG_DUPLICATO);

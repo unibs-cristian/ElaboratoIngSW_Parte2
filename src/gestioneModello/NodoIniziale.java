@@ -11,17 +11,18 @@ public class NodoIniziale implements Entita {
 	private int id;
 	
 	/** Identificatore del tipo */
-	private static String idTipo = "NI";
+	private static String idTipo;
 	
 	public NodoIniziale() {
 		id = GestoreModello.contatoreEntita;
 		GestoreModello.contatoreEntita=1;
+		idTipo = ID_TIPO_NODO_INIZIALE;
 	}
 	
 	public void addEntita(Entita e, int qualeRamo) {}
 	
-	public Entita cercaId(int idDaCercare) {
-		if(id == idDaCercare)
+	public Entita cercaPerNome(String nomeDaCercare) {
+		if(idTipo == nomeDaCercare)
 			return this;
 		else 
 			return null;

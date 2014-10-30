@@ -33,19 +33,20 @@ public class Branch implements Entita {
 		contatoreBranch++;
 	}
 	
-	public Entita cercaId(int idDaCercare) {
-		Entita trovato = null;
-		if(id == idDaCercare)
-			trovato = this;
+	public Entita cercaPerNome(String nomeDaCercare) {
+		if(titolo.equalsIgnoreCase(nomeDaCercare))
+			return this;
 		else
 		{
 			Vector <Entita> listaEntita = getEntita();
 			for(int i=0; i<listaEntita.size(); i++) {
 				Entita e = listaEntita.elementAt(i);
-				trovato = e.cercaId(idDaCercare);
+				e = e.cercaPerNome(nomeDaCercare);
+				if(e!=null)
+					return e;
 			}
 		}
-		return trovato;
+		return null;
 	}
 
 	public int getId() {
