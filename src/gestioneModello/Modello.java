@@ -103,7 +103,10 @@ public class Modello implements Entita, Serializable {
 				if(rimuoviEntitaAt(i) == false)
 					i--;
 				else
+				{
 					finito = true;
+					GestoreModello.contatoreEntita--;
+				}
 			}
 		}
 	}
