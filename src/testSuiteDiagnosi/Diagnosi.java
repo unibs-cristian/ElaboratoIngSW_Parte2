@@ -24,7 +24,6 @@ public class Diagnosi {
 		
 		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
-		System.out.println("Diagnosi in corso..");
 	}
 	
 	public void eseguiDiagnosi() {
@@ -47,10 +46,8 @@ public class Diagnosi {
 		/** Ottengo vettori di classi e azioni da test suite. */
 		elencoClassi = testSuite.getElencoClassi();
 		
-		System.out.println("Prima di elencoAzioni");
 		Modello mod = Modello.getInstance();
 		elencoAzioni = mod.getElencoAzioni();
-		System.out.println("Dopo elencoAzioni");
 		
 		System.out.println("1) Elenco Azioni");
 		for(int i=0; i<elencoAzioni.size(); i++){
@@ -61,6 +58,7 @@ public class Diagnosi {
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
 			
+			System.out.println("");
 			System.out.println("1) Selezione Classe "+i);
 			
 			ClasseEquivalenza classe = elencoClassi.get(i);
