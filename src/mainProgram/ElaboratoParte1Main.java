@@ -85,7 +85,9 @@ public class ElaboratoParte1Main {
 					else
 						System.out.println("TS rilevato!");
 					Diagnosi d1 = new Diagnosi(1, ts);
+					d1.eseguiDiagnosi();
 					Diagnosi d2 = new Diagnosi(2, ts);
+					d2.eseguiDiagnosi();
 					break;	
 					
 				case 5:

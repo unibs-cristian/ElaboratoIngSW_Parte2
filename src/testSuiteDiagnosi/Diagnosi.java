@@ -22,7 +22,6 @@ public class Diagnosi {
 		
 		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
-		eseguiDiagnosi();
 	}
 	
 	public void eseguiDiagnosi() {
