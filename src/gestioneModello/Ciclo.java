@@ -174,7 +174,7 @@ public class Ciclo implements Entita, Serializable {
 			}
 		}
 		risultato.append(GUI.indenta(MSG_COND_PERMANENZA_CICLO, SPAZIO, valoreIndentazione));
-		if(elencoRami[2].getEntitaRamo().isEmpty())
+		if(elencoRami[1].getEntitaRamo().isEmpty())
 			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione+GUI.FATTORE_INCREMENTO));
 		else
 			risultato.append(GUI.indenta(elencoRami[2].toString(), SPAZIO, valoreIndentazione));

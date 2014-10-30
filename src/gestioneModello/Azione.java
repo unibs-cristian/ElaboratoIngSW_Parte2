@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Classe che istanzia oggetti di tipo Azione. Un'azione e' un'entita' semplice che puo' essere aggiunta 
  * ad altre entita' complesse, come Branch, Cicli, Fork o Modelli.
- * @authors Sampietri Cristian, Rossi Pietro, Rubagotti Lorenzo
+ * @author Sampietri Cristian
  *
  */
 public class Azione implements Entita, Serializable {
