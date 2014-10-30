@@ -1,10 +1,12 @@
 package testSuiteDiagnosi;
 import gestioneModello.Azione;
 import gestioneModello.Modello;
-
+import utilita.GUI;
 import java.util.Vector;
 
 public class TestSuite {
+	public final static String MSG_INTESTAZIONE_TS = "\n\nTEST SUITE PER IL MODELLO %s\n\n";
+	
 	private Vector <ClasseEquivalenza> elencoClassi;
 	private Modello mod;
 	
@@ -63,7 +65,6 @@ public class TestSuite {
 		return azioniTS;
 	}
 		
-	
 	// Le classi di equivalenza verranno inserite dall'utente come le entita' nel modello.
 	public Vector <ClasseEquivalenza> getElencoClassi() {
 		return elencoClassi;
@@ -77,7 +78,19 @@ public class TestSuite {
 		return mod;
 	}
 	
+	public int getNumeroCE() {
+		return elencoClassi.size();
+	}
+	
 	public void setModello(Modello m) {
 		mod = m;
+	}
+	
+	public String toString() {
+		StringBuffer risultato = new StringBuffer();
+		risultato.append(String.format(GUI.incorniciaStringa(MSG_INTESTAZIONE_TS), mod.getNome()));
+		for(int i=0; i<getNumeroCE(); i++)
+			risultato.append(String.format("- CLASSE DI EQUIVALENZA N.%d\n"+getClasseAt(i).toString(),i+1));
+		return risultato.toString();
 	}
 }

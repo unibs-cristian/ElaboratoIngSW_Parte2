@@ -16,7 +16,8 @@ public class GUI
 	public final static String RIGALATO = "|";
 	public final static int MARGINE = 2;
 	public final static int FATTORE_INCREMENTO = 5;
-	
+	public final static String RIGA_ASTERISCHI = "********************" +"********************" +"********************" +"********************"; 
+	public final static String RIGA_BIANCA =    "                    " + "                    " +"                    " +"                    "; 
 	private static int rientro;
 	
 	/**
@@ -115,10 +116,6 @@ public class GUI
 			rigaSotto(lunghezzaMassima);
 		
 		System.out.println();
-	}
-	
-	public static String togliCarattereStringa(String daElaborare, char daTogliere) {
-		return daElaborare.replace("-","");
 	}
 	
 	public static String indenta(String testo, String carattere, int profondita)
@@ -236,4 +233,25 @@ public class GUI
 			}
 			return result.toString();
 		}
+	 
+	 public static String incorniciaStringa(String daIncorniciare) {
+		 int lunghezza = daIncorniciare.length();
+		 //Costruzione delle righe che costituiranno la cornice
+		 String rigaCornice, rigaIntermedia, rigaTesto, spazi;
+		 rigaCornice = RIGA_ASTERISCHI.substring(0, lunghezza + 6);
+		 spazi = RIGA_BIANCA.substring(0, lunghezza + 4);
+		 rigaIntermedia = "*" + spazi + "*";
+		 rigaTesto = "*  " + daIncorniciare + "  *";
+		    
+		 //Creazione StringBuffer con la cornice
+		 StringBuffer daRestituire = new StringBuffer();
+		 daRestituire.append(rigaCornice+ACAPO);
+		 daRestituire.append(rigaIntermedia+ACAPO);
+		 daRestituire.append(rigaTesto+ACAPO);
+		 daRestituire.append(rigaIntermedia+ACAPO);
+		 daRestituire.append(rigaCornice+ACAPO);
+		 
+		 //Restituzione del risultato
+		 return daRestituire.toString();
+	 }
 }

@@ -37,4 +37,12 @@ public class ClasseEquivalenza {
 	public void setCamminoGlobale(CamminoAzioni cammGlob) {
 		camminoGlobale = cammGlob;
 	}
+	
+	public String toString() {
+		StringBuffer risultato = new StringBuffer();
+		risultato.append("Cammino Globale --> " + camminoGlobale.toString());
+		
+		
+		return risultato.toString();
+	}
 }

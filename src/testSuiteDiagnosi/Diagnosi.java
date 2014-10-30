@@ -42,7 +42,7 @@ public class Diagnosi {
 		
 		/** Ottengo vettori di classi e azioni da test suite. */
 		elencoClassi = testSuite.getElencoClassi();
-		elencoAzioni = testSuite.getAzioniClassi();
+		elencoAzioni = testSuite.getAzioniTS();
 		
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
@@ -66,7 +66,8 @@ public class Diagnosi {
 				Coppia coppia = insiemeDiCopertura.get(c);
 				
 				/** Ottengo il vector di Azioni della Coppia e il valore. */
-				Vector<Azione> azioni = coppia.getInsiemeCammino();
+				CamminoAzioni camm = coppia.getInsiemeCammino();
+				Vector <Azione> azioni = camm.getInsiemeCammino();
 				String valRil = coppia.getValoreRilevazione();
 				
 				for(int x=0; x<azioni.size(); x++)
@@ -168,7 +169,7 @@ public void eseguiDiagnosiMetodo2 () {
 		
 		int righeMatriceFinale = 0;
 		elencoClassi = testSuite.getElencoClassi();
-		elencoAzioni = testSuite.getAzioniClassi();
+		elencoAzioni = testSuite.getAzioniTS();
 		
 		Vector<int[][]> vettoreMatriciRisultato = new Vector<int[][]>();
 		int[][] matriceClassiPerProbabilita2;
@@ -189,7 +190,8 @@ public void eseguiDiagnosiMetodo2 () {
 				/** Ottengo una coppia elencoAzioniCoppia-valoreRilevazione. */
 				Coppia coppia = insiemeDiCopertura.get(c);
 				/** Ottengo il vector di Azioni della Coppia e il valore. */
-				Vector<Azione> azioni = coppia.getInsiemeCammino();
+				CamminoAzioni camm = coppia.getInsiemeCammino();
+				Vector <Azione> azioni = camm.getInsiemeCammino();
 				String valRil = coppia.getValoreRilevazione();
 				
 				/** Faccio passare l'elencoAzioni e controllo se l'azione e' presente nella Coppia. */

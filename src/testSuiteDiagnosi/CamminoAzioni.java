@@ -18,13 +18,19 @@ public class CamminoAzioni {
 		return insiemeCammino;
 	}
 	
+	public int getNumeroAzioni() {
+		return insiemeCammino.size();
+	}
+	
 	public Azione getAzioneAt(int index) {
 		return insiemeCammino.elementAt(index);
 	}
 	
 	public String toString() {
-		return null;
+		StringBuffer risultato = new StringBuffer();
+		risultato.append(getAzioneAt(0).getNome());
+		for(int i=1; i<insiemeCammino.size(); i++)
+			risultato.append("\n," + getAzioneAt(i).getNome());
+			return risultato.toString();
 	}
-	
-
 }

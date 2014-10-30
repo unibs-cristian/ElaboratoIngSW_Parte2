@@ -14,13 +14,16 @@ public class Util
 	private static final String ERRORE_INTERO = "Errore, il carattere inserito non è un intero.";
 	private static final String ERRORE_STRINGA_VUOTA_O_SPAZI = "Errore, non è possibile inserire una stringa vuota o con spazi. \nReinserire la stringa:";
 	private final static String ERRORE_AMMISSIBILI= "Attenzione: i caratteri ammissibili sono: ";
+	public final static String RILEV_OK = "OK";
+	public final static String RILEV_KO = "KO";
+	private final static String MSG_AMMISSIBILI = "Errore! I valori ammissibili sono " + "'" + RILEV_OK + "'" + " e '" + RILEV_KO + "'";
 	
 	private final static char RISPOSTA_SI='S';
 	private final static char RISPOSTA_NO='N';
 	
 	private static final String ERRORE_INTERO_MAGGIORE = "Errore. Insere un numero maggiore di %s: ";
 	 
-	 private static Scanner lettore = creaScanner();
+	private static Scanner lettore = creaScanner();
 	 /**
 	  * Metodo che delimita lo scanner cosi' che non prende piu' l'invio.
 	  * @return Restituisce lo scanner delimitato.
@@ -252,7 +255,7 @@ public class Util
      * @return Restituisce true in caso di risposta affermativa e false in caso di risposta negativa.
      */
     public static boolean yesOrNo(String messaggio)
-	  {
+	{
 		  String mioMessaggio = messaggio + "(" + RISPOSTA_SI + "/" + RISPOSTA_NO + ")";
 		  char valoreLetto = leggiUpperChar(mioMessaggio,String.valueOf(RISPOSTA_SI) + "//" + String.valueOf(RISPOSTA_NO));
 		  
@@ -260,7 +263,21 @@ public class Util
 			return true;
 		  else
 			return false;
-	  }
+	}
+    
+    public static String okOrKo(String messaggio) {
+    	String mioMessaggio = messaggio + "(" + RILEV_OK + "/" + RILEV_KO + ")";
+    	String inputDati = "";
+    	boolean valoreCorretto = false;
+    	do {
+    		inputDati = leggiString(mioMessaggio);
+    		if(inputDati.equalsIgnoreCase(RILEV_OK) || inputDati.equalsIgnoreCase(RILEV_KO))
+    			valoreCorretto = true;
+    		else
+    			System.out.println(MSG_AMMISSIBILI);
+    	} while(valoreCorretto==false);
+    	return inputDati;
+    }
     
     /**
      * Metodo che si occupa di far scegliere tramite un carattere.

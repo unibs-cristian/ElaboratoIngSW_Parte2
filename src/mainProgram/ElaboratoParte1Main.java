@@ -30,10 +30,17 @@ public class ElaboratoParte1Main {
 	public final static String MSG_MODELLO_CARICATO = "Il modello %s e' stato caricato con successo.";
 	public final static String MSG_TS = "\n\nCREAZIONE DEL TEST SUITE RELATIVO AL MODELLO %s\n\n";
 	public final static String MSG_CAMM_GLOBALE_1 = "Scegliere le azioni facenti parte del cammino globale relativo alla classe di equivalenza.";
-	public final static String MSG_CAMM_GLOBALE_2 = "Cammino Globale --> ";
+	public final static String MSG_AGGIUNTA_CAMM_GLOBALE = "Si desidera aggiungere l'azione %s al cammino globale?";
+	public final static String MSG_AGGIUNTA_INS_CAMM = "Si desidera aggiungere l'azione %s all'insieme del cammino?";
+	public final static String MSG_INS_COP = "INSERIMENTO INSIEME DI COPERTURA";
+	public final static String MSG_INS_CAMMINO = "Scegliere le azioni da aggiungere all'insieme del cammino";
 	public final static String MSG_INS_CLASSE_EQ = "CLASSE DI EQUIVALENZA N. %d - INSERIMENTO INFORMAZIONI";
+	public final static String MSG_CARD_CE = "Inserire la cardinalita' relativa alla classe di equivalenza : ";
 	public final static String MSG_CONTINUA_SI_NO_CE = "Si desidera inserire un'altra classe di equivalenza?";
+	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
 	public final static String MSG_CONTINUA_SI_NO_COPPIA = "Si desidera inserire un'altra coppia (insieme del cammino ; valore della rilevazione)?";
+	public final static String MSG_VAL_RILEV = "Inserire il valore della rilevazione relativa all'insieme del cammino";
+	public final static String MSG_SINTESI_TS = "Si desidera vedere una sintesi delle classi di equivalenza e degli insiemi di copertura inseriti\nper il TS corrente?";
 	
 	public final static String MSG_NOME_MODELLO = "Inserire il nome del nuovo modello: ";
 	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello: ";
@@ -200,24 +207,51 @@ public class ElaboratoParte1Main {
 			System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
 			Vector <Azione> azioniModello = modelloCorrente.getElencoAzioni();
 			int i=1;
+			//Inserimento classi di equivalenza
 			do {
 				System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
+				//Inserimento cardinalita', creazione classe di equivalenza e aggiunta al TS
+				int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
+				ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita);
+				ts.addClasseEquivalenza(ce);
 				CamminoAzioni cammGlob = new CamminoAzioni();
 				System.out.println(MSG_CAMM_GLOBALE_1);
+				//Inserimento cammino globale
 				for(int j=0; j<azioniModello.size(); j++) {
 					Azione a = azioniModello.elementAt(j);
-					if(Util.yesOrNo(MSG_AGGIUNTA_CAMM_GLOBALE))
-						a.
+					if(Util.yesOrNo(String.format(MSG_AGGIUNTA_CAMM_GLOBALE,azioniModello.elementAt(j).getNome())))
+						cammGlob.aggiungiAzione(a);
 				}
-				String inputUtente = Util.leggiString(MSG_CAMM_GLOBALE_2);
-				String elencoNumeri = 
+				System.out.println(cammGlob.toString());
+				System.out.println(MSG_INS_COP);
+				//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
 				do {
-					
-					
-				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));  
-			
+					CamminoAzioni insCamm = new CamminoAzioni();
+					System.out.println(MSG_INS_CAMMINO);
+					/*
+					 * Le azioni che l'utente può inserire nell'insieme del cammino sono quelle del
+					 * cammino globale, quindi e' garantito che ciascun insieme del cammino sia un 
+					 * sottoinsieme del cammino globale.
+					 */
+					 
+					for(int j=0; j<cammGlob.getNumeroAzioni(); j++) {
+						Azione a = cammGlob.getAzioneAt(j);
+						if(Util.yesOrNo(String.format(MSG_AGGIUNTA_INS_CAMM,azioniModello.elementAt(j).getNome())))
+							insCamm.aggiungiAzione(a);
+					}
+					System.out.println(insCamm.toString());
+					String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
+					Coppia c = new Coppia(insCamm, valoreRilevazione);
+					ce.addCoppia(c);
+					System.out.println(String.format(MSG_COPPIA_AGGIUNTA,i));					
+				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));  			
 			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
+		
+			boolean visualizzaSiNo = Util.yesOrNo(MSG_SINTESI_TS);
+			if(visualizzaSiNo)
+				System.out.println(ts.toString());
 		}
+	}
 		
 	public static void caricamentoModello() {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO_PREESISTENTE));
