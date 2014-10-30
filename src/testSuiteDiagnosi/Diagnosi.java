@@ -28,9 +28,11 @@ public class Diagnosi {
 	public void eseguiDiagnosi() {
 		if(tipoDiagnosi == 1) {
 			eseguiDiagnosiMetodo1();
+			System.out.println("1) CHIAMATA DIAGNOSI 1");
 		}
 		else {
 			eseguiDiagnosiMetodo2();
+			System.out.println("2) CHIAMATA DIAGNOSI 2");
 		}
 	}
 	
@@ -44,6 +46,12 @@ public class Diagnosi {
 		elencoClassi = testSuite.getElencoClassi();
 		elencoAzioni = testSuite.getAzioniTS();
 		
+		System.out.println("1) Elenco Azioni");
+		for(int i=0; i<elencoAzioni.size(); i++){
+			
+			System.out.print(elencoAzioni.get(i).getNome()+"\t");
+		}
+		
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
 			
@@ -55,12 +63,12 @@ public class Diagnosi {
 			/** Creo la matrice che ha Azioni sulle COLONNE e ogni elenco Azioni della Coppia sulle RIGHE. */
 			int[][] matrice = new int[insiemeDiCopertura.size()][elencoAzioni.size()];
 			
-			System.out.println("1) Creazione Matrice");
+			System.out.println("\t1) Creazione Matrice");
 
 			/** Seleziono l'elenco di azioni di un elemento dell'insieme di copertura. */
 			for(int c=0; c<insiemeDiCopertura.size(); c++) {
 				
-				System.out.println("1) Selezione Coppia "+c);
+				System.out.println("\t\t1) Selezione Coppia "+c);
 				
 				/** Ottengo una coppia elencoAzioniCoppia-valoreRilevazione. */
 				Coppia coppia = insiemeDiCopertura.get(c);
@@ -71,9 +79,9 @@ public class Diagnosi {
 				String valRil = coppia.getValoreRilevazione();
 				
 				for(int x=0; x<azioni.size(); x++)
-					System.out.println("1) Nome Azione: "+azioni.get(i).getNome());
+					System.out.println("\t\t\t1) Nome Azione: "+azioni.get(i).getNome());
 				
-				System.out.println("1) Rilevazione Coppia "+c+" : "+valRil);
+					System.out.println("\t\t\t1) Rilevazione Coppia "+c+" : "+valRil);
 				
 				/** Faccio passare l'elencoAzioni e controllo se l'azione e' presente nella Coppia. */
 				for(int y=0; y<elencoAzioni.size(); y++) {
@@ -82,15 +90,15 @@ public class Diagnosi {
 					/** Se viene trovata, metto 0 se il valore della coppia e' OK, 1 se il valore della coppia e' KO. Metto -1 se non viene trovata. */
 					for(int k=0; k<azioni.size(); k++) {
 						
-						System.out.println("1) Nome Azione: "+azioneElenco.getNome());
+						System.out.println("\t\t\t\t1) Nome Azione: "+azioneElenco.getNome());
 						
 						if(azioneElenco.getNome() == azioni.get(k).getNome()) {
-							if(valRil == "OK") {
-								System.out.println("1) Valore Rilevato: "+valRil);
+							if(valRil.equalsIgnoreCase("OK")) {
+								System.out.println("\t\t\t\t\t1) Valore Rilevato: "+valRil);
 								matrice[c][y] = 0;
 								System.out.println("Qui c'e' zero: matrice[c][y]");
 							}
-							else if(valRil == "KO") 
+							else if(valRil.equalsIgnoreCase("KO")) 
 								matrice[c][y] = 1;
 						}
 						else {
@@ -201,15 +209,15 @@ public void eseguiDiagnosiMetodo2 () {
 					/** Se viene trovata, metto 1 se il valore della coppia e' OK, 2 se il valore della coppia e' KO. Metto -1 se non e' OK e -2 se non e' KO. */
 					for(int k=0; k<azioni.size(); k++) {
 						if(azioneElenco.getNome() == azioni.get(k).getNome()) {
-							if(valRil == "OK")
+							if(valRil.equalsIgnoreCase("OK"))
 								matrice[c][y] = 1;
-							else if(valRil == "KO") 
+							else if(valRil.equalsIgnoreCase("KO")) 
 								matrice[c][y] = 2;
 						}
 						else {
-							if(valRil == "OK")
+							if(valRil.equalsIgnoreCase("OK"))
 								matrice[y][c] = -1;	
-							else if(valRil == "KO") 
+							else if(valRil.equalsIgnoreCase("KO")) 
 								matrice[c][y] = -2;
 						}
 					}					
