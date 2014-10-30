@@ -30,6 +30,14 @@ public class ClasseEquivalenza {
 		return elencoCoppie;
 	}
 	
+	public Coppia getCoppiaAt(int index) {
+		return elencoCoppie.elementAt(index);
+	}
+	
+	public int getNumeroCoppie() {
+		return elencoCoppie.size();
+	}
+	
 	public CamminoAzioni getCamminoGlobale() {
 		return camminoGlobale;
 	}
@@ -40,8 +48,10 @@ public class ClasseEquivalenza {
 	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
-		risultato.append("Cammino Globale --> " + camminoGlobale.toString());
-		
+		risultato.append("Cammino Globale --> " + camminoGlobale.toString() + "\n");
+		for(int i=0; i<getNumeroCoppie(); i++) {
+			risultato.append(String.format("Coppia n.%d\n" + getCoppiaAt(i).toString(),i+1));
+		}
 		
 		return risultato.toString();
 	}

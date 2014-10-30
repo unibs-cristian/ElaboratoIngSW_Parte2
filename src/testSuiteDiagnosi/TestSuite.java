@@ -89,8 +89,10 @@ public class TestSuite {
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(String.format(GUI.incorniciaStringa(MSG_INTESTAZIONE_TS), mod.getNome()));
-		for(int i=0; i<getNumeroCE(); i++)
+		for(int i=0; i<getNumeroCE(); i++) {
+			risultato.append("\n\n");
 			risultato.append(String.format("- CLASSE DI EQUIVALENZA N.%d\n"+getClasseAt(i).toString(),i+1));
+		}
 		return risultato.toString();
 	}
 }
