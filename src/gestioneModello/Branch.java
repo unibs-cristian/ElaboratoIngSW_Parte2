@@ -2,9 +2,11 @@ package gestioneModello;
 import java.util.Vector;
 
 import utilita.*;
+import java.io.Serializable;
 
-public class Branch implements Entita {
+public class Branch implements Entita, Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	public final static String MSG_BRANCH = "[ BRANCH N. %d : %s";
 	public final static String MSG_ENTITA_RAMO_BRANCH = "ENTITA' RAMO N. %d";
 	public final static String MSG_MERGE = "MERGE N. %d ]";

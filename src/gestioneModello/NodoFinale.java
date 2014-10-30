@@ -1,9 +1,11 @@
 package gestioneModello;
 
 import java.util.Vector;
+import java.io.Serializable;
 
-public class NodoFinale implements Entita 
+public class NodoFinale implements Entita, Serializable
 {
+	private static final long serialVersionUID = 1L;
 	public final static String MSG_TITOLO_NF = "NODO_FINALE";
 	
 	private int id;

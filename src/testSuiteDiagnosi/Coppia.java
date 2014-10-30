@@ -1,9 +1,9 @@
 package testSuiteDiagnosi;
 
-import java.util.Vector;
-import gestioneModello.Azione;
+import java.io.Serializable;
 
-public class Coppia {
+public class Coppia implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private CamminoAzioni insiemeCammino;
 	private String valoreRilevazione;
 	

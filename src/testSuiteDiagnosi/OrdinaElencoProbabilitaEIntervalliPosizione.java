@@ -1,9 +1,10 @@
 package testSuiteDiagnosi;
-
+import java.io.Serializable;
 import java.util.Vector;
 
-public class OrdinaElencoProbabilitaEIntervalliPosizione 
+public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 
 	public Vector<Tupla> OrdinaElencoProbabilita (Vector<Float> probabilitaTestSuite)
 	{

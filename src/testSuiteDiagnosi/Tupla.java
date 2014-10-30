@@ -1,9 +1,10 @@
 package testSuiteDiagnosi;
-
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Tupla 
+public class Tupla implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	private float probabilita;
 	private Vector<String> listaAzioni;
 

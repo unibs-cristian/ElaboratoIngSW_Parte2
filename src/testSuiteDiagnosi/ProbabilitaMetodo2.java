@@ -1,9 +1,12 @@
 package testSuiteDiagnosi;
 
 import java.util.Vector;
+import java.io.Serializable;
 
-public class ProbabilitaMetodo2
+public class ProbabilitaMetodo2 implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
 	public Vector<Float> calcolaProbabilita (TestSuite testSuite, int[][] matriceRisultatiTestSuite)
 	{
 		Vector<Float> risultato = new Vector<Float>();

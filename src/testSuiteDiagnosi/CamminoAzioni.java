@@ -1,9 +1,11 @@
 package testSuiteDiagnosi;
 import gestioneModello.Azione;
+import java.io.Serializable;
 import java.util.Vector;
 
-public class CamminoAzioni {
+public class CamminoAzioni implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private Vector <Azione> insiemeCammino;
 	
 	public CamminoAzioni() {

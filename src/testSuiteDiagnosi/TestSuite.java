@@ -1,10 +1,11 @@
 package testSuiteDiagnosi;
-import gestioneModello.Azione;
+import java.io.Serializable;
 import gestioneModello.Modello;
 import utilita.GUI;
 import java.util.Vector;
 
-public class TestSuite {
+public class TestSuite implements Serializable {
+	private static final long serialVersionUID = 1L;
 	public final static String MSG_INTESTAZIONE_TS = "\n\nTEST SUITE PER IL MODELLO %s\n\n";
 	
 	private Vector <ClasseEquivalenza> elencoClassi;
@@ -36,8 +37,9 @@ public class TestSuite {
 		elencoClassi.add(clEq);
 	}
 	 
-	public Vector <Azione> getAzioniTS() {
-		Vector <Azione> azioniTS = new Vector<Azione>();
+//	public Vector <Azione> getAzioniTS() {
+		
+	/*	Vector <Azione> azioniTS = new Vector<Azione>();
 		Vector <ClasseEquivalenza> classi = getElencoClassi();
 		//Per ogni classe di equivalenza mi faccio i cammini di esecuzione globali 
 		for(int i=0; i<classi.size(); i++) {
@@ -48,7 +50,7 @@ public class TestSuite {
 			 * Le azioni del cammino globale vengono aggiunte a quelle del TS solo se non sono 
 			 * gia' presenti nel secondo vettore. 
 			 */
-				for(int j=0; j<azCammGlob.size(); j++) {
+			/*	for(int j=0; j<azCammGlob.size(); j++) {
 					Azione a = azCammGlob.elementAt(j);
 					boolean giaPresente = false;
 					for(int k=0; k<azioniTS.size(); k++) {
@@ -61,9 +63,9 @@ public class TestSuite {
 					if(giaPresente == false)
 						azioniTS.addElement(a);
 				}						
-			}
-		return azioniTS;
-	}
+			}  
+		return azioniTS;*/
+//	}
 		
 	// Le classi di equivalenza verranno inserite dall'utente come le entita' nel modello.
 	public Vector <ClasseEquivalenza> getElencoClassi() {

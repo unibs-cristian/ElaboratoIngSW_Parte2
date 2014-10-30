@@ -1,8 +1,10 @@
 package gestioneModello;
 import java.util.*;
+import java.io.Serializable;
 
-public class Modello implements Entita {
+public class Modello implements Entita, Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	public final static String MSG_NOME_MODELLO = "NOME MODELLO : %s\n";
 	public final static String MSG_DESCRIZIONE_MODELLO = "DESCRIZIONE MODELLO : %s\n\n";
 	public final static String MSG_ERRORE_MODIFICA = "Errore. Non e' presente alcuna entita' da eliminare.";

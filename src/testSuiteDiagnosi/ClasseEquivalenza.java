@@ -1,8 +1,10 @@
 package testSuiteDiagnosi;
 import java.util.Vector;
-import gestioneModello.Entita;
+import java.io.Serializable;
 
-public class ClasseEquivalenza {
+public class ClasseEquivalenza implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/** La cardinalita' della classe di equivalenza */
 	private int cardinalita;

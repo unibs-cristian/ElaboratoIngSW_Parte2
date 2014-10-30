@@ -3,6 +3,7 @@ package gestioneModello;
 import java.util.Vector;
 
 import utilita.GUI;
+import java.io.Serializable;
 
 /**
  * Classe che istanzia oggetti di tipo Azione. Un'azione e' un'entita' semplice che puo' essere aggiunta 
@@ -10,8 +11,10 @@ import utilita.GUI;
  * @authors Sampietri Cristian, Rossi Pietro, Rubagotti Lorenzo
  *
  */
-public class Azione implements Entita {
+public class Azione implements Entita, Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	/** Costante di tipo stringa per il metodo toString dell'azione */
 	public final static String ID_TIPO = "AZIONE N. %d : %s";
 	

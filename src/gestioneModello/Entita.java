@@ -1,7 +1,8 @@
 package gestioneModello;
 import java.util.*;
+import java.io.Serializable;
 
-public interface Entita {
+public interface Entita extends Serializable {
 	
 	public final static String SPAZIO = " ";
 	public final static String MSG_ENTITA_RIMOSSA = "E' stata rimossa l'entita' %s (id = %d)";

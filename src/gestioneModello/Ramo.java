@@ -1,9 +1,12 @@
 package gestioneModello;
+import java.io.Serializable;
 
 import java.util.Vector;
 
 import utilita.GUI;
-public class Ramo {
+
+public class Ramo implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Vector <Entita> entitaRamo;        
 	
 	public Ramo()

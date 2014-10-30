@@ -1,13 +1,14 @@
 package gestioneModello;
 
 import java.util.Vector;
+import java.io.Serializable;
 
 import utilita.GUI;
 
-public class NodoIniziale implements Entita {
+public class NodoIniziale implements Entita, Serializable {
 
-	public final static String MSG_TITOLO_NI = "NODO_INIZIALE";
-	
+	private static final long serialVersionUID = 1L;
+	public final static String MSG_TITOLO_NI = "NODO_INIZIALE";	
 	private int id;
 	
 	/** Identificatore del tipo */

@@ -1,11 +1,13 @@
 package gestioneModello;
 
 import java.util.Vector;
+import java.io.Serializable;
 
 import utilita.GUI;
 
-public class Fork implements Entita {
+public class Fork implements Entita, Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	public final static String MSG_FORK = "{ FORK N. %d : %s";
 	public final static String MSG_ENTITA_RAMO_FORK = "ENTITA' RAMO PARALLELO N. %d";
 	public final static String MSG_JOIN = "JOIN N. %d }\n";

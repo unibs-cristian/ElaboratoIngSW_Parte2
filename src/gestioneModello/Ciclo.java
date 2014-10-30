@@ -3,9 +3,11 @@ package gestioneModello;
 import java.util.Vector;
 
 import utilita.GUI;
+import java.io.Serializable;
 
-public class Ciclo implements Entita {
+public class Ciclo implements Entita, Serializable {
 
+	private static final long serialVersionUID = 1L;
 	public final static String MSG_CICLO = "< CICLO N. %d : %s\nMERGE N. %d";
 	public final static String MSG_CICLO_COND_INIZIALE = "CICLO A CONDIZIONE INIZIALE";
 	public final static String MSG_CICLO_COND_FINALE = "CICLO A CONDIZIONE FINALE";

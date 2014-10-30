@@ -7,9 +7,11 @@ import utilita.GUI;
 import utilita.Menu;
 import utilita.Stream;
 import utilita.Util;
+import java.io.Serializable;
 
-public class GestoreModello {
+public class GestoreModello implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	public final static String MSG_TITOLO_MENU_INSERIMENTO_MODELLO = "BENVENUTO NEL MENU INSERIMENTO MODELLO\n\nCosa si desidera fare?";
 	public final static String MSG_TITOLO_MENU_BRANCH = "MENU GESTIONE BRANCH %s - RAMO %d\n\nCosa si desidera fare?";
 	public final static String MSG_TITOLO_MENU_CICLO = "MENU GESTIONE CICLO %s - RAMO %d\n\nCosa si desidera fare?";
