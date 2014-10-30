@@ -91,8 +91,8 @@ public class ElaboratoParte1Main {
 						TestSuite ts = TestSuite.getInstance();
 						Diagnosi d1 = new Diagnosi(1, ts);
 						Diagnosi d2 = new Diagnosi(2, ts);
-						d1.eseguiDiagnosi();
-						d2.eseguiDiagnosi();
+						d1.eseguiDiagnosiMetodo1();
+						d2.eseguiDiagnosiMetodo2();
 						break;	
 					}
 					
