@@ -38,13 +38,28 @@ public class Diagnosi {
 	
 	public void eseguiDiagnosiMetodo1 () {
 		
+		System.out.println("1) Caricato metodo 1");
+		
 		/** Inizializzo i vettori che servono per i risultati da passare a calcolo probabilita'. */
 		risultatoAzioni = new Vector<Integer>();
 		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
 		
+		System.out.println("1) Creati vettori");
+		
 		/** Ottengo vettori di classi e azioni da test suite. */
 		elencoClassi = testSuite.getElencoClassi();
+		
+		if(elencoClassi == null)
+			System.out.println("ERRORE ELENCO CLASSI");
+		else 
+			System.out.println("1) Caricamento elenco classi..");
+		
 		elencoAzioni = testSuite.getAzioniTS();
+		
+		if(elencoAzioni == null)
+			System.out.println("ERRORE ELENCO AZIONI");
+		else
+			System.out.println("1) Caricamento elenco azioni..");
 		
 		System.out.println("1) Elenco Azioni");
 		for(int i=0; i<elencoAzioni.size(); i++){
