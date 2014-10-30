@@ -22,6 +22,8 @@ public class Diagnosi {
 		
 		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
+		System.out.println("Diagnosi in corso..");
+		eseguiDiagnosi();
 	}
 	
 	public void eseguiDiagnosi() {
