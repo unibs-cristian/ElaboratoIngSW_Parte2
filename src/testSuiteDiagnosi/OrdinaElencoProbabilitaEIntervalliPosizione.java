@@ -9,6 +9,7 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione
 	{
 		Vector<Tupla> elencoProbabilitaOrdinato = new Vector<Tupla>();
 		
+		//Inserisco l'elenco probabilità in un vettore di tuple
 		Vector<Tupla> elencoProbabilita = new Vector<Tupla>();
 		for (int i = 0; i < probabilitaTestSuite.size(); i++)
 		{
@@ -19,6 +20,7 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione
 				elencoProbabilita.set(i, tuplaDaInserire);
 		}
 		
+		//Ordino le tuple
 		Tupla tuplaConProbabilitaMassima = null;
 		for (int i = 0; i < elencoProbabilita.size(); i++)
 		{
@@ -34,8 +36,21 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione
 			elencoProbabilitaOrdinato.add(tuplaConProbabilitaMassima);
 		}
 		
-		
+		//Rimuovo i doppioni tenendo traccia di quali erano
+		for (int i = 0; i < elencoProbabilitaOrdinato.size(); i++)
+		{
+			for (int j = i + 1; j < elencoProbabilitaOrdinato.size(); j++)
+			{
+				if (elencoProbabilitaOrdinato.get(i).getProbabilita() == elencoProbabilitaOrdinato.get(j).getProbabilita() )
+				{
+					elencoProbabilitaOrdinato.get(i).getListaAzioni().add(elencoProbabilitaOrdinato.get(j).getListaAzioni().get(0) );
+					elencoProbabilitaOrdinato.remove(j);
+				}
+			}
+		}
 		
 		return elencoProbabilitaOrdinato;
 	}
+	
+	
 }

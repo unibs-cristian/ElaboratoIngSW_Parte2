@@ -18,8 +18,14 @@ public class Tupla
 		return probabilita;
 	}
 
+	public Vector<String> getListaAzioni() 
+	{
+		return listaAzioni;
+	}
+
 	public void setListaAzioni(Vector<String> listaAzioniDaSettare) 
 	{
 		listaAzioni = listaAzioniDaSettare;
 	}
+	
 }
