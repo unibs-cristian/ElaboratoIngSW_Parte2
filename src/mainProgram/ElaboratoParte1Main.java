@@ -39,8 +39,12 @@ public class ElaboratoParte1Main {
 	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
 	public final static String MSG_CONTINUA_SI_NO_COPPIA = "Si desidera inserire un'altra coppia (insieme del cammino ; valore della rilevazione)?";
 	public final static String MSG_VAL_RILEV = "Inserire il valore della rilevazione relativa all'insieme del cammino";
+	public final static String MSG_SALVATAGGIO_TS = "Si desidera salvare il Test Suite inserito?";
+	public final static String MSG_NOME_TS = "Che nome si desidera dare al Test Suite?";
 	public final static String MSG_SINTESI_TS = "Si desidera vedere una sintesi delle classi di equivalenza e degli insiemi di copertura inseriti\nper il TS corrente?";
 	
+	
+	public final static String MSG_MODELLO_ESISTENTE = "Esiste gia' un modello. Si desidera inserire comunque un nuovo modello?";
 	public final static String MSG_NOME_MODELLO = "Inserire il nome del nuovo modello: ";
 	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello: ";
 	
@@ -121,14 +125,20 @@ public class ElaboratoParte1Main {
 	public static void inserimentoNuovoModello() {
 		String nome_modello = Util.leggiString(MSG_NOME_MODELLO);
 		String descrizione_modello = Util.leggiString(MSG_DESCRIZIONE_MODELLO);
-		Modello m = Modello.getInstance();
-		m = null;
-		m = Modello.getInstance();
-		m.setNome(nome_modello);
-		m.setDescrizione(descrizione_modello);
-		NodoIniziale ni = new NodoIniziale();
-		m.addEntita(ni);
-		m.getGm().menuInserimentoPrimario();
+		boolean sovrascrivi = false;
+		if(Modello.isNull() == false)
+			sovrascrivi = Util.yesOrNo(MSG_MODELLO_ESISTENTE);
+		
+		if(sovrascrivi || Modello.isNull() == true) {
+			Modello m = Modello.getInstance();
+			m = null;
+			m = Modello.getInstance();
+			m.setNome(nome_modello);
+			m.setDescrizione(descrizione_modello);
+			NodoIniziale ni = new NodoIniziale();
+			m.addEntita(ni);
+			m.getGm().menuInserimentoPrimario();
+		}
 	}
 	
 	public static void visualizzaModelloCorrente() {
@@ -182,7 +192,7 @@ public class ElaboratoParte1Main {
 					CamminoAzioni insCamm = new CamminoAzioni();
 					System.out.println(MSG_INS_CAMMINO);
 					/*
-					 * Le azioni che l'utente può inserire nell'insieme del cammino sono quelle del
+					 * Le azioni che l'utente puÃ² inserire nell'insieme del cammino sono quelle del
 					 * cammino globale, quindi e' garantito che ciascun insieme del cammino sia un 
 					 * sottoinsieme del cammino globale.
 					 */
@@ -200,6 +210,12 @@ public class ElaboratoParte1Main {
 				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));  			
 			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
 		
+			boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_TS);
+			if(salvataggioSiNo) {
+				File nomeFile = new File(Util.leggiString(MSG_NOME_TS));
+				Stream.salvaFile(nomeFile, ts, true);
+			}
+			
 			boolean visualizzaSiNo = Util.yesOrNo(MSG_SINTESI_TS);
 			if(visualizzaSiNo)
 				System.out.println(ts.toString());
