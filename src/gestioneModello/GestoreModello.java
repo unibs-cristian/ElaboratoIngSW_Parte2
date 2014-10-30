@@ -47,10 +47,11 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_CHIUSURA_BRANCH = "Tutti i rami di %s (ID = %d) sono stati completati ed e' stato creato il relativo Merge N.%d";
 	public final static String MSG_CHIUSURA_CICLO = "E' stato completato l'inserimento di tutti i rami del Ciclo N.%d";
 	public final static String MSG_CHIUSURA_FORK = "Tutti i rami paralleli di %s (ID = %d) sono stati completati ed e' stato creato il relativo Join N.%d";
-	public final static String MSG_ATTIVITA_INIZIALI_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'ATTIVITA' INIZIALI'.\nNel caso in cui tale ramo venga lasciato vuoto verra' creato un ciclo\na condizione iniziale, altrimenti il ciclo sara'  a condizione finale.\n";
+	public final static String MSG_ATTIVITA_INIZIALI_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'ATTIVITA' INIZIALI'.\nNel caso in cui tale ramo venga lasciato vuoto verra' creato un ciclo\na condizione iniziale, altrimenti il ciclo sara'Â  a condizione finale.\n";
 	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo puo' essere lasciato vuoto (se non sono vuoti gli altri due rami)";
 	
 	public final static String MSG_RICHIESTA_SALVATAGGIO = "Ritorno al menu' principale. Tutti i progressi non salvati andranno persi.\nSi desidera salvare il modello? (y/n)";
+	public static final String MSG_NOME_MODELLO = "Come si desidera chiamare il modello?";
 	public final static String MSG_ENTITA_ELIMINATA = "E' stata eliminata l'entita' di nome %s (id %d)";
 	public final static String MSG_NODO_FINALE = "Nodo finale inserito per il modello %s";
 	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! Nel modello e' gia' presente il Nodo Finale.\nPer poter inserire nuove entita' eliminare il Nodo Finale.";
@@ -61,8 +62,6 @@ public class GestoreModello implements Serializable {
 	public final static int OPZ_BRANCH = 1;
 	public final static int OPZ_CICLO = 2;
 	public final static int OPZ_FORK = 3;
-
-	private static final String MSG_NOME_MODELLO = "Come vuoi chiamare il modello?";
 	
 	protected static int contatoreEntita = 0;
 	
@@ -146,8 +145,10 @@ public class GestoreModello implements Serializable {
 					break;
 				
 				case 7: 
-					if(Util.yesOrNo(MSG_RICHIESTA_SALVATAGGIO))
-						System.out.println("Implementare il salvataggio...");
+					if(Util.yesOrNo(MSG_RICHIESTA_SALVATAGGIO)) {
+						File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO));
+						Stream.salvaFile(nomeFile, mod, true);
+					}
 					insFinito = true;
 					break;
 					
