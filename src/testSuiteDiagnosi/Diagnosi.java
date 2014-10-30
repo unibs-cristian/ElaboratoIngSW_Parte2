@@ -82,36 +82,30 @@ public class Diagnosi {
 				Vector <Azione> azioni = camm.getInsiemeCammino();
 				String valRil = coppia.getValoreRilevazione();
 				
-				for(int x=0; x<azioni.size(); x++)
-					System.out.println("\t\t\t1) Nome Azione: "+azioni.get(i).getNome());
-				
-					System.out.println("\t\t\t1) Rilevazione Coppia "+c+" : "+valRil);
-				
-				/** Faccio passare l'elencoAzioni e controllo se l'azione e' presente nella Coppia. */
-				for(int y=0; y<elencoAzioni.size(); y++) {
-					Azione azioneElenco = elencoAzioni.get(y);
+				for(int a=0; a<elencoAzioni.size(); a++) {
+					Azione azioneSingolaElenco = elencoAzioni.get(a);
 					
-					/** Se viene trovata, metto 0 se il valore della coppia e' OK, 1 se il valore della coppia e' KO. Metto -1 se non viene trovata. */
-					for(int k=0; k<azioni.size(); k++) {
-						
-						System.out.println("\t\t\t\t1) Nome Azione: "+azioneElenco.getNome());
-						
-						if(azioneElenco.getNome() == azioni.get(k).getNome()) {
-							if(valRil.equalsIgnoreCase("OK")) {
-								System.out.println("\t\t\t\t\t1) Valore Rilevato: "+valRil);
-								matrice[c][y] = 0;
-								System.out.println("Qui c'e' zero: matrice[c][y]");
-							}
-							else if(valRil.equalsIgnoreCase("KO")) 
-								matrice[c][y] = 1;
+					boolean azioneInCoppia = false;
+					int cop=0;
+					do {
+						if(azioneSingolaElenco.getNome().equalsIgnoreCase(azioni.get(cop).getNome()))
+							azioneInCoppia = true;
+						cop++;
+					}while (cop<azioni.size() && !azioneInCoppia);
+					
+					if(azioneInCoppia) {
+						if(valRil.equalsIgnoreCase("OK")) {
+							matrice[c][a] = 0;
 						}
-						else {
-							matrice[y][c] = -1;							
-						}
-					}					
+						else if(valRil.equalsIgnoreCase("KO")) 
+							matrice[c][a] = 1;
+					}
+					else {
+						matrice[c][a] = -1;							
+					}
+					
 				}
-			}
-			
+				
 			/** Elaboro la matrice (metto a 0 le colonne dove e' presente uno 0. */
 			for (int s=0; s<elencoAzioni.size(); s++) {
 				
@@ -138,12 +132,12 @@ public class Diagnosi {
 					}
 				}
 			}
-			
+			}
 			/** Calcolo risultati ed inserimento in vettore. */
-			for(int s=0; s<elencoAzioni.size(); s++) {
+/*			for(int s=0; s<elencoAzioni.size(); s++) {
 				
 				/** Calcolo risultati */
-				boolean fineCalcoloAzione = false;
+/*				boolean fineCalcoloAzione = false;
 				int valoreAzione = -1;
 				int f=0;
 				
@@ -161,7 +155,7 @@ public class Diagnosi {
 				} while(f<insiemeDiCopertura.size() || fineCalcoloAzione);
 				
 				/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
-				risultatoAzioni.add(valoreAzione);
+/*				risultatoAzioni.add(valoreAzione);
 			}
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
@@ -181,7 +175,7 @@ public void eseguiDiagnosiMetodo2 () {
 		
 		int righeMatriceFinale = 0;
 		elencoClassi = testSuite.getElencoClassi();
-		elencoAzioni = testSuite.getAzioniTS();
+		//elencoAzioni = testSuite.getAzioniTS();
 		
 		Vector<int[][]> vettoreMatriciRisultato = new Vector<int[][]>();
 		int[][] matriceClassiPerProbabilita2;
@@ -220,7 +214,7 @@ public void eseguiDiagnosiMetodo2 () {
 						}
 						else {
 							if(valRil.equalsIgnoreCase("OK"))
-								matrice[y][c] = -1;	
+								matrice[c][y] = -1;	
 							else if(valRil.equalsIgnoreCase("KO")) 
 								matrice[c][y] = -2;
 						}
