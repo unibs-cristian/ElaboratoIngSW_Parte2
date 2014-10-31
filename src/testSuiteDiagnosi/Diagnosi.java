@@ -144,33 +144,43 @@ public class Diagnosi {
 			for(int s=0; s<elencoAzioni.size(); s++) {
 				
 				/** Calcolo risultati */
-				boolean fineCalcoloAzione = false;
-				int valoreAzione = 10;
-				int valoreTempAzione = 10;
-				int f=0;
+				boolean valoreDue = false;
+				boolean valoreMenoUno = false;
+				boolean valoreUno = false;
 				
-				do {
+				for(int f=0; f<insiemeDiCopertura.size(); f++) {
 					if(matrice[f][s] == 2) {
-						valoreAzione = 0;
-						fineCalcoloAzione = true;
+						valoreDue = true;
 					} 
 					else {
-						valoreTempAzione = matrice[f][s];
-						}
-
-					f++;
-				} while(f<insiemeDiCopertura.size() && !fineCalcoloAzione);
+						if(matrice[f][s] == -1)
+							valoreMenoUno = true;
+						if(matrice[f][s] == 1)
+							valoreUno = true;
+					}
+				}
+				
+				int valoreAzione = 10;
+				if(valoreDue)
+					valoreAzione = 0;
+				else if(valoreUno && valoreMenoUno)
+					valoreAzione = 0;
+				else if(valoreUno && !valoreMenoUno)
+					valoreAzione = 1;
+				else if(!valoreUno && valoreMenoUno)
+					valoreAzione = -1;
 				
 				/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
-				risultatoAzioni.add(valoreAzione);
+				if(valoreAzione != 10)
+					risultatoAzioni.add(valoreAzione);
+				else
+					System.out.println("ERRORE: valore azione non valido!");
 				
 				System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
 			}
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
-			
-			stampaDiagnosi(matrice);
 		}
 		
 		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
