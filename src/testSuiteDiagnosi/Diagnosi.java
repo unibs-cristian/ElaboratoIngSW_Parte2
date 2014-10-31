@@ -44,35 +44,20 @@ public class Diagnosi {
 		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
 		
 		/** Ottengo vettori di classi e azioni da test suite. */
-		elencoClassi = testSuite.getElencoClassi();
-		
+		elencoClassi = testSuite.getElencoClassi();		
 		Modello mod = Modello.getInstance();
 		elencoAzioni = mod.getElencoAzioni();
 		
-		System.out.println("1) Elenco Azioni");
-		for(int i=0; i<elencoAzioni.size(); i++){
-			
-			System.out.print(elencoAzioni.get(i).getNome()+"\t");
-		}
-		
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
-			
-			System.out.println("");
-			System.out.println("1) Selezione Classe "+i);
-			
 			ClasseEquivalenza classe = elencoClassi.get(i);
 			Vector<Coppia> insiemeDiCopertura = classe.getElencoCoppie();
 			
 			/** Creo la matrice che ha Azioni sulle COLONNE e ogni elenco Azioni della Coppia sulle RIGHE. */
 			int[][] matrice = new int[insiemeDiCopertura.size()][elencoAzioni.size()];
-			
-			System.out.println("\t1) Creazione Matrice");
 
 			/** Seleziono l'elenco di azioni di un elemento dell'insieme di copertura. */
 			for(int c=0; c<insiemeDiCopertura.size(); c++) {
-				
-				System.out.println("\t\t1) Selezione Coppia "+c);
 				
 				/** Ottengo una coppia elencoAzioniCoppia-valoreRilevazione. */
 				Coppia coppia = insiemeDiCopertura.get(c);
