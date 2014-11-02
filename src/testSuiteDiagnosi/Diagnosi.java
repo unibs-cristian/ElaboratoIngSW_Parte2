@@ -39,6 +39,8 @@ public class Diagnosi {
 	
 	public void eseguiDiagnosiMetodo1 () {
 		
+		System.out.println("DIAGNOSI METODO 1");
+		
 		/** Inizializzo i vettori che servono per i risultati da passare a calcolo probabilita'. */
 		risultatoAzioni = new Vector<Integer>();
 		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
@@ -168,18 +170,24 @@ public class Diagnosi {
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
-		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		//ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		//risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
-		stampaRisultati(risultatoFinaleProbabilita);
+		//stampaRisultati(risultatoFinaleProbabilita);
 		//return risultatoFinaleProbabilita;
 	}
 	
-public void eseguiDiagnosiMetodo2 () {
+	public void eseguiDiagnosiMetodo2 () {
 		
+		System.out.println("DIAGNOSI METODO 2");
+		
+		/** Inizializzo variabili che servono per il risultato del metodo. */
 		int righeMatriceFinale = 0;
-		elencoClassi = testSuite.getElencoClassi();
-		//elencoAzioni = testSuite.getAzioniTS();
+		
+		/** Ottengo vettori di classi e azioni da test suite. */
+		elencoClassi = testSuite.getElencoClassi();		
+		Modello mod = Modello.getInstance();
+		elencoAzioni = mod.getElencoAzioni();
 		
 		Vector<int[][]> vettoreMatriciRisultato = new Vector<int[][]>();
 		int[][] matriceClassiPerProbabilita2;
@@ -228,6 +236,9 @@ public void eseguiDiagnosiMetodo2 () {
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita. */
 			vettoreMatriciRisultato.add(matrice);
+			
+			System.out.println("Generazione matrice elaborata..");
+			stampaDiagnosi(matrice);
 		}
 		
 		/** Creazione matrice finale per passaggio risultati a ProbabilitaMetodo2. */
