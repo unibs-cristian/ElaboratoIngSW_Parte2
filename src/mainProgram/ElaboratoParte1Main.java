@@ -52,6 +52,8 @@ public class ElaboratoParte1Main {
 	public final static String MSG_SALUTO = "Grazie per aver usato il nostro programma! A presto.\n";
 	
 	private static final String MSG_NOME_MODELLO_PREESISTENTE = "Nome modello da caricare:";
+	private static final String MSG_CARICA_TS = "Caricare un test suite preesistente?";
+	private static final String MSG_NOME_TS_DA_CARICARE = "Nome Test Suite da caricare:";
 	
 	public static void main(String[] args) {
 		benvenuto();
@@ -167,49 +169,66 @@ public class ElaboratoParte1Main {
 			Modello modelloCorrente = Modello.getInstance();
 			System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
 			Vector <Azione> azioniModello = modelloCorrente.getElencoAzioni();
-			int i=1;
-			//Inserimento classi di equivalenza
-			do {
-				System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-				//Inserimento cardinalita', creazione classe di equivalenza e aggiunta al TS
-				int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
-				
-				CamminoAzioni cammGlob = new CamminoAzioni();
-				System.out.println(MSG_CAMM_GLOBALE_1);
-				//Inserimento cammino globale
-				for(int j=0; j<azioniModello.size(); j++) {
-					Azione a = azioniModello.elementAt(j);
-					if(Util.yesOrNo(String.format(MSG_AGGIUNTA_CAMM_GLOBALE,azioniModello.elementAt(j).getNome())))
-						cammGlob.aggiungiAzione(a);
-				}
-				System.out.println("Cammino Globale ---> " + cammGlob.toString());
-				ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita,cammGlob);
-				ts.addClasseEquivalenza(ce);
-				System.out.println(MSG_INS_COP);
-				i++;
-				//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
+			
+			if (!Util.yesOrNo(MSG_CARICA_TS ) )
+			{
+				int i=1;
+				//Inserimento classi di equivalenza
 				do {
-					CamminoAzioni insCamm = new CamminoAzioni();
-					System.out.println(MSG_INS_CAMMINO);
-					/*
-					 * Le azioni che l'utente può inserire nell'insieme del cammino sono quelle del
-					 * cammino globale, quindi e' garantito che ciascun insieme del cammino sia un 
-					 * sottoinsieme del cammino globale.
-					 */
-					 
-					for(int j=0; j<cammGlob.getNumeroAzioni(); j++) {
-						Azione a = cammGlob.getAzioneAt(j);
-						if(Util.yesOrNo(String.format(MSG_AGGIUNTA_INS_CAMM,cammGlob.getAzioneAt(j).getNome())))
-							insCamm.aggiungiAzione(a);
+					System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
+					//Inserimento cardinalita', creazione classe di equivalenza e aggiunta al TS
+					int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
+					
+					CamminoAzioni cammGlob = new CamminoAzioni();
+					System.out.println(MSG_CAMM_GLOBALE_1);
+					//Inserimento cammino globale
+					for(int j=0; j<azioniModello.size(); j++) {
+						Azione a = azioniModello.elementAt(j);
+						if(Util.yesOrNo(String.format(MSG_AGGIUNTA_CAMM_GLOBALE,azioniModello.elementAt(j).getNome())))
+							cammGlob.aggiungiAzione(a);
 					}
-					System.out.println("Insieme del Cammino ---> " + insCamm.toString());
-					String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
-					Coppia c = new Coppia(insCamm, valoreRilevazione);
-					ce.addCoppia(c);
-					System.out.println(String.format(MSG_COPPIA_AGGIUNTA,i));					
-				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));  			
-			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
-		
+					System.out.println("Cammino Globale ---> " + cammGlob.toString());
+					ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita,cammGlob);
+					ts.addClasseEquivalenza(ce);
+					System.out.println(MSG_INS_COP);
+					i++;
+					//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
+					do {
+						CamminoAzioni insCamm = new CamminoAzioni();
+						System.out.println(MSG_INS_CAMMINO);
+						/*
+						 * Le azioni che l'utente può inserire nell'insieme del cammino sono quelle del
+						 * cammino globale, quindi e' garantito che ciascun insieme del cammino sia un 
+						 * sottoinsieme del cammino globale.
+						 */
+						 
+						for(int j=0; j<cammGlob.getNumeroAzioni(); j++) {
+							Azione a = cammGlob.getAzioneAt(j);
+							if(Util.yesOrNo(String.format(MSG_AGGIUNTA_INS_CAMM,cammGlob.getAzioneAt(j).getNome())))
+								insCamm.aggiungiAzione(a);
+						}
+						System.out.println("Insieme del Cammino ---> " + insCamm.toString());
+						String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
+						Coppia c = new Coppia(insCamm, valoreRilevazione);
+						ce.addCoppia(c);
+						System.out.println(String.format(MSG_COPPIA_AGGIUNTA,i));					
+					} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));  			
+				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
+			}
+			else
+			{
+				File fileDaCaricare = new File(Util.leggiString(MSG_NOME_TS_DA_CARICARE) );
+				ts = (TestSuite) Stream.caricaFile(fileDaCaricare, ts);
+				/*
+				if (ts != null)
+				{
+					Modello.cambiaModello(modelloCaricato);
+					System.out.printf(MSG_MODELLO_CARICATO, nomeFile);
+					System.out.println();
+				}
+				*/
+			}
+			
 			boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_TS);
 			if(salvataggioSiNo) {
 				File nomeFile = new File(Util.leggiString(MSG_NOME_TS));

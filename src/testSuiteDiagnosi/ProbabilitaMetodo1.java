@@ -35,7 +35,7 @@ public class ProbabilitaMetodo1 implements Serializable
 			{
 				if (vettoreRisultatiProbabilitaClassi.get(j).get(i) != -1)
 					{
-						numeratoreClassi.set(i, numeratoreClassi.get(i) + vettoreRisultatiProbabilitaClassi.get(j).get(i) );
+						numeratoreClassi.set(i, numeratoreClassi.get(i) + vettoreRisultatiProbabilitaClassi.get(i).get(j) );
 						denominatoreClassi.set(i, denominatoreClassi.get(i) + cardinalita );
 					}
 			}
@@ -51,7 +51,7 @@ public class ProbabilitaMetodo1 implements Serializable
 		Vector<Integer> risultatoProbabilitaClasse = new Vector<Integer>();
 		for (int i = 0; i < vettoreRisultatiClasse.size(); i++)
 		{
-			risultatoProbabilitaClasse.set(i, cardinalita * vettoreRisultatiClasse.get(i) );
+			risultatoProbabilitaClasse.add(i, cardinalita * vettoreRisultatiClasse.get(i) );
 		}
 		return risultatoProbabilitaClasse;
 	}
