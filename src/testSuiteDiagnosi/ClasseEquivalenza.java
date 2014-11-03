@@ -45,6 +45,20 @@ public class ClasseEquivalenza implements Serializable {
 		return camminoGlobale;
 	}
 	
+	public boolean isEqual(ClasseEquivalenza altra) {
+		// Se le due classi hanno diverso cammino globale o diverso numero di coppie, allora sono diverse.
+		if(camminoGlobale.isEqual(altra.getCamminoGlobale()) == false || getNumeroCoppie() != altra.getNumeroCoppie())
+			return false;
+		// 
+		else
+		{
+			for(int i=0; i<getNumeroCoppie(); i++) 
+				if(getCoppiaAt(i).isEqual(altra.getCoppiaAt(i)) == false)
+					return false;
+		}
+		return true;
+	}
+	
 	public void setCamminoGlobale(CamminoAzioni cammGlob) {
 		camminoGlobale = cammGlob;
 	}

@@ -20,6 +20,15 @@ public class Coppia implements Serializable {
 		return insiemeCammino;
 	}
 	
+	public boolean isEqual(Coppia altra) {
+		// Confronta i valori della rilevazione. Se non coincidono le coppie sono diverse.
+		if(altra.getValoreRilevazione().equalsIgnoreCase(getValoreRilevazione()) == false)
+			return false;
+		// Se i valori della rilevazione sono uguali, viene effettuato il confronto degli insiemi dei cammini.
+		else
+			return getInsiemeCammino().isEqual(altra.getInsiemeCammino());
+	}
+	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("Insieme del cammino ---> " + insiemeCammino.toString() + "\n");

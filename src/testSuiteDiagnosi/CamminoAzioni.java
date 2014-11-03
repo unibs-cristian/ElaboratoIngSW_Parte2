@@ -28,6 +28,22 @@ public class CamminoAzioni implements Serializable {
 		return insiemeCammino.elementAt(index);
 	}
 	
+	public boolean isEmpty() {
+		return insiemeCammino.isEmpty();
+	}
+	
+	public boolean isEqual(CamminoAzioni altro) {
+		if(altro.getNumeroAzioni() != getNumeroAzioni())
+			return false;
+		else {
+			for(int i=0; i<getNumeroAzioni(); i++) {
+				if(getAzioneAt(i).getNome().equalsIgnoreCase(altro.getAzioneAt(i).getNome())==false)
+					return false;
+			}
+		}
+		return true;
+	}
+	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(getAzioneAt(0).getNome());
