@@ -174,7 +174,6 @@ public class Diagnosi {
 		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
 		stampaRisultati(risultatoFinaleProbabilita);
-		return risultatoFinaleProbabilita;
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
