@@ -170,11 +170,11 @@ public class Diagnosi {
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
-		//ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		//risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
-		//stampaRisultati(risultatoFinaleProbabilita);
-		//return risultatoFinaleProbabilita;
+		stampaRisultati(risultatoFinaleProbabilita);
+		return risultatoFinaleProbabilita;
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
