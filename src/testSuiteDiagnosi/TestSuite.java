@@ -66,6 +66,13 @@ public class TestSuite implements Serializable {
 			}  
 		return azioniTS;*/
 //	}
+	
+	public boolean giaInserita(ClasseEquivalenza ce) {
+		for(int i=0; i<getNumeroCE(); i++)
+			if(getClasseAt(i).isEqual(ce))
+				return true;
+		return false;
+	}
 		
 	// Le classi di equivalenza verranno inserite dall'utente come le entita' nel modello.
 	public Vector <ClasseEquivalenza> getElencoClassi() {
