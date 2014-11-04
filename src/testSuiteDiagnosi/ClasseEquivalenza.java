@@ -65,6 +65,7 @@ public class ClasseEquivalenza implements Serializable {
 	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
+		risultato.append("Cardinalita' = " + cardinalita + "\n");
 		risultato.append("Cammino Globale --> " + camminoGlobale.toString() + "\n");
 		for(int i=0; i<getNumeroCoppie(); i++) {
 			risultato.append(String.format("Coppia n.%d\n" + getCoppiaAt(i).toString(),i+1));
