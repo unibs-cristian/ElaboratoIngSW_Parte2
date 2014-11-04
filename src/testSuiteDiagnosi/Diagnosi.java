@@ -147,21 +147,16 @@ public class Diagnosi {
 					}
 				}
 				
-				int valoreAzione = 10;
+				int valoreAzione = -1;
 				if(valoreDue)
 					valoreAzione = 0;
 				else if(valoreUno && valoreMenoUno)
 					valoreAzione = 0;
 				else if(valoreUno && !valoreMenoUno)
 					valoreAzione = 1;
-				else if(!valoreUno && valoreMenoUno)
-					valoreAzione = -1;
 				
 				/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
-				if(valoreAzione != 10)
-					risultatoAzioni.add(valoreAzione);
-				else
-					System.out.println("ERRORE: valore azione non valido!");
+				risultatoAzioni.add(valoreAzione);
 				
 				System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
 			}
@@ -170,15 +165,15 @@ public class Diagnosi {
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
-		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		//ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		//risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
-		stampaRisultati(risultatoFinaleProbabilita);
+		//stampaRisultati(risultatoFinaleProbabilita);
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
 		
-		System.out.println("DIAGNOSI METODO 2");
+		System.out.println("\n\nDIAGNOSI METODO 2");
 		
 		/** Inizializzo variabili che servono per il risultato del metodo. */
 		int righeMatriceFinale = 0;
@@ -242,6 +237,8 @@ public class Diagnosi {
 		
 		/** Creazione matrice finale per passaggio risultati a ProbabilitaMetodo2. */
 		matriceClassiPerProbabilita2 = new int[righeMatriceFinale][elencoAzioni.size()];
+		
+		System.out.println("Righe: "+matriceClassiPerProbabilita2.length+"\nColonne: "+matriceClassiPerProbabilita2[0].length);
 		
 		int ultimaRiga = 0;	
 		
