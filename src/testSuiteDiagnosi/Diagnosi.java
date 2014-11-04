@@ -94,8 +94,8 @@ public class Diagnosi {
 				}
 			}
 			
-			System.out.println("Creazione matrice base..");
-			stampaDiagnosi(matrice);
+		//	System.out.println("Creazione matrice base..");
+		//	stampaDiagnosi(matrice);
 			
 			/** Elaboro la matrice (metto a 0 le colonne dove e' presente uno 0. */
 			for (int col=0; col<elencoAzioni.size(); col++) {
@@ -124,8 +124,8 @@ public class Diagnosi {
 				}
 			}
 			
-			System.out.println("Generazione matrice elaborata..");
-			stampaDiagnosi(matrice);
+		//	System.out.println("Generazione matrice elaborata..");
+		//	stampaDiagnosi(matrice);
 			
 			/** Calcolo risultati ed inserimento in vettore. */
 			for(int s=0; s<elencoAzioni.size(); s++) {
@@ -157,9 +157,18 @@ public class Diagnosi {
 				
 				/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
 				risultatoAzioni.add(valoreAzione);
-				
-				System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
+
+			//	System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
 			}
+			
+			/** Stampo le diagnosi minimali e la cardinalita'. */
+			System.out.print("Diagnosi Minimali D" + i+1 +" = {");
+			for(int dm=0; dm<elencoAzioni.size(); dm++) {
+				if(risultatoAzioni.get(dm) == 1)
+					System.out.print("{" + elencoAzioni.get(dm).getNome() + "}");
+			}
+			System.out.println("}");
+			System.out.println("Cardinalita' D" + i+1 + ": " + classe.getCardinalita());
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
