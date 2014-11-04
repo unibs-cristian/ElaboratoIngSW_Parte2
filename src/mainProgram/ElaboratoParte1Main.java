@@ -87,13 +87,10 @@ public class ElaboratoParte1Main {
 					break;
 				
 				case 4:
-					boolean continua = false;
-					if(TestSuite.isNull())
+					boolean continua = true;
+					if(TestSuite.isNull()) {
 						System.out.println("TS nullo!");
-					else
-					{
-						System.out.println("TS rilevato!");
-						continua = true;
+						continua = false;
 					}
 					if(continua) {
 						TestSuite ts = TestSuite.getInstance();
