@@ -251,6 +251,7 @@ public class ElaboratoParte1Main {
 			{
 				File fileDaCaricare = new File(Util.leggiString(MSG_NOME_TS_DA_CARICARE) );
 				ts = (TestSuite) Stream.caricaFile(fileDaCaricare, ts);
+				TestSuite.cambiaTestSuite(ts);
 				/*
 				if (ts != null)
 				{

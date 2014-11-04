@@ -11,7 +11,7 @@ public class ProbabilitaMetodo2 implements Serializable
 	{
 		Vector<Float> risultato = new Vector<Float>();
 		
-		for ( int i = 0; i < matriceRisultatiTestSuite.length; i++)
+		for ( int i = 0; i < matriceRisultatiTestSuite[0].length; i++)
 		{
 			float nKO = 0, nOK = 0, nKOv = 0;
 			for (int j = 0; j < matriceRisultatiTestSuite.length; j++)

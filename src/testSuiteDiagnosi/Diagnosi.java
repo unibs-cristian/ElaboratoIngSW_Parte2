@@ -174,10 +174,10 @@ public class Diagnosi {
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
-		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		//ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		//risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
-		stampaRisultati(risultatoFinaleProbabilita);
+		//stampaRisultati(risultatoFinaleProbabilita);
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
@@ -271,8 +271,8 @@ public class Diagnosi {
 		}
 		
 		/** Invio risultati. */
-		ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
-		risultatoFinaleProbabilita = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
+		//ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
+		//risultatoFinaleProbabilita = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
 		
 		stampaDiagnosi(matriceClassiPerProbabilita2);
 		
