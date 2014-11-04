@@ -42,7 +42,6 @@ public class Diagnosi {
 		System.out.println("DIAGNOSI METODO 1");
 		
 		/** Inizializzo i vettori che servono per i risultati da passare a calcolo probabilita'. */
-		risultatoAzioni = new Vector<Integer>();
 		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
 		
 		/** Ottengo vettori di classi e azioni da test suite. */
@@ -52,6 +51,7 @@ public class Diagnosi {
 		
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
+			risultatoAzioni = new Vector<Integer>();
 			ClasseEquivalenza classe = elencoClassi.get(i);
 			Vector<Coppia> insiemeDiCopertura = classe.getElencoCoppie();
 			
@@ -162,22 +162,22 @@ public class Diagnosi {
 			}
 			
 			/** Stampo le diagnosi minimali e la cardinalita'. */
-			System.out.print("Diagnosi Minimali D" + i+1 +" = {");
-			for(int dm=0; dm<elencoAzioni.size(); dm++) {
+			System.out.print("Diagnosi Minimali D" + i +" = {");
+			for(int dm=0; dm<risultatoAzioni.size(); dm++) {
 				if(risultatoAzioni.get(dm) == 1)
 					System.out.print("{" + elencoAzioni.get(dm).getNome() + "}");
 			}
 			System.out.println("}");
-			System.out.println("Cardinalita' D" + i+1 + ": " + classe.getCardinalita());
+			System.out.println("Cardinalita' D" + i + ": " + classe.getCardinalita());
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
-		//ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		//risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
-		//stampaRisultati(risultatoFinaleProbabilita);
+		stampaRisultati(risultatoFinaleProbabilita);
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
