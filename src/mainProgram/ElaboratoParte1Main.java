@@ -56,6 +56,7 @@ public class ElaboratoParte1Main {
 	private static final String MSG_NOME_MODELLO_PREESISTENTE = "Nome modello da caricare:";
 	private static final String MSG_CARICA_TS = "Caricare un test suite preesistente?";
 	private static final String MSG_NOME_TS_DA_CARICARE = "Nome Test Suite da caricare:";
+	private static String MSG_TS_CARICATO = "Il Test Suite %s e' stato caricato con successo.";
 	
 	public static void main(String[] args) {
 		benvenuto();
@@ -168,11 +169,11 @@ public class ElaboratoParte1Main {
 		
 		if(continua) {
 			Modello modelloCorrente = Modello.getInstance();
-			System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
 			Vector <Azione> azioniModello = modelloCorrente.getElencoAzioni();
 			
 			if (!Util.yesOrNo(MSG_CARICA_TS ) )
 			{
+				System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
 				int i=1;
 				boolean giaPresente = false;
 				//Inserimento classi di equivalenza
@@ -245,27 +246,24 @@ public class ElaboratoParte1Main {
 							giaPresente = false;
 						}
 					} while(giaPresente == true);					
-				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
+				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));
+				
+				boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_TS);
+				if(salvataggioSiNo) {
+					File nomeFile = new File(Util.leggiString(MSG_NOME_TS));
+					Stream.salvaFile(nomeFile, ts, true);
+				}
 			}
 			else
 			{
 				File fileDaCaricare = new File(Util.leggiString(MSG_NOME_TS_DA_CARICARE) );
 				ts = (TestSuite) Stream.caricaFile(fileDaCaricare, ts);
-				TestSuite.cambiaTestSuite(ts);
-				/*
 				if (ts != null)
 				{
-					Modello.cambiaModello(modelloCaricato);
-					System.out.printf(MSG_MODELLO_CARICATO, nomeFile);
+					TestSuite.cambiaTestSuite(ts);
+					System.out.printf(MSG_TS_CARICATO, fileDaCaricare);
 					System.out.println();
 				}
-				*/
-			}
-			
-			boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_TS);
-			if(salvataggioSiNo) {
-				File nomeFile = new File(Util.leggiString(MSG_NOME_TS));
-				Stream.salvaFile(nomeFile, ts, true);
 			}
 			
 			boolean visualizzaSiNo = Util.yesOrNo(MSG_SINTESI_TS);
