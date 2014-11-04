@@ -158,7 +158,7 @@ public class Diagnosi {
 				/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
 				risultatoAzioni.add(valoreAzione);
 
-			//	System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
+				System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
 			}
 			
 			/** Stampo le diagnosi minimali e la cardinalita'. */
