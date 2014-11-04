@@ -15,9 +15,7 @@ public class ProbabilitaMetodo1 implements Serializable
 		{
 			Vector<Integer> risultatoProbabilitaClasse = new Vector<Integer>();
 			int cardinalita = testSuite.getElencoClassi().get(i).getCardinalita();
-			
-			System.out.println("cardinalità: " + cardinalita);
-			
+						
 			if (cardinalita > 1)
 				risultatoProbabilitaClasse = calcolaProbabilitaClasse(cardinalita, vettoreRisultatiTestSuite.get(i) );
 			else //Semplice ottimizzazione, evita di chiamare un metodo in piu'
@@ -29,25 +27,21 @@ public class ProbabilitaMetodo1 implements Serializable
 		Vector<Float> numeratoreClassi = new Vector<Float>();
 		Vector<Float> denominatoreClassi = new Vector<Float>();
 		
-		for (int i = 0; i < vettoreRisultatiProbabilitaClassi.size(); i++)
+		for (int i = 0; i < vettoreRisultatiProbabilitaClassi.get(0).size(); i++)
 		{
-			int cardinalita = testSuite.getElencoClassi().get(i).getCardinalita();
-			System.out.println("cardinalità: " + cardinalita);
 			numeratoreClassi.add(i, (float) 0);
 			denominatoreClassi.add(i, (float) 0);
-			for (int j = 0; j < vettoreRisultatiProbabilitaClassi.get(i).size(); j++)
+			for (int j = 0; j < vettoreRisultatiProbabilitaClassi.size(); j++)
 			{
-				if (vettoreRisultatiProbabilitaClassi.get(j).get(i) != -1)
+				int cardinalita = testSuite.getElencoClassi().get(j).getCardinalita();			
+				if (vettoreRisultatiProbabilitaClassi.get(j).get(i) >= 0)
 					{
-						System.out.println(vettoreRisultatiProbabilitaClassi.get(j).get(i));
 						numeratoreClassi.set(i, numeratoreClassi.get(i) + vettoreRisultatiProbabilitaClassi.get(j).get(i) );
-						System.out.println("numeratore " + i + " : " + numeratoreClassi.get(i) );
 						denominatoreClassi.set(i, denominatoreClassi.get(i) + cardinalita );
 					}
 			}
 			
-			risultato.set(i, numeratoreClassi.get(i) / denominatoreClassi.get(i));
-				
+			risultato.add(i, numeratoreClassi.get(i) / denominatoreClassi.get(i));
 		}
 		return risultato;
 	}
@@ -61,5 +55,4 @@ public class ProbabilitaMetodo1 implements Serializable
 		}
 		return risultatoProbabilitaClasse;
 	}
-
 }
