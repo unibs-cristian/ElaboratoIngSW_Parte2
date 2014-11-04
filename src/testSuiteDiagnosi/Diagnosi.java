@@ -165,10 +165,10 @@ public class Diagnosi {
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
-		//ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		//risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
-		//stampaRisultati(risultatoFinaleProbabilita);
+		stampaRisultati(risultatoFinaleProbabilita);
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
@@ -240,24 +240,25 @@ public class Diagnosi {
 		
 		System.out.println("Righe: "+matriceClassiPerProbabilita2.length+"\nColonne: "+matriceClassiPerProbabilita2[0].length);
 		
-		int ultimaRiga = 0;	
+		int ultimaRiga = 0;
+		int r;
 		
 		/** Faccio passare il vettore delle Matrici  e recupero ogni Matrice rappresentante ogni Classe. */
 		for(int v=0; v<vettoreMatriciRisultato.size(); v++) {
-			int lengthMatrice = vettoreMatriciRisultato.get(v)[0].length;
+			int lengthMatrice = vettoreMatriciRisultato.get(v).length;
 			int[][] matriceTemp = new int[lengthMatrice][elencoAzioni.size()];
 			
 			/** Inserisco una matrice di Classe in una temporanea di dimensione uguale. */
 			matriceTemp = vettoreMatriciRisultato.get(v);
 			
-			for(int r=ultimaRiga; r<righeMatriceFinale; r++) {
+			for(r=0; r<matriceTemp.length; r++) {
 				for(int c=0; c<elencoAzioni.size(); c++) {
 					/** Copio la matrice temporanea nella grossa matrice finale. */
-					matriceClassiPerProbabilita2[r][c] = matriceTemp[r][c];
+					matriceClassiPerProbabilita2[r+ultimaRiga][c] = matriceTemp[r][c];
 				}
-				/** Tengo in memoria la prima riga libera per poter partire dalla posizione corretta nell'inserimento della prossima matrice. */
-				ultimaRiga = r+1;
 			}
+			/** Tengo in memoria la prima riga libera per poter partire dalla posizione corretta nell'inserimento della prossima matrice. */
+			ultimaRiga = r;
 		}
 		
 		/** Invio risultati. */
@@ -267,7 +268,6 @@ public class Diagnosi {
 		stampaDiagnosi(matriceClassiPerProbabilita2);
 		
 		stampaRisultati(risultatoFinaleProbabilita);
-		//return risultatoFinaleProbabilita;
 	}
 	
 	public int tipoDiagnosi() {
