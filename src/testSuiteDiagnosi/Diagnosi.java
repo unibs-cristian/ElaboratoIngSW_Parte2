@@ -158,7 +158,7 @@ public class Diagnosi {
 				/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
 				risultatoAzioni.add(valoreAzione);
 
-				System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
+			//	System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
 			}
 			
 			/** Stampo le diagnosi minimali e la cardinalita'. */
@@ -168,29 +168,33 @@ public class Diagnosi {
 					System.out.print("{" + elencoAzioni.get(dm).getNome() + "}");
 			}
 			System.out.println("}");
-			System.out.println("Cardinalita' D" + i + ": " + classe.getCardinalita());
+			System.out.println("Cardinalita' D" + i + ": " + classe.getCardinalita() + "\n");
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
-		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		//ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		//risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
-		stampaRisultati(risultatoFinaleProbabilita);
+		//stampaRisultati(risultatoFinaleProbabilita);
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
 		
 		System.out.println("\n\nDIAGNOSI METODO 2");
 		
-		/** Inizializzo variabili che servono per il risultato del metodo. */
-		int righeMatriceFinale = 0;
-		
 		/** Ottengo vettori di classi e azioni da test suite. */
 		elencoClassi = testSuite.getElencoClassi();		
 		Modello mod = Modello.getInstance();
 		elencoAzioni = mod.getElencoAzioni();
+		
+		/** Conto le righe per la matrice finale. */
+		int righeMatriceFinale = 0;
+		for(int c=0; c<elencoClassi.size(); c++) {
+			ClasseEquivalenza classe = elencoClassi.get(c);
+			righeMatriceFinale += classe.getElencoCoppie().size()*classe.getCardinalita();
+		}
 		
 		Vector<int[][]> vettoreMatriciRisultato = new Vector<int[][]>();
 		int[][] matriceClassiPerProbabilita2;
@@ -206,68 +210,73 @@ public class Diagnosi {
 			/** Seleziono l'elenco di azioni di un elemento dell'insieme di copertura. */
 			for(int c=0; c<insiemeDiCopertura.size(); c++) {
 				
-				righeMatriceFinale++;
-				
 				/** Ottengo una coppia elencoAzioniCoppia-valoreRilevazione. */
 				Coppia coppia = insiemeDiCopertura.get(c);
+				
 				/** Ottengo il vector di Azioni della Coppia e il valore. */
 				CamminoAzioni camm = coppia.getInsiemeCammino();
 				Vector <Azione> azioni = camm.getInsiemeCammino();
 				String valRil = coppia.getValoreRilevazione();
 				
-				/** Faccio passare l'elencoAzioni e controllo se l'azione e' presente nella Coppia. */
-				for(int y=0; y<elencoAzioni.size(); y++) {
-					Azione azioneElenco = elencoAzioni.get(y);
+				for(int a=0; a<elencoAzioni.size(); a++) {
+					Azione azioneSingolaElenco = elencoAzioni.get(a);
 					
-					/** Se viene trovata, metto 1 se il valore della coppia e' OK, 2 se il valore della coppia e' KO. Metto -1 se non e' OK e -2 se non e' KO. */
-					for(int k=0; k<azioni.size(); k++) {
-						if(azioneElenco.getNome() == azioni.get(k).getNome()) {
-							if(valRil.equalsIgnoreCase("OK"))
-								matrice[c][y] = 1;
-							else if(valRil.equalsIgnoreCase("KO")) 
-								matrice[c][y] = 2;
+					boolean azioneInCoppia = false;
+					int cop=0;
+					do {
+						if(azioneSingolaElenco.getNome().equalsIgnoreCase(azioni.get(cop).getNome()))
+							azioneInCoppia = true;
+						cop++;
+					}while (cop<azioni.size() && !azioneInCoppia);
+					
+					if(azioneInCoppia) {
+						if(valRil.equalsIgnoreCase("OK")) {
+							matrice[c][a] = 2;
 						}
-						else {
-							if(valRil.equalsIgnoreCase("OK"))
-								matrice[c][y] = -1;	
-							else if(valRil.equalsIgnoreCase("KO")) 
-								matrice[c][y] = -2;
-						}
-					}					
+						else if(valRil.equalsIgnoreCase("KO")) 
+							matrice[c][a] = 1;
+					}
+					else {
+						matrice[c][a] = -1;							
+					}
+					
 				}
 			}
+			
+			System.out.println("Creazione matrice base..");
+			stampaDiagnosi(matrice);
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita. */
 			vettoreMatriciRisultato.add(matrice);
 			
-			System.out.println("Generazione matrice elaborata..");
-			stampaDiagnosi(matrice);
+			//System.out.println("Generazione matrice elaborata..");
+			//stampaDiagnosi(matrice);
 		}
 		
 		/** Creazione matrice finale per passaggio risultati a ProbabilitaMetodo2. */
 		matriceClassiPerProbabilita2 = new int[righeMatriceFinale][elencoAzioni.size()];
 		
 		System.out.println("Righe: "+matriceClassiPerProbabilita2.length+"\nColonne: "+matriceClassiPerProbabilita2[0].length);
-		
+	/*	
 		int ultimaRiga = 0;
 		int r;
 		
 		/** Faccio passare il vettore delle Matrici  e recupero ogni Matrice rappresentante ogni Classe. */
-		for(int v=0; v<vettoreMatriciRisultato.size(); v++) {
+	/*	for(int v=0; v<vettoreMatriciRisultato.size(); v++) {
 			int lengthMatrice = vettoreMatriciRisultato.get(v).length;
 			int[][] matriceTemp = new int[lengthMatrice][elencoAzioni.size()];
 			
 			/** Inserisco una matrice di Classe in una temporanea di dimensione uguale. */
-			matriceTemp = vettoreMatriciRisultato.get(v);
+	/*		matriceTemp = vettoreMatriciRisultato.get(v);
 			
 			for(r=0; r<matriceTemp.length; r++) {
 				for(int c=0; c<elencoAzioni.size(); c++) {
 					/** Copio la matrice temporanea nella grossa matrice finale. */
-					matriceClassiPerProbabilita2[r+ultimaRiga][c] = matriceTemp[r][c];
+	/*				matriceClassiPerProbabilita2[r+ultimaRiga][c] = matriceTemp[r][c];
 				}
 			}
 			/** Tengo in memoria la prima riga libera per poter partire dalla posizione corretta nell'inserimento della prossima matrice. */
-			ultimaRiga = r;
+	/*		ultimaRiga = r;
 		}
 		
 		/** Invio risultati. */
@@ -276,7 +285,7 @@ public class Diagnosi {
 		
 		stampaDiagnosi(matriceClassiPerProbabilita2);
 		
-		stampaRisultati(risultatoFinaleProbabilita);
+		//stampaRisultati(risultatoFinaleProbabilita);
 	}
 	
 	public int tipoDiagnosi() {
