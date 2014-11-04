@@ -265,10 +265,12 @@ public class ElaboratoParte1Main {
 					System.out.println();
 				}
 			}
-			
+			if (ts != null)
+			{
 			boolean visualizzaSiNo = Util.yesOrNo(MSG_SINTESI_TS);
 			if(visualizzaSiNo)
 				System.out.println(ts.toString());
+			}
 		}
 	}
 		
