@@ -2,6 +2,7 @@ package testSuiteDiagnosi;
 
 import java.util.Vector;
 
+import sun.security.jca.GetInstance;
 import gestioneModello.Azione;
 import gestioneModello.Modello;
 
@@ -14,6 +15,8 @@ public class Diagnosi {
 	private Vector<Integer> risultatoAzioni;
 	private Vector<Vector<Integer>> risultatoClassiPerProbabilita;
 	private Vector<Float> risultatoFinaleProbabilita;
+	
+	private static Diagnosi instance = null;
 	
 	/* 	 2: OK
 		 1: KO
@@ -174,10 +177,12 @@ public class Diagnosi {
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
-		//ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		//risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
-		//stampaRisultati(risultatoFinaleProbabilita);
+		stampaRisultati(risultatoFinaleProbabilita);
+		
+		testSuite.addDiagnosi(getInstance());
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
@@ -243,49 +248,53 @@ public class Diagnosi {
 				}
 			}
 			
-			System.out.println("Creazione matrice base..");
-			stampaDiagnosi(matrice);
+//			System.out.println("Creazione matrice base..");
+//			stampaDiagnosi(matrice);
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita. */
 			vettoreMatriciRisultato.add(matrice);
-			
-			//System.out.println("Generazione matrice elaborata..");
-			//stampaDiagnosi(matrice);
 		}
 		
 		/** Creazione matrice finale per passaggio risultati a ProbabilitaMetodo2. */
 		matriceClassiPerProbabilita2 = new int[righeMatriceFinale][elencoAzioni.size()];
 		
-		System.out.println("Righe: "+matriceClassiPerProbabilita2.length+"\nColonne: "+matriceClassiPerProbabilita2[0].length);
-	/*	
+//		System.out.println("Righe: "+matriceClassiPerProbabilita2.length+"\nColonne: "+matriceClassiPerProbabilita2[0].length);
+		
 		int ultimaRiga = 0;
 		int r;
 		
 		/** Faccio passare il vettore delle Matrici  e recupero ogni Matrice rappresentante ogni Classe. */
-	/*	for(int v=0; v<vettoreMatriciRisultato.size(); v++) {
+		for(int v=0; v<vettoreMatriciRisultato.size(); v++) {
 			int lengthMatrice = vettoreMatriciRisultato.get(v).length;
+			int cardinalita = elencoClassi.get(v).getCardinalita();
 			int[][] matriceTemp = new int[lengthMatrice][elencoAzioni.size()];
 			
 			/** Inserisco una matrice di Classe in una temporanea di dimensione uguale. */
-	/*		matriceTemp = vettoreMatriciRisultato.get(v);
+			matriceTemp = vettoreMatriciRisultato.get(v);
 			
-			for(r=0; r<matriceTemp.length; r++) {
-				for(int c=0; c<elencoAzioni.size(); c++) {
-					/** Copio la matrice temporanea nella grossa matrice finale. */
-	/*				matriceClassiPerProbabilita2[r+ultimaRiga][c] = matriceTemp[r][c];
+			do {
+				for(r=0; r<matriceTemp.length; r++) {
+					for(int c=0; c<elencoAzioni.size(); c++) {
+						/** Copio la matrice temporanea nella grossa matrice finale. */
+						matriceClassiPerProbabilita2[r+ultimaRiga][c] = matriceTemp[r][c];
+					}
 				}
-			}
-			/** Tengo in memoria la prima riga libera per poter partire dalla posizione corretta nell'inserimento della prossima matrice. */
-	/*		ultimaRiga = r;
+				/** Tengo in memoria la prima riga libera per poter partire dalla posizione corretta nell'inserimento della prossima matrice. */
+				ultimaRiga += r;
+				
+				cardinalita--;
+			} while (cardinalita!=0);
 		}
 		
+//		stampaDiagnosi(matriceClassiPerProbabilita2);
+		
 		/** Invio risultati. */
-		//ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
-		//risultatoFinaleProbabilita = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
+		ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
+		risultatoFinaleProbabilita = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
 		
-		stampaDiagnosi(matriceClassiPerProbabilita2);
+		stampaRisultati(risultatoFinaleProbabilita);
 		
-		//stampaRisultati(risultatoFinaleProbabilita);
+		testSuite.addDiagnosi(getInstance());
 	}
 	
 	public int tipoDiagnosi() {
@@ -311,5 +320,9 @@ public class Diagnosi {
 			System.out.println("");
 		}
 		System.out.println("\n\n");
+	}
+	
+	public static Diagnosi getInstance() {
+		return instance;
 	}
 }
