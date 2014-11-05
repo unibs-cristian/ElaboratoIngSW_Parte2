@@ -70,7 +70,7 @@ public class ElaboratoParte1Main {
 	public static final String MSG_ESCI = "4 - Ritorna al menu' principale";
 	public static final String MSG_NOME_TS_DA_CARICARE = "Nome Test Suite da caricare: ";
 	public static final String MSG_SOVRASCRIVI_MODELLO = "Attenzione, esiste gia' un modello inserito. Si desidera abbandonare tale modello e lavorare su quello caricato?";
-	public static final String MSG_SOVRASCRIVI_MODELLO_TS = "Attenzione, il test suite caricato si riferisce ad un modello diverso da quello presente nel sistema.\nSi consiglia di caricare il Modello relativo al Test Suite";
+	public static final String MSG_SOVRASCRIVI_MODELLO_TS = "Attenzione, il Test Suite caricato si riferisce ad un modello diverso da quello presente nel sistema oppure non vi e' alcun\nmodello inserito. Si consiglia di caricare il modello corretto per poter eseguire correttamente diagnosi e probabilita'";
 	public static final String MSG_SOVRASCRIVI_TS = "Attenzione, esiste gia' un Test Suite inserito. Si desidera abbandonare tale Test Suite e lavorare su quello caricato?";
 	public final static String MSG_MODELLO_CARICATO = "Il modello %s e' stato caricato con successo.";
 	public final static String MSG_REPORT_CARICATO = "Il report %s e' stato caricato con successo.";
@@ -363,9 +363,34 @@ public class ElaboratoParte1Main {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_TS_PREESISTENTE));
 		TestSuite tsCaricato = null;
 		tsCaricato = (TestSuite) Stream.caricaFile(nomeFile, tsCaricato);
-		TestSuite tsCorrente = TestSuite.getInstance();
-		if(tsCorrente!=tsCaricato)
-			if(Util.yesOrNo(MSG_SOVRASCRIVI_TS)) {
+		TestSuite tsCorrente;
+		boolean sovrascriviTS = false;
+		if(TestSuite.isNull())
+			tsCorrente = null;
+		else {
+			tsCorrente = TestSuite.getInstance();
+			if(Util.yesOrNo(MSG_SOVRASCRIVI_TS))
+				sovrascriviTS = true;
+			else 
+				System.out.println(MSG_CARICAMENTO_ANNULLATO);	
+		}
+		if(sovrascriviTS || tsCorrente == null)
+		{
+			TestSuite.cambiaTestSuite(tsCaricato);
+			System.out.println(MSG_CARICAMENTO_OK);
+		}
+		Modello modCorrente;
+		if(Modello.isNull())
+			modCorrente = null;
+		else
+			modCorrente = Modello.getInstance();
+		Modello modTS = tsCaricato.getModello();
+		if(modTS!=modCorrente)
+			System.out.println(MSG_SOVRASCRIVI_MODELLO_TS);
+	}
+			
+			
+/*			if(Util.yesOrNo(MSG_SOVRASCRIVI_TS)) {
 				TestSuite.cambiaTestSuite(tsCaricato);
 				System.out.printf(MSG_CARICAMENTO_OK, nomeFile);
 			}
@@ -381,7 +406,7 @@ public class ElaboratoParte1Main {
 		if(modCorrente!=modTS)
 			System.out.println(MSG_SOVRASCRIVI_MODELLO_TS);
 				
-	}
+	}  */
 	
 	public static void caricamentoReport() {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_REPORT_PREESISTENTE));
