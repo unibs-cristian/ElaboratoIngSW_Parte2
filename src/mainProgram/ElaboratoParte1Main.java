@@ -209,9 +209,6 @@ public class ElaboratoParte1Main {
 			Modello modelloCorrente = Modello.getInstance();
 			System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
 			Vector <Azione> azioniModello = modelloCorrente.getElencoAzioni();
-			
-		//	if (!Util.yesOrNo(MSG_CARICA_TS ) )
-		//	{
 			int i=1;
 			boolean giaPresente = false;
 			//Inserimento classi di equivalenza
@@ -223,6 +220,7 @@ public class ElaboratoParte1Main {
 					
 					CamminoAzioni cammGlob = new CamminoAzioni();
 					System.out.println(MSG_CAMM_GLOBALE_1);
+					//Azione prima = modelloCorrente.getPrimaAzione();
 					//Inserimento cammino globale
 					boolean checkCammino = false;
 					do {
