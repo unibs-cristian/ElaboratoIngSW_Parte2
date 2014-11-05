@@ -124,14 +124,8 @@ public class GestoreModello implements Serializable {
 				case 3 : 
 					if(mod.nodoFinalePresente()==false)
 					{
-						if(mod.nessunaAzione()) {
-							System.out.println(MSG_NO_AZIONE);
-							break;
-						}
-						else {
-							inserimentoCiclo(mod,0);
-							break;
-						}
+						inserimentoCiclo(mod,0);
+						break;
 					}
 					
 				case 4 :
