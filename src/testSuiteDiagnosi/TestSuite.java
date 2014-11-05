@@ -9,6 +9,7 @@ public class TestSuite implements Serializable {
 	public final static String MSG_INTESTAZIONE_TS = "\n\nTEST SUITE PER IL MODELLO %s\n\n";
 	
 	private Vector <ClasseEquivalenza> elencoClassi;
+	private Vector <Diagnosi> elencoDiagnosi;
 	private Modello mod;
 	
 	private static TestSuite instance = null;
@@ -36,6 +37,12 @@ public class TestSuite implements Serializable {
 	public void addClasseEquivalenza(ClasseEquivalenza clEq) {
 		elencoClassi.add(clEq);
 	}
+	
+	public void addDiagnosi(Diagnosi diag) {
+		elencoDiagnosi.add(diag);
+	}
+	
+	//TODO Chiedere se serve!!
 	 
 //	public Vector <Azione> getAzioniTS() {
 		
