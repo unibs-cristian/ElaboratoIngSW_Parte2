@@ -27,7 +27,6 @@ public class Diagnosi {
 		
 		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
-		testSuite.addDiagnosi(this);
 	}
 	
 	public void eseguiDiagnosi() {
@@ -172,7 +171,7 @@ public class Diagnosi {
 					System.out.print("{" + elencoAzioni.get(dm).getNome() + "}");
 			}
 			System.out.println("}");
-			System.out.println("Cardinalita' D" + i + ": " + classe.getCardinalita() + "\n");
+			System.out.println("Cardinalita' D" + (i+1) + ": " + classe.getCardinalita() + "\n");
 			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
