@@ -64,9 +64,10 @@ public class ElaboratoParte1Main {
 	public static final String MSG_NOME_MODELLO_PREESISTENTE = "Nome modello da caricare: ";
 	public static final String MSG_NOME_TS_PREESISTENTE = "Nome Test Suite da caricare: ";
 	public final static String MSG_NOME_REPORT_PREESISTENTE = "Nome Report da caricare: ";
-	public static final String MSG_CARICA_MODELLO = "Carica un modello esistente";
-	public static final String MSG_CARICA_TS = "Carica un test suite esistente";
-	public static final String MSG_CARICA_REPORT = "Carica un report completo";
+	public static final String MSG_CARICA_MODELLO = "1 - Carica un modello esistente";
+	public static final String MSG_CARICA_TS = "2 - Carica un test suite esistente";
+	public static final String MSG_CARICA_REPORT = "3 - Carica un report completo";
+	public static final String MSG_ESCI = "4 - Ritorna al menu' principale";
 	public static final String MSG_NOME_TS_DA_CARICARE = "Nome Test Suite da caricare: ";
 	public static final String MSG_SOVRASCRIVI_MODELLO = "Attenzione, esiste gia' un modello inserito. Si desidera abbandonare tale modello e lavorare su quello caricato?";
 	public static final String MSG_SOVRASCRIVI_MODELLO_TS = "Attenzione, il test suite caricato si riferisce ad un modello diverso da quello presente nel sistema.\nSi consiglia di caricare il Modello relativo al Test Suite";
@@ -322,6 +323,7 @@ public class ElaboratoParte1Main {
 		vociMenuCaricamento.add(MSG_CARICA_MODELLO);
 		vociMenuCaricamento.add(MSG_CARICA_TS);
 		vociMenuCaricamento.add(MSG_CARICA_REPORT);
+		vociMenuCaricamento.add(MSG_ESCI);
 		Menu menuCaricamento = new Menu(MSG_TITOLO_MENU_CARICAMENTO, vociMenuCaricamento);
 		boolean finito = false;
 		do {
@@ -339,16 +341,18 @@ public class ElaboratoParte1Main {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO_PREESISTENTE));
 		Modello modelloCaricato = null;
 		modelloCaricato = (Modello) Stream.caricaFile(nomeFile, modelloCaricato);
-		Modello modCorrente = Modello.getInstance();
-		if(modCorrente!=modelloCaricato)
-			if(Util.yesOrNo(MSG_SOVRASCRIVI_MODELLO_TS))
-			{
-				Modello.cambiaModello(modelloCaricato);
-				System.out.println(String.format(MSG_MODELLO_CARICATO,modelloCaricato.getNome()));
-			}
+		Modello modCorrente;
+		boolean sovrascriviModello = false;
+		if(Modello.isNull())
+			modCorrente = null;
+		else {
+			modCorrente = Modello.getInstance();
+			if(Util.yesOrNo(MSG_SOVRASCRIVI_MODELLO))
+				sovrascriviModello = true;
 			else
 				System.out.println(MSG_CARICAMENTO_ANNULLATO);
-		else
+		}
+		if(sovrascriviModello || modCorrente == null)
 		{
 			Modello.cambiaModello(modelloCaricato);
 			System.out.println(String.format(MSG_MODELLO_CARICATO,modelloCaricato.getNome()));
