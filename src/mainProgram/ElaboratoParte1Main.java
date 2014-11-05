@@ -78,9 +78,9 @@ public class ElaboratoParte1Main {
 	public final static String MSG_CARICAMENTO_OK = "Caricamento completato correttamente.";
 	public final static String MSG_SALVATAGGIO_OK = "Il file e' stato salvato con successo";
 	public static final String MSG_CARICAMENTO_ANNULLATO = "Caricamento annullato.";
-	public static final String MSG_SALVA_MODELLO = "Salva Modello";
-	public static final String MSG_SALVA_TS = "Salva Test Suite";
-	public static final String MSG_SALVA_REPORT = "Salva dati in un report completo";
+	public static final String MSG_SALVA_MODELLO = "1 - Salva Modello";
+	public static final String MSG_SALVA_TS = "2 - Salva Test Suite";
+	public static final String MSG_SALVA_REPORT = "3 - Salva dati in un report completo";
 	public static final String MSG_ERRORE_REPORT = "Errore. Nessun Report inserito";
 	public static final String MSG_NOME_MODELLO_SALVA = "Che nome si vuole dare al modello da salvare?";
 	
@@ -300,13 +300,21 @@ public class ElaboratoParte1Main {
 	}
 	
 	public static void creazioneReport() {
-		Report daCreare = Report.getInstance();
+		Report nuovo = Report.getInstance();
 		Modello modCorrente = Modello.getInstance();
 		TestSuite tsCorrente = TestSuite.getInstance();
-		daCreare.setModello(modCorrente);
-		daCreare.setTestSuite(tsCorrente);
-		
-	//	daCreare.setDiagnosi(diag);
+		if(Modello.isNull() == false)
+			nuovo.setModello(modCorrente);
+		else 
+			System.out.println(MSG_NO_MODELLO);
+		if(TestSuite.isNull() == false) {
+			nuovo.setTestSuite(tsCorrente);
+			Vector <Diagnosi> diagnosiTS = tsCorrente.getElencoDiagnosi();
+			if(!(diagnosiTS.isEmpty()))        //Le diagnosi devono essere inserite nel TS
+				nuovo.setDiagnosi(diagnosiTS);
+		}
+		else 
+			System.out.println(MSG_NO_TS);
 	}
 	
 	public static void visualizzaReport() {
@@ -388,26 +396,7 @@ public class ElaboratoParte1Main {
 		if(modTS!=modCorrente)
 			System.out.println(MSG_SOVRASCRIVI_MODELLO_TS);
 	}
-			
-			
-/*			if(Util.yesOrNo(MSG_SOVRASCRIVI_TS)) {
-				TestSuite.cambiaTestSuite(tsCaricato);
-				System.out.printf(MSG_CARICAMENTO_OK, nomeFile);
-			}
-			else
-				System.out.println(MSG_CARICAMENTO_ANNULLATO);
-		else {
-			TestSuite.cambiaTestSuite(tsCaricato);
-			System.out.println(MSG_CARICAMENTO_OK);
-		}
-		 	
-		Modello modCorrente = Modello.getInstance();
-		Modello modTS = tsCaricato.getModello();
-		if(modCorrente!=modTS)
-			System.out.println(MSG_SOVRASCRIVI_MODELLO_TS);
 				
-	}  */
-	
 	public static void caricamentoReport() {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_REPORT_PREESISTENTE));
 		Report reportCaricato = null;
@@ -423,6 +412,7 @@ public class ElaboratoParte1Main {
 		vociMenuSalvataggio.add(MSG_SALVA_MODELLO);
 		vociMenuSalvataggio.add(MSG_SALVA_TS);
 		vociMenuSalvataggio.add(MSG_SALVA_REPORT);
+		vociMenuSalvataggio.add(MSG_ESCI);
 		Menu menuSalvataggio = new Menu(MSG_TITOLO_MENU_SALVATAGGIO, vociMenuSalvataggio);
 		boolean finito = false;
 		do {

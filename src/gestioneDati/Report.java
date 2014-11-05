@@ -21,7 +21,6 @@ private static Report instance = null;
 	private Report() {
 		mod = null;
 		ts = null;
-		elencoDiag = ts.getElencoDiagnosi();
 	}
 
 	private Report(Modello _mod, TestSuite _ts, Diagnosi _diag) {
@@ -62,6 +61,12 @@ private static Report instance = null;
 		return ts;
 	}
 	
+	public void setDiagnosi(Vector <Diagnosi> diagnosiTS) {
+		for(int i=0; i<diagnosiTS.size(); i++) {
+			elencoDiag.addElement(diagnosiTS.elementAt(i));
+		}
+	}
+
 	public void setModello(Modello m) {
 		mod = m;
 	}
