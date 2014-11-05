@@ -27,6 +27,7 @@ public class Diagnosi {
 		
 		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
+		testSuite.addDiagnosi(this);
 	}
 	
 	public void eseguiDiagnosi() {
@@ -181,8 +182,6 @@ public class Diagnosi {
 		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
 		stampaRisultati(risultatoFinaleProbabilita);
-		
-		testSuite.addDiagnosi(getInstance());
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
@@ -293,8 +292,6 @@ public class Diagnosi {
 		risultatoFinaleProbabilita = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
 		
 		stampaRisultati(risultatoFinaleProbabilita);
-		
-		testSuite.addDiagnosi(getInstance());
 	}
 	
 	public int tipoDiagnosi() {
@@ -320,9 +317,5 @@ public class Diagnosi {
 			System.out.println("");
 		}
 		System.out.println("\n\n");
-	}
-	
-	public static Diagnosi getInstance() {
-		return instance;
 	}
 }
