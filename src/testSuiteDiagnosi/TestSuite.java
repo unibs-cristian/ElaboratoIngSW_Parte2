@@ -90,6 +90,10 @@ public class TestSuite implements Serializable {
 		return elencoClassi.elementAt(indice);
 	}
 	
+	public Vector <Diagnosi> getElencoDiagnosi() {
+		return elencoDiagnosi;
+	}
+	
 	public Modello getModello() {
 		return mod;
 	}

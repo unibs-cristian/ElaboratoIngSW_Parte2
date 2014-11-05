@@ -5,6 +5,7 @@ import utilita.GUI;
 import gestioneModello.Modello;
 
 import java.io.Serializable;
+import java.util.Vector;
 
 public class Report implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -13,20 +14,20 @@ public class Report implements Serializable{
 	private String nome;
 	private Modello mod;
 	private TestSuite ts;
-	private Diagnosi diag;
+	private Vector <Diagnosi> elencoDiag;
 	
 private static Report instance = null;
 	
 	private Report() {
 		mod = null;
 		ts = null;
-		diag = null;
+		elencoDiag = ts.getElencoDiagnosi();
 	}
 
 	private Report(Modello _mod, TestSuite _ts, Diagnosi _diag) {
 		mod = _mod;
 		ts = _ts;
-		diag = _diag;
+		elencoDiag = ts.getElencoDiagnosi();
 	}
 	
 	public static Report getInstance() {
@@ -45,16 +46,20 @@ private static Report instance = null;
 		return false;
 	}
 	
+	public Diagnosi getDiagnosiAt(int index) {
+		return elencoDiag.elementAt(index);
+	}
+	
 	public Modello getModello() {
 		return mod;
 	}
 	
-	public TestSuite getTS() {
-		return ts;
+	public int getNumeroDiag() {
+		return elencoDiag.size();
 	}
 	
-	public Diagnosi getDiagnosi() {
-		return diag;
+	public TestSuite getTS() {
+		return ts;
 	}
 	
 	public void setModello(Modello m) {
@@ -65,10 +70,6 @@ private static Report instance = null;
 		ts = aTS;
 	}
 	
-	public void setDiagnosi(Diagnosi d) {
-		diag = d;
-	}
-	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(GUI.incorniciaStringa(String.format(MSG_TITOLO_REPORT, nome)));
@@ -76,8 +77,10 @@ private static Report instance = null;
 		risultato.append(mod.toString()+"\n\n");
 		risultato.append("TEST SUITE" + "\n" + "-----------------" + "\n");
 		risultato.append(ts.toString()+"\n\n");
-		risultato.append("DIAGNOSI" + "\n" + "-------------------" + "\n");
-		risultato.append(diag.toString());     //TODO serve metodo per toString diagnosi
+		for(int i=0; i<getNumeroDiag(); i++) {
+			risultato.append("DIAGNOSI N." + i + "\n" + "-------------------" + "\n");
+			risultato.append(getDiagnosiAt(i).toString() + "\n");    //TODO serve metodo per toString diagnosi
+		}
 		return risultato.toString();
 	}
 }
