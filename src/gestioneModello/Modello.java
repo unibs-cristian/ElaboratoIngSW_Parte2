@@ -154,6 +154,10 @@ public class Modello implements Entita, Serializable {
 		return trovato;
 	}
 	
+	public boolean nessunaAzione() {
+		return elencoAzioni.isEmpty();
+	}
+	
 	// Rimuove l'entita' con tale id, se la trova
 	public boolean rimuoviEntitaAt(int id) {
 		Entita e = null;

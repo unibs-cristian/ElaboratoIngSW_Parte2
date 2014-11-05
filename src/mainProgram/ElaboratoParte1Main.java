@@ -3,7 +3,6 @@ package mainProgram;
 import java.io.File;
 import java.util.Vector;
 
-import sun.security.jca.GetInstance;
 import testSuiteDiagnosi.ClasseEquivalenza;
 import testSuiteDiagnosi.TestSuite;
 import utilita.*;

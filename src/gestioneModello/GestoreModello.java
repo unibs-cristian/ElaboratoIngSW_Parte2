@@ -29,6 +29,8 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_SALVATAGGIO_MODELLO = "9 - Salvataggio Modello";
 	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	
+	public final static String MSG_NO_AZIONE = "Errore! Non e' ancora presente nessuna azione nel modello.";
+	
 	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo: ";
 	public final static String MSG_TITOLO_BRANCH = "Digitare il titolo del Branch che si sta inserendo: ";
 	public final static String MSG_TITOLO_CICLO = "Digitare il titolo del Ciclo che si sta inserendo. ";
@@ -104,8 +106,14 @@ public class GestoreModello implements Serializable {
 				case 2:   
 					if(mod.nodoFinalePresente()==false)
 					{
-						inserimentoBranch(mod,0);
-						break;
+						if(mod.nessunaAzione()) {
+							System.out.println(MSG_NO_AZIONE);
+							break;
+						}
+						else {
+							inserimentoBranch(mod,0);
+							break;
+						}
 					}
 					else
 					{
@@ -116,13 +124,14 @@ public class GestoreModello implements Serializable {
 				case 3 : 
 					if(mod.nodoFinalePresente()==false)
 					{
-						inserimentoCiclo(mod,0);
-						break;
-					}
-					else
-					{
-						System.out.println(MSG_NODO_FINALE_PRESENTE);
-						break;
+						if(mod.nessunaAzione()) {
+							System.out.println(MSG_NO_AZIONE);
+							break;
+						}
+						else {
+							inserimentoCiclo(mod,0);
+							break;
+						}
 					}
 					
 				case 4 :
