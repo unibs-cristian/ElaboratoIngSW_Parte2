@@ -69,7 +69,7 @@ public class ElaboratoParte1Main {
 	public static final String MSG_ESCI = "4 - Ritorna al menu' principale";
 	public static final String MSG_NOME_TS_DA_CARICARE = "Nome Test Suite da caricare: ";
 	public static final String MSG_SOVRASCRIVI_MODELLO = "Attenzione, esiste gia' un modello inserito. Si desidera abbandonare tale modello e lavorare su quello caricato?";
-	public static final String MSG_SOVRASCRIVI_MODELLO_TS = "Attenzione, il Test Suite caricato si riferisce ad un modello diverso da quello presente nel sistema oppure non vi e' alcun\nmodello inserito. Si consiglia di caricare il modello corretto per poter eseguire correttamente diagnosi e probabilita'";
+	public static final String MSG_MODELLO_TS_NON_OK = "Attenzione, il Test Suite caricato si riferisce ad un modello diverso da quello presente nel sistema. Verra' caricato il modello corretto per poter eseguire correttamente diagnosi e probabilita'";
 	public static final String MSG_SOVRASCRIVI_TS = "Attenzione, esiste gia' un Test Suite inserito. Si desidera abbandonare tale Test Suite e lavorare su quello caricato?";
 	public final static String MSG_MODELLO_CARICATO = "Il modello %s e' stato caricato con successo.";
 	public final static String MSG_REPORT_CARICATO = "Il report %s e' stato caricato con successo.";
@@ -365,33 +365,52 @@ public class ElaboratoParte1Main {
 	}
 	
 	public static void caricamentoTS() {
-		File nomeFile = new File(Util.leggiString(MSG_NOME_TS_PREESISTENTE));
-		TestSuite tsCaricato = null;
-		tsCaricato = (TestSuite) Stream.caricaFile(nomeFile, tsCaricato);
-		TestSuite tsCorrente;
-		boolean sovrascriviTS = false;
-		if(TestSuite.isNull())
-			tsCorrente = null;
-		else {
-			tsCorrente = TestSuite.getInstance();
-			if(Util.yesOrNo(MSG_SOVRASCRIVI_TS))
-				sovrascriviTS = true;
-			else 
-				System.out.println(MSG_CARICAMENTO_ANNULLATO);	
-		}
-		if(sovrascriviTS || tsCorrente == null)
-		{
-			TestSuite.cambiaTestSuite(tsCaricato);
-			System.out.println(MSG_CARICAMENTO_OK);
-		}
 		Modello modCorrente;
 		if(Modello.isNull())
 			modCorrente = null;
 		else
 			modCorrente = Modello.getInstance();
-		Modello modTS = tsCaricato.getModello();
-		if(modTS!=modCorrente)
-			System.out.println(MSG_SOVRASCRIVI_MODELLO_TS);
+		
+		//Se non c'e' alcun modello inserito, viene impedito l'inserimento del TS
+		if(modCorrente == null) {
+			System.out.println(MSG_NO_MODELLO);
+			System.out.println(MSG_CARICAMENTO_ANNULLATO);
+		}
+		else { //Eseguito se c'e' un modello inserito
+			File nomeFile = new File(Util.leggiString(MSG_NOME_TS_PREESISTENTE));
+			TestSuite tsCaricato = null;
+			tsCaricato = (TestSuite) Stream.caricaFile(nomeFile, tsCaricato);
+			TestSuite tsCorrente;
+			Modello modTS = tsCaricato.getModello();
+		
+			if(TestSuite.isNull()) {     //Se non c'e' inserito alcun ts carica quello specificato nel nome del file, sse e' concorde col modello
+				tsCorrente = null; 
+				if(modTS.isEqual(modCorrente)) {   //Se i modelli coincidono effettua con successo il caricamento.  
+					TestSuite.cambiaTestSuite(tsCaricato);
+					System.out.println(MSG_CARICAMENTO_OK);
+				}
+				else {    //Se il modello non e' coerente con quello del TS stampa a video un warning e carica il modello del TS
+					System.out.println(MSG_MODELLO_TS_NON_OK);
+					Modello.cambiaModello(modTS);    
+					System.out.println(String.format(MSG_MODELLO_CARICATO,modTS.getNome()));   
+				}
+			}
+			else {   //Se c'e' gia' un TS inserito lo fa sovrascrivere, ma controlla che sia coerente il suo modello col modello inserito
+				if(Util.yesOrNo(MSG_SOVRASCRIVI_TS)) {
+					if(modTS.isEqual(modCorrente)) {   //Se i modelli coincidono effettua con successo il caricamento.  
+						TestSuite.cambiaTestSuite(tsCaricato);
+						System.out.println(MSG_CARICAMENTO_OK);
+					}
+					else {    //Se il modello non e' coerente con quello del TS stampa a video un warning e carica il modello del TS
+						System.out.println(MSG_MODELLO_TS_NON_OK);
+						Modello.cambiaModello(modTS);   
+						System.out.println(String.format(MSG_MODELLO_CARICATO,modTS.getNome()));   
+					}
+				}	
+				else    //Se l'utente rifiuta di sovrascrivere il TS, il caricamento viene annullato
+					System.out.println(MSG_CARICAMENTO_ANNULLATO);	
+			}
+		}  //Chiude il primo else (quello che viene eseguito se c'e' un modello caricato
 	}
 				
 	public static void caricamentoReport() {

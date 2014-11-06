@@ -71,6 +71,14 @@ public class Modello implements Entita, Serializable {
 		return elencoEntita;
 	}
 	
+	public Azione getAzioneAt(int index) {
+		return elencoAzioni.elementAt(index);
+	}
+	
+	public int getNumeroAzioni() {
+		return elencoAzioni.size();
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -152,6 +160,16 @@ public class Modello implements Entita, Serializable {
 					trovato = elencoEntita.elementAt(i).giaPresente(nome);
 			}
 		return trovato;
+	}
+	
+	public boolean isEqual(Modello altro) {
+		if((nome.equals(altro.getNome()) == false) || getNumeroAzioni() != altro.getNumeroAzioni())
+			return false;
+		else 
+			for(int i=0; i<elencoAzioni.size(); i--)
+				if(getAzioneAt(i).equals(altro.getAzioneAt(i)) == false)
+					return false;
+		return true;
 	}
 	
 	public boolean nessunaAzione() {
