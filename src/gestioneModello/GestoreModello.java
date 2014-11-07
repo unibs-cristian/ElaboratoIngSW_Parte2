@@ -38,7 +38,7 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_NUM_RAMI_BRANCH = "Quanti flussi d'uscita si vuole che abbia il nuovo Branch? ->";
 	public final static String MSG_NUM_RAMI_FORK = "Quanti rami si vuole che abbia il fork? ->";
 	public final static String MSG_NUOVA_ENTITA = "La nuova entita' %s e' stata aggiunta a %s";
-	public final static String MSG_ERRORE_RAMI = "Tutti i rami di %s sono vuoti. Impossibile creare l'entita'.\nInserire nuovamente le entita' per i singoli rami.";
+	public final static String MSG_ERRORE_RAMI = "L'entita' ha gia' un ramo vuoto inserito. Impossibile creare piu' rami vuoti.\nInserire almeno un'entita' per il ramo corrente.";
 	public final static String MSG_DUPLICATO = "Errore! E' gia' presente nel modello un'entita' con lo stesso nome. Si prega di inserire un nome diverso.";
 	
 	public final static int MIN_RAMI = 2;
@@ -206,6 +206,7 @@ public class GestoreModello implements Serializable {
 			opzioniMenuSecondario.add(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
 			opzioniMenuSecondario.add(MSG_CHIUSURA_RAMO);           //Voce 7 --> Chiudi ramo
 			
+			boolean ramoVuotoPresente = false;  //Serve per impedire l'inserimento di piu' rami vuoti
 			for(int i=0; i<e.getRami().length; i++)
 			{
 				Menu menuSecondario = new Menu(String.format(t, e.getNome(), i+1),opzioniMenuSecondario);
@@ -229,7 +230,7 @@ public class GestoreModello implements Serializable {
 				                 System.out.println(MSG_RAMO_SUCC);
 				                 break;
 				}
-				
+			
 				boolean esci = false;
 				do {
 					switch(menuSecondario.scegliVoce()) {
@@ -277,8 +278,26 @@ public class GestoreModello implements Serializable {
 						System.out.println(mod.toString()); 
 						break;
 					
-					case 7: esci = true; break;  
-						
+					case 7:   
+					if(e.getRami()[i].isEmpty())
+						/*
+					 	* Se c'e' gia' un ramo vuoto inserito e il ramo corrente e' vuoto, non esce dal menu' 
+					 	* e stampa a video un errore.
+						*/
+						if(ramoVuotoPresente) {
+							System.out.println(MSG_ERRORE_RAMI);
+							break;
+						}
+						else {
+							ramoVuotoPresente = true;
+							esci = true;
+							break;
+						}
+					else {
+						esci = true;
+						break;
+					}
+				
 					default : System.out.println(MSG_ERRORE);	
 					}
 				} while(!esci);
@@ -320,13 +339,7 @@ public class GestoreModello implements Serializable {
 		for (int i=0; i<b.getNumeroRami(); i++)
 			b.getRami()[i] = new Ramo();
 		e.addEntita(b, qualeRamo);
-		boolean ramiVuoti = false;
-		do {
-			menuInserimentoSecondario(b,OPZ_BRANCH);
-			ramiVuoti = b.ramiTuttiVuoti();
-			if(ramiVuoti)
-				System.out.println(MSG_ERRORE_RAMI);
-		} while(ramiVuoti == true);
+		menuInserimentoSecondario(b,OPZ_BRANCH);  //TODO se funzia eliminare metodo ramituttivuoti, togliere MSG_ERRORE_RAMI
 		System.out.println(String.format(MSG_NUOVA_ENTITA,b.getNome(),e.getNome()));
 		GUI.decrementaRientro();
 	}
@@ -345,13 +358,7 @@ public class GestoreModello implements Serializable {
 			c.getRami()[i] = new Ramo();
 		GUI.incrementaRientro();
 		e.addEntita(c, qualeRamo);
-		boolean ramiVuoti = false;
-		do {
-			menuInserimentoSecondario(c,OPZ_CICLO);
-			ramiVuoti = c.ramiTuttiVuoti();
-			if(ramiVuoti)
-				System.out.println(MSG_ERRORE_RAMI);
-		} while(ramiVuoti == true);
+		menuInserimentoSecondario(c,OPZ_CICLO);
 		System.out.println(String.format(MSG_NUOVA_ENTITA,c.getNome(),e.getNome()));
 		GUI.decrementaRientro();
 	}

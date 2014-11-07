@@ -70,7 +70,7 @@ public class ElaboratoParte1Main {
 	public static final String MSG_NOME_TS_DA_CARICARE = "Nome Test Suite da caricare: ";
 	public static final String MSG_SOVRASCRIVI_MODELLO = "Attenzione, esiste gia' un modello inserito. Si desidera abbandonare tale modello e lavorare su quello caricato?";
 	public static final String MSG_MODELLO_TS_NON_OK = "Attenzione, il Test Suite caricato si riferisce ad un modello diverso da quello presente nel sistema. Verra' caricato il modello corretto per poter eseguire correttamente diagnosi e probabilita'";
-	public static final String MSG_SOVRASCRIVI_TS = "Attenzione, esiste gia' un Test Suite inserito. Si desidera abbandonare tale Test Suite e lavorare su quello caricato?";
+	public static final String MSG_SOVRASCRIVI_TS = "Attenzione, esiste gia' un Test Suite inserito. Si desidera abbandonare tale Test Suite e lavorare su quello nuovo?";
 	public final static String MSG_MODELLO_CARICATO = "Il modello %s e' stato caricato con successo.";
 	public final static String MSG_REPORT_CARICATO = "Il report %s e' stato caricato con successo.";
 	public final static String MSG_VISUALIZZA_REPORT_CARICATO = "Si desidera visualizzare il report caricato?";
@@ -82,6 +82,7 @@ public class ElaboratoParte1Main {
 	public static final String MSG_SALVA_REPORT = "3 - Salva dati in un report completo";
 	public static final String MSG_ERRORE_REPORT = "Errore. Nessun Report inserito";
 	public static final String MSG_NOME_MODELLO_SALVA = "Che nome si vuole dare al modello da salvare?";
+	public static final String MSG_INSERIMENTO_TS_ANNULLATO = "Inserimento Test Suite annulato.";
 	
 	public static void main(String[] args) {
 		benvenuto();
@@ -193,106 +194,118 @@ public class ElaboratoParte1Main {
 	}
 	
 	public static void inserimentoTS() { 
-		TestSuite ts = TestSuite.getInstance();
+		TestSuite ts;
 		boolean continua = false;
-		if(Modello.isNull()==false) {
-			Modello modelloCorrente = Modello.getInstance();
-			ts.setModello(modelloCorrente);
-			continua = true;
-		}
-		else 
-			System.out.println(MSG_NO_MODELLO);
+		boolean esci = false;
+		if(TestSuite.isNull() == false)       //Se c'e' gia' un TS inserito chiede all'utente se vuole sovrascriverlo.
+			if(Util.yesOrNo(MSG_SOVRASCRIVI_TS))
+				TestSuite.cambiaTestSuite(null);
+			else {
+				esci = true;
+				System.out.println(MSG_INSERIMENTO_TS_ANNULLATO);
+			}
 		
-		//TODO : Metodo troppo lungo e non di competenza di questa classe. Da rivedere in fase di refactoring !!
-		
-		if(continua) {
-			Modello modelloCorrente = Modello.getInstance();
-			System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
-			Vector <Azione> azioniModello = modelloCorrente.getElencoAzioni();
-			int i=1;
-			boolean giaPresente = false;
-			//Inserimento classi di equivalenza
-			do {
+		if(esci == false) {
+			ts = TestSuite.getInstance();
+			if(Modello.isNull()==false) {
+				Modello modelloCorrente = Modello.getInstance();
+				ts.setModello(modelloCorrente);
+				continua = true;
+			}
+			else 
+				System.out.println(MSG_NO_MODELLO);
+				
+			//TODO : Metodo troppo lungo e non di competenza di questa classe. Da rivedere in fase di refactoring !!
+				
+			if(continua) {
+				Modello modelloCorrente = Modello.getInstance();
+				System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
+				Vector <Azione> azioniModello = modelloCorrente.getElencoAzioni();
+				int i=1;
+				boolean giaPresente = false;
+				//Inserimento classi di equivalenza
 				do {
-					System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-					//Inserimento cardinalita' e creazione classe di equivalenza.
-					int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
-					
-					CamminoAzioni cammGlob = new CamminoAzioni();
-					System.out.println(MSG_CAMM_GLOBALE_1);
-					//Azione prima = modelloCorrente.getPrimaAzione();
-					//Inserimento cammino globale
-					boolean checkCammino = false;
 					do {
-						for(int j=0; j<azioniModello.size(); j++) {
-							Azione a = azioniModello.elementAt(j);							
-							if(Util.yesOrNo(String.format(MSG_AGGIUNTA_CAMM_GLOBALE,azioniModello.elementAt(j).getNome())))
-								cammGlob.aggiungiAzione(a);
-						}
-						// Si controlla che il cammino globale inserito non sia vuoto.
-						if(cammGlob.isEmpty()) {
-							checkCammino = true;
-							System.out.println(MSG_ERRORE_CAMMINO);
-						}
-						else
-							checkCammino = false;
-					} while(checkCammino == true);
-					System.out.println("Cammino Globale ---> " + cammGlob.toString());
-					ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita,cammGlob);
-					System.out.println(MSG_INS_COP);
-					i++;
-					//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
-					do {
-						CamminoAzioni insCamm = new CamminoAzioni();
-						System.out.println(MSG_INS_CAMMINO);
-						/*
-						 * Le azioni che l'utente puÃ² inserire nell'insieme del cammino sono quelle del
-						 * cammino globale, quindi e' garantito che ciascun insieme del cammino sia un 
-						 * sottoinsieme del cammino globale.
-						 */
-						checkCammino = false;
+						System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
+						//Inserimento cardinalita' e creazione classe di equivalenza.
+						int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
+						
+						CamminoAzioni cammGlob = new CamminoAzioni();
+						System.out.println(MSG_CAMM_GLOBALE_1);
+						//Azione prima = modelloCorrente.getPrimaAzione();
+						//Inserimento cammino globale
+						boolean checkCammino = false;
 						do {
-							for(int j=0; j<cammGlob.getNumeroAzioni(); j++) {
-								Azione a = cammGlob.getAzioneAt(j);
-								if(Util.yesOrNo(String.format(MSG_AGGIUNTA_INS_CAMM,cammGlob.getAzioneAt(j).getNome())))
-									insCamm.aggiungiAzione(a);
+							for(int j=0; j<azioniModello.size(); j++) {
+								Azione a = azioniModello.elementAt(j);							
+								if(Util.yesOrNo(String.format(MSG_AGGIUNTA_CAMM_GLOBALE,azioniModello.elementAt(j).getNome())))
+									cammGlob.aggiungiAzione(a);
 							}
-							// Si controlla che l'insieme del cammino inserito non sia vuoto.
-							if(insCamm.isEmpty()) {
+							// Si controlla che il cammino globale inserito non sia vuoto.
+							if(cammGlob.isEmpty()) {
 								checkCammino = true;
 								System.out.println(MSG_ERRORE_CAMMINO);
 							}
-							else 
+							else
 								checkCammino = false;
 						} while(checkCammino == true);
-						System.out.println("Insieme del Cammino ---> " + insCamm.toString());
-						String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
-						Coppia c = new Coppia(insCamm, valoreRilevazione);
-						ce.addCoppia(c);
-						System.out.println(String.format(MSG_COPPIA_AGGIUNTA,i));					
-					} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
-					//Se la classe e' gia' presente nel TS non la aggiunge e fa ripetere l'inserimento.
-					if(ts.giaInserita(ce)) {
-						System.out.println(MSG_ERRORE_CE);
-						giaPresente = true;
-					}
-					//Se non e' gia' presente, aggiunge la nuova classe al TS
-					else {
-						ts.addClasseEquivalenza(ce);
-						giaPresente = false;
-					}
-				} while(giaPresente == true);					
-			} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
-		
-			boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_TS);
-			if(salvataggioSiNo) {
-				File nomeFile = new File(Util.leggiString(MSG_NOME_TS));
-				Stream.salvaFile(nomeFile, ts, true);
-			}
-			
-			boolean visualizzaSiNo = Util.yesOrNo(MSG_SINTESI_TS);
-			if(visualizzaSiNo)
-				System.out.println(ts.toString());
+						System.out.println("Cammino Globale ---> " + cammGlob.toString());
+						ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita,cammGlob);
+						System.out.println(MSG_INS_COP);
+						i++;
+						//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
+						do {
+							CamminoAzioni insCamm = new CamminoAzioni();
+							System.out.println(MSG_INS_CAMMINO);
+							/*
+							 * Le azioni che l'utente puÃ² inserire nell'insieme del cammino sono quelle del
+							 * cammino globale, quindi e' garantito che ciascun insieme del cammino sia un 
+							 * sottoinsieme del cammino globale.
+							 */
+							checkCammino = false;
+							do {
+								for(int j=0; j<cammGlob.getNumeroAzioni(); j++) {
+									Azione a = cammGlob.getAzioneAt(j);
+									if(Util.yesOrNo(String.format(MSG_AGGIUNTA_INS_CAMM,cammGlob.getAzioneAt(j).getNome())))
+										insCamm.aggiungiAzione(a);
+								}
+								// Si controlla che l'insieme del cammino inserito non sia vuoto.
+								if(insCamm.isEmpty()) {
+									checkCammino = true;
+									System.out.println(MSG_ERRORE_CAMMINO);
+								}
+								else 
+									checkCammino = false;
+							} while(checkCammino == true);
+							System.out.println("Insieme del Cammino ---> " + insCamm.toString());
+							String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
+							Coppia c = new Coppia(insCamm, valoreRilevazione);
+							ce.addCoppia(c);
+							System.out.println(String.format(MSG_COPPIA_AGGIUNTA,i));					
+						} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
+						//Se la classe e' gia' presente nel TS non la aggiunge e fa ripetere l'inserimento.
+						if(ts.giaInserita(ce)) {
+							System.out.println(MSG_ERRORE_CE);
+							giaPresente = true;
+						}
+						//Se non e' gia' presente, aggiunge la nuova classe al TS
+						else {
+							ts.addClasseEquivalenza(ce);
+							giaPresente = false;
+						}
+					} while(giaPresente == true);					
+				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
+				
+				boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_TS);
+				if(salvataggioSiNo) {
+					File nomeFile = new File(Util.leggiString(MSG_NOME_TS));
+					Stream.salvaFile(nomeFile, ts, true);
+				}
+					
+				boolean visualizzaSiNo = Util.yesOrNo(MSG_SINTESI_TS);
+				if(visualizzaSiNo)
+					System.out.println(ts.toString());
+			}	
 		}
 	}
 	
