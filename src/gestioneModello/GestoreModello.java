@@ -50,7 +50,7 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_CHIUSURA_CICLO = "E' stato completato l'inserimento di tutti i rami del Ciclo N.%d";
 	public final static String MSG_CHIUSURA_FORK = "Tutti i rami paralleli di %s (ID = %d) sono stati completati ed e' stato creato il relativo Join N.%d";
 	public final static String MSG_ATTIVITA_INIZIALI_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'ATTIVITA' INIZIALI'.\nNel caso in cui tale ramo venga lasciato vuoto verra' creato un ciclo\na condizione iniziale, altrimenti il ciclo sara' a condizione finale.\n";
-	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo puo' essere lasciato vuoto (se non sono vuoti gli altri due rami)";
+	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo puo' essere lasciato vuoto (se non sono e' vuoto il precedente)";
 	
 	public final static String MSG_RICHIESTA_SALVATAGGIO = "Ritorno al menu' principale. Tutti i progressi non salvati andranno persi.\nSi desidera salvare il modello?";
 	public static final String MSG_NOME_MODELLO = "Come si desidera chiamare il modello?";
@@ -339,7 +339,7 @@ public class GestoreModello implements Serializable {
 		for (int i=0; i<b.getNumeroRami(); i++)
 			b.getRami()[i] = new Ramo();
 		e.addEntita(b, qualeRamo);
-		menuInserimentoSecondario(b,OPZ_BRANCH);  //TODO se funzia eliminare metodo ramituttivuoti, togliere MSG_ERRORE_RAMI
+		menuInserimentoSecondario(b,OPZ_BRANCH); 
 		System.out.println(String.format(MSG_NUOVA_ENTITA,b.getNome(),e.getNome()));
 		GUI.decrementaRientro();
 	}
@@ -378,13 +378,8 @@ public class GestoreModello implements Serializable {
 			temp.getRami()[i] = new Ramo();
 		GUI.incrementaRientro();
 		e.addEntita(temp, qualeRamo);
-		boolean ramiVuoti = false;
-		do {
-			menuInserimentoSecondario(temp,OPZ_FORK);
-			ramiVuoti = temp.ramiTuttiVuoti();
-			if(ramiVuoti)
-				System.out.println(MSG_ERRORE_RAMI);
-		} while(ramiVuoti == true);
+		menuInserimentoSecondario(temp,OPZ_FORK);
+		System.out.println(MSG_ERRORE_RAMI);
 		System.out.println(String.format(MSG_NUOVA_ENTITA,temp.getNome(),e.getNome()));
 		GUI.decrementaRientro();
 	}

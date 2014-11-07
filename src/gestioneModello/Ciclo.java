@@ -107,13 +107,6 @@ public class Ciclo implements Entita, Serializable {
 		return false;	
 	}
   
-	public boolean ramiTuttiVuoti() {
-		for(int i=0; i<elencoRami.length; i++)
-			if (elencoRami[i].getEntitaRamo().isEmpty() == false)
-				return false;
-		return true;
-	}
-	
 	public boolean rimuoviEntitaAt(int id) {
 		Entita daEliminare = null;
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo

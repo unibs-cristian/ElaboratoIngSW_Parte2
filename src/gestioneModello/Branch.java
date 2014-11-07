@@ -87,13 +87,6 @@ public class Branch implements Entita, Serializable {
 		elencoEntita.add(e);
 	}		
 	
-	public boolean ramiTuttiVuoti() {
-		for(int i=0; i<elencoRami.length; i++)
-			if (elencoRami[i].getEntitaRamo().isEmpty() == false)
-				return false;
-		return true;
-	}
-	
 	public void addEntita(Entita e, int r) {
 		elencoRami[r].aggiungiEntitaRamo(e);
 	}
