@@ -1,5 +1,7 @@
 package gestioneModello;
 
+import inputDati.GestoreModello;
+
 import java.util.Vector;
 import java.io.Serializable;
 

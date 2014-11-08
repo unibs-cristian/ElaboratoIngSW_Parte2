@@ -1,8 +1,11 @@
 package gestioneModello;
 
+import inputDati.GestoreModello;
+
 import java.util.Vector;
 
 import utilita.GUI;
+
 import java.io.Serializable;
 
 /**
@@ -16,7 +19,7 @@ public class Azione implements Entita, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** Costante di tipo stringa per il metodo toString dell'azione */
-	public final static String ID_TIPO = "AZIONE N. %d : %s";
+	public final static String ID_TIPO = "Azione n. %d : %s";
 	
 	/** 
 	 * Variabili di istanza. L'id e' un identificatore univoco che viene incrementato per ogni entita' inserita.
@@ -44,7 +47,7 @@ public class Azione implements Entita, Serializable {
 		idAzione = contatoreAzioni;
 		titolo = _titolo;
 		contatoreAzioni++;
-		valoreIndentazione=GUI.getRientro();
+		valoreIndentazione=GestoreModello.getRientro();
 		GestoreModello.contatoreEntita++;
 		idTipo = ID_TIPO_AZIONE;
 	}

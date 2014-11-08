@@ -15,46 +15,9 @@ public class GUI
 	public final static String RIGASOTTO = "=";
 	public final static String RIGALATO = "|";
 	public final static int MARGINE = 2;
-	public final static int FATTORE_INCREMENTO = 5;
+	
 	public final static String RIGA_ASTERISCHI = "********************" +"********************" +"********************" +"********************"; 
 	public final static String RIGA_BIANCA =    "                    " + "                    " +"                    " +"                    "; 
-	private static int rientro;
-	
-	/**
-	 * Incrementa il valore che serve per indentare di una
-	 * quantita' pari ad un fattore di incremento fissato
-	 */
-	public static void incrementaRientro() {
-		rientro = rientro + FATTORE_INCREMENTO;
-	}
-	
-	/**
-	 * Decrementa il valore che serve per indentare di una
-	 * quantita' pari ad un fattore di incremento fissato
-	 */
-	public static void decrementaRientro() {
-		rientro = rientro - FATTORE_INCREMENTO;
-	}
-	
-	/**
-	 * Fornisce il valore che serve per indentare
-	 * correttamente il codice in fase di visualizzazione
-	 * del modello
-	 * @return rientro Quantita' necessaria per l'indentazione.
-	 */
-	public static int getRientro () {
-		return rientro;
-	}
-	
-	/**
-	 * Assegna al valore che serve per indentare
-	 * correttamente il codice in fase di visualizzazione
-	 * del modello un certo valore.
-	 * @param val Quantita' da assegnare come valore della variabile rientro.
-	 */
-	public static void setRientro (int val) {
-		rientro = val;
-	}
 	
 	/**
 	 * Va a capo dopo aver stampato il testo 

@@ -1,4 +1,6 @@
 package gestioneModello;
+import inputDati.GestoreModello;
+
 import java.util.*;
 import java.io.Serializable;
 

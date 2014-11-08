@@ -7,8 +7,10 @@ public class CamminoAzioni implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Vector <Azione> insiemeCammino;
+	private boolean globaleSiNo;   //Se vero e' globale, se falso e' parziale
 	
-	public CamminoAzioni() {
+	public CamminoAzioni(boolean tipo) {
+		globaleSiNo = tipo;
 		insiemeCammino = new Vector<Azione>();
 	}
 	
@@ -42,6 +44,18 @@ public class CamminoAzioni implements Serializable {
 			}
 		}
 		return true;
+	}
+	
+	public boolean isGlobale() {
+		return globaleSiNo;
+	}
+	
+	public boolean presente(Azione a) {
+		for(int i=0; i<getNumeroAzioni(); i++) {
+			if(a.getNome().equalsIgnoreCase(getAzioneAt(i).getNome()))
+				return true;
+		}
+		return false;
 	}
 	
 	public String toString() {

@@ -1,5 +1,7 @@
 package gestioneModello;
 
+import inputDati.GestoreModello;
+
 import java.util.Vector;
 import java.io.Serializable;
 
@@ -8,9 +10,9 @@ import utilita.GUI;
 public class Fork implements Entita, Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	public final static String MSG_FORK = "{ FORK N. %d : %s";
-	public final static String MSG_ENTITA_RAMO_FORK = "ENTITA' RAMO PARALLELO N. %d";
-	public final static String MSG_JOIN = "JOIN N. %d }\n";
+	public final static String MSG_FORK = "{ INIZIO FORK %s (ID = %d)\n";
+	public final static String MSG_ENTITA_RAMO_FORK = "%s - ENTITA' RAMO PARALLELO N. %d";
+	public final static String MSG_JOIN = "FINE FORK %S (ID = %d) }";
 	
 	private int id;
 	private int idFork;
@@ -31,7 +33,7 @@ public class Fork implements Entita, Serializable {
 		elencoRami = new Ramo[numRami];
 		elencoEntita = new Vector<Entita>();
 		idTipo = ID_TIPO_FORK;
-		valoreIndentazione = GUI.getRientro();
+		valoreIndentazione = GestoreModello.getRientro();
 		contatoreFork++;
 		GestoreModello.contatoreEntita++;
 	}
@@ -144,12 +146,15 @@ public class Fork implements Entita, Serializable {
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(GUI.indenta(String.format(MSG_FORK, idFork, titolo.toUpperCase()),SPAZIO,valoreIndentazione-GUI.FATTORE_INCREMENTO));
+		risultato.append(String.format(MSG_FORK, titolo.toUpperCase(), idFork));
 		for(int i=0; i<elencoRami.length; i++) {
-			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_FORK, i+1), SPAZIO, valoreIndentazione));
-			risultato.append(elencoRami[i].toString());
+			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_FORK, titolo.toUpperCase(),i+1), SPAZIO, valoreIndentazione));
+			if(elencoRami[i].isEmpty())
+				risultato.append(GUI.indenta(MSG_RAMO_VUOTO,SPAZIO,valoreIndentazione));
+			else
+				risultato.append(elencoRami[i].toString());
 		}
-		risultato.append(GUI.indenta(String.format(MSG_JOIN, idFork), SPAZIO, valoreIndentazione - GUI.FATTORE_INCREMENTO));
+		risultato.append(GUI.indenta(String.format(MSG_JOIN, titolo.toUpperCase(), idFork), SPAZIO, valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
 		return risultato.toString();
 	}
 	

@@ -1,5 +1,7 @@
 package mainProgram;
 
+import inputDati.InserimentoCammino;
+
 import java.io.File;
 import java.util.Vector;
 
@@ -35,14 +37,14 @@ public class ElaboratoParte1Main {
 	public final static String MSG_NO_REPORT = "Errore! Nessun Report inserito.";
 	public final static String MSG_STAMPA_MOD_CORRENTE = "STAMPA DEL MODELLO CORRENTE\n";
 	public final static String MSG_TS = "\n\nCREAZIONE DEL TEST SUITE RELATIVO AL MODELLO %s\n\n";
-	public final static String MSG_CAMM_GLOBALE_1 = "Scegliere le azioni facenti parte del cammino globale relativo alla classe di equivalenza.";
+	
 	public final static String MSG_AGGIUNTA_CAMM_GLOBALE = "Si desidera aggiungere l'azione %s al cammino globale?";
 	public final static String MSG_AGGIUNTA_INS_CAMM = "Si desidera aggiungere l'azione %s all'insieme del cammino?";
 	public final static String MSG_INS_COP = "INSERIMENTO INSIEME DI COPERTURA";
 	public final static String MSG_INS_CAMMINO = "Scegliere le azioni da aggiungere all'insieme del cammino";
 	public final static String MSG_INS_CLASSE_EQ = "CLASSE DI EQUIVALENZA N. %d - INSERIMENTO INFORMAZIONI";
 	public final static String MSG_CARD_CE = "Inserire la cardinalita' relativa alla classe di equivalenza : ";
-	public final static String MSG_ERRORE_CAMMINO = "Errore! Il cammino e' vuoto. Inserire nuovamente.";
+	
 	public final static String MSG_ERRORE_CE = "Errore! E' gia' presente nel Test Suite una classe di equivalenza uguale. Ripetere l'inserimento.";
 	public final static String MSG_CONTINUA_SI_NO_CE = "Si desidera inserire un'altra classe di equivalenza?";
 	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
@@ -230,8 +232,9 @@ public class ElaboratoParte1Main {
 						//Inserimento cardinalita' e creazione classe di equivalenza.
 						int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
 						
-						CamminoAzioni cammGlob = new CamminoAzioni();
-						System.out.println(MSG_CAMM_GLOBALE_1);
+						//TODO da modificare
+						CamminoAzioni cammGlob = new CamminoAzioni(true);
+						System.out.println(InserimentoCammino.MSG_CAMM_GLOBALE_1);
 						//Azione prima = modelloCorrente.getPrimaAzione();
 						//Inserimento cammino globale
 						boolean checkCammino = false;
@@ -244,7 +247,7 @@ public class ElaboratoParte1Main {
 							// Si controlla che il cammino globale inserito non sia vuoto.
 							if(cammGlob.isEmpty()) {
 								checkCammino = true;
-								System.out.println(MSG_ERRORE_CAMMINO);
+								System.out.println(InserimentoCammino.MSG_ERRORE_CAMMINO);
 							}
 							else
 								checkCammino = false;
@@ -255,7 +258,7 @@ public class ElaboratoParte1Main {
 						i++;
 						//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
 						do {
-							CamminoAzioni insCamm = new CamminoAzioni();
+							CamminoAzioni insCamm = new CamminoAzioni(false);
 							System.out.println(MSG_INS_CAMMINO);
 							/*
 							 * Le azioni che l'utente puÃ² inserire nell'insieme del cammino sono quelle del
@@ -272,7 +275,7 @@ public class ElaboratoParte1Main {
 								// Si controlla che l'insieme del cammino inserito non sia vuoto.
 								if(insCamm.isEmpty()) {
 									checkCammino = true;
-									System.out.println(MSG_ERRORE_CAMMINO);
+									System.out.println(InserimentoCammino.MSG_ERRORE_CAMMINO);
 								}
 								else 
 									checkCammino = false;
@@ -373,7 +376,8 @@ public class ElaboratoParte1Main {
 		if(sovrascriviModello || modCorrente == null)
 		{
 			Modello.cambiaModello(modelloCaricato);
-			System.out.println(String.format(MSG_MODELLO_CARICATO,modelloCaricato.getNome()));
+			if(modelloCaricato!=null)
+				System.out.println(String.format(MSG_MODELLO_CARICATO,modelloCaricato.getNome()));
 		}
 	}
 	

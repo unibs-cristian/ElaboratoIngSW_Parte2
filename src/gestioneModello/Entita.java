@@ -6,6 +6,8 @@ public interface Entita extends Serializable {
 	
 	public final static String SPAZIO = " ";
 	public final static String MSG_ENTITA_RIMOSSA = "E' stata rimossa l'entita' %s (id = %d)";
+	public final static String MSG_RAMO_VUOTO = "Nessuna";
+	
 	public final static String ID_TIPO_AZIONE = "AZ";
 	public final static String ID_TIPO_BRANCH = "BR";
 	public final static String ID_TIPO_CICLO = "CI";

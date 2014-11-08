@@ -1,9 +1,15 @@
-package gestioneModello;
+package inputDati;
 
+import gestioneModello.Azione;
+import gestioneModello.Branch;
+import gestioneModello.Ciclo;
+import gestioneModello.Entita;
+import gestioneModello.Fork;
+import gestioneModello.Modello;
+import gestioneModello.NodoFinale;
+import gestioneModello.Ramo;
 import java.io.File;
 import java.util.Vector;
-
-import utilita.GUI;
 import utilita.Menu;
 import utilita.Stream;
 import utilita.Util;
@@ -65,7 +71,10 @@ public class GestoreModello implements Serializable {
 	public final static int OPZ_CICLO = 2;
 	public final static int OPZ_FORK = 3;
 	
-	protected static int contatoreEntita = 0;
+	public final static int FATTORE_INCREMENTO = 4;
+	
+	private static int rientro;
+	public static int contatoreEntita = 0;   //TODO da controllare
 	
 	private Modello mod;
 	
@@ -87,7 +96,7 @@ public class GestoreModello implements Serializable {
 		Menu menuInserimentoEntita = new Menu(MSG_TITOLO_MENU_INSERIMENTO_MODELLO,opzioniMenuInserimento);
 		
 		boolean insFinito = false;
-		GUI.setRientro(0);
+		setRientro(0);
 		
 		do {
 			switch(menuInserimentoEntita.scegliVoce()) {
@@ -124,7 +133,18 @@ public class GestoreModello implements Serializable {
 				case 3 : 
 					if(mod.nodoFinalePresente()==false)
 					{
-						inserimentoCiclo(mod,0);
+						if(mod.nessunaAzione()) {
+							System.out.println(MSG_NO_AZIONE);
+							break;
+						}
+						else {
+							inserimentoCiclo(mod,0);
+							break;
+						}
+					}
+					else
+					{
+						System.out.println(MSG_NODO_FINALE_PRESENTE);
 						break;
 					}
 					
@@ -156,7 +176,7 @@ public class GestoreModello implements Serializable {
 					break;
 					
 				case 8 :
-					if(getNumeroAzioni()>=1)
+					if(mod.getNumeroAzioni()>=1)
 					{
 						if(mod.nodoFinalePresente()==false)
 						{
@@ -188,9 +208,8 @@ public class GestoreModello implements Serializable {
 	}
 	
 	public void menuInserimentoSecondario(Entita e, int tipo) {
-			String t = "";
-			
-			//METTERE METODO AUSILIARIO IN FASE DI REFACTORING !!!!
+			String t = "";		
+			//TODO METTERE METODO AUSILIARIO IN FASE DI REFACTORING !!!!
 			switch(tipo) {
 			case OPZ_BRANCH: t=MSG_TITOLO_MENU_BRANCH; break;
 			case OPZ_CICLO: t=MSG_TITOLO_MENU_CICLO; break;
@@ -307,6 +326,7 @@ public class GestoreModello implements Serializable {
 			case OPZ_CICLO: System.out.println(String.format(MSG_CHIUSURA_CICLO, e.getId())); break;
 			case OPZ_FORK: System.out.println(String.format(MSG_CHIUSURA_FORK, e.getNome(), e.getId(), e.getId())); break;
 			}
+			decrementaRientro();
 	}
 	
 	public void inserimentoAzione (Entita e, int qualeRamo) {
@@ -318,6 +338,7 @@ public class GestoreModello implements Serializable {
 			if(presente)
 				System.out.println(MSG_DUPLICATO);
 		} while(presente==true);
+		System.out.println("Indentazione = "+rientro);
 		Azione action = new Azione(t);
 		e.addEntita(action, qualeRamo);
 		mod.addAzione(action);
@@ -334,14 +355,14 @@ public class GestoreModello implements Serializable {
 				System.out.println(MSG_DUPLICATO);
 		} while(presente==true);
 		int n = Util.leggiIntConMinimo(MSG_NUM_RAMI_BRANCH, MIN_RAMI);
+		incrementaRientro();
+		System.out.println("Indentazione = "+rientro);
 		Branch b = new Branch(t, n);
-		GUI.incrementaRientro();
 		for (int i=0; i<b.getNumeroRami(); i++)
 			b.getRami()[i] = new Ramo();
 		e.addEntita(b, qualeRamo);
 		menuInserimentoSecondario(b,OPZ_BRANCH); 
 		System.out.println(String.format(MSG_NUOVA_ENTITA,b.getNome(),e.getNome()));
-		GUI.decrementaRientro();
 	}
 	
 	public void inserimentoCiclo(Entita e, int qualeRamo) {
@@ -353,14 +374,14 @@ public class GestoreModello implements Serializable {
 			if(presente)
 				System.out.println(MSG_DUPLICATO);
 		} while(presente==true);
+		incrementaRientro();
+		System.out.println("Indentazione = "+rientro);
 		Ciclo c = new Ciclo(t);
 		for (int i=0; i<c.getNumeroRami(); i++)
 			c.getRami()[i] = new Ramo();
-		GUI.incrementaRientro();
 		e.addEntita(c, qualeRamo);
 		menuInserimentoSecondario(c,OPZ_CICLO);
 		System.out.println(String.format(MSG_NUOVA_ENTITA,c.getNome(),e.getNome()));
-		GUI.decrementaRientro();
 	}
 	
 	public void inserimentoFork(Entita e, int qualeRamo) {
@@ -373,15 +394,15 @@ public class GestoreModello implements Serializable {
 				System.out.println(MSG_DUPLICATO);
 		} while(presente==true);
 		int n = Util.leggiIntConMinimo(MSG_NUM_RAMI_FORK, MIN_RAMI);
+		incrementaRientro();
+		System.out.println("Indentazione = "+rientro);
 		Fork temp = new Fork(t, n);
 		for (int i=0; i<temp.getNumeroRami(); i++)
 			temp.getRami()[i] = new Ramo();
-		GUI.incrementaRientro();
 		e.addEntita(temp, qualeRamo);
 		menuInserimentoSecondario(temp,OPZ_FORK);
 		System.out.println(MSG_ERRORE_RAMI);
 		System.out.println(String.format(MSG_NUOVA_ENTITA,temp.getNome(),e.getNome()));
-		GUI.decrementaRientro();
 	}
 	
 	public void inserimentoNodoFinale () {
@@ -390,9 +411,39 @@ public class GestoreModello implements Serializable {
 		System.out.println(String.format(MSG_NODO_FINALE,mod.getNome()));
 	}
 	
-	private int getNumeroAzioni() {
-		Azione tmp = new Azione("");
-		tmp.decrementaContatore();
-		return tmp.getId()-1;
+	/**
+	 * Incrementa il valore che serve per indentare di una
+	 * quantita' pari ad un fattore di incremento fissato
+	 */
+	public static void incrementaRientro() {
+		rientro = rientro + FATTORE_INCREMENTO;
+	}
+	
+	/**
+	 * Decrementa il valore che serve per indentare di una
+	 * quantita' pari ad un fattore di incremento fissato
+	 */
+	public static void decrementaRientro() {
+		rientro = rientro - FATTORE_INCREMENTO;
+	}
+	
+	/**
+	 * Fornisce il valore che serve per indentare
+	 * correttamente il codice in fase di visualizzazione
+	 * del modello
+	 * @return rientro Quantita' necessaria per l'indentazione.
+	 */
+	public static int getRientro () {
+		return rientro;
+	}
+	
+	/**
+	 * Assegna al valore che serve per indentare
+	 * correttamente il codice in fase di visualizzazione
+	 * del modello un certo valore.
+	 * @param val Quantita' da assegnare come valore della variabile rientro.
+	 */
+	public static void setRientro (int val) {
+		rientro = val;
 	}
 }
