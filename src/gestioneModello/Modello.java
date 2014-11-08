@@ -213,7 +213,6 @@ public class Modello implements Entita, Serializable {
 		descrizione = unaDescrizione;
 	}
 	
-	//TODO migliorare indentazione
 	public String toString() {		
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(String.format(MSG_NOME_MODELLO, nome));

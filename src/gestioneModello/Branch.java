@@ -77,6 +77,8 @@ public class Branch implements Entita, Serializable {
 	}
 	 
 	public boolean giaPresente(String nome) {
+		if(titolo.equalsIgnoreCase(nome))
+			return true;
 		elencoEntita = getEntita();
 		for(int i=0; i<elencoEntita.size(); i++) {
 			Entita e = elencoEntita.elementAt(i);

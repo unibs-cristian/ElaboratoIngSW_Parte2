@@ -338,7 +338,6 @@ public class GestoreModello implements Serializable {
 			if(presente)
 				System.out.println(MSG_DUPLICATO);
 		} while(presente==true);
-		System.out.println("Indentazione = "+rientro);
 		Azione action = new Azione(t);
 		e.addEntita(action, qualeRamo);
 		mod.addAzione(action);
@@ -356,7 +355,6 @@ public class GestoreModello implements Serializable {
 		} while(presente==true);
 		int n = Util.leggiIntConMinimo(MSG_NUM_RAMI_BRANCH, MIN_RAMI);
 		incrementaRientro();
-		System.out.println("Indentazione = "+rientro);
 		Branch b = new Branch(t, n);
 		for (int i=0; i<b.getNumeroRami(); i++)
 			b.getRami()[i] = new Ramo();
@@ -375,7 +373,6 @@ public class GestoreModello implements Serializable {
 				System.out.println(MSG_DUPLICATO);
 		} while(presente==true);
 		incrementaRientro();
-		System.out.println("Indentazione = "+rientro);
 		Ciclo c = new Ciclo(t);
 		for (int i=0; i<c.getNumeroRami(); i++)
 			c.getRami()[i] = new Ramo();
@@ -395,7 +392,6 @@ public class GestoreModello implements Serializable {
 		} while(presente==true);
 		int n = Util.leggiIntConMinimo(MSG_NUM_RAMI_FORK, MIN_RAMI);
 		incrementaRientro();
-		System.out.println("Indentazione = "+rientro);
 		Fork temp = new Fork(t, n);
 		for (int i=0; i<temp.getNumeroRami(); i++)
 			temp.getRami()[i] = new Ramo();

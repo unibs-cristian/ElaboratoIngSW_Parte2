@@ -57,6 +57,7 @@ public class InserimentoCammino {
 				camminoValido = true;
 			else
 				System.out.println(MSG_ERRORE_CAMMINO);
+			
 			//Si controlla che il cammino inserito sia concorde col modello
 			camminoValido = verificaCammino(cammGlob);
 			
@@ -65,7 +66,7 @@ public class InserimentoCammino {
 		return cammGlob;
 	}
 	
-	//TODO vedere se si può aaplicare il pattern state
+	//TODO vedere se si può applicare il pattern state
 	private boolean verificaCammino(CamminoAzioni daVerificare) {  
 		boolean esito;
 		//Verifica validita' di un cammino globale
