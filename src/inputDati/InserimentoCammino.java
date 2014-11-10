@@ -3,7 +3,6 @@ package inputDati;
 import java.io.Serializable;
 import java.util.Vector;
 
-import controlloCammino.EntratoRamo;
 import controlloCammino.StatoCammino;
 import controlloCammino.StatoVuoto;
 import gestioneModello.Entita;
@@ -38,7 +37,6 @@ public class InserimentoCammino implements Serializable {
 	}
 	
 	public void inserisciCamm() {
-		System.out.println("Stato Cammino --> " + camm.getStato().getStringaStato());
 		if(camm.isGlobale())
 			System.out.println(MSG_CAMM_GLOBALE_1);
 		else
@@ -58,7 +56,6 @@ public class InserimentoCammino implements Serializable {
 				else if(tipo.equals(Entita.ID_TIPO_BRANCH) || tipo.equals(Entita.ID_TIPO_CICLO) || tipo.equals(Entita.ID_TIPO_FORK))
 					gestisciStatoComplessa(e);
 			}
-			System.out.println("STATO FINALE --> " + camm.getStato().getStringaStato());
 			//Controllo se al termine dell'inserimento il cammino si trova in uno stato valido. Se non lo e', lo faccio reinserire, stampando a video un opportuno messaggio di errore.
 			camminoValido = camm.getStato().isValid();
 			//Controllo se l'insieme del cammino e' un sottoinsieme del cammino globale
@@ -112,9 +109,6 @@ public class InserimentoCammino implements Serializable {
 			//Se sono in stato NON_PERCORSO (relativamente ad un ramo) ed inserisco un'azione di quel ramo, finisco in stato NON_OK
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO))
 				camm.getStato().gestisciStato(camm, StatoCammino.STATO_NON_OK);
-			
-			
-			System.out.println("Stato Cammino --> " + camm.getStato().getStringaStato());
 		}	
 		//Calcolo del nuovo stato nel caso in cui un'azione non viene inserita
 		else {
@@ -126,28 +120,15 @@ public class InserimentoCammino implements Serializable {
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.PERCORSO_PARZ))
 				camm.getStato().gestisciStato(camm, StatoCammino.FERMATO_DENTRO);
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_VUOTO))
-				camm.getStato().gestisciStato(camm, StatoCammino.FERMATO);
-			
-			System.out.println("Stato Cammino --> " + camm.getStato().getStringaStato());			
+				camm.getStato().gestisciStato(camm, StatoCammino.FERMATO);			
 		}
 	}
 	
 	public void gestisciStatoComplessa(Entita e) {
 		camm.getStato().gestisciStato(camm, StatoCammino.ENTRATO_RAMO);
-		System.out.println("Stato Cammino --> " + camm.getStato().getStringaStato());
 		for(int i=0; i<e.getRami().length; i++) {
 			camm.getStato().gestisciStato(camm, StatoCammino.ENTRATO_RAMO);
-			System.out.println("Stato Cammino --> " + camm.getStato().getStringaStato());
-			//Se sto inserendo il cammino globale, posso percorrere anche piu' rami completamente o parzialmente
-			/*if(i>0 && camm.isGlobale()) {
-				camm.setStatoCammino(new EntratoRamo());
-				System.out.println("Stato Cammino --> " + camm.getStato().getStringaStato());
-			}
-			else if(camm.isGlobale()==false) {
-				//TODO si puo' aggiungere lo stato al costruttore per evitare tutte queste chiamate di metodi
-				camm.getStato().gestisciStato(camm, StatoCammino.ENTRATO_RAMO);
-				System.out.println("Stato Cammino --> " + camm.getStato().getStringaStato());
-			}*/
+			//TODO si puo' aggiungere lo stato al costruttore per evitare tutte queste chiamate di metodi
 			Ramo ramoCorrente = e.getRami()[i];
 			for(int j=0; j<ramoCorrente.getNumeroEntita(); j++) {
 				Entita ent = ramoCorrente.getEntitaAt(j);
@@ -161,7 +142,6 @@ public class InserimentoCammino implements Serializable {
 			if(camm.getStato().getStringaStato().equals(StatoCammino.PERCORSO_PARZ)) {
 				camm.getStato().gestisciStato(camm, StatoCammino.PERCORSO_TUTTO);
 			}
-			System.out.println("Stato Cammino --> " + camm.getStato().getStringaStato());
 		}
 		
 		boolean nonVuoto = false;

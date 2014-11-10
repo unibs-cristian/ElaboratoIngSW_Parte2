@@ -80,7 +80,6 @@ public class CamminoAzioni implements Serializable {
 	
 	public void setStatoCammino(StatoCammino state) {
 		statoCorrente = state;
-		System.out.println("Cambiato stato in >> "+statoCorrente.getStringaStato());
 	}
 	
 	public String toString() {
