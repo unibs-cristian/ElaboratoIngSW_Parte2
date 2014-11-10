@@ -15,9 +15,8 @@ public class ClasseEquivalenza implements Serializable {
 	/** Attributo che contiene le coppie (Insieme del cammino, valore della rilevazione) */
 	private Vector<Coppia> elencoCoppie;
 
-	public ClasseEquivalenza(int _cardinalita, CamminoAzioni _cammGlob) {
+	public ClasseEquivalenza(int _cardinalita) {
 		cardinalita = _cardinalita;
-		camminoGlobale = _cammGlob;
 		elencoCoppie = new Vector<Coppia>(); 
 	}
 	 

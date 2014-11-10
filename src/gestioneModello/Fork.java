@@ -156,7 +156,7 @@ public class Fork implements Entita, Serializable {
 			else
 				risultato.append(elencoRami[i].toString());
 		}
-		risultato.append(GUI.indenta(String.format(MSG_JOIN, titolo.toUpperCase(), idFork), SPAZIO, valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
+		risultato.append(String.format(MSG_JOIN, titolo.toUpperCase(), idFork));
 		return risultato.toString();
 	}
 	

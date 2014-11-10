@@ -58,7 +58,7 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_ATTIVITA_INIZIALI_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'ATTIVITA' INIZIALI'.\nNel caso in cui tale ramo venga lasciato vuoto verra' creato un ciclo\na condizione iniziale, altrimenti il ciclo sara' a condizione finale.\n";
 	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo puo' essere lasciato vuoto (se non sono e' vuoto il precedente)";
 	
-	public final static String MSG_RICHIESTA_SALVATAGGIO = "Ritorno al menu' principale. Tutti i progressi non salvati andranno persi.\nSi desidera salvare il modello?";
+	public final static String MSG_CONFERMA = "Attenzione! Se si ritorna al menu' principale non sara' piu' possibile inserire entita' per\nquesto modello. Sei sicuro di voler uscire dalla modalita' inserimento?";
 	public static final String MSG_NOME_MODELLO = "Come si desidera chiamare il modello?";
 	public final static String MSG_ENTITA_ELIMINATA = "E' stata eliminata l'entita' di nome %s (id %d)";
 	public final static String MSG_NODO_FINALE = "Nodo finale inserito per il modello %s";
@@ -168,12 +168,12 @@ public class GestoreModello implements Serializable {
 					break;
 				
 				case 7: 
-					if(Util.yesOrNo(MSG_RICHIESTA_SALVATAGGIO)) {
-						File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO));
-						Stream.salvaFile(nomeFile, mod, true);
+					if(Util.yesOrNo(MSG_CONFERMA))
+						break;
+					else {
+						insFinito = true;
+						break;
 					}
-					insFinito = true;
-					break;
 					
 				case 8 :
 					if(mod.getNumeroAzioni()>=1)

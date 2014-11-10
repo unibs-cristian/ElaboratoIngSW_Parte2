@@ -1,17 +1,23 @@
 package testSuiteDiagnosi;
 import gestioneModello.Azione;
+
 import java.io.Serializable;
 import java.util.Vector;
+
+import controlloCammino.StatoCammino;
+import controlloCammino.StatoVuoto;
 
 public class CamminoAzioni implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Vector <Azione> insiemeCammino;
 	private boolean globaleSiNo;   //Se vero e' globale, se falso e' parziale
+	private StatoCammino statoCorrente;
 	
 	public CamminoAzioni(boolean tipo) {
 		globaleSiNo = tipo;
 		insiemeCammino = new Vector<Azione>();
+		statoCorrente = new StatoVuoto();
 	}
 	
 	public void aggiungiAzione(Azione a) {
@@ -28,6 +34,20 @@ public class CamminoAzioni implements Serializable {
 	
 	public Azione getAzioneAt(int index) {
 		return insiemeCammino.elementAt(index);
+	}
+	
+	public StatoCammino getStato() {
+		return statoCorrente;
+	}
+	
+	//Ritorna true se questo cammino azioni e' un sottoinsieme di 'altro'.
+	public boolean inclusoIn(CamminoAzioni altro) {
+		if(this.getNumeroAzioni() > altro.getNumeroAzioni())
+			return false;
+		for(int i=0; i<getNumeroAzioni(); i++)
+			if(altro.presente(getAzioneAt(i)) == false)
+				return false;
+		return true;
 	}
 	
 	public boolean isEmpty() {
@@ -56,6 +76,11 @@ public class CamminoAzioni implements Serializable {
 				return true;
 		}
 		return false;
+	}
+	
+	public void setStatoCammino(StatoCammino state) {
+		statoCorrente = state;
+		System.out.println("Cambiato stato in >> "+statoCorrente.getStringaStato());
 	}
 	
 	public String toString() {

@@ -156,7 +156,7 @@ public class Branch implements Entita, Serializable {
 			else
 				risultato.append(elencoRami[i].toString());
 		}
-		risultato.append(GUI.indenta(String.format(MSG_MERGE, titolo.toUpperCase(),idBranch), SPAZIO, valoreIndentazione));
+		risultato.append(String.format(MSG_MERGE, titolo.toUpperCase(),idBranch));
 		return risultato.toString();
 	}
 	

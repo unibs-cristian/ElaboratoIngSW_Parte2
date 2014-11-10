@@ -5,8 +5,6 @@ import inputDati.GestoreModello;
 import java.util.Vector;
 import java.io.Serializable;
 
-import utilita.GUI;
-
 public class NodoIniziale implements Entita, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -64,7 +62,7 @@ public class NodoIniziale implements Entita, Serializable {
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(GUI.aCapoDopo(MSG_TITOLO_NI));
+		risultato.append(MSG_TITOLO_NI);
 		return risultato.toString();
 	}
 	

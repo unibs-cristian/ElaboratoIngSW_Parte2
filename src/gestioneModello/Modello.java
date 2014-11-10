@@ -133,6 +133,7 @@ public class Modello implements Entita, Serializable {
 	 * Cerca un'entita' per nome (il quale e' associato univocamente ad un'entita') e se la 
 	 * trova la restituisce, altrimenti restituisce null.
 	 */
+	//TODO Forse non e' mai utilizzato. Verificare
 	public Entita cercaPerNome(String nomeDaCercare) {
 		for (int i = 0; i < elencoEntita.size(); i++) 
 		{

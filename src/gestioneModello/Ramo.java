@@ -30,6 +30,30 @@ public class Ramo implements Serializable {
 		entitaRamo.remove(i);
 	}
 	
+	public Vector <Azione> getAzioniRamo() {
+		Vector <Azione> risultato = new Vector<Azione>();
+		for(int i=0; i<entitaRamo.size(); i++) 
+			if(entitaRamo.elementAt(i).getIdTipo().equals(Entita.ID_TIPO_AZIONE))
+				risultato.add((Azione)entitaRamo.elementAt(i));
+		return risultato;
+	}
+	
+	public int getNumeroEntita() {
+		return entitaRamo.size();
+	}
+	
+	public Entita getEntitaAt(int index) {
+		return entitaRamo.elementAt(index);
+	}
+	
+	//TODO togliere se non serve
+	public boolean presente(Entita e) {
+		for(int i=0; i<getNumeroEntita(); i++)
+			if(getEntitaAt(i).getNome().equals(e.getNome()))
+				return true;
+		return false;
+	}
+	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		for(int i=0; i<entitaRamo.size(); i++) 
