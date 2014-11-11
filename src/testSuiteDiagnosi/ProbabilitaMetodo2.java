@@ -17,19 +17,20 @@ public class ProbabilitaMetodo2 implements Serializable
 			for (int j = 0; j < matriceRisultatiTestSuite.length; j++)
 				switch (matriceRisultatiTestSuite[j][i])
 				{
-				case 2: nOK++;
+				case 2: ++nOK;
 					break;
 					
-				case 1: nKO++;
+				case 1: ++nKO;
 					break;
 					
-				case -1: nKOv++;
+				case -1: ++nKOv;
 					break;
 					
 				default: break;
 				}
 			
-			risultato.add(nKO / ( (nKO + nOK) * (nKO + nKOv) ) );
+			float result = (float) (nKO/Math.sqrt(((nKO+nOK)*(nKO+nKOv))));
+			risultato.add(result);
 				
 		}
 		return risultato;
