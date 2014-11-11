@@ -59,5 +59,13 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 		return elencoProbabilitaOrdinato;
 	}
 	
+	public Vector<int[]> IntervalliiPosizione()
+	{
+		Vector<int[]> intervalliPosizione = new Vector<int[]>();
+		int[] array = new int[2];
+		intervalliPosizione.add(array);
+		return intervalliPosizione;
+	}
+	
 	
 }
