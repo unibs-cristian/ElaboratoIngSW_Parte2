@@ -5,12 +5,18 @@ import java.util.Vector;
 public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 {
 	private static final long serialVersionUID = 1L;
+	private Vector<Float> probabilitaTestSuite;
 
-	public Vector<Tupla> OrdinaElencoProbabilita (Vector<Float> probabilitaTestSuite)
+	public OrdinaElencoProbabilitaEIntervalliPosizione(Vector<Float> _probabilitaTestSuite)
+	{
+		probabilitaTestSuite = _probabilitaTestSuite;
+	}
+	
+	public Vector<Tupla> OrdinaElencoProbabilita ()
 	{
 		Vector<Tupla> elencoProbabilitaOrdinato = new Vector<Tupla>();
 		
-		//Inserisco l'elenco probabilità in un vettore di tuple
+		//Inserisco l'elenco probabilita' in un vettore di tuple
 		Vector<Tupla> elencoProbabilita = new Vector<Tupla>();
 		for (int i = 0; i < probabilitaTestSuite.size(); i++)
 		{

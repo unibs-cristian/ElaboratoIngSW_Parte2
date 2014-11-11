@@ -2,7 +2,6 @@ package gestioneModello;
 
 import inputDati.GestoreModello;
 import java.util.Vector;
-import java.io.Serializable;
 
 /**
  * Classe che istanzia oggetti di tipo Azione. Un'azione e' un'entita' semplice che puo' essere aggiunta 
@@ -10,7 +9,7 @@ import java.io.Serializable;
  * @author Sampietri Cristian
  *
  */
-public class Azione implements Entita, Serializable {
+public class Azione implements Entita{
 	
 	private static final long serialVersionUID = 1L;
 

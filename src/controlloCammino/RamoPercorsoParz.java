@@ -1,8 +1,14 @@
 package controlloCammino;
 
+
 import testSuiteDiagnosi.CamminoAzioni;
 
-public class RamoPercorsoParz implements StatoCammino {
+public class RamoPercorsoParz implements StatoCammino{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	//Si e' in questo stato quando sono state inserite tutte le azioni di un ramo, ma questo contiene ancora altre azioni da inserire
 	public void gestisciStato(CamminoAzioni camm, String stato) {

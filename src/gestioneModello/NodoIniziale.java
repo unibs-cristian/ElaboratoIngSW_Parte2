@@ -3,9 +3,8 @@ package gestioneModello;
 import inputDati.GestoreModello;
 
 import java.util.Vector;
-import java.io.Serializable;
 
-public class NodoIniziale implements Entita, Serializable {
+public class NodoIniziale implements Entita{
 
 	private static final long serialVersionUID = 1L;
 	public final static String MSG_TITOLO_NI = "NODO_INIZIALE";	

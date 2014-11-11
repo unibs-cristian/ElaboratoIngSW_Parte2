@@ -4,6 +4,11 @@ import testSuiteDiagnosi.CamminoAzioni;
 
 public class StatoVuoto implements StatoCammino{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(STATO_OK))
 			camm.setStatoCammino(new StatoOk());

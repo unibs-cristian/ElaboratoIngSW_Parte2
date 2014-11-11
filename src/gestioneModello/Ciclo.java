@@ -6,9 +6,7 @@ import java.util.Vector;
 
 import utilita.GUI;
 
-import java.io.Serializable;
-
-public class Ciclo implements Entita, Serializable {
+public class Ciclo implements Entita{
 
 	private static final long serialVersionUID = 1L;
 	public final static String MSG_CICLO = "< INIZIO CICLO %s (ID = %d) - MERGE\n";

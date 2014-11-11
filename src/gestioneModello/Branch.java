@@ -5,9 +5,7 @@ import java.util.Vector;
 
 import utilita.*;
 
-import java.io.Serializable;
-
-public class Branch implements Entita, Serializable {
+public class Branch implements Entita{
 	
 	private static final long serialVersionUID = 1L;
 	public final static String MSG_BRANCH = "[ INIZIO BRANCH %s (ID = %d)\n";

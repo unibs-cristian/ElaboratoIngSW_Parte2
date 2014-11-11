@@ -3,11 +3,10 @@ package gestioneModello;
 import inputDati.GestoreModello;
 
 import java.util.Vector;
-import java.io.Serializable;
 
 import utilita.GUI;
 
-public class Fork implements Entita, Serializable {
+public class Fork implements Entita{
 	
 	private static final long serialVersionUID = 1L;
 	public final static String MSG_FORK = "{ INIZIO FORK %s (ID = %d)\n";

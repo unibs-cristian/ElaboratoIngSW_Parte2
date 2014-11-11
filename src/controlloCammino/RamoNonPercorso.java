@@ -1,8 +1,14 @@
 package controlloCammino;
 
+
 import testSuiteDiagnosi.CamminoAzioni;
 
-public class RamoNonPercorso implements StatoCammino {
+public class RamoNonPercorso implements StatoCammino{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/*
 	 * Si e' in questo stato quando la prima azione del ramo non e' stata inserita. Se viene inserita 

@@ -2,9 +2,8 @@ package gestioneModello;
 import inputDati.GestoreModello;
 
 import java.util.*;
-import java.io.Serializable;
 
-public class Modello implements Entita, Serializable {
+public class Modello implements Entita{
 	
 	private static final long serialVersionUID = 1L;
 	public final static String MSG_NOME_MODELLO = "NOME MODELLO : %s\n";

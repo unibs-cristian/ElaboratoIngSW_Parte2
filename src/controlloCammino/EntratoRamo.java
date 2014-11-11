@@ -9,6 +9,11 @@ import testSuiteDiagnosi.CamminoAzioni;
  */
 public class EntratoRamo implements StatoCammino {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void gestisciStato(CamminoAzioni camm, String stato) {	
 		if(stato.equals(NON_PERCORSO))
 			camm.setStatoCammino(new RamoNonPercorso());

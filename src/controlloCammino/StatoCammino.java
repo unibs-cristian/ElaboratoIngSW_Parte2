@@ -1,8 +1,10 @@
 package controlloCammino;
 
+import java.io.Serializable;
+
 import testSuiteDiagnosi.CamminoAzioni;
 
-public interface StatoCammino {
+public interface StatoCammino extends Serializable{
 	public final static String ENTRATO_RAMO = "ENTRATO RAMO";
 	public final static String FERMATO = "FERMATO";
 	public final static String FERMATO_DENTRO = "FERMATO DENTRO";

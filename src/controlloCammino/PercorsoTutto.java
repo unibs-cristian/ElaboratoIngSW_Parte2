@@ -4,6 +4,11 @@ import testSuiteDiagnosi.CamminoAzioni;
 
 public class PercorsoTutto implements StatoCammino {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(SUPERATO_FORK))
 			camm.setStatoCammino(new SuperatoFork());
