@@ -14,7 +14,8 @@ public class Diagnosi {
 	private Vector<Azione> elencoAzioni;
 	private Vector<Integer> risultatoAzioni;
 	private Vector<Vector<Integer>> risultatoClassiPerProbabilita;
-	private Vector<Float> risultatoFinaleProbabilita;
+	private Vector<Float> risultatoFinaleProbabilitaM1;
+	private Vector<Float> risultatoFinaleProbabilitaM2;
 	
 	private static Diagnosi instance = null;
 	
@@ -178,9 +179,9 @@ public class Diagnosi {
 		}
 		
 		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		risultatoFinaleProbabilitaM1 = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		
-		stampaRisultati(risultatoFinaleProbabilita);
+		stampaRisultati(risultatoFinaleProbabilitaM1);
 	}
 	
 	public void eseguiDiagnosiMetodo2 () {
@@ -288,9 +289,9 @@ public class Diagnosi {
 		
 		/** Invio risultati. */
 		ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
-		risultatoFinaleProbabilita = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
+		risultatoFinaleProbabilitaM2 = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
 		
-		stampaRisultati(risultatoFinaleProbabilita);
+		stampaRisultati(risultatoFinaleProbabilitaM2);
 	}
 	
 	public int tipoDiagnosi() {
