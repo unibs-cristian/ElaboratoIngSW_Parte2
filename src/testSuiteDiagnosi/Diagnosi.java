@@ -250,6 +250,21 @@ public class Diagnosi {
 //			System.out.println("Creazione matrice base..");
 //			stampaDiagnosi(matrice);
 			
+			for(int c=0; c<insiemeDiCopertura.size(); c++) {
+				for(int a=0; a<elencoAzioni.size(); a++) {
+					if(matrice[c][a] == 2) {
+						/** Inserisco -2 negli spazi vuoti di elementi OK */
+						for(int k=0; k<elencoAzioni.size(); k++) {
+							if(matrice[c][k] == -1)
+								matrice[c][k] = -2;								
+						}
+					}
+				}
+			}
+			
+//			System.out.println("Creazione matrice elaborata..");
+//			stampaDiagnosi(matrice);
+			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita. */
 			vettoreMatriciRisultato.add(matrice);
 		}
