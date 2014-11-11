@@ -69,7 +69,7 @@ public class Distanze {
 	}
 	
 	private void stampaDistanzaMedia() {
-		int distanzaMedia = 0;
+		float distanzaMedia = 0;
 		for(int i=0; i<risultatoDistanze.size(); i++) {
 			distanzaMedia += risultatoDistanze.get(i);
 		}
