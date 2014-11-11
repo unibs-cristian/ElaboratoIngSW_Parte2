@@ -1,10 +1,8 @@
 package controlloCammino;
 
-import java.io.Serializable;
-
 import testSuiteDiagnosi.CamminoAzioni;
 
-public class StatoOk implements StatoCammino, Serializable {
+public class StatoOk implements StatoCammino{
 
 	/**
 	 * 
