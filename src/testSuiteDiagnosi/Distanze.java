@@ -52,6 +52,38 @@ public class Distanze {
 			}
 		}
 		
+		stampaRisultatoDistanze();
+		stampaDistanzaTotale();
+		stampaDistanzaMedia();
+		
 		return risultatoDistanze;
+	}
+	
+	private void stampaDistanzaTotale() {
+		int distanzaTotale = 0;
+		for(int i=0; i<risultatoDistanze.size(); i++) {
+			distanzaTotale += risultatoDistanze.get(i);
+		}
+		
+		System.out.println("Distanza totale: " + distanzaTotale);
+	}
+	
+	private void stampaDistanzaMedia() {
+		int distanzaMedia = 0;
+		for(int i=0; i<risultatoDistanze.size(); i++) {
+			distanzaMedia += risultatoDistanze.get(i);
+		}
+		distanzaMedia = distanzaMedia/risultatoDistanze.size();
+		
+		System.out.println("Distanza media: " + distanzaMedia);
+	}
+	
+	private void stampaRisultatoDistanze() {
+		Modello mod = Modello.getInstance();
+		elencoAzioni = mod.getElencoAzioni();
+		
+		for(int i=0; i<risultatoDistanze.size(); i++) {
+			System.out.println("dis(" + elencoAzioni.get(i).getNome() + ") = " + risultatoDistanze.get(i));
+		}
 	}
 }
