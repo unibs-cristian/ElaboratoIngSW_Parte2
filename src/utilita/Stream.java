@@ -12,11 +12,11 @@ public class Stream implements Serializable
 			
 			private static final String MSG_OK_FILE = "File caricato correttamente.";
 			private static final String MSG_SALVA = "File salvato correttamente";
-			private static final String DOMANDA_SOVRASCRIVERE = "File già presente. Sovrascrivere? ";
+			private static final String DOMANDA_SOVRASCRIVERE = "File giï¿½ presente. Sovrascrivere? ";
 			private static final String NO_CLOSE = "ATTENZIONE: PROBLEMI CON LA CHIUSURA DEL FILE ";
 			private static final String NO_FILE = "ATTENZIONE: NON TROVO IL FILE ";
 			private static final String NO_READ = "ATTENZIONE: PROBLEMI CON LA LETTURA DEL FILE ";
-			private static final String NO_CAST = "ATTENZIONE FILE CON CAST NON CORRISPONDENTE: LETTURA DEL FILE FALLITA";
+			private static final String NO_CAST = "ATTENZIONE FILE CON CAST NON CORRISPONDENTE: LETTURA DEL FILE %s FALLITA";
 			private static final String NO_WRITE = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
 
 			/**
@@ -102,7 +102,8 @@ public class Stream implements Serializable
 				}
 				catch (ClassNotFoundException excCast)
 				{
-					System.out.println(NO_CAST + f.getName() );
+					System.out.printf(NO_CAST, f.getName() );
+					System.out.println();
 				}
 				
 				finally
