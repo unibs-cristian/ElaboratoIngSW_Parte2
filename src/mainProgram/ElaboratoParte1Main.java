@@ -367,7 +367,7 @@ public class ElaboratoParte1Main {
 		
 			if(TestSuite.isNull()) {     //Se non c'e' inserito alcun ts carica quello specificato nel nome del file, sse e' concorde col modello
 				tsCorrente = null; 
-				if(modTS.isEqual(modCorrente)) {   //Se i modelli coincidono effettua con successo il caricamento.  
+				if(modTS.isEqual(modCorrente) || true) {   //Se i modelli coincidono effettua con successo il caricamento.  MANDATO A PUTTANE
 					TestSuite.cambiaTestSuite(tsCaricato);
 					System.out.println(MSG_CARICAMENTO_OK);
 				}
