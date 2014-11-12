@@ -364,12 +364,10 @@ public class ElaboratoParte1Main {
 			File nomeFile = new File(Util.leggiString(MSG_NOME_TS_PREESISTENTE));
 			TestSuite tsCaricato = null;
 			tsCaricato = (TestSuite) Stream.caricaFile(nomeFile, tsCaricato);
-			TestSuite tsCorrente;
 			Modello modTS = tsCaricato.getModello();
 		
-			if(TestSuite.isNull()) {     //Se non c'e' inserito alcun ts carica quello specificato nel nome del file, sse e' concorde col modello
-				tsCorrente = null; 
-				if(modTS.equals(modCorrente) ) {   //Se i modelli coincidono effettua con successo il caricamento.
+			if(TestSuite.isNull()) {     //Se non c'e' inserito alcun ts carica quello specificato nel nome del file, sse e' concorde col modello 
+				if(modTS.isEqual(modCorrente) ) {   //Se i modelli coincidono effettua con successo il caricamento.
 					TestSuite.cambiaTestSuite(tsCaricato);
 					System.out.println(MSG_CARICAMENTO_OK);
 				}
@@ -381,7 +379,7 @@ public class ElaboratoParte1Main {
 			}
 			else {   //Se c'e' gia' un TS inserito lo fa sovrascrivere, ma controlla che sia coerente il suo modello col modello inserito
 				if(Util.yesOrNo(MSG_SOVRASCRIVI_TS)) {
-					if(modTS.equals(modCorrente)) {   //Se i modelli coincidono effettua con successo il caricamento.  
+					if(modTS.isEqual(modCorrente)) {   //Se i modelli coincidono effettua con successo il caricamento.  
 						TestSuite.cambiaTestSuite(tsCaricato);
 						System.out.println(MSG_CARICAMENTO_OK);
 					}
