@@ -163,17 +163,17 @@ public class Modello implements Entita{
 			}
 		return trovato;
 	}
-	/*
+	
 	public boolean isEqual(Modello altro) {
 		if((nome.equals(altro.getNome()) == false) || getNumeroAzioni() != altro.getNumeroAzioni())
 			return false;
 		else 
-			for(int i=0; i<elencoAzioni.size(); i--)
-				if(getAzioneAt(i).equals(altro.getAzioneAt(i)) == false)
+			for(int i=0; i<elencoEntita.size(); i++)
+				if(getEntita().elementAt(i).getNome().equals(altro.getEntita().elementAt(i).getNome()) == false)
 					return false;
 		return true;
 	}
-	*/
+	
 	public boolean nessunaAzione() {
 		return elencoAzioni.isEmpty();
 	}
