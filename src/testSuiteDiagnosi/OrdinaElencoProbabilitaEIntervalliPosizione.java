@@ -12,59 +12,97 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 		probabilitaTestSuite = _probabilitaTestSuite;
 	}
 	
-	public Vector<Tupla> OrdinaElencoProbabilita ()
+	public Vector<Tupla> ElencoProbabilitaOrdinatoSenzaDoppioni()
 	{
-		Vector<Tupla> elencoProbabilitaOrdinato = new Vector<Tupla>();
-		
+		return RimuoviDoppioniElencoProbabilitaOrdinato(OrdinaElencoProbabilita(ElencoProbabilita() ) );
+	}
+	
+	private Vector<Tupla> ElencoProbabilita ()
+	{
 		//Inserisco l'elenco probabilita' in un vettore di tuple
 		Vector<Tupla> elencoProbabilita = new Vector<Tupla>();
 		for (int i = 0; i < probabilitaTestSuite.size(); i++)
 		{
 				Tupla tuplaDaInserire = new Tupla(probabilitaTestSuite.get(i), null );
-				Vector<String> listaAzioni = new Vector<String>();
-				listaAzioni.add("A" + (i + 1) );
+				Vector<Integer> listaAzioni = new Vector<Integer>();
+				listaAzioni.add(i + 1);
 				tuplaDaInserire.setListaAzioni(listaAzioni);
 				elencoProbabilita.set(i, tuplaDaInserire);
 		}
 		
+		return elencoProbabilita;
+	}
+	
+	private Vector<Tupla> OrdinaElencoProbabilita(Vector<Tupla> elencoProbabilita)
+	{
+		Vector<Tupla> elencoProbabilitaOrdinato = new Vector<Tupla>();
 		//Ordino le tuple
-		Tupla tuplaConProbabilitaMassima = null;
+				for (int i = 0; i < elencoProbabilita.size(); i++)
+				{
+					Tupla tuplaConProbabilitaMassima = elencoProbabilita.get(i);
+					for (int j = i + 1; j < elencoProbabilita.size(); j++)
+					{
+						if (tuplaConProbabilitaMassima.getProbabilita() < elencoProbabilita.get(j).getProbabilita() )
+							tuplaConProbabilitaMassima = elencoProbabilita.get(j);
+					}
+					elencoProbabilitaOrdinato.add(tuplaConProbabilitaMassima);
+				}
+		return elencoProbabilitaOrdinato;
+	}
+	
+	private Vector<Tupla> RimuoviDoppioniElencoProbabilitaOrdinato(Vector<Tupla> elencoProbabilita)
+	{
+		//Rimuovo i doppioni tenendo traccia di quali erano
 		for (int i = 0; i < elencoProbabilita.size(); i++)
 		{
 			for (int j = i + 1; j < elencoProbabilita.size(); j++)
 			{
-				if (elencoProbabilita.get(i).getProbabilita() >= elencoProbabilita.get(j).getProbabilita() )
+				if (elencoProbabilita.get(i).getProbabilita() == elencoProbabilita.get(j).getProbabilita() )
 				{
-					tuplaConProbabilitaMassima = elencoProbabilita.get(i);
-				}
-				else
-					tuplaConProbabilitaMassima = elencoProbabilita.get(j);
-			}
-			elencoProbabilitaOrdinato.add(tuplaConProbabilitaMassima);
-		}
-		
-		//Rimuovo i doppioni tenendo traccia di quali erano
-		for (int i = 0; i < elencoProbabilitaOrdinato.size(); i++)
-		{
-			for (int j = i + 1; j < elencoProbabilitaOrdinato.size(); j++)
-			{
-				if (elencoProbabilitaOrdinato.get(i).getProbabilita() == elencoProbabilitaOrdinato.get(j).getProbabilita() )
-				{
-					elencoProbabilitaOrdinato.get(i).getListaAzioni().add(elencoProbabilitaOrdinato.get(j).getListaAzioni().get(0) );
-					elencoProbabilitaOrdinato.remove(j);
+					elencoProbabilita.get(i).getListaAzioni().add(elencoProbabilita.get(j).getListaAzioni().get(0) );
+					elencoProbabilita.remove(j);
 				}
 			}
 		}
-		
-		return elencoProbabilitaOrdinato;
+		return elencoProbabilita;
 	}
+	
 	
 	public Vector<int[]> IntervalliiPosizione()
 	{
 		Vector<int[]> intervalliPosizione = new Vector<int[]>();
-		int[] array = new int[2];
-		intervalliPosizione.add(array);
-		return intervalliPosizione;
+		Vector<Integer> azioniOrdinatePerProbabilita = new Vector<Integer>();
+		
+		Vector<Tupla> elencoProbabilitaOrdinatoSenzaDoppioni = ElencoProbabilitaOrdinatoSenzaDoppioni();
+		
+		int posizione = 1;
+		for (int i = 0; i < elencoProbabilitaOrdinatoSenzaDoppioni.size(); i++)
+		{
+			int[] posizioni = new int[2];
+			posizione += i;
+			posizioni[0]= posizione;
+			posizione += elencoProbabilitaOrdinatoSenzaDoppioni.get(i).getListaAzioni().size() - 1;
+			posizioni[1]= posizione;
+			for (int j = 0; j < elencoProbabilitaOrdinatoSenzaDoppioni.get(i).getListaAzioni().size(); j++)
+				{
+				intervalliPosizione.add(posizioni);
+				azioniOrdinatePerProbabilita.add(elencoProbabilitaOrdinatoSenzaDoppioni.get(j).getListaAzioni().get(j) );
+				}
+		}
+		
+		Vector<int[]> intervalliPosizioneOrdinatiPerAzione = new Vector<int[]>();
+		for (int i = 0; i < azioniOrdinatePerProbabilita.size(); i++)
+		{
+			int azioneMinima = azioniOrdinatePerProbabilita.get(i);
+			for (int j = i + 1; j < azioniOrdinatePerProbabilita.size(); j++)
+			{
+				if (azioneMinima > azioniOrdinatePerProbabilita.get(j) )
+					azioneMinima = azioniOrdinatePerProbabilita.get(j);
+			}
+			intervalliPosizioneOrdinatiPerAzione.add(intervalliPosizione.get(azioneMinima) );
+		}
+		
+		return intervalliPosizioneOrdinatiPerAzione;
 	}
 	
 	

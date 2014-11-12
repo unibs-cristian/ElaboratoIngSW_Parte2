@@ -6,9 +6,9 @@ public class Tupla implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	private float probabilita;
-	private Vector<String> listaAzioni;
+	private Vector<Integer> listaAzioni;
 
-	public Tupla (float _probabilita, Vector<String> _listaAzioni)
+	public Tupla (float _probabilita, Vector<Integer> _listaAzioni)
 	{
 		probabilita = _probabilita;
 		listaAzioni = _listaAzioni;
@@ -19,12 +19,12 @@ public class Tupla implements Serializable
 		return probabilita;
 	}
 
-	public Vector<String> getListaAzioni() 
+	public Vector<Integer> getListaAzioni() 
 	{
 		return listaAzioni;
 	}
 
-	public void setListaAzioni(Vector<String> listaAzioniDaSettare) 
+	public void setListaAzioni(Vector<Integer> listaAzioniDaSettare) 
 	{
 		listaAzioni = listaAzioniDaSettare;
 	}
