@@ -21,15 +21,15 @@ public class ElaboratoParte1Main {
 	public final static String MSG_TITOLO_MENU_CARICAMENTO = "MENU' GESTIONE CARICAMENTO\n\nCosa si desidera fare?";
 	public final static String MSG_TITOLO_MENU_SALVATAGGIO = "MENU' GESTIONE SALVATAGGIO\n\nCosa si desidera fare?";
 	
-	public final static String MSG_NUOVO_MODELLO = "1 - Crea Nuovo Modello";
-	public final static String MSG_VISUALIZZAZIONE_MODELLO = "2 - Visualizza Modello";
-	public final static String MSG_INS_TEST_SUITE = "3 - Inserimento Test Suite";
-	public final static String MSG_VISUALIZZAZIONE_DIAGNOSI = "4 - Visualizza Insiemi delle Diagnosi";
-	public final static String MSG_VISUALIZZAZIONE_PROBABILITA = "5 - Visualizza Probabilita' e Distanze";
-	public final static String MSG_CREAZIONE_REPORT = "6 - Creazione Report Completo";
-	public final static String MSG_VISUALIZZAZIONE_REPORT = "7 - Visualizza Report";
-	public final static String MSG_CARICAMENTO = "8 - Carica";
-	public final static String MSG_SALVATAGGIO = "9 - Salva";
+	public final static String MSG_NUOVO_MODELLO = " 1 - Crea Nuovo Modello";
+	public final static String MSG_VISUALIZZAZIONE_MODELLO = " 2 - Visualizza Modello";
+	public final static String MSG_INS_TEST_SUITE = " 3 - Inserimento Test Suite";
+	public final static String MSG_VISUALIZZAZIONE_DIAGNOSI = " 4 - Visualizza Insiemi delle Diagnosi";
+	public final static String MSG_VISUALIZZAZIONE_PROBABILITA = " 5 - Visualizza Probabilita' e Distanze";
+	public final static String MSG_CREAZIONE_REPORT = " 6 - Creazione Report Completo";
+	public final static String MSG_VISUALIZZAZIONE_REPORT = " 7 - Visualizza Report";
+	public final static String MSG_CARICAMENTO = " 8 - Carica";
+	public final static String MSG_SALVATAGGIO = " 9 - Salva";
 	public final static String MSG_USCITA_PROGRAMMA = "10 - Esci dal programma.";
 	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	
