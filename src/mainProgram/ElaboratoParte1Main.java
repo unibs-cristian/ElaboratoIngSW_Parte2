@@ -5,6 +5,8 @@ import inputDati.InserimentoCammino;
 import java.io.File;
 import java.util.Vector;
 
+import com.sun.org.apache.xpath.internal.operations.Equals;
+
 import testSuiteDiagnosi.ClasseEquivalenza;
 import testSuiteDiagnosi.TestSuite;
 import utilita.*;
@@ -367,7 +369,7 @@ public class ElaboratoParte1Main {
 		
 			if(TestSuite.isNull()) {     //Se non c'e' inserito alcun ts carica quello specificato nel nome del file, sse e' concorde col modello
 				tsCorrente = null; 
-				if(modTS.isEqual(modCorrente) || true) {   //Se i modelli coincidono effettua con successo il caricamento.  MANDATO A PUTTANE
+				if(modTS.equals(modCorrente) ) {   //Se i modelli coincidono effettua con successo il caricamento.
 					TestSuite.cambiaTestSuite(tsCaricato);
 					System.out.println(MSG_CARICAMENTO_OK);
 				}
@@ -379,7 +381,7 @@ public class ElaboratoParte1Main {
 			}
 			else {   //Se c'e' gia' un TS inserito lo fa sovrascrivere, ma controlla che sia coerente il suo modello col modello inserito
 				if(Util.yesOrNo(MSG_SOVRASCRIVI_TS)) {
-					if(modTS.isEqual(modCorrente)) {   //Se i modelli coincidono effettua con successo il caricamento.  
+					if(modTS.equals(modCorrente)) {   //Se i modelli coincidono effettua con successo il caricamento.  
 						TestSuite.cambiaTestSuite(tsCaricato);
 						System.out.println(MSG_CARICAMENTO_OK);
 					}

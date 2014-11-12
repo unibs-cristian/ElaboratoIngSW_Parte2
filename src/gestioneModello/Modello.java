@@ -163,7 +163,7 @@ public class Modello implements Entita{
 			}
 		return trovato;
 	}
-	
+	/*
 	public boolean isEqual(Modello altro) {
 		if((nome.equals(altro.getNome()) == false) || getNumeroAzioni() != altro.getNumeroAzioni())
 			return false;
@@ -173,7 +173,7 @@ public class Modello implements Entita{
 					return false;
 		return true;
 	}
-	
+	*/
 	public boolean nessunaAzione() {
 		return elencoAzioni.isEmpty();
 	}
