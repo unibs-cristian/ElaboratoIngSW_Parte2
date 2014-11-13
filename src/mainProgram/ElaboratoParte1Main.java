@@ -289,10 +289,10 @@ public class ElaboratoParte1Main {
 				TestSuite ts = TestSuite.getInstance();
 				Diagnosi d1 = new Diagnosi(1, ts);
 				Diagnosi d2 = new Diagnosi(2, ts);
-				ProbabilitaMetodo1.stampaRisultati(d1.eseguiDiagnosiMetodo1() );
-				ProbabilitaMetodo2.stampaRisultati(d2.eseguiDiagnosiMetodo2() );
-				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d1.eseguiDiagnosiMetodo1() );
-				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d2.eseguiDiagnosiMetodo2() );
+				ProbabilitaMetodo1.stampaRisultati(d1.eseguiDiagnosiMetodo1(false) );
+				ProbabilitaMetodo2.stampaRisultati(d2.eseguiDiagnosiMetodo2(false) );
+				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d1.eseguiDiagnosiMetodo1(false) );
+				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d2.eseguiDiagnosiMetodo2(false) );
 			}
 		}
 	}
@@ -311,8 +311,8 @@ public class ElaboratoParte1Main {
 				TestSuite ts = TestSuite.getInstance();
 				Diagnosi d1 = new Diagnosi(1, ts);
 				Diagnosi d2 = new Diagnosi(2, ts);
-				d1.eseguiDiagnosiMetodo1();
-				d2.eseguiDiagnosiMetodo2();							
+				d1.eseguiDiagnosiMetodo1(true);
+				d2.eseguiDiagnosiMetodo2(true);
 			}
 		}
 	}
