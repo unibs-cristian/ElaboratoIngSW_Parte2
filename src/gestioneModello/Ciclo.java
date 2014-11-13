@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gestioneModello;
 
 import inputDati.GestoreModello;
@@ -6,27 +9,62 @@ import java.util.Vector;
 
 import utilita.GUI;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Ciclo.
+ */
 public class Ciclo implements Entita{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The Constant MSG_CICLO. */
 	public final static String MSG_CICLO = "< INIZIO CICLO %s (ID = %d) - MERGE\n";
+	
+	/** The Constant MSG_ATTIVITA_INIZIALI. */
 	public final static String MSG_ATTIVITA_INIZIALI = "%s - ENTITA' RAMO N.1 (ATTIVITA' INIZIALI)";
+	
+	/** The Constant MSG_COND_PERMANENZA_CICLO. */
 	public final static String MSG_COND_PERMANENZA_CICLO = "%s - ENTITA RAMO N.2 (CONDIZIONE DI PERMANENZA NEL CICLO)";
+	
+	/** The Constant MSG_BRANCH_CICLO. */
 	public final static String MSG_BRANCH_CICLO = "FINE CICLO %s (ID = %d) - BRANCH >";
 	
+	/** The Constant NUM_RAMI_CICLO. */
 	public final static int NUM_RAMI_CICLO = 2;
 	
+	/** The id. */
 	private int id;
+	
+	/** The id ciclo. */
 	private int idCiclo;
+	
+	/** The titolo. */
 	private String titolo;
+	
+	/** The num rami. */
 	private int numRami;
+	
+	/** The elenco rami. */
 	private Ramo [] elencoRami;
+	
+	/** The contatore cicli. */
 	private static int contatoreCicli = 1;
+	
+	/** The elenco entita. */
 	private Vector<Entita> elencoEntita;
+	
+	/** The valore indentazione. */
 	private int valoreIndentazione;
-	/** Identificatore del tipo */
+	
+	/**  Identificatore del tipo. */
 	private String idTipo;
 	
+	/**
+	 * Instantiates a new ciclo.
+	 *
+	 * @param _titolo the _titolo
+	 */
 	public Ciclo(String _titolo)
 	{
 		id = GestoreModello.contatoreEntita;
@@ -41,14 +79,25 @@ public class Ciclo implements Entita{
 		GestoreModello.contatoreEntita++;
 	}
 	
+	/**
+	 * Adds the entita.
+	 *
+	 * @param e the e
+	 */
 	public void addEntita(Entita e) {
 		elencoEntita.add(e);
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
+	 */
 	public void addEntita(Entita e, int r) {
 		elencoRami[r].aggiungiEntitaRamo(e);
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
+	 */
 	public Entita cercaPerNome(String nomeDaCercare) {
 		if(titolo.equalsIgnoreCase(nomeDaCercare))
 			return this;
@@ -65,6 +114,9 @@ public class Ciclo implements Entita{
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getEntita()
+	 */
 	public Vector<Entita> getEntita() {
 		for(int i=0; i<elencoRami.length; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
@@ -75,26 +127,46 @@ public class Ciclo implements Entita{
 		return elencoEntita;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getId()
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIndentazione()
+	 */
 	public int getIndentazione() {
 		return valoreIndentazione;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getNome()
+	 */
 	public String getNome() {
 		return titolo;
 	}
 	
+	/**
+	 * Gets the numero rami.
+	 *
+	 * @return the numero rami
+	 */
 	public int getNumeroRami() {
 		return numRami;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getRami()
+	 */
 	public Ramo[] getRami() {
 		return elencoRami;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
+	 */
 	public boolean giaPresente(String nome) {
 		if(titolo.equalsIgnoreCase(nome))
 			return true;
@@ -107,6 +179,9 @@ public class Ciclo implements Entita{
 		return false;	
 	}
   
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
+	 */
 	public boolean rimuoviEntitaAt(int id) {
 		Entita daEliminare = null;
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
@@ -148,6 +223,9 @@ public class Ciclo implements Entita{
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(String.format(MSG_CICLO, titolo.toUpperCase(), idCiclo));
@@ -172,6 +250,9 @@ public class Ciclo implements Entita{
 		return risultato.toString();
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIdTipo()
+	 */
 	public String getIdTipo() {
 		return idTipo;
 	}

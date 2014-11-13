@@ -1,22 +1,48 @@
+/*
+ * 
+ */
 package testSuiteDiagnosi;
 import java.io.Serializable;
 import java.util.Vector;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OrdinaElencoProbabilitaEIntervalliPosizione.
+ */
 public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The probabilita test suite. */
 	private Vector<Float> probabilitaTestSuite;
 
+	/**
+	 * Instantiates a new ordina elenco probabilita e intervalli posizione.
+	 *
+	 * @param _probabilitaTestSuite the _probabilita test suite
+	 */
 	public OrdinaElencoProbabilitaEIntervalliPosizione(Vector<Float> _probabilitaTestSuite)
 	{
 		probabilitaTestSuite = _probabilitaTestSuite;
 	}
 	
+	/**
+	 * Elenco probabilita ordinato senza doppioni.
+	 *
+	 * @return the vector
+	 */
 	public Vector<Tupla> ElencoProbabilitaOrdinatoSenzaDoppioni()
 	{
 		return RimuoviDoppioniElencoProbabilitaOrdinato(OrdinaElencoProbabilita(ElencoProbabilita() ) );
 	}
 	
+	/**
+	 * Elenco probabilita.
+	 *
+	 * @return the vector
+	 */
 	private Vector<Tupla> ElencoProbabilita ()
 	{
 		//Inserisco l'elenco probabilita' in un vettore di tuple
@@ -33,6 +59,12 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 		return elencoProbabilita;
 	}
 	
+	/**
+	 * Ordina elenco probabilita.
+	 *
+	 * @param elencoProbabilita the elenco probabilita
+	 * @return the vector
+	 */
 	private Vector<Tupla> OrdinaElencoProbabilita(Vector<Tupla> elencoProbabilita)
 	{
 		Vector<Tupla> elencoProbabilitaOrdinato = new Vector<Tupla>();
@@ -50,6 +82,12 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 		return elencoProbabilitaOrdinato;
 	}
 	
+	/**
+	 * Rimuovi doppioni elenco probabilita ordinato.
+	 *
+	 * @param elencoProbabilita the elenco probabilita
+	 * @return the vector
+	 */
 	private Vector<Tupla> RimuoviDoppioniElencoProbabilitaOrdinato(Vector<Tupla> elencoProbabilita)
 	{
 		//Rimuovo i doppioni tenendo traccia di quali erano
@@ -68,6 +106,11 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	}
 	
 	
+	/**
+	 * Intervallii posizione.
+	 *
+	 * @return the vector
+	 */
 	public Vector<int[]> IntervalliiPosizione()
 	{
 		Vector<int[]> intervalliPosizione = new Vector<int[]>();

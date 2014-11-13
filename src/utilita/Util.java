@@ -1,28 +1,57 @@
+/*
+ * 
+ */
 package utilita;
 import java.util.*;
 
+// TODO: Auto-generated Javadoc
 /**
  * Svariate utilita' di lettura.
  * @author Lorenzo Rubagotti.
  */
 public class Util
 {
+	
+	/** The Constant ERRORE_NUMERO. */
 	private static final String ERRORE_NUMERO = "Errore, il carattere inserito non è un numero.";
+	
+	/** The Constant ERRORE_STRINGA_VUOTA. */
 	private static final String ERRORE_STRINGA_VUOTA = "Errore, non è possibile inserire una stringa vuota. \nReinserire la stringa: ";
+	
+	/** The Constant ERRORE_SESSO. */
 	private static final String ERRORE_SESSO = "Errore, reinserire il sesso: ";
+	
+	/** The Constant ERRORE_INTERO_COMPRESO. */
 	private static final String ERRORE_INTERO_COMPRESO = "Errore. Insere un numero compreso tra %s e %s: ";
+	
+	/** The Constant ERRORE_INTERO. */
 	private static final String ERRORE_INTERO = "Errore, il carattere inserito non è un intero.";
+	
+	/** The Constant ERRORE_STRINGA_VUOTA_O_SPAZI. */
 	private static final String ERRORE_STRINGA_VUOTA_O_SPAZI = "Errore, non è possibile inserire una stringa vuota o con spazi. \nReinserire la stringa:";
+	
+	/** The Constant ERRORE_AMMISSIBILI. */
 	private final static String ERRORE_AMMISSIBILI= "Attenzione: i caratteri ammissibili sono: ";
+	
+	/** The Constant RILEV_OK. */
 	public final static String RILEV_OK = "OK";
+	
+	/** The Constant RILEV_KO. */
 	public final static String RILEV_KO = "KO";
+	
+	/** The Constant MSG_AMMISSIBILI. */
 	private final static String MSG_AMMISSIBILI = "Errore! I valori ammissibili sono " + "'" + RILEV_OK + "'" + " e '" + RILEV_KO + "'";
 	
+	/** The Constant RISPOSTA_SI. */
 	private final static char RISPOSTA_SI='S';
+	
+	/** The Constant RISPOSTA_NO. */
 	private final static char RISPOSTA_NO='N';
 	
+	/** The Constant ERRORE_INTERO_MAGGIORE. */
 	private static final String ERRORE_INTERO_MAGGIORE = "Errore. Insere un numero maggiore di %s: ";
 	 
+	/** The lettore. */
 	private static Scanner lettore = creaScanner();
 	 /**
 	  * Metodo che delimita lo scanner cosi' che non prende piu' l'invio.
@@ -265,6 +294,12 @@ public class Util
 			return false;
 	}
     
+    /**
+     * Ok or ko.
+     *
+     * @param messaggio the messaggio
+     * @return the string
+     */
     public static String okOrKo(String messaggio) {
     	String mioMessaggio = messaggio + "(" + RILEV_OK + "/" + RILEV_KO + ")";
     	String inputDati = "";

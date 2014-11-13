@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gestioneModello;
 import inputDati.GestoreModello;
 
@@ -5,24 +8,57 @@ import java.util.Vector;
 
 import utilita.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Branch.
+ */
 public class Branch implements Entita{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The Constant MSG_BRANCH. */
 	public final static String MSG_BRANCH = "[ INIZIO BRANCH %s (ID = %d)\n";
+	
+	/** The Constant MSG_ENTITA_RAMO_BRANCH. */
 	public final static String MSG_ENTITA_RAMO_BRANCH = "%s - ENTITA' RAMO N. %d";
+	
+	/** The Constant MSG_MERGE. */
 	public final static String MSG_MERGE = "FINE BRANCH %s (ID = %d) ]";
 	
+	/** The id. */
 	private int id;
+	
+	/** The id branch. */
 	private int idBranch;
+	
+	/** The titolo. */
 	private String titolo;
+	
+	/** The numero rami. */
 	private int numeroRami;
+	
+	/** The elenco rami. */
 	private Ramo[] elencoRami;
+	
+	/** The elenco entita. */
 	private Vector <Entita> elencoEntita;
+	
+	/** The valore indentazione. */
 	private int valoreIndentazione;
-	/** Identificatore del tipo */
+	
+	/**  Identificatore del tipo. */
 	private String idTipo;
+	
+	/** The contatore branch. */
 	private static int contatoreBranch = 1;
 	
+	/**
+	 * Instantiates a new branch.
+	 *
+	 * @param _titolo the _titolo
+	 * @param _numeroRami the _numero rami
+	 */
 	public Branch (String _titolo, int _numeroRami) {
 		id = GestoreModello.contatoreEntita;
 		idBranch = contatoreBranch;
@@ -36,6 +72,9 @@ public class Branch implements Entita{
 		contatoreBranch++;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
+	 */
 	public Entita cercaPerNome(String nomeDaCercare) {
 		if(titolo.equalsIgnoreCase(nomeDaCercare))
 			return this;
@@ -52,18 +91,32 @@ public class Branch implements Entita{
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getId()
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getNome()
+	 */
 	public String getNome() {
 		return titolo;
 	}
 	
+	/**
+	 * Gets the numero rami.
+	 *
+	 * @return the numero rami
+	 */
 	public int getNumeroRami() {
 		return numeroRami;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getEntita()
+	 */
 	public Vector<Entita> getEntita() {
 		for(int i=0; i<elencoRami.length; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
@@ -74,6 +127,9 @@ public class Branch implements Entita{
 		return elencoEntita;
 	}
 	 
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
+	 */
 	public boolean giaPresente(String nome) {
 		if(titolo.equalsIgnoreCase(nome))
 			return true;
@@ -86,22 +142,39 @@ public class Branch implements Entita{
 		return false;	
 	}
 	
+	/**
+	 * Adds the entita.
+	 *
+	 * @param e the e
+	 */
 	public void addEntita(Entita e) {
 		elencoEntita.add(e);
 	}		
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
+	 */
 	public void addEntita(Entita e, int r) {
 		elencoRami[r].aggiungiEntitaRamo(e);
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getRami()
+	 */
 	public Ramo[] getRami() {
 		return elencoRami;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIndentazione()
+	 */
 	public int getIndentazione() {
 		return valoreIndentazione;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
+	 */
 	public boolean rimuoviEntitaAt(int id) {
 		Entita daEliminare = null;
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
@@ -143,6 +216,9 @@ public class Branch implements Entita{
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
@@ -158,6 +234,9 @@ public class Branch implements Entita{
 		return risultato.toString();
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIdTipo()
+	 */
 	public String getIdTipo() {
 		return idTipo;
 	}

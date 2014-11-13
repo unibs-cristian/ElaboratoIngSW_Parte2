@@ -1,17 +1,32 @@
+/*
+ * 
+ */
 package utilita;
 
 import java.util.Vector;
+// TODO: Auto-generated Javadoc
 /**
  * Metodi per il menu'.
  * @author Lorenzo Rubagotti.
  */
 public class Menu
 {
+	
+	/** The Constant RICHIESTA_INSERIMENTO. */
 	private final static String RICHIESTA_INSERIMENTO = "Digita il numero dell'opzione desiderata > ";
 
+	/** The nome menu. */
 	private String nomeMenu;
+	
+	/** The lista opzioni. */
 	private Vector<String> listaOpzioni;
 	
+	/**
+	 * Instantiates a new menu.
+	 *
+	 * @param _nomeMenu the _nome menu
+	 * @param _listaOpzioni the _lista opzioni
+	 */
 	public Menu(String _nomeMenu, Vector<String> _listaOpzioni)
 	{
 		nomeMenu = _nomeMenu;

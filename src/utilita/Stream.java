@@ -1,22 +1,43 @@
+/*
+ * 
+ */
 package utilita;
 
 import java.io.*;
 
+// TODO: Auto-generated Javadoc
 /**
  * Classe di utilita'. Contiene metodi per lo stream di un oggetto.
  * @author Lorenzo Rubagotti
  */
 public class Stream implements Serializable
 {
+			
+			/** The Constant serialVersionUID. */
 			private static final long serialVersionUID = 1L;
 			
+			/** The Constant MSG_OK_FILE. */
 			private static final String MSG_OK_FILE = "File caricato correttamente.";
+			
+			/** The Constant MSG_SALVA. */
 			private static final String MSG_SALVA = "File salvato correttamente";
+			
+			/** The Constant DOMANDA_SOVRASCRIVERE. */
 			private static final String DOMANDA_SOVRASCRIVERE = "File gi� presente. Sovrascrivere? ";
+			
+			/** The Constant NO_CLOSE. */
 			private static final String NO_CLOSE = "ATTENZIONE: PROBLEMI CON LA CHIUSURA DEL FILE ";
+			
+			/** The Constant NO_FILE. */
 			private static final String NO_FILE = "ATTENZIONE: NON TROVO IL FILE ";
+			
+			/** The Constant NO_READ. */
 			private static final String NO_READ = "ATTENZIONE: PROBLEMI CON LA LETTURA DEL FILE ";
+			
+			/** The Constant NO_CAST. */
 			private static final String NO_CAST = "ATTENZIONE FILE CON CAST NON CORRISPONDENTE: LETTURA DEL FILE %s FALLITA";
+			
+			/** The Constant NO_WRITE. */
 			private static final String NO_WRITE = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
 
 			/**
@@ -75,7 +96,8 @@ public class Stream implements Serializable
 			
 			/**
 			 * Metodo necessario per caricare un Oggetto da un file. Riceve il file e restituisce l'oggetto salvato nel file.
-			 * @param File f File in questione.
+			 *
+			 * @param f the f
 			 * @return Object Restituisce l'oggetto letto dal file.
 			 */
 			public static Object caricaSingoloOggetto (File f) 
@@ -125,8 +147,9 @@ public class Stream implements Serializable
 			
 			/**
 			 * Metodo necessario per salvare un Oggetto su un File f. Riceve il file sul quale salvare e l'oggetto da salvare e procede al salvataggio.
-			 * @param File f File in questione.
-			 * @param Object daSalvare L'oggetto che si va a salvare nel file.
+			 *
+			 * @param f the f
+			 * @param daSalvare the da salvare
 			 */
 			public static void salvaSingoloOggetto (File f, Object daSalvare)
 			{

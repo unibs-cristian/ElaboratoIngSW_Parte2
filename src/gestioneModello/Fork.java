@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gestioneModello;
 
 import inputDati.GestoreModello;
@@ -6,24 +9,57 @@ import java.util.Vector;
 
 import utilita.GUI;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Fork.
+ */
 public class Fork implements Entita{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The Constant MSG_FORK. */
 	public final static String MSG_FORK = "{ INIZIO FORK %s (ID = %d)\n";
+	
+	/** The Constant MSG_ENTITA_RAMO_FORK. */
 	public final static String MSG_ENTITA_RAMO_FORK = "%s - ENTITA' RAMO PARALLELO N. %d";
+	
+	/** The Constant MSG_JOIN. */
 	public final static String MSG_JOIN = "FINE FORK %S (ID = %d) }";
 	
+	/** The id. */
 	private int id;
+	
+	/** The id fork. */
 	private int idFork;
+	
+	/** The titolo. */
 	private String titolo;
+	
+	/** The num rami. */
 	private int numRami;
+	
+	/** The elenco rami. */
 	private Ramo[] elencoRami;
+	
+	/** The elenco entita. */
 	private Vector<Entita> elencoEntita;
+	
+	/** The valore indentazione. */
 	private int valoreIndentazione;
+	
+	/** The contatore fork. */
 	private static int contatoreFork = 1;
-	/** Identificatore del tipo */
+	
+	/**  Identificatore del tipo. */
 	private String idTipo;
 	
+	/**
+	 * Instantiates a new fork.
+	 *
+	 * @param _titolo the _titolo
+	 * @param _numRami the _num rami
+	 */
 	public Fork(String _titolo, int _numRami) {
 		id = GestoreModello.contatoreEntita;
 		idFork = contatoreFork;
@@ -37,6 +73,9 @@ public class Fork implements Entita{
 		GestoreModello.contatoreEntita++;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
+	 */
 	public Entita cercaPerNome(String nomeDaCercare) {
 		if(titolo.equalsIgnoreCase(nomeDaCercare))
 			return this;
@@ -53,14 +92,23 @@ public class Fork implements Entita{
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getId()
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getNome()
+	 */
 	public String getNome() {
 		return titolo;
 	}
 
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getEntita()
+	 */
 	public Vector<Entita> getEntita() {
 		for(int i=0; i<elencoRami.length; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
@@ -71,26 +119,48 @@ public class Fork implements Entita{
 		return elencoEntita;
 	}
 	
+	/**
+	 * Adds the entita.
+	 *
+	 * @param e the e
+	 */
 	public void addEntita(Entita e) {
 		elencoEntita.add(e);
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
+	 */
 	public void addEntita(Entita e, int r) {
 		elencoRami[r].aggiungiEntitaRamo(e);
 	}
 	
+	/**
+	 * Gets the numero rami.
+	 *
+	 * @return the numero rami
+	 */
 	public int getNumeroRami() {
 		return numRami;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getRami()
+	 */
 	public Ramo[] getRami() {
 		return elencoRami;
 	}
 
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIndentazione()
+	 */
 	public int getIndentazione() {
 		return valoreIndentazione;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
+	 */
 	public boolean giaPresente(String nome) {
 		if(titolo.equalsIgnoreCase(nome))
 			return true;
@@ -103,6 +173,9 @@ public class Fork implements Entita{
 		return false;	
 	}
 	 
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
+	 */
 	public boolean rimuoviEntitaAt(int id) {
 		Entita daEliminare = null;
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
@@ -144,6 +217,9 @@ public class Fork implements Entita{
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
@@ -159,6 +235,9 @@ public class Fork implements Entita{
 		return risultato.toString();
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIdTipo()
+	 */
 	public String getIdTipo() {
 		return idTipo;
 	}

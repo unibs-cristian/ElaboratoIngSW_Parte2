@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package inputDati;
 
 import gestioneModello.Azione;
@@ -15,73 +18,171 @@ import utilita.Stream;
 import utilita.Util;
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GestoreModello.
+ */
 public class GestoreModello implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The Constant MSG_TITOLO_MENU_INSERIMENTO_MODELLO. */
 	public final static String MSG_TITOLO_MENU_INSERIMENTO_MODELLO = "BENVENUTO NEL MENU INSERIMENTO MODELLO\n\nCosa si desidera fare?";
+	
+	/** The Constant MSG_TITOLO_MENU_BRANCH. */
 	public final static String MSG_TITOLO_MENU_BRANCH = "MENU GESTIONE BRANCH %s - RAMO %d\n\nCosa si desidera fare?";
+	
+	/** The Constant MSG_TITOLO_MENU_CICLO. */
 	public final static String MSG_TITOLO_MENU_CICLO = "MENU GESTIONE CICLO %s - RAMO %d\n\nCosa si desidera fare?";
+	
+	/** The Constant MSG_TITOLO_MENU_FORK. */
 	public final static String MSG_TITOLO_MENU_FORK = "MENU GESTIONE FORK %s - RAMO %d\n\nCosa si desidera fare?";
 	
+	/** The Constant MSG_INSERIMENTO_AZIONE. */
 	public final static String MSG_INSERIMENTO_AZIONE = "1 - Inserimento Azione";
+	
+	/** The Constant MSG_INSERIMENTO_BRANCH. */
 	public final static String MSG_INSERIMENTO_BRANCH = "2 - Inserimento Branch";
+	
+	/** The Constant MSG_INSERIMENTO_CICLO. */
 	public final static String MSG_INSERIMENTO_CICLO = "3 - Inserimento Ciclo";
+	
+	/** The Constant MSG_INSERIMENTO_FORK. */
 	public final static String MSG_INSERIMENTO_FORK = "4 - Inserimento Fork";
+	
+	/** The Constant MSG_MODIFICA_MODELLO. */
 	public final static String MSG_MODIFICA_MODELLO = "5 - Eliminare l'ultima entita' inserita";
+	
+	/** The Constant MSG_VISUALIZZAZIONE_MODELLO. */
 	public final static String MSG_VISUALIZZAZIONE_MODELLO = "6 - Visualizzare Modello";
+	
+	/** The Constant MSG_USCITA_INSERIMENTO. */
 	public final static String MSG_USCITA_INSERIMENTO = "7 - Tornare al menu principale";
+	
+	/** The Constant MSG_CHIUSURA_RAMO. */
 	public final static String MSG_CHIUSURA_RAMO = "7 - Chidere ramo corrente";
+	
+	/** The Constant MSG_INSERIMENTO_NODO_FINALE. */
 	public final static String MSG_INSERIMENTO_NODO_FINALE = "8 - Inserimento Nodo Finale";
+	
+	/** The Constant MSG_SALVATAGGIO_MODELLO. */
 	public final static String MSG_SALVATAGGIO_MODELLO = "9 - Salvataggio Modello";
+	
+	/** The Constant MSG_ERRORE. */
 	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	
+	/** The Constant MSG_NO_AZIONE. */
 	public final static String MSG_NO_AZIONE = "Errore! Non e' ancora presente nessuna azione nel modello.";
 	
+	/** The Constant MSG_TITOLO_AZIONE. */
 	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo: ";
+	
+	/** The Constant MSG_TITOLO_BRANCH. */
 	public final static String MSG_TITOLO_BRANCH = "Digitare il titolo del Branch che si sta inserendo: ";
+	
+	/** The Constant MSG_TITOLO_CICLO. */
 	public final static String MSG_TITOLO_CICLO = "Digitare il titolo del Ciclo che si sta inserendo. ";
+	
+	/** The Constant MSG_TITOLO_FORK. */
 	public final static String MSG_TITOLO_FORK = "Digitare il titolo del costrutto Fork-Join che si sta inserendo: ";
+	
+	/** The Constant MSG_NUM_RAMI_BRANCH. */
 	public final static String MSG_NUM_RAMI_BRANCH = "Quanti flussi d'uscita si vuole che abbia il nuovo Branch? ->";
+	
+	/** The Constant MSG_NUM_RAMI_FORK. */
 	public final static String MSG_NUM_RAMI_FORK = "Quanti rami si vuole che abbia il fork? ->";
+	
+	/** The Constant MSG_NUOVA_ENTITA. */
 	public final static String MSG_NUOVA_ENTITA = "La nuova entita' %s e' stata aggiunta a %s";
+	
+	/** The Constant MSG_ERRORE_RAMI. */
 	public final static String MSG_ERRORE_RAMI = "L'entita' ha gia' un ramo vuoto inserito. Impossibile creare piu' rami vuoti.\nInserire almeno un'entita' per il ramo corrente.";
+	
+	/** The Constant MSG_DUPLICATO. */
 	public final static String MSG_DUPLICATO = "Errore! E' gia' presente nel modello un'entita' con lo stesso nome. Si prega di inserire un nome diverso.";
 	
+	/** The Constant MIN_RAMI. */
 	public final static int MIN_RAMI = 2;
 	
+	/** The Constant MSG_RAMO_BRANCH. */
 	public final static String MSG_RAMO_BRANCH = "%s (ID = %d) - INSERIMENTO ENTITA' PER IL RAMO N. %d";
+	
+	/** The Constant MSG_RAMO_FORK. */
 	public final static String MSG_RAMO_FORK = "%s (ID = %d) - INSERIMENTO ENTITA' PER IL RAMO PARALLELO N. %d";
+	
+	/** The Constant MSG_RAMO_SUCC. */
 	public final static String MSG_RAMO_SUCC = "Per chiudere il ramo corrente selezionare l'opzione 'Chiudere ramo corrente'.\n";
+	
+	/** The Constant MSG_CHIUSURA_BRANCH. */
 	public final static String MSG_CHIUSURA_BRANCH = "Tutti i rami di %s (ID = %d) sono stati completati ed e' stato creato il relativo Merge N.%d";
+	
+	/** The Constant MSG_CHIUSURA_CICLO. */
 	public final static String MSG_CHIUSURA_CICLO = "E' stato completato l'inserimento di tutti i rami del Ciclo N.%d";
+	
+	/** The Constant MSG_CHIUSURA_FORK. */
 	public final static String MSG_CHIUSURA_FORK = "Tutti i rami paralleli di %s (ID = %d) sono stati completati ed e' stato creato il relativo Join N.%d";
+	
+	/** The Constant MSG_ATTIVITA_INIZIALI_CICLO. */
 	public final static String MSG_ATTIVITA_INIZIALI_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'ATTIVITA' INIZIALI'.\nNel caso in cui tale ramo venga lasciato vuoto verra' creato un ciclo\na condizione iniziale, altrimenti il ciclo sara' a condizione finale.\n";
+	
+	/** The Constant MSG_ATTIVITA_COND_PERMANENZA_CICLO. */
 	public final static String MSG_ATTIVITA_COND_PERMANENZA_CICLO = "CICLO %s - INSERIMENTO ENTITA' PER IL RAMO 'CONDIZIONE DI PERMANENZA NEL CICLO'.\nTale ramo puo' essere lasciato vuoto (se non sono e' vuoto il precedente)";
 	
+	/** The Constant MSG_CONFERMA. */
 	public final static String MSG_CONFERMA = "Attenzione! Se si ritorna al menu' principale non sara' piu' possibile inserire entita' per\nquesto modello. Sei sicuro di voler uscire dalla modalita' inserimento?";
+	
+	/** The Constant MSG_NOME_MODELLO. */
 	public static final String MSG_NOME_MODELLO = "Come si desidera chiamare il modello?";
+	
+	/** The Constant MSG_ENTITA_ELIMINATA. */
 	public final static String MSG_ENTITA_ELIMINATA = "E' stata eliminata l'entita' di nome %s (id %d)";
+	
+	/** The Constant MSG_NODO_FINALE. */
 	public final static String MSG_NODO_FINALE = "Nodo finale inserito per il modello %s";
+	
+	/** The Constant MSG_NODO_FINALE_PRESENTE. */
 	public final static String MSG_NODO_FINALE_PRESENTE = "Attenzione! Nel modello e' gia' presente il Nodo Finale.\nPer poter inserire nuove entita' eliminare il Nodo Finale.";
 	
+	/** The Constant MSG_RAMI_BRANCH. */
 	public final static String MSG_RAMI_BRANCH = "Quanti rami si vuole che abbia il branch?";
+	
+	/** The Constant MSG_MODELLO_INCOMPLETO. */
 	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale e' necessario che nel modello sia presente almeno un'azione.";	
 	
+	/** The Constant OPZ_BRANCH. */
 	public final static int OPZ_BRANCH = 1;
+	
+	/** The Constant OPZ_CICLO. */
 	public final static int OPZ_CICLO = 2;
+	
+	/** The Constant OPZ_FORK. */
 	public final static int OPZ_FORK = 3;
 	
+	/** The Constant FATTORE_INCREMENTO. */
 	public final static int FATTORE_INCREMENTO = 4;
 	
+	/** The rientro. */
 	private static int rientro;
+	
+	/** The contatore entita. */
 	public static int contatoreEntita = 0;   //TODO da controllare
 	
+	/** The mod. */
 	private Modello mod;
 	
+	/**
+	 * Instantiates a new gestore modello.
+	 *
+	 * @param _mod the _mod
+	 */
 	public GestoreModello(Modello _mod) {
 		mod = _mod;
 	}
 		
+	/**
+	 * Menu inserimento primario.
+	 */
 	public void menuInserimentoPrimario() {
 		Vector<String> opzioniMenuInserimento = new Vector<String>();
 		opzioniMenuInserimento.add(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
@@ -207,6 +308,12 @@ public class GestoreModello implements Serializable {
 		} while(insFinito == false);
 	}
 	
+	/**
+	 * Menu inserimento secondario.
+	 *
+	 * @param e the e
+	 * @param tipo the tipo
+	 */
 	public void menuInserimentoSecondario(Entita e, int tipo) {
 			String t = "";		
 			//TODO METTERE METODO AUSILIARIO IN FASE DI REFACTORING !!!!
@@ -329,6 +436,12 @@ public class GestoreModello implements Serializable {
 			decrementaRientro();
 	}
 	
+	/**
+	 * Inserimento azione.
+	 *
+	 * @param e the e
+	 * @param qualeRamo the quale ramo
+	 */
 	public void inserimentoAzione (Entita e, int qualeRamo) {
 		Boolean presente = false;
 		String t;
@@ -344,6 +457,12 @@ public class GestoreModello implements Serializable {
 		System.out.println(String.format(MSG_NUOVA_ENTITA,action.getNome(),e.getNome()));
 	}
 	
+	/**
+	 * Inserimento branch.
+	 *
+	 * @param e the e
+	 * @param qualeRamo the quale ramo
+	 */
 	public void inserimentoBranch(Entita e, int qualeRamo) {
 		String t;
 		Boolean presente = false;
@@ -363,6 +482,12 @@ public class GestoreModello implements Serializable {
 		System.out.println(String.format(MSG_NUOVA_ENTITA,b.getNome(),e.getNome()));
 	}
 	
+	/**
+	 * Inserimento ciclo.
+	 *
+	 * @param e the e
+	 * @param qualeRamo the quale ramo
+	 */
 	public void inserimentoCiclo(Entita e, int qualeRamo) {
 		String t;
 		Boolean presente = false;
@@ -381,6 +506,12 @@ public class GestoreModello implements Serializable {
 		System.out.println(String.format(MSG_NUOVA_ENTITA,c.getNome(),e.getNome()));
 	}
 	
+	/**
+	 * Inserimento fork.
+	 *
+	 * @param e the e
+	 * @param qualeRamo the quale ramo
+	 */
 	public void inserimentoFork(Entita e, int qualeRamo) {
 		String t;
 		Boolean presente = false;
@@ -401,6 +532,9 @@ public class GestoreModello implements Serializable {
 		System.out.println(String.format(MSG_NUOVA_ENTITA,temp.getNome(),e.getNome()));
 	}
 	
+	/**
+	 * Inserimento nodo finale.
+	 */
 	public void inserimentoNodoFinale () {
 		NodoFinale nodo_f = new NodoFinale();
 		mod.addEntita(nodo_f);
@@ -409,7 +543,7 @@ public class GestoreModello implements Serializable {
 	
 	/**
 	 * Incrementa il valore che serve per indentare di una
-	 * quantita' pari ad un fattore di incremento fissato
+	 * quantita' pari ad un fattore di incremento fissato.
 	 */
 	public static void incrementaRientro() {
 		rientro = rientro + FATTORE_INCREMENTO;
@@ -417,7 +551,7 @@ public class GestoreModello implements Serializable {
 	
 	/**
 	 * Decrementa il valore che serve per indentare di una
-	 * quantita' pari ad un fattore di incremento fissato
+	 * quantita' pari ad un fattore di incremento fissato.
 	 */
 	public static void decrementaRientro() {
 		rientro = rientro - FATTORE_INCREMENTO;
@@ -426,7 +560,8 @@ public class GestoreModello implements Serializable {
 	/**
 	 * Fornisce il valore che serve per indentare
 	 * correttamente il codice in fase di visualizzazione
-	 * del modello
+	 * del modello.
+	 *
 	 * @return rientro Quantita' necessaria per l'indentazione.
 	 */
 	public static int getRientro () {

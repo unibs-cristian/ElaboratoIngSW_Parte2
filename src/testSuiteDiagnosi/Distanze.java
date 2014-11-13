@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package testSuiteDiagnosi;
 
 import java.util.Vector;
@@ -6,20 +9,42 @@ import sun.security.jca.GetInstance;
 import gestioneModello.Azione;
 import gestioneModello.Modello;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Distanze.
+ */
 public class Distanze {
 
+	/** The vettore metodo1. */
 	private Vector<int[]> vettoreMetodo1;
+	
+	/** The vettore metodo2. */
 	private Vector<int[]> vettoreMetodo2;
+	
+	/** The risultato distanze. */
 	private Vector<Integer> risultatoDistanze;
+	
+	/** The elenco azioni. */
 	private Vector<Azione> elencoAzioni;
 	
+	/**
+	 * Instantiates a new distanze.
+	 *
+	 * @param vettoreMetodo1 the vettore metodo1
+	 * @param vettoreMetodo2 the vettore metodo2
+	 */
 	public Distanze(Vector<int[]> vettoreMetodo1, Vector<int[]> vettoreMetodo2) {
 		this.vettoreMetodo1 = vettoreMetodo1;
 		this.vettoreMetodo2 = vettoreMetodo2;
 		risultatoDistanze = new Vector<Integer>();
 	}
 	
-	private Vector<Integer> calcoloDistanze() {
+	/**
+	 * Calcolo distanze.
+	 *
+	 * @return the vector
+	 */
+	public Vector<Integer> calcoloDistanze() {
 		
 		/** Ottengo vettori di classi e azioni da test suite. */	
 		Modello mod = Modello.getInstance();
@@ -59,6 +84,9 @@ public class Distanze {
 		return risultatoDistanze;
 	}
 	
+	/**
+	 * Stampa distanza totale.
+	 */
 	private void stampaDistanzaTotale() {
 		int distanzaTotale = 0;
 		for(int i=0; i<risultatoDistanze.size(); i++) {
@@ -68,6 +96,9 @@ public class Distanze {
 		System.out.println("Distanza totale: " + distanzaTotale);
 	}
 	
+	/**
+	 * Stampa distanza media.
+	 */
 	private void stampaDistanzaMedia() {
 		float distanzaMedia = 0;
 		for(int i=0; i<risultatoDistanze.size(); i++) {
@@ -78,6 +109,9 @@ public class Distanze {
 		System.out.println("Distanza media: " + distanzaMedia);
 	}
 	
+	/**
+	 * Stampa risultato distanze.
+	 */
 	private void stampaRisultatoDistanze() {
 		Modello mod = Modello.getInstance();
 		elencoAzioni = mod.getElencoAzioni();

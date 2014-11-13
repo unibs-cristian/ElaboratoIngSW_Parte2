@@ -1,22 +1,51 @@
+/*
+ * 
+ */
 package gestioneModello;
 import inputDati.GestoreModello;
 
 import java.util.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Modello.
+ */
 public class Modello implements Entita{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The Constant MSG_NOME_MODELLO. */
 	public final static String MSG_NOME_MODELLO = "NOME MODELLO : %s\n";
+	
+	/** The Constant MSG_DESCRIZIONE_MODELLO. */
 	public final static String MSG_DESCRIZIONE_MODELLO = "DESCRIZIONE MODELLO : %s\n\n";
+	
+	/** The Constant MSG_ERRORE_MODIFICA. */
 	public final static String MSG_ERRORE_MODIFICA = "Errore. Non e' presente alcuna entita' da eliminare.";
 	
+	/** The nome. */
 	private String nome;
+	
+	/** The descrizione. */
 	private String descrizione;
+	
+	/** The gm. */
 	private GestoreModello gm;
+	
+	/** The elenco entita. */
 	private Vector <Entita> elencoEntita;
+	
+	/** The elenco azioni. */
 	private Vector <Azione> elencoAzioni;
+	
+	/** The contatore modello. */
 	private static int contatoreModello = 1;
+	
+	/** The id modello. */
 	private int idModello;
+	
+	/** The id tipo. */
 	private String idTipo;
 	
 	/** L'istanza (unica) di modello su cui il sistema lavora e' inizialmente null. */
@@ -32,6 +61,12 @@ public class Modello implements Entita{
 		contatoreModello++;
 	}
 	
+	/**
+	 * Instantiates a new modello.
+	 *
+	 * @param _nome the _nome
+	 * @param _descrizione the _descrizione
+	 */
 	private Modello (String _nome, String _descrizione) {
 		nome = _nome;
 		descrizione = _descrizione;
@@ -43,63 +78,116 @@ public class Modello implements Entita{
 		contatoreModello++;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getId()
+	 */
 	public int getId() {
 		return idModello;
 	}
 	
+	/**
+	 * Checks if is null.
+	 *
+	 * @return true, if is null
+	 */
 	public static boolean isNull() {
 		if(instance == null)
 			return true;
 		return false;
 	}
 	
-	/** 
+	/**
+	 *  
 	 * Rappresenta il punto di accesso univoco secondo il pattern Singleton. L'istanza (unica) di modello
 	 * puo' essere ottenuta all'esterno tramite questo metodo.
-     */
+	 *
+	 * @return single instance of Modello
+	 */
 	public static Modello getInstance() {
 		if(instance == null)
 			instance = new Modello();
 		return instance;
 	}
 	
-	/** Consente di cambiare il modello (unico) su cui si lavora assegnando il nuovo modello all'attributo instance */
+	/**
+	 *  Consente di cambiare il modello (unico) su cui si lavora assegnando il nuovo modello all'attributo instance.
+	 *
+	 * @param nuovo the nuovo
+	 */
 	public static void cambiaModello(Modello nuovo) {
 		instance = nuovo;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getEntita()
+	 */
 	public Vector <Entita> getEntita() {
 		return elencoEntita;
 	}
 	
+	/**
+	 * Gets the azione at.
+	 *
+	 * @param index the index
+	 * @return the azione at
+	 */
 	public Azione getAzioneAt(int index) {
 		return elencoAzioni.elementAt(index);
 	}
 	
+	/**
+	 * Gets the numero azioni.
+	 *
+	 * @return the numero azioni
+	 */
 	public int getNumeroAzioni() {
 		return elencoAzioni.size();
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getNome()
+	 */
 	public String getNome() {
 		return nome;
 	}
 	
+	/**
+	 * Gets the gm.
+	 *
+	 * @return the gm
+	 */
 	public GestoreModello getGm() {
 		return gm;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
+	 */
 	public void addEntita (Entita e, int qualeRamo) {
 		elencoEntita.add(e);
 	}
 	
+	/**
+	 * Adds the entita.
+	 *
+	 * @param e the e
+	 */
 	public void addEntita (Entita e) {
 		elencoEntita.add(e);
 	}
 	
+	/**
+	 * Adds the azione.
+	 *
+	 * @param a the a
+	 */
 	public void addAzione(Azione a) {
 		elencoAzioni.add(a);
 	}
 	
+	/**
+	 * Elimina ultima entita.
+	 */
 	public void eliminaUltimaEntita() {
 		if(elencoEntita.size()<=1)     
 			System.out.println(MSG_ERRORE_MODIFICA);
@@ -117,10 +205,20 @@ public class Modello implements Entita{
 		}
 	}
 	
+	/**
+	 * Gets the elenco azioni.
+	 *
+	 * @return the elenco azioni
+	 */
 	public Vector<Azione> getElencoAzioni() {
 		return elencoAzioni;
 	}
 	
+	/**
+	 * Nodo finale presente.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean nodoFinalePresente() {
 		if(giaPresente(ID_TIPO_NODO_FINALE))
 			return true;
@@ -131,6 +229,9 @@ public class Modello implements Entita{
 	/**
 	 * Cerca un'entita' per nome (il quale e' associato univocamente ad un'entita') e se la 
 	 * trova la restituisce, altrimenti restituisce null.
+	 *
+	 * @param nomeDaCercare the nome da cercare
+	 * @return the entita
 	 */
 	//TODO Forse non e' mai utilizzato. Verificare
 	public Entita cercaPerNome(String nomeDaCercare) {
@@ -146,6 +247,9 @@ public class Modello implements Entita{
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
+	 */
 	public boolean giaPresente(String nome) {
 		/* 
 		 * Controlla anche se il nome del modello o dell'entita' da inserire in esso  e' gia' 
@@ -164,6 +268,12 @@ public class Modello implements Entita{
 		return trovato;
 	}
 	
+	/**
+	 * Checks if is equal.
+	 *
+	 * @param altro the altro
+	 * @return true, if is equal
+	 */
 	public boolean isEqual(Modello altro) {
 		if((nome.equals(altro.getNome()) == false) || getNumeroAzioni() != altro.getNumeroAzioni())
 			return false;
@@ -174,11 +284,19 @@ public class Modello implements Entita{
 		return true;
 	}
 	
+	/**
+	 * Nessuna azione.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean nessunaAzione() {
 		return elencoAzioni.isEmpty();
 	}
 	
 	// Rimuove l'entita' con tale id, se la trova
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
+	 */
 	public boolean rimuoviEntitaAt(int id) {
 		Entita e = null;
 		for (int i = 0; i < elencoEntita.size(); i++) 
@@ -199,20 +317,38 @@ public class Modello implements Entita{
 		return false;
 	}
 	
+	/**
+	 * Rimuovi azione.
+	 *
+	 * @param nomeAzione the nome azione
+	 */
 	public void rimuoviAzione(String nomeAzione) {
 		for(int i=0; i<elencoAzioni.size(); i++)
 			if(elencoAzioni.elementAt(i).getNome().equalsIgnoreCase(nomeAzione))
 				elencoAzioni.remove(i);
 	}
 	
+	/**
+	 * Sets the nome.
+	 *
+	 * @param unNome the new nome
+	 */
 	public void setNome(String unNome) {
 		nome = unNome;
 	}
 	
+	/**
+	 * Sets the descrizione.
+	 *
+	 * @param unaDescrizione the new descrizione
+	 */
 	public void setDescrizione(String unaDescrizione) {
 		descrizione = unaDescrizione;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {		
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(String.format(MSG_NOME_MODELLO, nome));
@@ -226,14 +362,23 @@ public class Modello implements Entita{
 		return risultato.toString();
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getRami()
+	 */
 	public Ramo[] getRami() {
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIndentazione()
+	 */
 	public int getIndentazione() {
 		return 0;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIdTipo()
+	 */
 	public String getIdTipo() {
 		return idTipo;
 	}

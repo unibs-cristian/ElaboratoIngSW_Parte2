@@ -1,26 +1,47 @@
+/*
+ * 
+ */
 package gestioneModello;
 
 import inputDati.GestoreModello;
 
 import java.util.Vector;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NodoIniziale.
+ */
 public class NodoIniziale implements Entita{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The Constant MSG_TITOLO_NI. */
 	public final static String MSG_TITOLO_NI = "NODO_INIZIALE";	
+	
+	/** The id. */
 	private int id;
 	
-	/** Identificatore del tipo */
+	/**  Identificatore del tipo. */
 	private static String idTipo;
 	
+	/**
+	 * Instantiates a new nodo iniziale.
+	 */
 	public NodoIniziale() {
 		id = GestoreModello.contatoreEntita;
 		GestoreModello.contatoreEntita=1;
 		idTipo = ID_TIPO_NODO_INIZIALE;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
+	 */
 	public void addEntita(Entita e, int qualeRamo) {}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
+	 */
 	public Entita cercaPerNome(String nomeDaCercare) {
 		if(idTipo == nomeDaCercare)
 			return this;
@@ -28,36 +49,60 @@ public class NodoIniziale implements Entita{
 			return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getId()
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIndentazione()
+	 */
 	public int getIndentazione() {
 		return 0;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getNome()
+	 */
 	public String getNome() {
 		return MSG_TITOLO_NI;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getEntita()
+	 */
 	public Vector<Entita> getEntita() {
 		Vector <Entita> daRestituire = new Vector<Entita>();
 		daRestituire.add(this);
 		return daRestituire;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getRami()
+	 */
 	public Ramo[] getRami() {
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
+	 */
 	public boolean giaPresente(String nome) {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
+	 */
 	public boolean rimuoviEntitaAt(int id) {
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
@@ -65,10 +110,18 @@ public class NodoIniziale implements Entita{
 		return risultato.toString();
 	}
 	
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#getIdTipo()
+	 */
 	public String getIdTipo() {
 		return idTipo;
 	}
 	
+	/**
+	 * Gets the azioni.
+	 *
+	 * @return the azioni
+	 */
 	public Vector <Entita> getAzioni() {
 		return null;
 	}

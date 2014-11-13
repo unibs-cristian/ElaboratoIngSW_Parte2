@@ -1,12 +1,28 @@
+/*
+ * 
+ */
 package testSuiteDiagnosi;
 
 import java.util.Vector;
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProbabilitaMetodo1.
+ */
 public class ProbabilitaMetodo1 implements Serializable 
 {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Calcola probabilita.
+	 *
+	 * @param testSuite the test suite
+	 * @param vettoreRisultatiTestSuite the vettore risultati test suite
+	 * @return the vector
+	 */
 	public Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
 	{		
 		Vector<Float> risultato = new Vector<Float>(); 
@@ -46,6 +62,13 @@ public class ProbabilitaMetodo1 implements Serializable
 		return risultato;
 	}
 	
+	/**
+	 * Calcola probabilita classe.
+	 *
+	 * @param cardinalita the cardinalita
+	 * @param vettoreRisultatiClasse the vettore risultati classe
+	 * @return the vector
+	 */
 	private Vector<Integer> calcolaProbabilitaClasse (int cardinalita, Vector<Integer> vettoreRisultatiClasse)
 	{
 		Vector<Integer> risultatoProbabilitaClasse = new Vector<Integer>();

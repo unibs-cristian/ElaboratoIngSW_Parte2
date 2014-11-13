@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package inputDati;
 
 import java.io.Serializable;
@@ -14,28 +17,65 @@ import gestioneModello.Azione;
 import gestioneModello.Modello;
 import gestioneModello.Ramo;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InserimentoCammino.
+ */
 public class InserimentoCammino implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The Constant MSG_CAMM_GLOBALE_1. */
 	public final static String MSG_CAMM_GLOBALE_1 = "Scegliere le azioni facenti parte del cammino globale relativo alla classe di equivalenza.";
+	
+	/** The Constant MSG_AGGIUNTA_CAMM_GLOBALE. */
 	public final static String MSG_AGGIUNTA_CAMM_GLOBALE = "Si desidera aggiungere l'azione %s al cammino globale?";
+	
+	/** The Constant MSG_ERRORE_CAMMINO. */
 	public final static String MSG_ERRORE_CAMMINO = "Errore! Il cammino e' vuoto. Inserire nuovamente.";
+	
+	/** The Constant MSG_CAMMINO_NON_VALIDO. */
 	public final static String MSG_CAMMINO_NON_VALIDO = "Errore! Cammino non valido. Inserire nuovamente.";
+	
+	/** The Constant MSG_INS_CAMMINO. */
 	public final static String MSG_INS_CAMMINO = "Scegliere le azioni da aggiungere all'insieme del cammino";
+	
+	/** The Constant MSG_CAMM_GLOB. */
 	public final static String MSG_CAMM_GLOB = "Cammino Globale --> ";
+	
+	/** The Constant MSG_INS_CAMM. */
 	public final static String MSG_INS_CAMM = "Insieme del Cammino --> ";
+	
+	/** The Constant MSG_AGGIUNTA_INS_CAMM. */
 	public final static String MSG_AGGIUNTA_INS_CAMM = "Si desidera aggiungere l'azione %s all'insieme del cammino?";
+	
+	/** The Constant MSG_VAL_RILEV. */
 	public final static String MSG_VAL_RILEV = "Inserire il valore della rilevazione relativa all'insieme del cammino";
+	
+	/** The Constant MSG_COPPIA_AGGIUNTA. */
 	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
 	
+	/** The ce. */
 	private ClasseEquivalenza ce;
+	
+	/** The camm. */
 	private CamminoAzioni camm;
 	
+	/**
+	 * Instantiates a new inserimento cammino.
+	 *
+	 * @param _ce the _ce
+	 * @param _camm the _camm
+	 */
 	public InserimentoCammino(ClasseEquivalenza _ce,CamminoAzioni _camm) {
 		ce = _ce;
 		camm = _camm;
 	}
 	
+	/**
+	 * Inserisci camm.
+	 */
 	public void inserisciCamm() {
 		if(camm.isGlobale())
 			System.out.println(MSG_CAMM_GLOBALE_1);
@@ -81,6 +121,13 @@ public class InserimentoCammino implements Serializable {
 		}
 	}
 	
+	/**
+	 * Gestisci stato azione.
+	 *
+	 * @param e the e
+	 * @param esterna the esterna
+	 * @param posizioneRamo the posizione ramo
+	 */
 	public void gestisciStatoAzione(Entita e, Entita esterna, int posizioneRamo) {
 		String richiestaInserimento;
 		if(camm.isGlobale())
@@ -124,6 +171,11 @@ public class InserimentoCammino implements Serializable {
 		}
 	}
 	
+	/**
+	 * Gestisci stato complessa.
+	 *
+	 * @param e the e
+	 */
 	public void gestisciStatoComplessa(Entita e) {
 		camm.getStato().gestisciStato(camm, StatoCammino.ENTRATO_RAMO);
 		for(int i=0; i<e.getRami().length; i++) {

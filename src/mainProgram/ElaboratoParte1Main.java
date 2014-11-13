@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package mainProgram;
 
 import inputDati.InserimentoCammino;
@@ -15,77 +18,200 @@ import gestioneModello.Modello;
 import gestioneModello.NodoIniziale;
 import testSuiteDiagnosi.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ElaboratoParte1Main.
+ */
 public class ElaboratoParte1Main {
 
+	/** The Constant MSG_TITOLO_MENU_PRINCIPALE. */
 	public final static String MSG_TITOLO_MENU_PRINCIPALE = "BENVENUTO NEL MENU' PRINCIPALE\n\nCosa si desidera fare?"; 
+	
+	/** The Constant MSG_TITOLO_MENU_CARICAMENTO. */
 	public final static String MSG_TITOLO_MENU_CARICAMENTO = "MENU' GESTIONE CARICAMENTO\n\nCosa si desidera fare?";
+	
+	/** The Constant MSG_TITOLO_MENU_SALVATAGGIO. */
 	public final static String MSG_TITOLO_MENU_SALVATAGGIO = "MENU' GESTIONE SALVATAGGIO\n\nCosa si desidera fare?";
 	
+	/** The Constant MSG_NUOVO_MODELLO. */
 	public final static String MSG_NUOVO_MODELLO = " 1 - Crea Nuovo Modello";
+	
+	/** The Constant MSG_VISUALIZZAZIONE_MODELLO. */
 	public final static String MSG_VISUALIZZAZIONE_MODELLO = " 2 - Visualizza Modello";
+	
+	/** The Constant MSG_INS_TEST_SUITE. */
 	public final static String MSG_INS_TEST_SUITE = " 3 - Inserimento Test Suite";
+	
+	/** The Constant MSG_VISUALIZZAZIONE_DIAGNOSI. */
 	public final static String MSG_VISUALIZZAZIONE_DIAGNOSI = " 4 - Visualizza Insiemi delle Diagnosi";
+	
+	/** The Constant MSG_VISUALIZZAZIONE_PROBABILITA. */
 	public final static String MSG_VISUALIZZAZIONE_PROBABILITA = " 5 - Visualizza Probabilita' e Distanze";
+	
+	/** The Constant MSG_CREAZIONE_REPORT. */
 	public final static String MSG_CREAZIONE_REPORT = " 6 - Creazione Report Completo";
+	
+	/** The Constant MSG_VISUALIZZAZIONE_REPORT. */
 	public final static String MSG_VISUALIZZAZIONE_REPORT = " 7 - Visualizza Report";
+	
+	/** The Constant MSG_CARICAMENTO. */
 	public final static String MSG_CARICAMENTO = " 8 - Carica";
+	
+	/** The Constant MSG_SALVATAGGIO. */
 	public final static String MSG_SALVATAGGIO = " 9 - Salva";
+	
+	/** The Constant MSG_USCITA_PROGRAMMA. */
 	public final static String MSG_USCITA_PROGRAMMA = "10 - Esci dal programma.";
+	
+	/** The Constant MSG_ERRORE. */
 	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	
+	/** The Constant MSG_NO_MODELLO. */
 	public final static String MSG_NO_MODELLO = "Errore! Nessun modello inserito.";
+	
+	/** The Constant MSG_NO_TS. */
 	public final static String MSG_NO_TS = "Errore! Nessun Test Suite inserito.";
+	
+	/** The Constant MSG_NO_REPORT. */
 	public final static String MSG_NO_REPORT = "Errore! Nessun Report inserito.";
+	
+	/** The Constant MSG_STAMPA_MOD_CORRENTE. */
 	public final static String MSG_STAMPA_MOD_CORRENTE = "STAMPA DEL MODELLO CORRENTE\n";
+	
+	/** The Constant MSG_TS. */
 	public final static String MSG_TS = "\n\nCREAZIONE DEL TEST SUITE RELATIVO AL MODELLO %s\n\n";
 	
+	/** The Constant MSG_AGGIUNTA_CAMM_GLOBALE. */
 	public final static String MSG_AGGIUNTA_CAMM_GLOBALE = "Si desidera aggiungere l'azione %s al cammino globale?";
+	
+	/** The Constant MSG_AGGIUNTA_INS_CAMM. */
 	public final static String MSG_AGGIUNTA_INS_CAMM = "Si desidera aggiungere l'azione %s all'insieme del cammino?";
+	
+	/** The Constant MSG_INS_COP. */
 	public final static String MSG_INS_COP = "INSERIMENTO INSIEME DI COPERTURA";
+	
+	/** The Constant MSG_INS_CLASSE_EQ. */
 	public final static String MSG_INS_CLASSE_EQ = "CLASSE DI EQUIVALENZA N. %d - INSERIMENTO INFORMAZIONI";
+	
+	/** The Constant MSG_CARD_CE. */
 	public final static String MSG_CARD_CE = "Inserire la cardinalita' relativa alla classe di equivalenza : ";
 	
+	/** The Constant MSG_ERRORE_CE. */
 	public final static String MSG_ERRORE_CE = "Errore! E' gia' presente nel Test Suite una classe di equivalenza uguale. Ripetere l'inserimento.";
+	
+	/** The Constant MSG_CONTINUA_SI_NO_CE. */
 	public final static String MSG_CONTINUA_SI_NO_CE = "Si desidera inserire un'altra classe di equivalenza?";
+	
+	/** The Constant MSG_COPPIA_AGGIUNTA. */
 	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
+	
+	/** The Constant MSG_CONTINUA_SI_NO_COPPIA. */
 	public final static String MSG_CONTINUA_SI_NO_COPPIA = "Si desidera inserire un'altra coppia (insieme del cammino ; valore della rilevazione)?";
+	
+	/** The Constant MSG_VAL_RILEV. */
 	public final static String MSG_VAL_RILEV = "Inserire il valore della rilevazione relativa all'insieme del cammino";
+	
+	/** The Constant MSG_SALVATAGGIO_TS. */
 	public final static String MSG_SALVATAGGIO_TS = "Si desidera salvare il Test Suite inserito?";
+	
+	/** The Constant MSG_NOME_TS. */
 	public final static String MSG_NOME_TS = "Che nome si desidera dare al Test Suite?";
+	
+	/** The Constant MSG_SINTESI_TS. */
 	public final static String MSG_SINTESI_TS = "Si desidera vedere una sintesi delle classi di equivalenza e degli insiemi di copertura inseriti\nper il TS corrente?";
+	
+	/** The Constant MSG_NOME_REPORT. */
 	public final static String MSG_NOME_REPORT = "Che nome si desidera dare al Report?";
 	
+	/** The Constant MSG_MODELLO_ESISTENTE. */
 	public final static String MSG_MODELLO_ESISTENTE = "Esiste gia' un modello. Si desidera inserire comunque un nuovo modello?";
+	
+	/** The Constant MSG_NOME_MODELLO. */
 	public final static String MSG_NOME_MODELLO = "Inserire il nome del nuovo modello: ";
+	
+	/** The Constant MSG_DESCRIZIONE_MODELLO. */
 	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello: ";
 	
+	/** The Constant MSG_BENVENUTO. */
 	public final static String MSG_BENVENUTO = "Benvenuto! Questo programma ti consente di inserire e caricare modelli.";
+	
+	/** The Constant MSG_SALUTO. */
 	public final static String MSG_SALUTO = "Grazie per aver usato il nostro programma! A presto.\n";
 	
+	/** The Constant MSG_NOME_MODELLO_PREESISTENTE. */
 	public static final String MSG_NOME_MODELLO_PREESISTENTE = "Nome modello da caricare: ";
+	
+	/** The Constant MSG_NOME_TS_PREESISTENTE. */
 	public static final String MSG_NOME_TS_PREESISTENTE = "Nome Test Suite da caricare: ";
+	
+	/** The Constant MSG_NOME_REPORT_PREESISTENTE. */
 	public final static String MSG_NOME_REPORT_PREESISTENTE = "Nome Report da caricare: ";
+	
+	/** The Constant MSG_CARICA_MODELLO. */
 	public static final String MSG_CARICA_MODELLO = "1 - Carica un modello esistente";
+	
+	/** The Constant MSG_CARICA_TS. */
 	public static final String MSG_CARICA_TS = "2 - Carica un test suite esistente";
+	
+	/** The Constant MSG_CARICA_REPORT. */
 	public static final String MSG_CARICA_REPORT = "3 - Carica un report completo";
+	
+	/** The Constant MSG_ESCI. */
 	public static final String MSG_ESCI = "4 - Ritorna al menu' principale";
+	
+	/** The Constant MSG_NOME_TS_DA_CARICARE. */
 	public static final String MSG_NOME_TS_DA_CARICARE = "Nome Test Suite da caricare: ";
+	
+	/** The Constant MSG_SOVRASCRIVI_MODELLO. */
 	public static final String MSG_SOVRASCRIVI_MODELLO = "Attenzione, esiste gia' un modello inserito. Si desidera abbandonare tale modello e lavorare su quello caricato?";
+	
+	/** The Constant MSG_MODELLO_TS_NON_OK. */
 	public static final String MSG_MODELLO_TS_NON_OK = "Attenzione, il Test Suite caricato si riferisce ad un modello diverso da quello presente nel sistema. Verra' caricato il modello corretto per poter eseguire correttamente diagnosi e probabilita'";
+	
+	/** The Constant MSG_SOVRASCRIVI_TS. */
 	public static final String MSG_SOVRASCRIVI_TS = "Attenzione, esiste gia' un Test Suite inserito. Si desidera abbandonare tale Test Suite e lavorare su quello nuovo?";
+	
+	/** The Constant MSG_MODELLO_CARICATO. */
 	public final static String MSG_MODELLO_CARICATO = "Il modello %s e' stato caricato con successo.";
+	
+	/** The Constant MSG_REPORT_CARICATO. */
 	public final static String MSG_REPORT_CARICATO = "Il report %s e' stato caricato con successo.";
+	
+	/** The Constant MSG_VISUALIZZA_REPORT_CARICATO. */
 	public final static String MSG_VISUALIZZA_REPORT_CARICATO = "Si desidera visualizzare il report caricato?";
+	
+	/** The Constant MSG_CARICAMENTO_OK. */
 	public final static String MSG_CARICAMENTO_OK = "Caricamento completato correttamente.";
+	
+	/** The Constant MSG_SALVATAGGIO_OK. */
 	public final static String MSG_SALVATAGGIO_OK = "Il file e' stato salvato con successo";
+	
+	/** The Constant MSG_CARICAMENTO_ANNULLATO. */
 	public static final String MSG_CARICAMENTO_ANNULLATO = "Caricamento annullato.";
+	
+	/** The Constant MSG_SALVA_MODELLO. */
 	public static final String MSG_SALVA_MODELLO = "1 - Salva Modello";
+	
+	/** The Constant MSG_SALVA_TS. */
 	public static final String MSG_SALVA_TS = "2 - Salva Test Suite";
+	
+	/** The Constant MSG_SALVA_REPORT. */
 	public static final String MSG_SALVA_REPORT = "3 - Salva dati in un report completo";
+	
+	/** The Constant MSG_ERRORE_REPORT. */
 	public static final String MSG_ERRORE_REPORT = "Errore. Nessun Report inserito";
+	
+	/** The Constant MSG_NOME_MODELLO_SALVA. */
 	public static final String MSG_NOME_MODELLO_SALVA = "Che nome si vuole dare al modello da salvare?";
+	
+	/** The Constant MSG_INSERIMENTO_TS_ANNULLATO. */
 	public static final String MSG_INSERIMENTO_TS_ANNULLATO = "Inserimento Test Suite annulato.";
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		benvenuto();
 		Vector<String> vociMenuPrincipale = new Vector<String>();
@@ -183,6 +309,9 @@ public class ElaboratoParte1Main {
 		} while(finito == false);
 	}   
 	
+	/**
+	 * Inserimento nuovo modello.
+	 */
 	public static void inserimentoNuovoModello() {
 		boolean sovrascrivi = false;
 		if(Modello.isNull() == false)
@@ -210,6 +339,9 @@ public class ElaboratoParte1Main {
 		}
 	}
 	
+	/**
+	 * Visualizza modello corrente.
+	 */
 	public static void visualizzaModelloCorrente() {
 		if(Modello.isNull())
 			System.out.println(MSG_NO_MODELLO);
@@ -221,6 +353,9 @@ public class ElaboratoParte1Main {
 		}
 	}
 	
+	/**
+	 * Inserimento ts.
+	 */
 	public static void inserimentoTS() { 
 		TestSuite ts;
 		boolean continua = false;
@@ -297,6 +432,9 @@ public class ElaboratoParte1Main {
 		}
 	}
 	
+	/**
+	 * Creazione report.
+	 */
 	public static void creazioneReport() {
 		Report nuovo = Report.getInstance();
 		Modello modCorrente = Modello.getInstance();
@@ -315,6 +453,9 @@ public class ElaboratoParte1Main {
 			System.out.println(MSG_NO_TS);
 	}
 	
+	/**
+	 * Visualizza report.
+	 */
 	public static void visualizzaReport() {
 		if(Report.isNull())
 			System.out.println(MSG_ERRORE_REPORT);
@@ -324,6 +465,9 @@ public class ElaboratoParte1Main {
 		}
 	}
 		
+	/**
+	 * Caricamento.
+	 */
 	public static void caricamento() {	
 		Vector <String> vociMenuCaricamento = new Vector<String>();
 		vociMenuCaricamento.add(MSG_CARICA_MODELLO);
@@ -343,6 +487,9 @@ public class ElaboratoParte1Main {
 		} while(finito == false);	
 	}
 				
+	/**
+	 * Caricamento modello.
+	 */
 	public static void caricamentoModello() {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO_PREESISTENTE));
 		Modello modelloCaricato = null;
@@ -366,6 +513,9 @@ public class ElaboratoParte1Main {
 		}
 	}
 	
+	/**
+	 * Caricamento ts.
+	 */
 	public static void caricamentoTS() {
 		Modello modCorrente;
 		if(Modello.isNull())
@@ -413,6 +563,9 @@ public class ElaboratoParte1Main {
 		}  //Chiude il primo else (quello che viene eseguito se c'e' un modello caricato
 	}
 				
+	/**
+	 * Caricamento report.
+	 */
 	public static void caricamentoReport() {
 		File nomeFile = new File(Util.leggiString(MSG_NOME_REPORT_PREESISTENTE));
 		Report reportCaricato = null;
@@ -423,6 +576,9 @@ public class ElaboratoParte1Main {
 			reportCaricato.toString();
 	}
 	
+	/**
+	 * Salvataggio.
+	 */
 	public static void salvataggio() {
 		Vector <String> vociMenuSalvataggio = new Vector<String>();
 		vociMenuSalvataggio.add(MSG_SALVA_MODELLO);
@@ -442,6 +598,9 @@ public class ElaboratoParte1Main {
 		} while(finito == false);	
 	}
 	
+	/**
+	 * Salvataggio modello.
+	 */
 	public static void salvataggioModello() {
 		if(Modello.isNull())
 			System.out.println(MSG_NO_MODELLO);
@@ -452,6 +611,9 @@ public class ElaboratoParte1Main {
 		}
 	}
 	
+	/**
+	 * Salvataggio ts.
+	 */
 	public static void salvataggioTS() {
 		if(TestSuite.isNull())
 			System.out.println(MSG_NO_TS);
@@ -462,6 +624,9 @@ public class ElaboratoParte1Main {
 		}
 	}
 	
+	/**
+	 * Salvataggio report.
+	 */
 	public static void salvataggioReport() {
 		if(Report.isNull())
 			System.out.println(MSG_NO_REPORT);
@@ -472,11 +637,17 @@ public class ElaboratoParte1Main {
 		}
 	}
 	
+	/**
+	 * Benvenuto.
+	 */
 	public static void benvenuto()
 	{
 		System.out.println(MSG_BENVENUTO);
 	}
 	
+	/**
+	 * Saluta.
+	 */
 	public static void saluta()
 	{
 		System.out.print(MSG_SALUTO);

@@ -1,8 +1,12 @@
+/*
+ * 
+ */
 package utilita;
 
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
+// TODO: Auto-generated Javadoc
 /**
  * Classe contenente metodi per abbellire i programmi.
  * @author Lorenzo Rubagotti.
@@ -10,17 +14,30 @@ import javax.swing.JOptionPane;
 public class GUI
 {
 
+	/** The Constant SPAZIO. */
 	public final static String SPAZIO = " ";
+	
+	/** The Constant ACAPO. */
 	public final static String ACAPO = "\n";
+	
+	/** The Constant RIGASOTTO. */
 	public final static String RIGASOTTO = "=";
+	
+	/** The Constant RIGALATO. */
 	public final static String RIGALATO = "|";
+	
+	/** The Constant MARGINE. */
 	public final static int MARGINE = 2;
 	
+	/** The Constant RIGA_ASTERISCHI. */
 	public final static String RIGA_ASTERISCHI = "********************" +"********************" +"********************" +"********************"; 
+	
+	/** The Constant RIGA_BIANCA. */
 	public final static String RIGA_BIANCA =    "                    " + "                    " +"                    " +"                    "; 
 	
 	/**
-	 * Va a capo dopo aver stampato il testo 
+	 * Va a capo dopo aver stampato il testo .
+	 *
 	 * @param testo Testo dopo cui andare a capo.
 	 * @return La stringa testo più un carattere a capo posto in fondo ad essa.
 	 */
@@ -46,9 +63,10 @@ public class GUI
 	
 	/**
 	 * Metodo che incornicia il menu', o qualunque vettore di stringhe.
+	 *
 	 * @param titoloMenu titolo del menu'.
 	 * @param menu Menu' o vettore di stringhe.
-	 * @param spunta1 Attiva (1) o disattiva (0) la divisione di ogni riga.
+	 * @param spuntaDivisioneRighe the spunta divisione righe
 	 */
 	public static void incorniciaMenu(String titoloMenu, Vector<String> menu, int spuntaDivisioneRighe)
 	{
@@ -81,6 +99,14 @@ public class GUI
 		System.out.println();
 	}
 	
+	/**
+	 * Indenta.
+	 *
+	 * @param testo the testo
+	 * @param carattere the carattere
+	 * @param profondita the profondita
+	 * @return the string
+	 */
 	public static String indenta(String testo, String carattere, int profondita)
 	{
 		StringBuffer daRestituire = new StringBuffer();
@@ -197,7 +223,13 @@ public class GUI
 			return result.toString();
 		}
 	 
-	 public static String incorniciaStringa(String daIncorniciare) {
+	 /**
+ 	 * Incornicia stringa.
+ 	 *
+ 	 * @param daIncorniciare the da incorniciare
+ 	 * @return the string
+ 	 */
+ 	public static String incorniciaStringa(String daIncorniciare) {
 		 int lunghezza = daIncorniciare.length();
 		 //Costruzione delle righe che costituiranno la cornice
 		 String rigaCornice, rigaIntermedia, rigaTesto, spazi;

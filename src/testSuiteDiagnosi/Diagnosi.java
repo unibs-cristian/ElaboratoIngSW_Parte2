@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package testSuiteDiagnosi;
 
 import java.util.Vector;
@@ -6,17 +9,37 @@ import sun.security.jca.GetInstance;
 import gestioneModello.Azione;
 import gestioneModello.Modello;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Diagnosi.
+ */
 public class Diagnosi {
 
+	/** The tipo diagnosi. */
 	private int tipoDiagnosi;
+	
+	/** The test suite. */
 	private TestSuite testSuite;
+	
+	/** The elenco classi. */
 	private Vector<ClasseEquivalenza> elencoClassi;
+	
+	/** The elenco azioni. */
 	private Vector<Azione> elencoAzioni;
+	
+	/** The risultato azioni. */
 	private Vector<Integer> risultatoAzioni;
+	
+	/** The risultato classi per probabilita. */
 	private Vector<Vector<Integer>> risultatoClassiPerProbabilita;
+	
+	/** The risultato finale probabilita m1. */
 	private Vector<Float> risultatoFinaleProbabilitaM1;
+	
+	/** The risultato finale probabilita m2. */
 	private Vector<Float> risultatoFinaleProbabilitaM2;
 	
+	/** The instance. */
 	private static Diagnosi instance = null;
 	
 	/* 	 2: OK
@@ -24,12 +47,21 @@ public class Diagnosi {
 		-1: !KO
 		-2: !OK 	*/
 	
+	/**
+	 * Instantiates a new diagnosi.
+	 *
+	 * @param tipoDiagnosi the tipo diagnosi
+	 * @param testSuite the test suite
+	 */
 	public Diagnosi (int tipoDiagnosi, TestSuite testSuite) {
 		
 		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
 	}
 	
+	/**
+	 * Esegui diagnosi.
+	 */
 	public void eseguiDiagnosi() {
 		if(tipoDiagnosi == 1) {
 			eseguiDiagnosiMetodo1();
@@ -41,6 +73,9 @@ public class Diagnosi {
 		}
 	}
 	
+	/**
+	 * Esegui diagnosi metodo1.
+	 */
 	public void eseguiDiagnosiMetodo1 () {
 		
 		System.out.println("DIAGNOSI METODO 1");
@@ -184,6 +219,9 @@ public class Diagnosi {
 		stampaRisultati(risultatoFinaleProbabilitaM1);
 	}
 	
+	/**
+	 * Esegui diagnosi metodo2.
+	 */
 	public void eseguiDiagnosiMetodo2 () {
 		
 		System.out.println("\n\nDIAGNOSI METODO 2");
@@ -309,10 +347,20 @@ public class Diagnosi {
 		stampaRisultati(risultatoFinaleProbabilitaM2);
 	}
 	
+	/**
+	 * Tipo diagnosi.
+	 *
+	 * @return the int
+	 */
 	public int tipoDiagnosi() {
 		return tipoDiagnosi;
 	}
 	
+	/**
+	 * Stampa risultati.
+	 *
+	 * @param risultato the risultato
+	 */
 	public void stampaRisultati(Vector<Float> risultato) {
 		System.out.println("RISULTATO PROBABILITA' CON METODO "+tipoDiagnosi);
 		for(int i=0; i<risultato.size(); i++) {
@@ -323,6 +371,11 @@ public class Diagnosi {
 		}
 	}
 	
+	/**
+	 * Stampa diagnosi.
+	 *
+	 * @param matrice the matrice
+	 */
 	public void stampaDiagnosi(int[][] matrice) {
 		for(int i=0; i<matrice.length; i++) {
 			for(int j=0; j<matrice[0].length; j++) {

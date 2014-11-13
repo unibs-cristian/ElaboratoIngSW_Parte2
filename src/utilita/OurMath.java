@@ -1,13 +1,19 @@
+/*
+ * 
+ */
 package utilita;
 
 import java.util.*;
 
+// TODO: Auto-generated Javadoc
 /**
  * Svariati metodi matematici.
  * @author Lorenzo Rubagotti.
  */
 public class OurMath
 {
+	
+	/** The Constant CENTO. */
 	private final static int CENTO = 100;
 	
 	/**
@@ -38,6 +44,9 @@ public class OurMath
 	
 	/**
 	 * Metodo che si occupa di trovare il valore massimo di un array di interi.
+	 *
+	 * @param array the array
+	 * @return the int
 	 */
 	public static int valoreMassimoArray(int array[])
 	{
@@ -65,6 +74,7 @@ public class OurMath
 		return indice;
 	}
 	
+	/** The estrattore. */
 	public static Random estrattore = new Random();
 	/**
 	 * Metodo che genera un numero double casuale dato un minimo e un massimo.
