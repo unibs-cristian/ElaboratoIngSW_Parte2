@@ -118,20 +118,22 @@ public class ElaboratoParte1Main {
 					break;
 				
 				case 4:
-					boolean continua = false;
-					if(TestSuite.isNull())
-						System.out.println("TS nullo!");
-					else
-					{
-						System.out.println("TS rilevato!");
-						continua = true;
-					}
-					if(continua) {
-						TestSuite ts = TestSuite.getInstance();
-						Diagnosi d1 = new Diagnosi(1, ts);
-						Diagnosi d2 = new Diagnosi(2, ts);
-						d1.eseguiDiagnosiMetodo1();
-						d2.eseguiDiagnosiMetodo2();	
+					if(Modello.isNull())
+						System.out.println(MSG_NO_MODELLO);
+					else 
+					{							
+						if(TestSuite.isNull())
+							System.out.println("TS nullo!");
+						else
+						{
+							System.out.println("TS rilevato!");
+							
+							TestSuite ts = TestSuite.getInstance();
+							Diagnosi d1 = new Diagnosi(1, ts);
+							Diagnosi d2 = new Diagnosi(2, ts);
+							d1.eseguiDiagnosiMetodo1();
+							d2.eseguiDiagnosiMetodo2();							
+						}
 					}
 					break;
 					
