@@ -30,7 +30,7 @@ public class Distanze {
 			
 			int distanza = 0;
 			
-			/** Inizializzo i valori dell'azione. */
+			/** Inizializza i valori dell'azione. */
 			int minM1 = vettoreMetodo1.get(a)[0];
 			int minM2 = vettoreMetodo2.get(a)[0];
 			int maxM1 = vettoreMetodo1.get(a)[1];
