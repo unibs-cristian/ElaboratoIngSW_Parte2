@@ -23,7 +23,7 @@ public class ProbabilitaMetodo2 implements Serializable
 	 * @param matriceRisultatiTestSuite the matrice risultati test suite
 	 * @return the vector
 	 */
-	public Vector<Float> calcolaProbabilita (TestSuite testSuite, int[][] matriceRisultatiTestSuite)
+	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, int[][] matriceRisultatiTestSuite)
 	{
 		Vector<Float> risultato = new Vector<Float>();
 		
@@ -50,6 +50,16 @@ public class ProbabilitaMetodo2 implements Serializable
 				
 		}
 		return risultato;
+	}
+	
+	public static void stampaRisultati(Vector<Float> risultato) {
+		System.out.println("RISULTATO PROBABILITA' CON METODO 2");
+		for(int i=0; i<risultato.size(); i++) {
+			String action = "A" + 1;
+			Float result = risultato.get(i);
+		
+			System.out.println("" + i + ") P(" + action + ") = " + result);
+		}
 	}
 
 }

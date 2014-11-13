@@ -23,7 +23,7 @@ public class ProbabilitaMetodo1 implements Serializable
 	 * @param vettoreRisultatiTestSuite the vettore risultati test suite
 	 * @return the vector
 	 */
-	public Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
+	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
 	{		
 		Vector<Float> risultato = new Vector<Float>(); 
 		Vector<Vector<Integer>> vettoreRisultatiProbabilitaClassi = new Vector<Vector<Integer>>();
@@ -69,7 +69,7 @@ public class ProbabilitaMetodo1 implements Serializable
 	 * @param vettoreRisultatiClasse the vettore risultati classe
 	 * @return the vector
 	 */
-	private Vector<Integer> calcolaProbabilitaClasse (int cardinalita, Vector<Integer> vettoreRisultatiClasse)
+	private static Vector<Integer> calcolaProbabilitaClasse (int cardinalita, Vector<Integer> vettoreRisultatiClasse)
 	{
 		Vector<Integer> risultatoProbabilitaClasse = new Vector<Integer>();
 		for (int i = 0; i < vettoreRisultatiClasse.size(); i++)
@@ -77,5 +77,15 @@ public class ProbabilitaMetodo1 implements Serializable
 			risultatoProbabilitaClasse.add(i, cardinalita * vettoreRisultatiClasse.get(i) );
 		}
 		return risultatoProbabilitaClasse;
+	}
+	
+	public static void stampaRisultati(Vector<Float> risultato) {
+		System.out.println("RISULTATO PROBABILITA' CON METODO 1");
+		for(int i=0; i<risultato.size(); i++) {
+			String action = "A" + 1;
+			Float result = risultato.get(i);
+		
+			System.out.println("" + i + ") P(" + action + ") = " + result);
+		}
 	}
 }

@@ -5,7 +5,6 @@ package testSuiteDiagnosi;
 
 import java.util.Vector;
 
-import sun.security.jca.GetInstance;
 import gestioneModello.Azione;
 import gestioneModello.Modello;
 
@@ -32,15 +31,6 @@ public class Diagnosi {
 	
 	/** The risultato classi per probabilita. */
 	private Vector<Vector<Integer>> risultatoClassiPerProbabilita;
-	
-	/** The risultato finale probabilita m1. */
-	private Vector<Float> risultatoFinaleProbabilitaM1;
-	
-	/** The risultato finale probabilita m2. */
-	private Vector<Float> risultatoFinaleProbabilitaM2;
-	
-	/** The instance. */
-	private static Diagnosi instance = null;
 	
 	/* 	 2: OK
 		 1: KO
@@ -75,12 +65,13 @@ public class Diagnosi {
 	
 	/**
 	 * Esegui diagnosi metodo1.
+	 * @return 
 	 */
-	public void eseguiDiagnosiMetodo1 () {
+	public Vector<Float> eseguiDiagnosiMetodo1 () {
 		
 		System.out.println("DIAGNOSI METODO 1");
 		
-		/** Inizializzo i vettori che servono per i risultati da passare a calcolo probabilita'. */
+		/** Inizializza i vettori che servono per i risultati da passare a calcolo probabilita'. */
 		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
 		
 		/** Ottengo vettori di classi e azioni da test suite. */
@@ -213,16 +204,16 @@ public class Diagnosi {
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
 		}
 		
-		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
-		risultatoFinaleProbabilitaM1 = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
-		
-		stampaRisultati(risultatoFinaleProbabilitaM1);
+		//ProbabilitaMetodo1() metodo1 = new ProbabilitaMetodo1();
+		return ProbabilitaMetodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		//risultatoFinaleProbabilitaM1 = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 	}
 	
 	/**
 	 * Esegui diagnosi metodo2.
+	 * @return 
 	 */
-	public void eseguiDiagnosiMetodo2 () {
+	public Vector<Float> eseguiDiagnosiMetodo2 () {
 		
 		System.out.println("\n\nDIAGNOSI METODO 2");
 		
@@ -341,10 +332,9 @@ public class Diagnosi {
 //		stampaDiagnosi(matriceClassiPerProbabilita2);
 		
 		/** Invio risultati. */
-		ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
-		risultatoFinaleProbabilitaM2 = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
-		
-		stampaRisultati(risultatoFinaleProbabilitaM2);
+		//ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
+		return ProbabilitaMetodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
+		//risultatoFinaleProbabilitaM2.(testSuite, matriceClassiPerProbabilita2);
 	}
 	
 	/**
@@ -354,21 +344,6 @@ public class Diagnosi {
 	 */
 	public int tipoDiagnosi() {
 		return tipoDiagnosi;
-	}
-	
-	/**
-	 * Stampa risultati.
-	 *
-	 * @param risultato the risultato
-	 */
-	public void stampaRisultati(Vector<Float> risultato) {
-		System.out.println("RISULTATO PROBABILITA' CON METODO "+tipoDiagnosi);
-		for(int i=0; i<risultato.size(); i++) {
-			String action = elencoAzioni.get(i).getNome();
-			Float result = risultato.get(i);
-		
-			System.out.println("" + i + ") P(" + action + ") = " + result);
-		}
 	}
 	
 	/**

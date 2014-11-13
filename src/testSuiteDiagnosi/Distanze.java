@@ -4,8 +4,6 @@
 package testSuiteDiagnosi;
 
 import java.util.Vector;
-
-import sun.security.jca.GetInstance;
 import gestioneModello.Azione;
 import gestioneModello.Modello;
 

@@ -8,8 +8,6 @@ import inputDati.InserimentoCammino;
 import java.io.File;
 import java.util.Vector;
 
-import com.sun.org.apache.xpath.internal.operations.Equals;
-
 import testSuiteDiagnosi.ClasseEquivalenza;
 import testSuiteDiagnosi.TestSuite;
 import utilita.*;
@@ -244,43 +242,11 @@ public class ElaboratoParte1Main {
 					break;
 				
 				case 4:
-					if(Modello.isNull())
-						System.out.println(MSG_NO_MODELLO);
-					else 
-					{							
-						if(TestSuite.isNull())
-							System.out.println("TS nullo!");
-						else
-						{
-							System.out.println("TS rilevato!");
-							
-							TestSuite ts = TestSuite.getInstance();
-							Diagnosi d1 = new Diagnosi(1, ts);
-							Diagnosi d2 = new Diagnosi(2, ts);
-							d1.eseguiDiagnosiMetodo1();
-							d2.eseguiDiagnosiMetodo2();							
-						}
-					}
+					visualizzazioneDiagnosi();
 					break;
 					
 				case 5:
-					if(Modello.isNull())
-						System.out.println(MSG_NO_MODELLO);
-					else 
-					{							
-						if(TestSuite.isNull())
-							System.out.println("TS nullo!");
-						else
-						{
-							System.out.println("TS rilevato!");
-							
-							TestSuite ts = TestSuite.getInstance();
-							Diagnosi d1 = new Diagnosi(1, ts);
-							Diagnosi d2 = new Diagnosi(2, ts);
-							d1.eseguiDiagnosiMetodo1();
-							d2.eseguiDiagnosiMetodo2();							
-						}
-					}
+					probabilitaDistanze();
 					break;
 				
 				case 6:
@@ -309,6 +275,48 @@ public class ElaboratoParte1Main {
 		} while(finito == false);
 	}   
 	
+	private static void probabilitaDistanze() {
+		if(Modello.isNull())
+			System.out.println(MSG_NO_MODELLO);
+		else 
+		{							
+			if(TestSuite.isNull())
+				System.out.println("TS nullo!");
+			else
+			{
+				System.out.println("TS rilevato!");
+				
+				TestSuite ts = TestSuite.getInstance();
+				Diagnosi d1 = new Diagnosi(1, ts);
+				Diagnosi d2 = new Diagnosi(2, ts);
+				ProbabilitaMetodo1.stampaRisultati(d1.eseguiDiagnosiMetodo1() );
+				ProbabilitaMetodo2.stampaRisultati(d2.eseguiDiagnosiMetodo2() );
+				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d1.eseguiDiagnosiMetodo1() );
+				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d2.eseguiDiagnosiMetodo2() );
+			}
+		}
+	}
+
+	private static void visualizzazioneDiagnosi() {
+		if(Modello.isNull())
+			System.out.println(MSG_NO_MODELLO);
+		else 
+		{							
+			if(TestSuite.isNull())
+				System.out.println("TS nullo!");
+			else
+			{
+				System.out.println("TS rilevato!");
+				
+				TestSuite ts = TestSuite.getInstance();
+				Diagnosi d1 = new Diagnosi(1, ts);
+				Diagnosi d2 = new Diagnosi(2, ts);
+				d1.eseguiDiagnosiMetodo1();
+				d2.eseguiDiagnosiMetodo2();							
+			}
+		}
+	}
+
 	/**
 	 * Inserimento nuovo modello.
 	 */
@@ -389,7 +397,7 @@ public class ElaboratoParte1Main {
 				do {
 					do {
 						System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-						//Inserimento cardinalita' e creazione classe di equivalenza.
+						//Inserimento cardinalità e creazione classe di equivalenza.
 						int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
 						ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita);
 						//Inserimento Cammino Globale
