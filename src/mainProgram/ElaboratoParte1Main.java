@@ -138,7 +138,7 @@ public class ElaboratoParte1Main {
 					break;
 					
 				case 5:
-					System.out.println("Visualizzazione probabilita' e distanze da implementare...");
+					
 					break;
 				
 				case 6:
