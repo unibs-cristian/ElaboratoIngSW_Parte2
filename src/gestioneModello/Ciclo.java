@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package gestioneModello;
 
@@ -57,7 +57,7 @@ public class Ciclo implements Entita{
 	/** The valore indentazione. */
 	private int valoreIndentazione;
 	
-	/**  Identificatore del tipo. */
+	/** The id tipo. */
 	private String idTipo;
 	
 	/**

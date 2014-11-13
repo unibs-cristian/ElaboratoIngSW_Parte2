@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package testSuiteDiagnosi;
 import java.util.Vector;
@@ -14,13 +14,13 @@ public class ClasseEquivalenza implements Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**  La cardinalita' della classe di equivalenza. */
+	/** The cardinalita. */
 	private int cardinalita;
 	
-	/**  Cammino di esecuzione globale relativo alla classe di equivalenza. */
+	/** The cammino globale. */
 	private CamminoAzioni camminoGlobale;
 	
-	/**  Attributo che contiene le coppie (Insieme del cammino, valore della rilevazione). */
+	/** The elenco coppie. */
 	private Vector<Coppia> elencoCoppie;
 
 	/**

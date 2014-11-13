@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package gestioneModello;
 
@@ -51,7 +51,7 @@ public class Fork implements Entita{
 	/** The contatore fork. */
 	private static int contatoreFork = 1;
 	
-	/**  Identificatore del tipo. */
+	/** The id tipo. */
 	private String idTipo;
 	
 	/**

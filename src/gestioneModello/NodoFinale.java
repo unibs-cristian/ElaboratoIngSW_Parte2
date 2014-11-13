@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package gestioneModello;
 
@@ -23,7 +23,7 @@ public class NodoFinale implements Entita
 	/** The id. */
 	private int id;
 	
-	/**  Identificatore del tipo. */
+	/** The id tipo. */
 	private static String idTipo;
 	
 	/**

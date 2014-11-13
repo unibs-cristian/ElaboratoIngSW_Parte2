@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package utilita;
 
@@ -7,8 +7,7 @@ import java.io.*;
 
 // TODO: Auto-generated Javadoc
 /**
- * Classe di utilita'. Contiene metodi per lo stream di un oggetto.
- * @author Lorenzo Rubagotti
+ * The Class Stream.
  */
 public class Stream implements Serializable
 {
@@ -41,10 +40,11 @@ public class Stream implements Serializable
 			private static final String NO_WRITE = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
 
 			/**
-			 * Metodo per caricare un file automatizzando tutto.
-			 * @param f File in questione.
-			 * @param oggetto Oggetto da caricare.
-			 * @return Restituisce l'oggetto caricato.
+			 * Carica file.
+			 *
+			 * @param f the f
+			 * @param oggetto the oggetto
+			 * @return the object
 			 */
 			public static Object caricaFile (File f, Object oggetto)
 		    {
@@ -73,10 +73,11 @@ public class Stream implements Serializable
 		    }
 		   
 			/**
-			 * Metodo per salvare un file automatizzando tutto.
-			 * @param f File in questione.
-			 * @param oggetto Oggetto da salvare.
-			 * @param controlloSovrascrittura Attiva, true, o disattiva, false, il controllo della sovra-scrittura del file.
+			 * Salva file.
+			 *
+			 * @param f the f
+			 * @param oggetto the oggetto
+			 * @param controlloSovrascrittura the controllo sovrascrittura
 			 */
 		    public static void salvaFile(File f, Object oggetto, Boolean controlloSovrascrittura)
 		    {
@@ -95,10 +96,10 @@ public class Stream implements Serializable
 		    }
 			
 			/**
-			 * Metodo necessario per caricare un Oggetto da un file. Riceve il file e restituisce l'oggetto salvato nel file.
+			 * Carica singolo oggetto.
 			 *
 			 * @param f the f
-			 * @return Object Restituisce l'oggetto letto dal file.
+			 * @return the object
 			 */
 			public static Object caricaSingoloOggetto (File f) 
 			{
@@ -146,7 +147,7 @@ public class Stream implements Serializable
 			}
 			
 			/**
-			 * Metodo necessario per salvare un Oggetto su un File f. Riceve il file sul quale salvare e l'oggetto da salvare e procede al salvataggio.
+			 * Salva singolo oggetto.
 			 *
 			 * @param f the f
 			 * @param daSalvare the da salvare

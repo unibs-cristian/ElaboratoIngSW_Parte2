@@ -1,13 +1,12 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package utilita;
 import java.util.*;
 
 // TODO: Auto-generated Javadoc
 /**
- * Svariate utilita' di lettura.
- * @author Lorenzo Rubagotti.
+ * The Class Util.
  */
 public class Util
 {
@@ -53,10 +52,12 @@ public class Util
 	 
 	/** The lettore. */
 	private static Scanner lettore = creaScanner();
-	 /**
-	  * Metodo che delimita lo scanner cosi' che non prende piu' l'invio.
-	  * @return Restituisce lo scanner delimitato.
-	  */
+	 
+ 	/**
+ 	 * Crea scanner.
+ 	 *
+ 	 * @return the scanner
+ 	 */
 	 private static Scanner creaScanner ()
 	  {
 	   Scanner creato = new Scanner(System.in);
@@ -65,10 +66,11 @@ public class Util
 	  }
 	
 	 /**
-	  * Metodo che si occupa di leggere una stringa.
-	  * @param messaggio Testo a video prima dell'acquisizione di una stringa.
-	  * @return Restituisce la stringa acquisita.
-	  */
+ 	 * Leggi string.
+ 	 *
+ 	 * @param messaggio the messaggio
+ 	 * @return the string
+ 	 */
 	public static String leggiString(String messaggio)
 	{
 		System.out.print(messaggio);
@@ -76,9 +78,10 @@ public class Util
 	}
 	
 	/**
-	 * Metodo che si occupa di leggere un numero double da tastiera.
-	 * @param messaggio Messaggio a video che precede l'acquisizione del numero double.
-	 * @return Restituisce il numero double acquisito da tastiera.
+	 * Leggi double.
+	 *
+	 * @param messaggio the messaggio
+	 * @return the double
 	 */
 	 public static double leggiDouble (String messaggio)
 	 {
@@ -106,10 +109,11 @@ public class Util
 	 }
 	
 	 /**
-	  * Metodo che si occupa di leggere una stringa. Evita le stringhe vuote. Accetta gli spazi.
-	  * @param messaggio Testo a video prima dell'acquisizione della stringa.
-	  * @return Restituisce la stringa acquisita.
-	  */
+ 	 * Leggi string piena.
+ 	 *
+ 	 * @param messaggio the messaggio
+ 	 * @return the string
+ 	 */
 	public static String leggiStringPiena (String messaggio)
 	{
 		System.out.print(messaggio);
@@ -131,9 +135,10 @@ public class Util
 	}
 	
 	/**
-	 * Metodo che si occupa di leggere una stringa. Evita le stringhe vuote e gli spazi.
-	 * @param messaggio Testo a video prima dell'acquisizione della stringa.
-	 * @return Restituisce la stringa acquisita.
+	 * Leggi string piena no spazi.
+	 *
+	 * @param messaggio the messaggio
+	 * @return the string
 	 */
 	public static String leggiStringPienaNoSpazi (String messaggio)
 	{
@@ -157,9 +162,10 @@ public class Util
 	 
 	 
 	/**
-	 * Metodo che si occupa di acquisire il primo carattere di una stringa.
-	 * @param messaggio Testo a video prima di acquisire il carattere iniziale.
-	 * @return restituisce il carattere iniziare della stringa inserita.
+	 * Leggi char.
+	 *
+	 * @param messaggio the messaggio
+	 * @return the char
 	 */
 	public static char leggiChar(String messaggio)
 	{
@@ -168,11 +174,12 @@ public class Util
 	}
 	
 	/**
-	 * Metodo che si occupa di leggere un intero da tastiera e accettarlo solo se compreso tra i numeri a e b.
-	 * @param minimo Estremo sinistro dell'intervallo di numeri accettabili. E' compreso.
-	 * @param massimo Estremo destro dell'intervallo di numeri accettabili. E' compreso.
-	 * @param messaggio Testo a video prima dell'acquisizione del numero.
-	 * @return Restituisce il numero inserito da tastiera. Lo accetta solo se nell'intervallo compreso tra a e b.
+	 * Leggi int compreso.
+	 *
+	 * @param minimo the minimo
+	 * @param massimo the massimo
+	 * @param messaggio the messaggio
+	 * @return the int
 	 */
 	public static int leggiIntCompreso(int minimo, int massimo, String messaggio)
 	{
@@ -194,9 +201,10 @@ public class Util
 	}
 	
 	/**
-	 * Metodo che si occupa di leggere un intero da tastiera. Chiede il reinserimento se non è un numero intero.
-	 * @param messaggio Testo a video prima dell'inserimento del numero da tastiera.
-	 * @return Restituisce il numero inserito da tastiera.
+	 * Leggi int.
+	 *
+	 * @param messaggio the messaggio
+	 * @return the int
 	 */
 	public static int leggiInt(String messaggio)
 	{		
@@ -223,9 +231,10 @@ public class Util
 	
 	
 	/**
-	 * Metodo che si occupa di leggere il sesso restituendo il primo carattere della stringa, la quale deve iniziare con m, M, f o F. Altrimenti vi è il reinserimento.
-	 * @param messaggio Testo a video prima dell'acquisizione del sesso.
-	 * @return Restituisce il carattere m o f.
+	 * Leggi sesso.
+	 *
+	 * @param messaggio the messaggio
+	 * @return the char
 	 */
 	public static char leggiSesso (String messaggio)
 	{
@@ -247,11 +256,12 @@ public class Util
 	}
 	
 	/**
-	 * Metodo che si occupa di leggere un array di interi, data la sua lunghezza.
-	 * @param lunghezza Lunghezza dell'array di interi.
-	 * @param numerazione Testo ad ogni blocco dell'array.
-	 * @param messaggio Testo a video prima della lettura dell'array di interi.
-	 * @return Restituisce un array di interi.
+	 * Leggi array intero.
+	 *
+	 * @param lunghezza the lunghezza
+	 * @param numerazione the numerazione
+	 * @param messaggio the messaggio
+	 * @return the int[]
 	 */
     public static int[] leggiArrayIntero(int lunghezza, String numerazione, String messaggio)
     {
@@ -263,10 +273,11 @@ public class Util
     }
 	
     /**
-     * Metodo che si occupa di leggere una matrice quadrata di interi, data la dimensione.
-     * @param lunghezza Dimensione della matrice
-     * @param messaggio Testo a video prima della lettura della matrice.
-     * @return Restituisce una matrice quadrata di interi.
+     * Leggi doppio arrayintero.
+     *
+     * @param lunghezza the lunghezza
+     * @param messaggio the messaggio
+     * @return the int[][]
      */
     public static int[][] leggiDoppioArrayintero (int lunghezza, String messaggio)
     {
@@ -279,9 +290,10 @@ public class Util
     }
     
     /**
-     * Metodo che si occupa di chiedere all'utente di rispondere si o no ad un messaggio.
-     * @param messaggio Testo a video della domanda alla quale rispondere.
-     * @return Restituisce true in caso di risposta affermativa e false in caso di risposta negativa.
+     * Yes or no.
+     *
+     * @param messaggio the messaggio
+     * @return true, if successful
      */
     public static boolean yesOrNo(String messaggio)
 	{
@@ -315,10 +327,11 @@ public class Util
     }
     
     /**
-     * Metodo che si occupa di far scegliere tramite un carattere.
-     * @param messaggio Testo a video che ti chiede la scelta.
-     * @param ammissibili Caratteri ammissibili.
-     * @return Restituisce il primo carattere di una Stringa date le scelte ammissibili.
+     * Leggi upper char.
+     *
+     * @param messaggio the messaggio
+     * @param ammissibili the ammissibili
+     * @return the char
      */
     public static char leggiUpperChar (String messaggio, String ammissibili)
 	  {
@@ -339,10 +352,11 @@ public class Util
 	  }
     
     /**
-     * Metodo che legge un vector di stringhe.
-     * @param messaggio Testo a video prima di acquisire il vettore.
-     * @param domanda Domanda che ti chiede se proseguire o no.
-     * @return Restituisce il vettore.
+     * Leggi vector stringhe.
+     *
+     * @param messaggio the messaggio
+     * @param domanda the domanda
+     * @return the vector
      */
     public static Vector<String> leggiVectorStringhe(String messaggio, String domanda)
     {
@@ -354,10 +368,11 @@ public class Util
     }
 
     /**
-     * Metodo che legge un intero dato un minimo. Accetta solo quelli maggiori e uguali a quel numero.
-     * @param messaggio Messaggio che precede l'acquisizione.
-     * @param minimo Minimo.
-     * @return Restituisce il numero letto. Se non è accettabile chiede il reinserimento.
+     * Leggi int con minimo.
+     *
+     * @param messaggio the messaggio
+     * @param minimo the minimo
+     * @return the int
      */
 	public static int leggiIntConMinimo(String messaggio, int minimo)
 	{

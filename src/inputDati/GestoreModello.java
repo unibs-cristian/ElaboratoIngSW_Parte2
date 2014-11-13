@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package inputDati;
 
@@ -542,37 +542,32 @@ public class GestoreModello implements Serializable {
 	}
 	
 	/**
-	 * Incrementa il valore che serve per indentare di una
-	 * quantita' pari ad un fattore di incremento fissato.
+	 * Incrementa rientro.
 	 */
 	public static void incrementaRientro() {
 		rientro = rientro + FATTORE_INCREMENTO;
 	}
 	
 	/**
-	 * Decrementa il valore che serve per indentare di una
-	 * quantita' pari ad un fattore di incremento fissato.
+	 * Decrementa rientro.
 	 */
 	public static void decrementaRientro() {
 		rientro = rientro - FATTORE_INCREMENTO;
 	}
 	
 	/**
-	 * Fornisce il valore che serve per indentare
-	 * correttamente il codice in fase di visualizzazione
-	 * del modello.
+	 * Gets the rientro.
 	 *
-	 * @return rientro Quantita' necessaria per l'indentazione.
+	 * @return the rientro
 	 */
 	public static int getRientro () {
 		return rientro;
 	}
 	
 	/**
-	 * Assegna al valore che serve per indentare
-	 * correttamente il codice in fase di visualizzazione
-	 * del modello un certo valore.
-	 * @param val Quantita' da assegnare come valore della variabile rientro.
+	 * Sets the rientro.
+	 *
+	 * @param val the new rientro
 	 */
 	public static void setRientro (int val) {
 		rientro = val;

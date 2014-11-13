@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package gestioneModello;
 import inputDati.GestoreModello;
@@ -48,10 +48,12 @@ public class Modello implements Entita{
 	/** The id tipo. */
 	private String idTipo;
 	
-	/** L'istanza (unica) di modello su cui il sistema lavora e' inizialmente null. */
+	/** The instance. */
 	private static Modello instance = null;
 	
-	/** Costruttore del modello. Poiche' si usa il Pattern Singleton, il costruttore e' private. */
+	/**
+	 * Instantiates a new modello.
+	 */
 	private Modello() {
 		elencoEntita = new Vector<Entita>();
 		elencoAzioni = new Vector<Azione>();
@@ -97,9 +99,7 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 *  
-	 * Rappresenta il punto di accesso univoco secondo il pattern Singleton. L'istanza (unica) di modello
-	 * puo' essere ottenuta all'esterno tramite questo metodo.
+	 * Gets the single instance of Modello.
 	 *
 	 * @return single instance of Modello
 	 */
@@ -110,7 +110,7 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 *  Consente di cambiare il modello (unico) su cui si lavora assegnando il nuovo modello all'attributo instance.
+	 * Cambia modello.
 	 *
 	 * @param nuovo the nuovo
 	 */
@@ -226,12 +226,8 @@ public class Modello implements Entita{
 			return false;
 	}
 	
-	/**
-	 * Cerca un'entita' per nome (il quale e' associato univocamente ad un'entita') e se la 
-	 * trova la restituisce, altrimenti restituisce null.
-	 *
-	 * @param nomeDaCercare the nome da cercare
-	 * @return the entita
+	/* (non-Javadoc)
+	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
 	 */
 	//TODO Forse non e' mai utilizzato. Verificare
 	public Entita cercaPerNome(String nomeDaCercare) {

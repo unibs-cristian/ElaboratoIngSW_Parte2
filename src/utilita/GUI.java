@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package utilita;
 
@@ -8,8 +8,7 @@ import javax.swing.JOptionPane;
 
 // TODO: Auto-generated Javadoc
 /**
- * Classe contenente metodi per abbellire i programmi.
- * @author Lorenzo Rubagotti.
+ * The Class GUI.
  */
 public class GUI
 {
@@ -36,10 +35,10 @@ public class GUI
 	public final static String RIGA_BIANCA =    "                    " + "                    " +"                    " +"                    "; 
 	
 	/**
-	 * Va a capo dopo aver stampato il testo .
+	 * A capo dopo.
 	 *
-	 * @param testo Testo dopo cui andare a capo.
-	 * @return La stringa testo più un carattere a capo posto in fondo ad essa.
+	 * @param testo the testo
+	 * @return the string
 	 */
 	public static String aCapoDopo(String testo)
 	{
@@ -48,8 +47,9 @@ public class GUI
 	}
 	
 	/**
-	 * Metodo che incornicia una stringa. Ideale per il titolo.
-	 * @param titolo Stringa da incorniciare.
+	 * Incornicia titolo.
+	 *
+	 * @param titolo the titolo
 	 */
 	public static void incorniciaTitolo(String titolo)
 	{
@@ -62,10 +62,10 @@ public class GUI
 	}
 	
 	/**
-	 * Metodo che incornicia il menu', o qualunque vettore di stringhe.
+	 * Incornicia menu.
 	 *
-	 * @param titoloMenu titolo del menu'.
-	 * @param menu Menu' o vettore di stringhe.
+	 * @param titoloMenu the titolo menu
+	 * @param menu the menu
 	 * @param spuntaDivisioneRighe the spunta divisione righe
 	 */
 	public static void incorniciaMenu(String titoloMenu, Vector<String> menu, int spuntaDivisioneRighe)
@@ -118,8 +118,9 @@ public class GUI
 	
 	//Chiamata rigaSotto perche' pronta per quello scopo, se la uso sopra devo sistemarla con un a capo.
 	/**
-	 * Metodo che visualizza la riga sotto di cio' che si incornicia.
-	 * @param lunghezzaTitolo Lunghezza lungo la quale far passare la riga.
+	 * Riga sotto.
+	 *
+	 * @param lunghezzaTitolo the lunghezza titolo
 	 */
 	public static void rigaSotto(int lunghezzaTitolo)
 	{	
@@ -129,7 +130,7 @@ public class GUI
 	}
 
 	/**
-	 * Metodo che stampa la riga di lato.
+	 * Riga lato.
 	 */
 	public static void rigaLato()
 	{
@@ -137,9 +138,10 @@ public class GUI
 	}
 	
 	/**
-	 * Metodo che visualizza una finestra per chiederti l'intero da acquisire.
-	 * @param messaggio Messaggio che chiede cosa fare.
-	 * @return Restituisce il numero acquisito.
+	 * Input dialog.
+	 *
+	 * @param messaggio the messaggio
+	 * @return the int
 	 */
 	public static int inputDialog(String messaggio)
 	{
@@ -149,10 +151,11 @@ public class GUI
 	}
 	
 	/**
-	 * Metodo che incolonna una stringa data la larghezza.
-	 * @param s Stringa da incolonnare.
-	 * @param larghezza Larghezza della Stringa.
-	 * @return Restituisce la stringa incolonnata.
+	 * Incolonna.
+	 *
+	 * @param s the s
+	 * @param larghezza the larghezza
+	 * @return the string
 	 */
 	public static String incolonna (String s, int larghezza)
 		{
@@ -165,11 +168,12 @@ public class GUI
 		}
 	
 	 /**
-	  * Metodo che centra la stringa data la larghezza.
-	  * @param s Stringa da centrare.
-	  * @param larghezza Larghezza.
-	  * @return Restituisce la stringa centrata.
-	  */
+ 	 * Centrata.
+ 	 *
+ 	 * @param s the s
+ 	 * @param larghezza the larghezza
+ 	 * @return the string
+ 	 */
 	 public static String centrata (String s, int larghezza)
 		{
 		 StringBuffer res = new StringBuffer(larghezza);
@@ -192,11 +196,12 @@ public class GUI
 		}
 	 
 	 /**
-	  * Metodo che ripete un carattere data una quantita'.
-	  * @param carattere Cio' che va ripetuto.
-	  * @param lunghezza Quantita'.
-	  * @return Restituisce la stringa contente il carattere ripetuto.
-	  */
+ 	 * Ripeti char.
+ 	 *
+ 	 * @param carattere the carattere
+ 	 * @param lunghezza the lunghezza
+ 	 * @return the string
+ 	 */
 	 public static String ripetiChar (char carattere, int lunghezza)
 		{
 			StringBuffer result = new StringBuffer(lunghezza);
@@ -208,11 +213,12 @@ public class GUI
 		}	 
 
 		/**
-		  * Metodo che ripete una stringa data una quantita'.
-		  * @param stringa Cio' che va ripetuto.
-		  * @param lunghezza Quantita'.
-		  * @return Restituisce la stringa contente la stringa iniziale ripetuta.
-		  */
+		 * Ripeti stringa.
+		 *
+		 * @param stringa the stringa
+		 * @param lunghezza the lunghezza
+		 * @return the string
+		 */
 	 public static String ripetiStringa(String stringa, int lunghezza)
 		{
 			StringBuffer result = new StringBuffer(lunghezza);

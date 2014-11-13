@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package gestioneModello;
 
@@ -8,43 +8,38 @@ import java.util.Vector;
 
 // TODO: Auto-generated Javadoc
 /**
- * Classe che istanzia oggetti di tipo Azione. Un'azione e' un'entita' semplice che puo' essere aggiunta 
- * ad altre entita' complesse, come Branch, Cicli, Fork o Modelli.
- * @author Sampietri Cristian
- *
+ * The Class Azione.
  */
 public class Azione implements Entita{
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**  Costante di tipo stringa per il metodo toString dell'azione. */
+	/** The Constant ID_TIPO. */
 	public final static String ID_TIPO = "Azione n. %d : %s";
 	
-	/** 
-	 * Variabili di istanza. L'id e' un identificatore univoco che viene incrementato per ogni entita' inserita.
-	 */
+	/** The id. */
 	private int id;
 	
-	/**  Numero progressivo dell'azione inserita. */
+	/** The id azione. */
 	private int idAzione;
 	
-	/**  Titolo sintetico dell'azione. */
+	/** The titolo. */
 	private String titolo;
 	
-	/**  Variabile di istanza usata in fase di stampa a video del modello. */
+	/** The valore indentazione. */
 	private int valoreIndentazione;
 	
-	/**  Contatore di istanze di Azione. */
+	/** The contatore azioni. */
 	private static int contatoreAzioni = 1;
 	
-	/**  Identificatore del tipo. */
+	/** The id tipo. */
 	private String idTipo;
 	
 	//TODO Azioni composte
 	
 	/**
-	 * Costruttore della classe.
+	 * Instantiates a new azione.
 	 *
 	 * @param _titolo the _titolo
 	 */

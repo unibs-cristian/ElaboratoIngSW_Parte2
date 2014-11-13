@@ -1,5 +1,5 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package gestioneModello;
 import inputDati.GestoreModello;
@@ -47,7 +47,7 @@ public class Branch implements Entita{
 	/** The valore indentazione. */
 	private int valoreIndentazione;
 	
-	/**  Identificatore del tipo. */
+	/** The id tipo. */
 	private String idTipo;
 	
 	/** The contatore branch. */

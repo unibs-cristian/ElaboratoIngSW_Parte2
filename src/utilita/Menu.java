@@ -1,13 +1,12 @@
 /*
- * 
+ * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package utilita;
 
 import java.util.Vector;
 // TODO: Auto-generated Javadoc
 /**
- * Metodi per il menu'.
- * @author Lorenzo Rubagotti.
+ * The Class Menu.
  */
 public class Menu
 {
@@ -34,8 +33,9 @@ public class Menu
 	}
 
 	/**
-	 * Metodo per aggiungere un'opzione al menu'.
-	 * @param opzione Opzione da aggiungere.
+	 * Aggiungi opzione.
+	 *
+	 * @param opzione the opzione
 	 */
 	public void aggiungiOpzione(String opzione)
 	{
@@ -43,8 +43,9 @@ public class Menu
 	}
 	
 	/**
-	 * Metodo per visualizzare e scegliere la voce del menu'.
-	 * @return Restituisce il numero scelto.
+	 * Scegli voce.
+	 *
+	 * @return the int
 	 */
 	public int scegliVoce()
 	{
