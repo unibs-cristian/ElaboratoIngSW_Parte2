@@ -303,11 +303,9 @@ public class ElaboratoParte1Main {
 		else 
 		{							
 			if(TestSuite.isNull())
-				System.out.println("TS nullo!");
+				System.out.println(MSG_NO_TS);
 			else
 			{
-				System.out.println("TS rilevato!");
-				
 				TestSuite ts = TestSuite.getInstance();
 				Diagnosi d1 = new Diagnosi(1, ts);
 				Diagnosi d2 = new Diagnosi(2, ts);

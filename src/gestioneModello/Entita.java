@@ -18,7 +18,7 @@ public interface Entita extends Serializable {
 	public final static String MSG_ENTITA_RIMOSSA = "E' stata rimossa l'entita' %s (id = %d)";
 	
 	/** The Constant MSG_RAMO_VUOTO. */
-	public final static String MSG_RAMO_VUOTO = "Nessuna";
+	public final static String MSG_RAMO_VUOTO = "Nessuna\n";
 	
 	/** The Constant ID_TIPO_AZIONE. */
 	public final static String ID_TIPO_AZIONE = "AZ";

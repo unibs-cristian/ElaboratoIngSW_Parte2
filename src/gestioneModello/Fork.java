@@ -19,13 +19,13 @@ public class Fork implements Entita{
 	private static final long serialVersionUID = 1L;
 	
 	/** The Constant MSG_FORK. */
-	public final static String MSG_FORK = "{ INIZIO FORK %s (ID = %d)\n";
+	public final static String MSG_FORK = "{ INIZIO FORK %s (ID = %d)";
 	
 	/** The Constant MSG_ENTITA_RAMO_FORK. */
-	public final static String MSG_ENTITA_RAMO_FORK = "%s - ENTITA' RAMO PARALLELO N. %d";
+	public final static String MSG_ENTITA_RAMO_FORK = "%s - ENTITA' RAMO PARALLELO N. %d\n";
 	
 	/** The Constant MSG_JOIN. */
-	public final static String MSG_JOIN = "FINE FORK %S (ID = %d) }";
+	public final static String MSG_JOIN = "FINE FORK %s (ID = %d) }\n";
 	
 	/** The id. */
 	private int id;
@@ -223,7 +223,9 @@ public class Fork implements Entita{
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(String.format(MSG_FORK, titolo.toUpperCase(), idFork));
+		risultato.append("\n");
+        risultato.append(GUI.indenta(String.format(MSG_FORK, titolo.toUpperCase(), idFork),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
+		risultato.append("\n");
 		for(int i=0; i<elencoRami.length; i++) {
 			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_FORK, titolo.toUpperCase(),i+1), SPAZIO, valoreIndentazione));
 			if(elencoRami[i].isEmpty())
@@ -231,7 +233,10 @@ public class Fork implements Entita{
 			else
 				risultato.append(elencoRami[i].toString());
 		}
-		risultato.append(String.format(MSG_JOIN, titolo.toUpperCase(), idFork));
+		if(valoreIndentazione >= GestoreModello.FATTORE_INCREMENTO)
+			risultato.append(GUI.indenta(String.format(MSG_JOIN, titolo.toUpperCase(),idFork),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
+		else
+			risultato.append(String.format(MSG_JOIN, titolo.toUpperCase(),idFork));
 		return risultato.toString();
 	}
 	

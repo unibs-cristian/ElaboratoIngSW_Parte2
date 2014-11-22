@@ -19,16 +19,16 @@ public class Ciclo implements Entita{
 	private static final long serialVersionUID = 1L;
 	
 	/** The Constant MSG_CICLO. */
-	public final static String MSG_CICLO = "< INIZIO CICLO %s (ID = %d) - MERGE\n";
+	public final static String MSG_CICLO = "< INIZIO CICLO %s (ID = %d) - MERGE";
 	
 	/** The Constant MSG_ATTIVITA_INIZIALI. */
-	public final static String MSG_ATTIVITA_INIZIALI = "%s - ENTITA' RAMO N.1 (ATTIVITA' INIZIALI)";
+	public final static String MSG_ATTIVITA_INIZIALI = "%s - ENTITA' RAMO N.1 (ATTIVITA' INIZIALI)\n";
 	
 	/** The Constant MSG_COND_PERMANENZA_CICLO. */
-	public final static String MSG_COND_PERMANENZA_CICLO = "%s - ENTITA RAMO N.2 (CONDIZIONE DI PERMANENZA NEL CICLO)";
+	public final static String MSG_COND_PERMANENZA_CICLO = "%s - ENTITA RAMO N.2 (CONDIZIONE DI PERMANENZA NEL CICLO)\n";
 	
 	/** The Constant MSG_BRANCH_CICLO. */
-	public final static String MSG_BRANCH_CICLO = "FINE CICLO %s (ID = %d) - BRANCH >";
+	public final static String MSG_BRANCH_CICLO = "FINE CICLO %s (ID = %d) - BRANCH >\n";
 	
 	/** The Constant NUM_RAMI_CICLO. */
 	public final static int NUM_RAMI_CICLO = 2;
@@ -228,7 +228,9 @@ public class Ciclo implements Entita{
 	 */
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(String.format(MSG_CICLO, titolo.toUpperCase(), idCiclo));
+		risultato.append("\n");
+        risultato.append(GUI.indenta(String.format(MSG_CICLO, titolo.toUpperCase(), idCiclo),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
+		risultato.append("\n");
 		if(elencoRami[0].getEntitaRamo().isEmpty())
 		{
 			risultato.append(GUI.indenta(String.format(MSG_ATTIVITA_INIZIALI,titolo), SPAZIO, valoreIndentazione));
@@ -246,7 +248,10 @@ public class Ciclo implements Entita{
 			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione));
 		else
 			risultato.append(elencoRami[1].toString());
-		risultato.append(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(), idCiclo));
+		if(valoreIndentazione >= GestoreModello.FATTORE_INCREMENTO)
+			risultato.append(GUI.indenta(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),idCiclo),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
+		else
+			risultato.append(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),idCiclo));
 		return risultato.toString();
 	}
 	

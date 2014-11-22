@@ -18,13 +18,13 @@ public class Branch implements Entita{
 	private static final long serialVersionUID = 1L;
 	
 	/** The Constant MSG_BRANCH. */
-	public final static String MSG_BRANCH = "[ INIZIO BRANCH %s (ID = %d)\n";
+	public final static String MSG_BRANCH = "[ INIZIO BRANCH %s (ID = %d)";
 	
 	/** The Constant MSG_ENTITA_RAMO_BRANCH. */
-	public final static String MSG_ENTITA_RAMO_BRANCH = "%s - ENTITA' RAMO N. %d";
+	public final static String MSG_ENTITA_RAMO_BRANCH = "%s - ENTITA' RAMO N. %d\n";
 	
 	/** The Constant MSG_MERGE. */
-	public final static String MSG_MERGE = "FINE BRANCH %s (ID = %d) ]";
+	public final static String MSG_MERGE = "FINE BRANCH %s (ID = %d) ]\n";
 	
 	/** The id. */
 	private int id;
@@ -222,7 +222,9 @@ public class Branch implements Entita{
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(String.format(MSG_BRANCH, titolo.toUpperCase(), idBranch));
+		risultato.append("\n");
+        risultato.append(GUI.indenta(String.format(MSG_BRANCH, titolo.toUpperCase(), idBranch),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
+		risultato.append("\n");
 		for(int i=0; i<elencoRami.length; i++) {
 			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_BRANCH, titolo.toUpperCase(),i+1), SPAZIO, valoreIndentazione));
 			if(elencoRami[i].isEmpty())
@@ -230,7 +232,10 @@ public class Branch implements Entita{
 			else
 				risultato.append(elencoRami[i].toString());
 		}
-		risultato.append(String.format(MSG_MERGE, titolo.toUpperCase(),idBranch));
+		if(valoreIndentazione >= GestoreModello.FATTORE_INCREMENTO)
+			risultato.append(GUI.indenta(String.format(MSG_MERGE, titolo.toUpperCase(),idBranch),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
+		else
+			risultato.append(String.format(MSG_MERGE, titolo.toUpperCase(),idBranch));
 		return risultato.toString();
 	}
 	

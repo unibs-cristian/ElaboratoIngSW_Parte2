@@ -30,6 +30,8 @@ public class RamoNonPercorso implements StatoCammino{
 			camm.setStatoCammino(new EntratoRamo());
 		else if(stato.equals(STATO_OK))
 			camm.setStatoCammino(new StatoOk());
+		else if(stato.equals(SALTATO_BLOCCO))
+			camm.setStatoCammino(new SaltatoBlocco());
 	}
 
 	/* (non-Javadoc)

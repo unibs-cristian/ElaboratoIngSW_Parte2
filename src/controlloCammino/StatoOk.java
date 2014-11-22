@@ -22,6 +22,8 @@ public class StatoOk implements StatoCammino{
 			camm.setStatoCammino(new Fermato());
 		else if(stato.equals(ENTRATO_RAMO))
 			camm.setStatoCammino(new EntratoRamo());
+		else if(stato.equals(SALTATO_BLOCCO))
+			camm.setStatoCammino(new SaltatoBlocco());
 	}
 
 	/* (non-Javadoc)

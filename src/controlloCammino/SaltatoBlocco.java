@@ -1,17 +1,15 @@
-/*
- * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
- */
 package controlloCammino;
 
 import testSuiteDiagnosi.CamminoAzioni;
 
-// TODO: Auto-generated Javadoc
+//TODO: Auto-generated Javadoc
 /**
- * The Class SuperatoFork.
- */
-public class SuperatoFork implements StatoCammino{
+* The Class SaltatoBlocco.
+*/
+public class SaltatoBlocco implements StatoCammino{
 
-	/** The Constant serialVersionUID. */
+
+	/** The constant SerialVersionUID */
 	private static final long serialVersionUID = 1L;
 
 	/* (non-Javadoc)
@@ -20,21 +18,21 @@ public class SuperatoFork implements StatoCammino{
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(STATO_NON_OK))
 			camm.setStatoCammino(new StatoNonOk());
-		else if(stato.equals(STATO_OK))
-			camm.setStatoCammino(new StatoOk());
+		else if(stato.equals(FERMATO))
+			camm.setStatoCammino(new Fermato());
 	}
 
 	/* (non-Javadoc)
 	 * @see controlloCammino.StatoCammino#isValid()
 	 */
 	public boolean isValid() {
-		return false;
+		return true;
 	}
 
 	/* (non-Javadoc)
 	 * @see controlloCammino.StatoCammino#getStringaStato()
 	 */
 	public String getStringaStato() {
-		return SUPERATO_FORK;
+		return SALTATO_BLOCCO;
 	}
 }

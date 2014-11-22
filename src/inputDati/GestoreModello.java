@@ -269,7 +269,7 @@ public class GestoreModello implements Serializable {
 					break;
 				
 				case 7: 
-					if(Util.yesOrNo(MSG_CONFERMA))
+					if(!(Util.yesOrNo(MSG_CONFERMA)))
 						break;
 					else {
 						insFinito = true;
@@ -528,7 +528,6 @@ public class GestoreModello implements Serializable {
 			temp.getRami()[i] = new Ramo();
 		e.addEntita(temp, qualeRamo);
 		menuInserimentoSecondario(temp,OPZ_FORK);
-		System.out.println(MSG_ERRORE_RAMI);
 		System.out.println(String.format(MSG_NUOVA_ENTITA,temp.getNome(),e.getNome()));
 	}
 	

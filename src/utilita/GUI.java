@@ -112,7 +112,7 @@ public class GUI
 		StringBuffer daRestituire = new StringBuffer();
 		for(int i = 0; i<profondita; i++)
 			daRestituire.append(carattere);
-		daRestituire.append(testo+ACAPO);
+		daRestituire.append(testo);
 		return daRestituire.toString();
 	}
 	

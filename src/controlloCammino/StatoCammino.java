@@ -40,8 +40,8 @@ public interface StatoCammino extends Serializable{
 	/** The Constant STATO_VUOTO. */
 	public final static String STATO_VUOTO = "VUOTO";
 	
-	/** The Constant SUPERATO_FORK. */
-	public final static String SUPERATO_FORK = "SUPERATO FORK";
+	/** The Constant SALTATO_BLOCCO. */
+	public final static String SALTATO_BLOCCO = "SALTATO BLOCCO";
 	
 	/**
 	 * Gestisci stato.

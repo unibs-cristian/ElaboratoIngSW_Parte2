@@ -3,9 +3,10 @@
  */
 package gestioneModello;
 import java.io.Serializable;
-
 import java.util.Vector;
 
+import controlloCammino.RamoNonPercorso;
+import controlloCammino.StatoCammino;
 import utilita.GUI;
 
 // TODO: Auto-generated Javadoc
@@ -18,7 +19,10 @@ public class Ramo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/** The entita ramo. */
-	private Vector <Entita> entitaRamo;        
+	private Vector <Entita> entitaRamo; 
+	
+	/** Lo stato del ramo quando l'utente inserisce un cammino */
+	private StatoCammino statoRamo;
 	
 	/**
 	 * Instantiates a new ramo.
@@ -26,6 +30,7 @@ public class Ramo implements Serializable {
 	public Ramo()
 	{
 		entitaRamo = new Vector<Entita>();  
+		statoRamo = new RamoNonPercorso();
 	}
 	
 	/**
@@ -96,7 +101,11 @@ public class Ramo implements Serializable {
 		return entitaRamo.elementAt(index);
 	}
 	
-	//TODO togliere se non serve
+	public StatoCammino getStato() {
+		return statoRamo;
+	}
+	
+	//TODO togliere se nn serve
 	/**
 	 * Presente.
 	 *
@@ -110,13 +119,19 @@ public class Ramo implements Serializable {
 		return false;
 	}
 	
+	public void setStato(StatoCammino nuovo) {
+		statoRamo = nuovo;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
-		for(int i=0; i<entitaRamo.size(); i++) 
+		for(int i=0; i<entitaRamo.size(); i++) {
 			risultato.append(GUI.indenta(entitaRamo.elementAt(i).toString(),Entita.SPAZIO,entitaRamo.elementAt(i).getIndentazione()));
+			risultato.append("\n");
+		}
 		return risultato.toString();
 	}
 }

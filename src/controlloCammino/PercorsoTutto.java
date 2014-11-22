@@ -18,9 +18,7 @@ public class PercorsoTutto implements StatoCammino {
 	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
 	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {
-		if(stato.equals(SUPERATO_FORK))
-			camm.setStatoCammino(new SuperatoFork());
-		else if(stato.equals(STATO_NON_OK))
+		if(stato.equals(STATO_NON_OK))
 			camm.setStatoCammino(new StatoNonOk());
 		else if(stato.equals(ENTRATO_RAMO) && camm.isGlobale())
 			camm.setStatoCammino(new EntratoRamo());

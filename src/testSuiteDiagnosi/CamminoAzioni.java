@@ -151,6 +151,10 @@ public class CamminoAzioni implements Serializable {
 		return false;
 	}
 	
+	public void setInsiemeCammino(Vector <Azione> nuovo) {
+		insiemeCammino = nuovo;
+	}
+	
 	/**
 	 * Sets the stato cammino.
 	 *
@@ -158,6 +162,7 @@ public class CamminoAzioni implements Serializable {
 	 */
 	public void setStatoCammino(StatoCammino state) {
 		statoCorrente = state;
+		System.out.println("Cambiato stato in " + state.getStringaStato());
 	}
 	
 	/* (non-Javadoc)
