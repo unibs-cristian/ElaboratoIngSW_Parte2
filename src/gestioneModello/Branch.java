@@ -29,9 +29,6 @@ public class Branch implements Entita{
 	/** The id. */
 	private int id;
 	
-	/** The id branch. */
-	private int idBranch;
-	
 	/** The titolo. */
 	private String titolo;
 	
@@ -50,9 +47,6 @@ public class Branch implements Entita{
 	/** The id tipo. */
 	private String idTipo;
 	
-	/** The contatore branch. */
-	private static int contatoreBranch = 1;
-	
 	/**
 	 * Instantiates a new branch.
 	 *
@@ -60,35 +54,14 @@ public class Branch implements Entita{
 	 * @param _numeroRami the _numero rami
 	 */
 	public Branch (String _titolo, int _numeroRami) {
-		id = GestoreModello.contatoreEntita;
-		idBranch = contatoreBranch;
 		titolo = _titolo;
 		numeroRami = _numeroRami;
 		elencoRami = new Ramo [numeroRami];
 		idTipo = ID_TIPO_BRANCH;
 		elencoEntita = new Vector<Entita>();
 		valoreIndentazione = GestoreModello.getRientro();
-		GestoreModello.contatoreEntita++;
-		contatoreBranch++;
-	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
-	 */
-	public Entita cercaPerNome(String nomeDaCercare) {
-		if(titolo.equalsIgnoreCase(nomeDaCercare))
-			return this;
-		else
-		{
-			Vector <Entita> listaEntita = getEntita();
-			for(int i=0; i<listaEntita.size(); i++) {
-				Entita e = listaEntita.elementAt(i);
-				e = e.cercaPerNome(nomeDaCercare);
-				if(e!=null)
-					return e;
-			}
-		}
-		return null;
+		id = Modello.getInstance().getContatore();
+		Modello.getInstance().incrementaContatore();
 	}
 
 	/* (non-Javadoc)
@@ -133,13 +106,22 @@ public class Branch implements Entita{
 	public boolean giaPresente(String nome) {
 		if(titolo.equalsIgnoreCase(nome))
 			return true;
-		elencoEntita = getEntita();
-		for(int i=0; i<elencoEntita.size(); i++) {
-			Entita e = elencoEntita.elementAt(i);
-				if(e.giaPresente(nome))
+		boolean trovata = false;
+		int i=0;
+		while(trovata == false && i<numeroRami) {
+			int j=0;
+			while(trovata == false && j<getRami()[i].getNumeroEntita()) {
+				Entita e = getRami()[i].getEntitaAt(j);
+				if(e.getNome().equalsIgnoreCase(nome))
 					return true;
+				else {
+					trovata = e.giaPresente(nome);
+					j++;
+				}
+			}
+			i++;
 		}
-		return false;	
+		return trovata;	
 	}
 	
 	/**
@@ -175,8 +157,7 @@ public class Branch implements Entita{
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
 	 */
-	public boolean rimuoviEntitaAt(int id) {
-		Entita daEliminare = null;
+	public void rimuoviEntitaAt(int id) {
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
 		for (int i=0; i<numeroRami; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
@@ -186,34 +167,18 @@ public class Branch implements Entita{
 				//Se la trova la elimina dalle entita' del ramo i-esimo di this e restituisce true
 				if(e.getId()==id)
 				{
-					daEliminare = e;
-					elencoRami[i].eliminaEntitaRamo(j);
-					if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
-						Modello.getInstance().rimuoviAzione(e.getNome());
-					System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
-					return true;
+					if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,e.getNome()))) {
+						elencoRami[i].eliminaEntitaRamo(j);
+						Modello.getInstance().decrementaContatore();
+						if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
+							Modello.getInstance().rimuoviAzione(e.getNome());
+						System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
+					}
 				}
+				else 
+					e.rimuoviEntitaAt(id);
 			}
 		}
-		/*
-		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
-		 * componenti dei componenti e cosi' via, in maniera ricorsiva 
-		 */
-		if(daEliminare == null)
-			for(int i=0; i<elencoEntita.size(); i++) {
-				Entita e = elencoEntita.elementAt(i);
-				/*
-				 * Quando il metodo applicato ad una delle attivita' componenti restituisce true, il metodo 
-				 * restituisce true.
-				 */
-				if(e.rimuoviEntitaAt(id)==true)
-					return true;   
-			}
-		/*
-		 * Viene restituito false se il metodo applicato a ciascuna entita' componente non ha mai restituito 
-		 * un valore true.
-		 */
-		return false;
 	}
 	
 	/* (non-Javadoc)
@@ -223,7 +188,7 @@ public class Branch implements Entita{
 	{
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("\n");
-        risultato.append(GUI.indenta(String.format(MSG_BRANCH, titolo.toUpperCase(), idBranch),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
+        risultato.append(GUI.indenta(String.format(MSG_BRANCH, titolo.toUpperCase(), id),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
 		risultato.append("\n");
 		for(int i=0; i<elencoRami.length; i++) {
 			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_BRANCH, titolo.toUpperCase(),i+1), SPAZIO, valoreIndentazione));
@@ -233,9 +198,9 @@ public class Branch implements Entita{
 				risultato.append(elencoRami[i].toString());
 		}
 		if(valoreIndentazione >= GestoreModello.FATTORE_INCREMENTO)
-			risultato.append(GUI.indenta(String.format(MSG_MERGE, titolo.toUpperCase(),idBranch),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
+			risultato.append(GUI.indenta(String.format(MSG_MERGE, titolo.toUpperCase(),id),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
 		else
-			risultato.append(String.format(MSG_MERGE, titolo.toUpperCase(),idBranch));
+			risultato.append(String.format(MSG_MERGE, titolo.toUpperCase(),id));
 		return risultato.toString();
 	}
 	

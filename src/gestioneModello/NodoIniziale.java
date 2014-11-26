@@ -3,8 +3,6 @@
  */
 package gestioneModello;
 
-import inputDati.GestoreModello;
-
 import java.util.Vector;
 
 // TODO: Auto-generated Javadoc
@@ -29,8 +27,8 @@ public class NodoIniziale implements Entita{
 	 * Instantiates a new nodo iniziale.
 	 */
 	public NodoIniziale() {
-		id = GestoreModello.contatoreEntita;
-		GestoreModello.contatoreEntita=1;
+		id = Modello.getInstance().getContatore();
+		Modello.getInstance().incrementaContatore();
 		idTipo = ID_TIPO_NODO_INIZIALE;
 	}
 	
@@ -38,16 +36,6 @@ public class NodoIniziale implements Entita{
 	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
 	 */
 	public void addEntita(Entita e, int qualeRamo) {}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
-	 */
-	public Entita cercaPerNome(String nomeDaCercare) {
-		if(idTipo == nomeDaCercare)
-			return this;
-		else 
-			return null;
-	}
 	
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#getId()
@@ -96,9 +84,7 @@ public class NodoIniziale implements Entita{
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
 	 */
-	public boolean rimuoviEntitaAt(int id) {
-		return false;
-	}
+	public void rimuoviEntitaAt(int id) {}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

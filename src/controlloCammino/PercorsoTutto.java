@@ -3,6 +3,7 @@
  */
 package controlloCammino;
 
+import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
 // TODO: Auto-generated Javadoc
@@ -20,11 +21,13 @@ public class PercorsoTutto implements StatoCammino {
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(STATO_NON_OK))
 			camm.setStatoCammino(new StatoNonOk());
-		else if(stato.equals(ENTRATO_RAMO) && camm.isGlobale())
+		else if(stato.equals(ENTRATO_RAMO))
 			camm.setStatoCammino(new EntratoRamo());
 		else if(stato.equals(STATO_OK))
 			camm.setStatoCammino(new StatoOk());
 	}
+	
+	public void gestisciStatoRamo(Ramo r, String stato) {}
 
 	/* (non-Javadoc)
 	 * @see controlloCammino.StatoCammino#isValid()

@@ -5,7 +5,7 @@ package gestioneModello;
 import java.io.Serializable;
 import java.util.Vector;
 
-import controlloCammino.RamoNonPercorso;
+import controlloCammino.EntratoRamo;
 import controlloCammino.StatoCammino;
 import utilita.GUI;
 
@@ -30,7 +30,7 @@ public class Ramo implements Serializable {
 	public Ramo()
 	{
 		entitaRamo = new Vector<Entita>();  
-		statoRamo = new RamoNonPercorso();
+		statoRamo = new EntratoRamo();
 	}
 	
 	/**

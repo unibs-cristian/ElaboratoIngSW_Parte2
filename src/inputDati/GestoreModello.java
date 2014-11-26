@@ -11,11 +11,14 @@ import gestioneModello.Fork;
 import gestioneModello.Modello;
 import gestioneModello.NodoFinale;
 import gestioneModello.Ramo;
+
 import java.io.File;
 import java.util.Vector;
+
 import utilita.Menu;
 import utilita.Stream;
 import utilita.Util;
+
 import java.io.Serializable;
 
 // TODO: Auto-generated Javadoc
@@ -61,7 +64,7 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_USCITA_INSERIMENTO = "7 - Tornare al menu principale";
 	
 	/** The Constant MSG_CHIUSURA_RAMO. */
-	public final static String MSG_CHIUSURA_RAMO = "7 - Chidere ramo corrente";
+	public final static String MSG_CHIUSURA_RAMO = "7 - Chiudere ramo corrente";
 	
 	/** The Constant MSG_INSERIMENTO_NODO_FINALE. */
 	public final static String MSG_INSERIMENTO_NODO_FINALE = "8 - Inserimento Nodo Finale";
@@ -132,6 +135,9 @@ public class GestoreModello implements Serializable {
 	/** The Constant MSG_CONFERMA. */
 	public final static String MSG_CONFERMA = "Attenzione! Se si ritorna al menu' principale non sara' piu' possibile inserire entita' per\nquesto modello. Sei sicuro di voler uscire dalla modalita' inserimento?";
 	
+	/** The Constant MSG_CONFERMA_CANCELLAZIONE */
+	public final static String MSG_CONFERMA_CANCELLAZIONE = "Si desidera procedere con l'eliminazione dell'entita' %s?";
+	
 	/** The Constant MSG_NOME_MODELLO. */
 	public static final String MSG_NOME_MODELLO = "Come si desidera chiamare il modello?";
 	
@@ -164,9 +170,6 @@ public class GestoreModello implements Serializable {
 	
 	/** The rientro. */
 	private static int rientro;
-	
-	/** The contatore entita. */
-	public static int contatoreEntita = 0;   //TODO da controllare
 	
 	/** The mod. */
 	private Modello mod;
@@ -264,6 +267,7 @@ public class GestoreModello implements Serializable {
 				case 5:
 					mod.eliminaUltimaEntita();   
 					break;
+				
 				case 6: 
 					System.out.println(mod.toString()); 
 					break;
@@ -394,9 +398,7 @@ public class GestoreModello implements Serializable {
 						/*
 						 * Se il ramo corrente non e' vuoto si elimina l'ultima entita' inserita nel ramo.
 						 */
-							Entita daEliminare = r.getEntitaRamo().elementAt(r.getEntitaRamo().size()-1);
-							System.out.println(String.format(MSG_ENTITA_ELIMINATA, daEliminare.getNome(), daEliminare.getId())); 
-							r.eliminaEntitaRamo(r.getEntitaRamo().size()-1);
+							mod.eliminaUltimaEntita();
 							break;
 						}
 					}

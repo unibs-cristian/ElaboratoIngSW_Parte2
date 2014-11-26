@@ -29,23 +29,23 @@ public class Util
 	/** The Constant ERRORE_STRINGA_VUOTA_O_SPAZI. */
 	private static final String ERRORE_STRINGA_VUOTA_O_SPAZI = "Errore, non è possibile inserire una stringa vuota o con spazi. \nReinserire la stringa:";
 	
-	/** The Constant ERRORE_AMMISSIBILI. */
-	private final static String ERRORE_AMMISSIBILI= "Attenzione: i caratteri ammissibili sono: ";
-	
 	/** The Constant RILEV_OK. */
 	public final static String RILEV_OK = "OK";
 	
 	/** The Constant RILEV_KO. */
 	public final static String RILEV_KO = "KO";
 	
+	/** The Constant RISPOSTA_SI. */
+	private final static String RISPOSTA_SI="S";
+	
+	/** The Constant RISPOSTA_NO. */
+	private final static String RISPOSTA_NO="N";
+	
 	/** The Constant MSG_AMMISSIBILI. */
 	private final static String MSG_AMMISSIBILI = "Errore! I valori ammissibili sono " + "'" + RILEV_OK + "'" + " e '" + RILEV_KO + "'";
 	
-	/** The Constant RISPOSTA_SI. */
-	private final static char RISPOSTA_SI='S';
-	
-	/** The Constant RISPOSTA_NO. */
-	private final static char RISPOSTA_NO='N';
+	/** The Constant MSG_AMMISSIBILI. */
+	private final static String MSG_AMMISSIBILI1 = "Errore! I valori ammissibili sono " + "'" +  RISPOSTA_SI + " e '" + RISPOSTA_NO + "'";
 	
 	/** The Constant ERRORE_INTERO_MAGGIORE. */
 	private static final String ERRORE_INTERO_MAGGIORE = "Errore. Insere un numero maggiore di %s: ";
@@ -298,12 +298,18 @@ public class Util
     public static boolean yesOrNo(String messaggio)
 	{
 		  String mioMessaggio = messaggio + "(" + RISPOSTA_SI + "/" + RISPOSTA_NO + ")";
-		  char valoreLetto = leggiUpperChar(mioMessaggio,String.valueOf(RISPOSTA_SI) + "//" + String.valueOf(RISPOSTA_NO));
-		  
-		  if (valoreLetto == RISPOSTA_SI)
-			return true;
-		  else
-			return false;
+		  String inputDati = "";
+		  boolean valoreCorretto = false;
+		  do {
+			  inputDati = leggiString(mioMessaggio);
+			  if(inputDati.equalsIgnoreCase(RISPOSTA_SI)) 
+				  valoreCorretto = true;
+			  else if(inputDati.equalsIgnoreCase(RISPOSTA_NO))
+				  return false;
+			  else
+				  System.out.println(MSG_AMMISSIBILI1);
+		  } while(valoreCorretto==false);
+		  return valoreCorretto;
 	}
     
     /**
@@ -325,31 +331,6 @@ public class Util
     	} while(valoreCorretto==false);
     	return inputDati;
     }
-    
-    /**
-     * Leggi upper char.
-     *
-     * @param messaggio the messaggio
-     * @param ammissibili the ammissibili
-     * @return the char
-     */
-    public static char leggiUpperChar (String messaggio, String ammissibili)
-	  {
-	   boolean finito = false;
-	   char valoreLetto = '\0';
-	   do
-	   {
-	   valoreLetto = leggiChar(messaggio);
-	   valoreLetto = Character.toUpperCase(valoreLetto);
-	   if (ammissibili.indexOf(valoreLetto) != -1)
-		   finito  = true;
-	   else
-		   System.out.println(ERRORE_AMMISSIBILI + ammissibili);
-	   } 
-	   while (!finito);
-	   
-	   return valoreLetto;
-	  }
     
     /**
      * Leggi vector stringhe.

@@ -1,5 +1,6 @@
 package controlloCammino;
 
+import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
 //TODO: Auto-generated Javadoc
@@ -20,6 +21,8 @@ public class SaltatoBlocco implements StatoCammino{
 			camm.setStatoCammino(new StatoNonOk());
 		else if(stato.equals(FERMATO))
 			camm.setStatoCammino(new Fermato());
+		else if(stato.equals(ENTRATO_RAMO))
+			camm.setStatoCammino(new EntratoRamo());
 	}
 
 	/* (non-Javadoc)
@@ -35,4 +38,6 @@ public class SaltatoBlocco implements StatoCammino{
 	public String getStringaStato() {
 		return SALTATO_BLOCCO;
 	}
+
+	public void gestisciStatoRamo(Ramo r, String stato) {}
 }

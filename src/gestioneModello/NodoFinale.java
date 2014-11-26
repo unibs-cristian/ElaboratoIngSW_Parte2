@@ -3,8 +3,6 @@
  */
 package gestioneModello;
 
-import inputDati.GestoreModello;
-
 import java.util.Vector;
 
 // TODO: Auto-generated Javadoc
@@ -30,19 +28,9 @@ public class NodoFinale implements Entita
 	 * Instantiates a new nodo finale.
 	 */
 	public NodoFinale() {
-		id = GestoreModello.contatoreEntita;
-		GestoreModello.contatoreEntita++;
+		id = Modello.getInstance().getContatore();
+		Modello.getInstance().incrementaContatore();
 		idTipo = ID_TIPO_NODO_FINALE;
-	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
-	 */
-	public Entita cercaPerNome(String nomeDaCercare) {
-		if(idTipo == nomeDaCercare)
-			return this;
-		else 
-			return null;
 	}
 	
 	/* (non-Javadoc)
@@ -90,9 +78,7 @@ public class NodoFinale implements Entita
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
 	 */
-	public boolean rimuoviEntitaAt(int id) {
-		return false;
-	}
+	public void rimuoviEntitaAt(int id) {}
 	
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#getRami()

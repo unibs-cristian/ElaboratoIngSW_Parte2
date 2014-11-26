@@ -4,10 +4,12 @@
 package controlloCammino;
 
 
+import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
 // TODO: Auto-generated Javadoc
-/**
+/**s
+ * 
  * The Class RamoNonPercorso.
  */
 public class RamoNonPercorso implements StatoCammino{
@@ -32,8 +34,19 @@ public class RamoNonPercorso implements StatoCammino{
 			camm.setStatoCammino(new StatoOk());
 		else if(stato.equals(SALTATO_BLOCCO))
 			camm.setStatoCammino(new SaltatoBlocco());
+		else if(stato.equals(PERCORSO_TUTTO))
+			camm.setStatoCammino(new PercorsoTutto());
+		else if(stato.equals(FERMATO))
+			camm.setStatoCammino(new Fermato());
+		else if(stato.equals(FERMATO_DENTRO))
+			camm.setStatoCammino(new FermatoDentro());
 	}
-
+	
+	public void gestisciStatoRamo(Ramo r, String stato) {
+		if(stato.equals(STATO_NON_OK))
+			r.setStato(new StatoNonOk());
+	}
+	
 	/* (non-Javadoc)
 	 * @see controlloCammino.StatoCammino#isValid()
 	 */

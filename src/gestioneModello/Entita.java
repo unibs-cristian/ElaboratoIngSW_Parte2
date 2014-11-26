@@ -14,6 +14,9 @@ public interface Entita extends Serializable {
 	/** The Constant SPAZIO. */
 	public final static String SPAZIO = " ";
 	
+	/** The Constant MSG_CONFERMA_CANCELLAZIONE */
+	public final static String MSG_CONFERMA_CANCELLAZIONE = "Si desidera procedere con l'eliminazione dell'entita' %s?";
+	
 	/** The Constant MSG_ENTITA_RIMOSSA. */
 	public final static String MSG_ENTITA_RIMOSSA = "E' stata rimossa l'entita' %s (id = %d)";
 	
@@ -48,14 +51,6 @@ public interface Entita extends Serializable {
 	 * @param qualeRamo the quale ramo
 	 */
 	public void addEntita(Entita e, int qualeRamo);
-	
-	/**
-	 * Cerca per nome.
-	 *
-	 * @param nomeDaCercare the nome da cercare
-	 * @return the entita
-	 */
-	public Entita cercaPerNome(String nomeDaCercare);
 	
 	/**
 	 * Gets the id.
@@ -104,9 +99,8 @@ public interface Entita extends Serializable {
 	 * Rimuovi entita at.
 	 *
 	 * @param id the id
-	 * @return true, if successful
 	 */
-	public boolean rimuoviEntitaAt(int id);
+	public void rimuoviEntitaAt(int id);
 	
 	/**
 	 * To string.

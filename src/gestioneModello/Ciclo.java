@@ -8,6 +8,7 @@ import inputDati.GestoreModello;
 import java.util.Vector;
 
 import utilita.GUI;
+import utilita.Util;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,9 +37,6 @@ public class Ciclo implements Entita{
 	/** The id. */
 	private int id;
 	
-	/** The id ciclo. */
-	private int idCiclo;
-	
 	/** The titolo. */
 	private String titolo;
 	
@@ -47,9 +45,6 @@ public class Ciclo implements Entita{
 	
 	/** The elenco rami. */
 	private Ramo [] elencoRami;
-	
-	/** The contatore cicli. */
-	private static int contatoreCicli = 1;
 	
 	/** The elenco entita. */
 	private Vector<Entita> elencoEntita;
@@ -67,16 +62,14 @@ public class Ciclo implements Entita{
 	 */
 	public Ciclo(String _titolo)
 	{
-		id = GestoreModello.contatoreEntita;
-		idCiclo = contatoreCicli;
+		id = Modello.getInstance().getContatore();
+		Modello.getInstance().incrementaContatore();
 		titolo = _titolo;
 		numRami = NUM_RAMI_CICLO;
 		elencoRami = new Ramo [NUM_RAMI_CICLO]; 
 		elencoEntita = new Vector<Entita>();
 		idTipo = ID_TIPO_CICLO;
 		valoreIndentazione = GestoreModello.getRientro();
-		contatoreCicli++;
-		GestoreModello.contatoreEntita++;
 	}
 	
 	/**
@@ -93,25 +86,6 @@ public class Ciclo implements Entita{
 	 */
 	public void addEntita(Entita e, int r) {
 		elencoRami[r].aggiungiEntitaRamo(e);
-	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
-	 */
-	public Entita cercaPerNome(String nomeDaCercare) {
-		if(titolo.equalsIgnoreCase(nomeDaCercare))
-			return this;
-		else
-		{
-			Vector <Entita> listaEntita = getEntita();
-			for(int i=0; i<listaEntita.size(); i++) {
-				Entita e = listaEntita.elementAt(i);
-				e = e.cercaPerNome(nomeDaCercare);
-				if(e!=null)
-					return e;
-			}
-		}
-		return null;
 	}
 	
 	/* (non-Javadoc)
@@ -170,22 +144,30 @@ public class Ciclo implements Entita{
 	public boolean giaPresente(String nome) {
 		if(titolo.equalsIgnoreCase(nome))
 			return true;
-		elencoEntita = getEntita();
-		for(int i=0; i<elencoEntita.size(); i++) {
-			Entita e = elencoEntita.elementAt(i);
-				if(e.giaPresente(nome))
+		boolean trovata = false;
+		int i=0;
+		while(trovata == false && i<NUM_RAMI_CICLO) {
+			int j=0;
+			while(trovata == false && j<getRami()[i].getNumeroEntita()) {
+				Entita e = getRami()[i].getEntitaAt(j);
+				if(e.getNome().equalsIgnoreCase(nome))
 					return true;
+				else {
+					trovata = e.giaPresente(nome);
+					j++;
+				}
+			}
+			i++;
 		}
-		return false;	
+		return trovata;	
 	}
   
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
 	 */
-	public boolean rimuoviEntitaAt(int id) {
-		Entita daEliminare = null;
+	public void rimuoviEntitaAt(int id) {
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
-		for (int i=0; i<elencoRami.length; i++) {
+		for (int i=0; i<numRami; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
 			//Ricerca l'entita' da eliminare tra le entita' interne del ramo i-esimo
 			for(int j=0; j<entitaRamo.size(); j++) {
@@ -193,34 +175,18 @@ public class Ciclo implements Entita{
 				//Se la trova la elimina dalle entita' del ramo i-esimo di this e restituisce true
 				if(e.getId()==id)
 				{
-					daEliminare = e;
-					elencoRami[i].eliminaEntitaRamo(j);
-					if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
-						Modello.getInstance().rimuoviAzione(e.getNome());
-					System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
-					return true;
+					if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,e.getNome()))) {
+						elencoRami[i].eliminaEntitaRamo(j);
+						Modello.getInstance().decrementaContatore();
+						if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
+							Modello.getInstance().rimuoviAzione(e.getNome());
+						System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
+					}
 				}
+				else 
+					e.rimuoviEntitaAt(id);
 			}
 		}
-		/*
-		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
-		 * componenti dei componenti e cosi' via, in maniera ricorsiva 
-		 */
-		if(daEliminare == null)
-			for(int i=0; i<elencoEntita.size(); i++) {
-				Entita e = elencoEntita.elementAt(i);
-				/*
-				 * Quando il metodo applicato ad una delle attivita' componenti restituisce true, il metodo 
-				 * restituisce true.
-				 */
-				if(e.rimuoviEntitaAt(id)==true)
-					return true;   
-			}
-		/*
-		 * Viene restituito false se il metodo applicato a ciascuna entita' componente non ha mai restituito 
-		 * un valore true.
-		 */
-		return false;
 	}
 	
 	/* (non-Javadoc)
@@ -229,7 +195,7 @@ public class Ciclo implements Entita{
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("\n");
-        risultato.append(GUI.indenta(String.format(MSG_CICLO, titolo.toUpperCase(), idCiclo),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
+        risultato.append(GUI.indenta(String.format(MSG_CICLO, titolo.toUpperCase(), id),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
 		risultato.append("\n");
 		if(elencoRami[0].getEntitaRamo().isEmpty())
 		{
@@ -249,9 +215,9 @@ public class Ciclo implements Entita{
 		else
 			risultato.append(elencoRami[1].toString());
 		if(valoreIndentazione >= GestoreModello.FATTORE_INCREMENTO)
-			risultato.append(GUI.indenta(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),idCiclo),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
+			risultato.append(GUI.indenta(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),id),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
 		else
-			risultato.append(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),idCiclo));
+			risultato.append(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),id));
 		return risultato.toString();
 	}
 	

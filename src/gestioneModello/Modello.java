@@ -6,6 +6,8 @@ import inputDati.GestoreModello;
 
 import java.util.*;
 
+import utilita.Util;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Modello.
@@ -39,8 +41,8 @@ public class Modello implements Entita{
 	/** The elenco azioni. */
 	private Vector <Azione> elencoAzioni;
 	
-	/** The contatore modello. */
-	private static int contatoreModello = 1;
+	/** The contatore entita' modello. */
+	private int contatoreEntitaModello;
 	
 	/** The id modello. */
 	private int idModello;
@@ -59,9 +61,8 @@ public class Modello implements Entita{
 		elencoAzioni = new Vector<Azione>();
 		gm = new GestoreModello(this);
 		idTipo = ID_TIPO_MODELLO;
-		idModello = contatoreModello;
-		contatoreModello++;
-	}
+		contatoreEntitaModello = 0;
+	} 
 	
 	/**
 	 * Instantiates a new modello.
@@ -76,8 +77,19 @@ public class Modello implements Entita{
 		gm = new GestoreModello(this);
 		NodoIniziale ni = new NodoIniziale();
 		elencoEntita.add(ni);
-		idModello = contatoreModello;
-		contatoreModello++;
+		contatoreEntitaModello = 0;
+	}
+	
+	public void decrementaContatore() {
+		contatoreEntitaModello --;
+	}
+	
+	public void incrementaContatore() {
+		contatoreEntitaModello ++;
+	}
+		
+	public int getContatore() {
+		return contatoreEntitaModello;
 	}
 	
 	/* (non-Javadoc)
@@ -193,15 +205,8 @@ public class Modello implements Entita{
 			System.out.println(MSG_ERRORE_MODIFICA);
 		else
 		{
-			int i = GestoreModello.contatoreEntita-1;
-			boolean finito = false;
-			while(finito == false)
-			{
-				if(rimuoviEntitaAt(i) == false)
-					i--;
-				else
-					finito = true;
-			}
+			int index = getContatore()-1;
+			rimuoviEntitaAt(index);
 		}
 	}
 	
@@ -224,24 +229,7 @@ public class Modello implements Entita{
 			return true;
 		else
 			return false;
-	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
-	 */
-	//TODO Forse non e' mai utilizzato. Verificare
-	public Entita cercaPerNome(String nomeDaCercare) {
-		for (int i = 0; i < elencoEntita.size(); i++) 
-		{
-			Entita e = elencoEntita.get(i);
-			// Chiama il metodo di ricerca per nome di ciascuna entita' inserita nel modello.
-			// Se la trova la restituisce
-			e = e.cercaPerNome(nomeDaCercare);
-			if(e!=null)   
-				return e;
-		}
-		return null;
-	}
+	}	
 	
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
@@ -254,13 +242,18 @@ public class Modello implements Entita{
 		Boolean trovato = false;
 		if(this.nome.equalsIgnoreCase(nome))
 			return true;
-		else
-			for(int i=0; i<elencoEntita.size(); i++) {
+		else {
+			// Prende l'entita' i-esima. Se il nome coincide ritorna true, altrimenti cerca all'interno dell'entita'
+			int i=0;
+			while(trovato == false && i<elencoEntita.size()) {
 				if(elencoEntita.elementAt(i).getNome().equalsIgnoreCase(nome)) 
 					return true;
-				else 
+				else {
 					trovato = elencoEntita.elementAt(i).giaPresente(nome);
+					i++;
+				}
 			}
+		}
 		return trovato;
 	}
 	
@@ -287,30 +280,30 @@ public class Modello implements Entita{
 	 */
 	public boolean nessunaAzione() {
 		return elencoAzioni.isEmpty();
-	}
+	}  
 	
 	// Rimuove l'entita' con tale id, se la trova
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
 	 */
-	public boolean rimuoviEntitaAt(int id) {
+	public void rimuoviEntitaAt(int id) {
 		Entita e = null;
 		for (int i = 0; i < elencoEntita.size(); i++) 
 		{
 			e = elencoEntita.get(i);
 			if(e.getId()==id)
 			{
-				elencoEntita.remove(i);
-				if(e.getIdTipo()==ID_TIPO_AZIONE)
-					rimuoviAzione(e.getNome());
-				System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
-				return true; 
+				if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,e.getNome()))) {
+					elencoEntita.remove(i);
+					decrementaContatore();
+					if(e.getIdTipo().equals(ID_TIPO_AZIONE))
+						rimuoviAzione(e.getNome());
+					System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId())); 
+				}
 			}
 			else
-				if(e.rimuoviEntitaAt(id))
-					return true;
+				e.rimuoviEntitaAt(id);
 		}
-		return false;
 	}
 	
 	/**

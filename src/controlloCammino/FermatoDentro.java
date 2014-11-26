@@ -3,6 +3,7 @@
  */
 package controlloCammino;
 
+import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
 // TODO: Auto-generated Javadoc
@@ -22,6 +23,11 @@ public class FermatoDentro implements StatoCammino {
 			camm.setStatoCammino(new StatoNonOk());
 		if(stato.equals(ENTRATO_RAMO) && camm.isGlobale())
 			camm.setStatoCammino(new EntratoRamo());
+	}
+	
+	public void gestisciStatoRamo(Ramo r, String stato) {
+		if(stato.equals(STATO_NON_OK))
+			r.setStato(new StatoNonOk());
 	}
 	
 	/* (non-Javadoc)

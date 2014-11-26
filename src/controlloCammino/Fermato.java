@@ -3,6 +3,7 @@
  */
 package controlloCammino;
 
+import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
 // TODO: Auto-generated Javadoc
@@ -35,4 +36,6 @@ public class Fermato implements StatoCammino {
 	public boolean isValid() {
 		return true;
 	}
+
+	public void gestisciStatoRamo(Ramo r, String stato) {}
 }

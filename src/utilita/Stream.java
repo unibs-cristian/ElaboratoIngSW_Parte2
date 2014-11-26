@@ -22,7 +22,7 @@ public class Stream implements Serializable
 			private static final String MSG_SALVA = "File salvato correttamente";
 			
 			/** The Constant DOMANDA_SOVRASCRIVERE. */
-			private static final String DOMANDA_SOVRASCRIVERE = "File gi� presente. Sovrascrivere? ";
+			private static final String DOMANDA_SOVRASCRIVERE = "File gia' presente. Sovrascrivere? ";
 			
 			/** The Constant NO_CLOSE. */
 			private static final String NO_CLOSE = "ATTENZIONE: PROBLEMI CON LA CHIUSURA DEL FILE ";

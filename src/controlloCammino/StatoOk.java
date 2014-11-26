@@ -3,6 +3,7 @@
  */
 package controlloCammino;
 
+import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
 // TODO: Auto-generated Javadoc
@@ -38,5 +39,7 @@ public class StatoOk implements StatoCammino{
 	 */
 	public String getStringaStato() {
 		return STATO_OK;
-	}	
+	}
+	
+	public void gestisciStatoRamo(Ramo r, String stato) {}	
 }

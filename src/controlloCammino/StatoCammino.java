@@ -3,6 +3,8 @@
  */
 package controlloCammino;
 
+import gestioneModello.Ramo;
+
 import java.io.Serializable;
 
 import testSuiteDiagnosi.CamminoAzioni;
@@ -50,6 +52,14 @@ public interface StatoCammino extends Serializable{
 	 * @param stato the stato
 	 */
 	public void gestisciStato(CamminoAzioni camm, String stato);
+	
+	/**
+	 * Gestisci stato ramo.
+	 *
+	 * @param r the ramo
+	 * @param stato the stato
+	 */
+	public void gestisciStatoRamo(Ramo r, String stato);
 	
 	/**
 	 * Gets the stringa stato.

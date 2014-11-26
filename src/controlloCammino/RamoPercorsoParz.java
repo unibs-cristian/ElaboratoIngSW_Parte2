@@ -4,6 +4,7 @@
 package controlloCammino;
 
 
+import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
 // TODO: Auto-generated Javadoc
@@ -24,6 +25,15 @@ public class RamoPercorsoParz implements StatoCammino{
 			camm.setStatoCammino(new FermatoDentro());
 		else if(stato.equals(PERCORSO_TUTTO))
 			camm.setStatoCammino(new PercorsoTutto());   //ci vado se l'azione inserita e' l'ultima del ramo
+		else if(stato.equals(ENTRATO_RAMO))
+			camm.setStatoCammino(new EntratoRamo());
+	}
+	
+	public void gestisciStatoRamo(Ramo r, String stato) {
+		if(stato.equals(FERMATO_DENTRO))
+			r.setStato(new FermatoDentro());
+		else if(stato.equals(PERCORSO_TUTTO))
+			r.setStato(new PercorsoTutto());
 	}
 
 	/* (non-Javadoc)
@@ -39,5 +49,4 @@ public class RamoPercorsoParz implements StatoCammino{
 	public String getStringaStato() {
 		return PERCORSO_PARZ;
 	}
-	
 }

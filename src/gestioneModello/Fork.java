@@ -8,6 +8,7 @@ import inputDati.GestoreModello;
 import java.util.Vector;
 
 import utilita.GUI;
+import utilita.Util;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -30,9 +31,6 @@ public class Fork implements Entita{
 	/** The id. */
 	private int id;
 	
-	/** The id fork. */
-	private int idFork;
-	
 	/** The titolo. */
 	private String titolo;
 	
@@ -48,9 +46,6 @@ public class Fork implements Entita{
 	/** The valore indentazione. */
 	private int valoreIndentazione;
 	
-	/** The contatore fork. */
-	private static int contatoreFork = 1;
-	
 	/** The id tipo. */
 	private String idTipo;
 	
@@ -61,35 +56,14 @@ public class Fork implements Entita{
 	 * @param _numRami the _num rami
 	 */
 	public Fork(String _titolo, int _numRami) {
-		id = GestoreModello.contatoreEntita;
-		idFork = contatoreFork;
+		id = Modello.getInstance().getContatore();
+		Modello.getInstance().incrementaContatore();
 		titolo = _titolo;
 		numRami = _numRami;
 		elencoRami = new Ramo[numRami];
 		elencoEntita = new Vector<Entita>();
 		idTipo = ID_TIPO_FORK;
 		valoreIndentazione = GestoreModello.getRientro();
-		contatoreFork++;
-		GestoreModello.contatoreEntita++;
-	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
-	 */
-	public Entita cercaPerNome(String nomeDaCercare) {
-		if(titolo.equalsIgnoreCase(nomeDaCercare))
-			return this;
-		else
-		{
-			Vector <Entita> listaEntita = getEntita();
-			for(int i=0; i<listaEntita.size(); i++) {
-				Entita e = listaEntita.elementAt(i);
-				e = e.cercaPerNome(nomeDaCercare);
-				if(e!=null)
-					return e;
-			}
-		}
-		return null;
 	}
 	
 	/* (non-Javadoc)
@@ -164,22 +138,30 @@ public class Fork implements Entita{
 	public boolean giaPresente(String nome) {
 		if(titolo.equalsIgnoreCase(nome))
 			return true;
-		elencoEntita = getEntita();
-		for(int i=0; i<elencoEntita.size(); i++) {
-			Entita e = elencoEntita.elementAt(i);
-				if(e.giaPresente(nome))
+		boolean trovata = false;
+		int i=0;
+		while(trovata == false && i<numRami) {
+			int j=0;
+			while(trovata == false && j<getRami()[i].getNumeroEntita()) {
+				Entita e = getRami()[i].getEntitaAt(j);
+				if(e.getNome().equalsIgnoreCase(nome))
 					return true;
+				else {
+					trovata = e.giaPresente(nome);
+					j++;
+				}
+			}
+			i++;
 		}
-		return false;	
+		return trovata;	
 	}
 	 
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
 	 */
-	public boolean rimuoviEntitaAt(int id) {
-		Entita daEliminare = null;
+	public void rimuoviEntitaAt(int id) {
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
-		for (int i=0; i<elencoRami.length; i++) {
+		for (int i=0; i<numRami; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
 			//Ricerca l'entita' da eliminare tra le entita' interne del ramo i-esimo
 			for(int j=0; j<entitaRamo.size(); j++) {
@@ -187,34 +169,18 @@ public class Fork implements Entita{
 				//Se la trova la elimina dalle entita' del ramo i-esimo di this e restituisce true
 				if(e.getId()==id)
 				{
-					daEliminare = e;
-					elencoRami[i].eliminaEntitaRamo(j);
-					if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
-						Modello.getInstance().rimuoviAzione(e.getNome());
-					System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
-					return true;
+					if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,e.getNome()))) {
+						elencoRami[i].eliminaEntitaRamo(j);
+						Modello.getInstance().decrementaContatore();
+						if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
+							Modello.getInstance().rimuoviAzione(e.getNome());
+						System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
+					}
 				}
+				else 
+					e.rimuoviEntitaAt(id);
 			}
 		}
-		/*
-		 * Se non ha trovato l'entita' da eliminare tra i componenti dei vari rami di this, la cerca nei 
-		 * componenti dei componenti e cosi' via, in maniera ricorsiva 
-		 */
-		if(daEliminare == null)
-			for(int i=0; i<elencoEntita.size(); i++) {
-				Entita e = elencoEntita.elementAt(i);
-				/*
-				 * Quando il metodo applicato ad una delle attivita' componenti restituisce true, il metodo 
-				 * restituisce true.
-				 */
-				if(e.rimuoviEntitaAt(id)==true)
-					return true;   
-			}
-		/*
-		 * Viene restituito false se il metodo applicato a ciascuna entita' componente non ha mai restituito 
-		 * un valore true.
-		 */
-		return false;
 	}
 	
 	/* (non-Javadoc)
@@ -224,7 +190,7 @@ public class Fork implements Entita{
 	{
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("\n");
-        risultato.append(GUI.indenta(String.format(MSG_FORK, titolo.toUpperCase(), idFork),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
+        risultato.append(GUI.indenta(String.format(MSG_FORK, titolo.toUpperCase(), id),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
 		risultato.append("\n");
 		for(int i=0; i<elencoRami.length; i++) {
 			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_FORK, titolo.toUpperCase(),i+1), SPAZIO, valoreIndentazione));
@@ -234,9 +200,9 @@ public class Fork implements Entita{
 				risultato.append(elencoRami[i].toString());
 		}
 		if(valoreIndentazione >= GestoreModello.FATTORE_INCREMENTO)
-			risultato.append(GUI.indenta(String.format(MSG_JOIN, titolo.toUpperCase(),idFork),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
+			risultato.append(GUI.indenta(String.format(MSG_JOIN, titolo.toUpperCase(),id),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
 		else
-			risultato.append(String.format(MSG_JOIN, titolo.toUpperCase(),idFork));
+			risultato.append(String.format(MSG_JOIN, titolo.toUpperCase(),id));
 		return risultato.toString();
 	}
 	

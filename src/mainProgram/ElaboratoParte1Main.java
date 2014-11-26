@@ -131,10 +131,10 @@ public class ElaboratoParte1Main {
 	public final static String MSG_DESCRIZIONE_MODELLO = "Inserire una sintetica descrizione del modello: ";
 	
 	/** The Constant MSG_BENVENUTO. */
-	public final static String MSG_BENVENUTO = "Benvenuto! Questo programma ti consente di inserire e caricare modelli.";
+	public final static String MSG_BENVENUTO = "Benvenuto. Questo programma consente di inserire e caricare modelli e test suite. Inoltre e' possibile\nvisualizzare i relativi insiemi delle diagnosi minimali e gli elenchi ordinati delle probabilita' con\nle relative distanze. Infine e' possibile creare e visualizzare report completi contenenti tutti i dati\nforniti in input e quelli ottenuti come output. Per maggiori informazioni, consultare il manuale d'uso.";
 	
 	/** The Constant MSG_SALUTO. */
-	public final static String MSG_SALUTO = "Grazie per aver usato il nostro programma! A presto.\n";
+	public final static String MSG_SALUTO = "Grazie per aver usato il nostro programma! Arrivederci.\n";
 	
 	/** The Constant MSG_NOME_MODELLO_PREESISTENTE. */
 	public static final String MSG_NOME_MODELLO_PREESISTENTE = "Nome modello da caricare: ";

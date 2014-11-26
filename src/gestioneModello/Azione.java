@@ -8,48 +8,45 @@ import java.util.Vector;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Azione.
+ * Classe Azione.
+ * Un'istanza di questa classe rappresenta un'azione di un diagramma di attivita'. Si tratta 
+ * di un'entita' semplice che puo' essere aggiunta ad altre entita' complesse, come Branch, Cicli e 
+ * Fork.
+ * 
+ * @author Cristian Sampietri
  */
 public class Azione implements Entita{
 	
-	/** The Constant serialVersionUID. */
+	/** La costante serialVersionUID per il salvataggio. */
 	private static final long serialVersionUID = 1L;
 
-	/** The Constant ID_TIPO. */
-	public final static String ID_TIPO = "Azione n. %d : %s";
+	/** Stringa usata in fase di stampa a video. */
+	public final static String ID_TIPO = "Azione %s";
 	
-	/** The id. */
+	/** L'id all'interno del Modello a cui appartiene l'azione. */
 	private int id;
 	
-	/** The id azione. */
-	private int idAzione;
-	
-	/** The titolo. */
+	/** Il titolo dell'azione (univoco all'interno del modello) */
 	private String titolo;
 	
-	/** The valore indentazione. */
+	/** L'indentazione usata per stampare il modello in modo piu' intuitivo possibile. */
 	private int valoreIndentazione;
 	
-	/** The contatore azioni. */
-	private static int contatoreAzioni = 1;
-	
-	/** The id tipo. */
+	/** Stringa per tenere traccia del tipo di entita' */
 	private String idTipo;
 	
 	//TODO Azioni composte
 	
 	/**
-	 * Instantiates a new azione.
+	 * Costruttore per la classe Azione
 	 *
-	 * @param _titolo the _titolo
+	 * @param _titolo : il nome da assegnare all'azione
 	 */
 	public Azione(String _titolo) {
-		id = GestoreModello.contatoreEntita;
-		idAzione = contatoreAzioni;
 		titolo = _titolo;
-		contatoreAzioni++;
 		valoreIndentazione=GestoreModello.getRientro();
-		GestoreModello.contatoreEntita++;
+		id = Modello.getInstance().getContatore();
+		Modello.getInstance().incrementaContatore();
 		idTipo = ID_TIPO_AZIONE;
 	}
 	
@@ -67,34 +64,17 @@ public class Azione implements Entita{
 		return elencoEntita;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#cercaPerNome(java.lang.String)
-	 */
-	public Entita cercaPerNome(String nomeDaCercare) {
-		if(titolo.equalsIgnoreCase(nomeDaCercare))
-			return this;
-		else 
-			return null;
-	}
-	
 	/**
-	 * Decrementa contatore.
-	 */
-	public void decrementaContatore() {
-		contatoreAzioni--;
-	}
-	
-	/**
-	 * Gets the titolo.
+	 * Fornisce il nome dell'entita'
 	 *
-	 * @return the titolo
+	 * @return titolo : il nome dell'entita'
 	 */
 	public String getTitolo() {
 		return titolo;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getId()
+	/* 	
+	 * Fornisce l'
 	 */
 	public int getId() {
 		return id;
@@ -131,9 +111,7 @@ public class Azione implements Entita{
 	/* (non-Javadoc)
 	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
 	 */
-	public boolean rimuoviEntitaAt(int id) {
-		return false;
-	}
+	public void rimuoviEntitaAt(int id) {}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -141,7 +119,7 @@ public class Azione implements Entita{
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(String.format(ID_TIPO, idAzione, titolo));
+		risultato.append(String.format(ID_TIPO,titolo));
 		return risultato.toString();
 	}
 

@@ -3,6 +3,7 @@
  */
 package controlloCammino;
 
+import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
 
@@ -27,6 +28,17 @@ public class EntratoRamo implements StatoCammino {
 			camm.setStatoCammino(new RamoNonPercorso());
 		else if(stato.equals(PERCORSO_PARZ))
 			camm.setStatoCammino(new RamoPercorsoParz());
+		else if(stato.equals(PERCORSO_TUTTO))
+			camm.setStatoCammino(new PercorsoTutto());
+	}
+	
+	public void gestisciStatoRamo(Ramo r, String stato) {
+		if(stato.equals(NON_PERCORSO))
+			r.setStato(new RamoNonPercorso());
+		else if(stato.equals(PERCORSO_PARZ))
+			r.setStato(new RamoPercorsoParz());	
+		else if(stato.equals(PERCORSO_TUTTO))
+			r.setStato(new PercorsoTutto());
 	}
 
 	/* (non-Javadoc)
