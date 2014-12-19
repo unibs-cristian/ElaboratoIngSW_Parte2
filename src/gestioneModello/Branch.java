@@ -8,50 +8,52 @@ import java.util.Vector;
 
 import utilita.*;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Branch.
+ * Classe Branch.
+ * Un'istanza della classe Branch rappresenta un costrutto avente un solo flusso d'ingresso e due o 
+ * piu' flussi d'uscita. Solo uno dei flussi d'uscita puo' essere eseguito. Sono analoghi ai 
+ * costrutti if-else if-...-else 
  */
 public class Branch implements Entita{
 	
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
-	/** The Constant MSG_BRANCH. */
+	/** Costante stringa per la stampa a video */
 	public final static String MSG_BRANCH = "[ INIZIO BRANCH %s (ID = %d)";
 	
-	/** The Constant MSG_ENTITA_RAMO_BRANCH. */
+	/** Costante stringa per la stampa a video */
 	public final static String MSG_ENTITA_RAMO_BRANCH = "%s - ENTITA' RAMO N. %d\n";
 	
-	/** The Constant MSG_MERGE. */
+	/** Costante stringa per la stampa a video */
 	public final static String MSG_MERGE = "FINE BRANCH %s (ID = %d) ]\n";
 	
-	/** The id. */
+	/** L'id numerico dell'entita'. */
 	private int id;
 	
-	/** The titolo. */
+	/** Il nome dell'entita' */
 	private String titolo;
 	
-	/** The numero rami. */
+	/** Il numero di flussi alternativi che costituiscono l'entita' */
 	private int numeroRami;
 	
-	/** The elenco rami. */
+	/** Array contenente le istanze dei rami che costituiscono l'entita' */
 	private Ramo[] elencoRami;
 	
-	/** The elenco entita. */
+	/** Vector contenente tutte le entita' interne al branch. */
 	private Vector <Entita> elencoEntita;
 	
-	/** The valore indentazione. */
+	/** L'indentazione per la stampa a video. */
 	private int valoreIndentazione;
 	
-	/** The id tipo. */
+	/** La stringa che rappresenta sinteticamente il tipo dell'entita' */
 	private String idTipo;
 	
 	/**
-	 * Instantiates a new branch.
+	 * Costruttore della classe Branch
 	 *
-	 * @param _titolo the _titolo
-	 * @param _numeroRami the _numero rami
+	 * @param _titolo : il nome dell'entita' che e' stato inserito dall'utente.
+	 * @param _numeroRami : il numero di rami che e' stato deciso dall'utente
 	 */
 	public Branch (String _titolo, int _numeroRami) {
 		titolo = _titolo;
@@ -64,32 +66,27 @@ public class Branch implements Entita{
 		Modello.getInstance().incrementaContatore();
 	}
 
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getId()
-	 */
 	public int getId() {
 		return id;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getNome()
-	 */
+	public String getIdTipo() {
+		return idTipo;
+	}
+	
 	public String getNome() {
 		return titolo;
 	}
 	
 	/**
-	 * Gets the numero rami.
+	 * Restituisce il numero di rami.
 	 *
-	 * @return the numero rami
+	 * @return numero rami
 	 */
 	public int getNumeroRami() {
 		return numeroRami;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getEntita()
-	 */
 	public Vector<Entita> getEntita() {
 		for(int i=0; i<elencoRami.length; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
@@ -100,9 +97,6 @@ public class Branch implements Entita{
 		return elencoEntita;
 	}
 	 
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
-	 */
 	public boolean giaPresente(String nome) {
 		if(titolo.equalsIgnoreCase(nome))
 			return true;
@@ -125,38 +119,32 @@ public class Branch implements Entita{
 	}
 	
 	/**
-	 * Adds the entita.
+	 * Aggiunge l'entita' e all'elenco delle entita' interne del Branch.
 	 *
-	 * @param e the e
+	 * @param e : l'entita' da aggiungere
 	 */
 	public void addEntita(Entita e) {
 		elencoEntita.add(e);
 	}		
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
+	/**
+	 * Aggiunge l'entita' e all'elenco delle entita' che costituiscono il ramo r del Branch.
+	 * 
+	 * @param e : l'entita' da aggiungere
+	 * @param r : il ramo al cui elenco deve essere aggiunta l'entita' e
 	 */
 	public void addEntita(Entita e, int r) {
 		elencoRami[r].aggiungiEntitaRamo(e);
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getRami()
-	 */
 	public Ramo[] getRami() {
 		return elencoRami;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIndentazione()
-	 */
 	public int getIndentazione() {
 		return valoreIndentazione;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
-	 */
 	public void rimuoviEntitaAt(int id) {
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
 		for (int i=0; i<numeroRami; i++) {
@@ -181,9 +169,6 @@ public class Branch implements Entita{
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
@@ -202,12 +187,5 @@ public class Branch implements Entita{
 		else
 			risultato.append(String.format(MSG_MERGE, titolo.toUpperCase(),id));
 		return risultato.toString();
-	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIdTipo()
-	 */
-	public String getIdTipo() {
-		return idTipo;
 	}
 }

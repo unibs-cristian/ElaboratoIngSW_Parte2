@@ -10,55 +10,56 @@ import java.util.Vector;
 import utilita.GUI;
 import utilita.Util;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Ciclo.
+ * Classe Ciclo.
+ * Un'istanza della classe Ciclo rappresenta un costrutto a due rami, analogo ai costrutti di tipo
+ * while o do-while. 
  */
 public class Ciclo implements Entita{
 
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
-	/** The Constant MSG_CICLO. */
+	/** Costante stringa per la stampa a video */
 	public final static String MSG_CICLO = "< INIZIO CICLO %s (ID = %d) - MERGE";
 	
-	/** The Constant MSG_ATTIVITA_INIZIALI. */
+	/** Costante stringa per la stampa a video */
 	public final static String MSG_ATTIVITA_INIZIALI = "%s - ENTITA' RAMO N.1 (ATTIVITA' INIZIALI)\n";
 	
-	/** The Constant MSG_COND_PERMANENZA_CICLO. */
+	/** Costante stringa per la stampa a video */
 	public final static String MSG_COND_PERMANENZA_CICLO = "%s - ENTITA RAMO N.2 (CONDIZIONE DI PERMANENZA NEL CICLO)\n";
 	
-	/** The Constant MSG_BRANCH_CICLO. */
+	/** Costante stringa per la stampa a video */
 	public final static String MSG_BRANCH_CICLO = "FINE CICLO %s (ID = %d) - BRANCH >\n";
 	
-	/** The Constant NUM_RAMI_CICLO. */
+	/** Il numero di rami del ciclo. */
 	public final static int NUM_RAMI_CICLO = 2;
 	
-	/** The id. */
+	/** Id numerico dell'entita' */
 	private int id;
 	
-	/** The titolo. */
+	/** Il titolo dell'entita' */
 	private String titolo;
 	
-	/** The num rami. */
+	/** Il numero di rami che costituiscono l'entita'. */
 	private int numRami;
 	
-	/** The elenco rami. */
+	/** Vector contenente le istanze dei rami che costituiscono il Ciclo. */
 	private Ramo [] elencoRami;
 	
-	/** The elenco entita. */
+	/** Vector contenente tutte le entita' interne (semplici o complesse) che costituiscono il ciclo. */
 	private Vector<Entita> elencoEntita;
 	
-	/** The valore indentazione. */
+	/** L'indentazione per stampare a video correttamente il modello. */
 	private int valoreIndentazione;
 	
-	/** The id tipo. */
+	/** Stringa che codifica il tipo dell'entita'. */
 	private String idTipo;
 	
 	/**
-	 * Instantiates a new ciclo.
+	 * Costruttore della classe Ciclo
 	 *
-	 * @param _titolo the _titolo
+	 * @param _titolo : il nome dell'entita' che e' stato inserito dall'utente.
 	 */
 	public Ciclo(String _titolo)
 	{
@@ -73,24 +74,18 @@ public class Ciclo implements Entita{
 	}
 	
 	/**
-	 * Adds the entita.
+	 * Aggiunge l'entita' e all'elenco di entita' interne del Ciclo
 	 *
-	 * @param e the e
+	 * @param e l'entita' da aggiungere.
 	 */
 	public void addEntita(Entita e) {
 		elencoEntita.add(e);
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
-	 */
 	public void addEntita(Entita e, int r) {
 		elencoRami[r].aggiungiEntitaRamo(e);
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getEntita()
-	 */
 	public Vector<Entita> getEntita() {
 		for(int i=0; i<elencoRami.length; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
@@ -101,46 +96,35 @@ public class Ciclo implements Entita{
 		return elencoEntita;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getId()
-	 */
 	public int getId() {
 		return id;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIndentazione()
-	 */
+	public String getIdTipo() {
+		return idTipo;
+	}
+	
 	public int getIndentazione() {
 		return valoreIndentazione;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getNome()
-	 */
 	public String getNome() {
 		return titolo;
 	}
 	
 	/**
-	 * Gets the numero rami.
+	 * Ritorna il numero rami.
 	 *
-	 * @return the numero rami
+	 * @return numero rami
 	 */
 	public int getNumeroRami() {
 		return numRami;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getRami()
-	 */
 	public Ramo[] getRami() {
 		return elencoRami;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
-	 */
 	public boolean giaPresente(String nome) {
 		if(titolo.equalsIgnoreCase(nome))
 			return true;
@@ -162,9 +146,6 @@ public class Ciclo implements Entita{
 		return trovata;	
 	}
   
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
-	 */
 	public void rimuoviEntitaAt(int id) {
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
 		for (int i=0; i<numRami; i++) {
@@ -189,9 +170,6 @@ public class Ciclo implements Entita{
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("\n");
@@ -219,12 +197,5 @@ public class Ciclo implements Entita{
 		else
 			risultato.append(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),id));
 		return risultato.toString();
-	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIdTipo()
-	 */
-	public String getIdTipo() {
-		return idTipo;
 	}
 }
