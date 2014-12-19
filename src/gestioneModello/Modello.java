@@ -296,7 +296,7 @@ public class Modello implements Entita{
 				if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,e.getNome()))) {
 					elencoEntita.remove(i);
 					decrementaContatore();
-					if(e.getIdTipo().equals(ID_TIPO_AZIONE))
+					if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE) || e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE_COMPOSTA))
 						rimuoviAzione(e.getNome());
 					System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId())); 
 				}

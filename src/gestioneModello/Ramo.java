@@ -77,7 +77,7 @@ public class Ramo implements Serializable {
 	public Vector <Azione> getAzioniRamo() {
 		Vector <Azione> risultato = new Vector<Azione>();
 		for(int i=0; i<entitaRamo.size(); i++) 
-			if(entitaRamo.elementAt(i).getIdTipo().equals(Entita.ID_TIPO_AZIONE))
+			if(entitaRamo.elementAt(i).getIdTipo().equals(Entita.ID_TIPO_AZIONE) || entitaRamo.elementAt(i).getIdTipo().equals(Entita.ID_TIPO_AZIONE_COMPOSTA))
 				risultato.add((Azione)entitaRamo.elementAt(i));
 		return risultato;
 	}

@@ -172,7 +172,7 @@ public class Fork implements Entita{
 					if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,e.getNome()))) {
 						elencoRami[i].eliminaEntitaRamo(j);
 						Modello.getInstance().decrementaContatore();
-						if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE))
+						if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE) || e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE_COMPOSTA))
 							Modello.getInstance().rimuoviAzione(e.getNome());
 						System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
 					}

@@ -6,7 +6,6 @@ package gestioneModello;
 import inputDati.GestoreModello;
 import java.util.Vector;
 
-// TODO: Auto-generated Javadoc
 /**
  * Classe Azione.
  * Un'istanza di questa classe rappresenta un'azione di un diagramma di attivita'. Si tratta 
@@ -21,7 +20,9 @@ public class Azione implements Entita{
 	private static final long serialVersionUID = 1L;
 
 	/** Stringa usata in fase di stampa a video. */
-	public final static String ID_TIPO = "Azione %s";
+	public final static String MSG_AZIONE = "Azione %s";
+	
+	public final static String MSG_AZIONE_COMPOSTA = "Azione Composta %s             Titolo modello di riferimento : %s";
 	
 	/** L'id all'interno del Modello a cui appartiene l'azione. */
 	private int id;
@@ -35,33 +36,36 @@ public class Azione implements Entita{
 	/** Stringa per tenere traccia del tipo di entita' */
 	private String idTipo;
 	
-	//TODO Azioni composte
+	/** Il nome del modello a cui si riferisce l'entita' composta */
+	private String modelloComposta;
+	
+	/** Dice se l'azione e' composta o semplice */
+	private boolean composta;
 	
 	/**
 	 * Costruttore per la classe Azione
 	 *
 	 * @param _titolo : il nome da assegnare all'azione
 	 */
-	public Azione(String _titolo) {
+	public Azione(String _titolo, boolean _composta) {
 		titolo = _titolo;
+		composta = _composta;
 		valoreIndentazione=GestoreModello.getRientro();
 		id = Modello.getInstance().getContatore();
 		Modello.getInstance().incrementaContatore();
-		idTipo = ID_TIPO_AZIONE;
+		setIdTipo();
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
-	 */
 	public void addEntita(Entita e, int qualeRamo) {}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getEntita()
-	 */
 	public Vector<Entita> getEntita() {
 		Vector <Entita> elencoEntita = new Vector<Entita>();
 		elencoEntita.add(this);
 		return elencoEntita;
+	}
+	
+	public boolean isComposta() {
+		return composta;
 	}
 	
 	/**
@@ -73,15 +77,15 @@ public class Azione implements Entita{
 		return titolo;
 	}
 	
-	/* 	
-	 * Fornisce l'
+	/** 	
+	 * Fornisce l'identificatore numerico dell'entita'
 	 */
 	public int getId() {
 		return id;
 	}
 	 
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getNome()
+	/**
+	 * 
 	 */
 	public String getNome() {
 		return titolo;
@@ -113,13 +117,27 @@ public class Azione implements Entita{
 	 */
 	public void rimuoviEntitaAt(int id) {}
 	
+	public void setIdTipo() {
+		if(composta)
+			idTipo=ID_TIPO_AZIONE_COMPOSTA;
+		else 
+			idTipo=ID_TIPO_AZIONE;
+	}
+	
+	public void setModelloComposta(String m) {
+		modelloComposta=m;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(String.format(ID_TIPO,titolo));
+		if(composta)
+			risultato.append(String.format(MSG_AZIONE_COMPOSTA,titolo,modelloComposta));
+		else
+			risultato.append(String.format(MSG_AZIONE,titolo));
 		return risultato.toString();
 	}
 

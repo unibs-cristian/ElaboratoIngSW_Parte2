@@ -102,7 +102,7 @@ public class InserimentoCammino {
 			for(int i=1; i<entitaMod.size()-1; i++) {
 				Entita e = entitaMod.elementAt(i);
 				String tipo = e.getIdTipo();
-				if(tipo.equals(Entita.ID_TIPO_AZIONE))
+				if(tipo.equals(Entita.ID_TIPO_AZIONE) || tipo.equals(Entita.ID_TIPO_AZIONE_COMPOSTA))
 					gestisciStatoAzione(e, null, -1, -1);
 				else if(tipo.equals(Entita.ID_TIPO_BRANCH) || tipo.equals(Entita.ID_TIPO_CICLO) || tipo.equals(Entita.ID_TIPO_FORK))
 					gestisciStatoComplessa(e,null,-1,-1);
@@ -258,7 +258,7 @@ public class InserimentoCammino {
 			Ramo ramoCorrente = e.getRami()[i];
 			for(int j=0; j<ramoCorrente.getNumeroEntita(); j++) {
 				Entita ent = ramoCorrente.getEntitaAt(j);
-				if(ent.getIdTipo().equals(Entita.ID_TIPO_AZIONE)) {
+				if(ent.getIdTipo().equals(Entita.ID_TIPO_AZIONE) || ent.getIdTipo().equals(Entita.ID_TIPO_AZIONE_COMPOSTA)) {
 					gestisciStatoAzione(ent, e, i, j);			
 				}
 				else if(ent.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || ent.getIdTipo().equals(Entita.ID_TIPO_CICLO) || ent.getIdTipo().equals(Entita.ID_TIPO_FORK))					

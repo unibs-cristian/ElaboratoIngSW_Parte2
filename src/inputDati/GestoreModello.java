@@ -81,6 +81,10 @@ public class GestoreModello implements Serializable {
 	/** The Constant MSG_TITOLO_AZIONE. */
 	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo: ";
 	
+	public final static String MSG_COMPOSTA_SI_NO = "L'azione e' composta?";
+	
+	public final static String MSG_MODELLO_COMPOSTA = "Digitare il titolo del relativo modello : ";
+	
 	/** The Constant MSG_TITOLO_BRANCH. */
 	public final static String MSG_TITOLO_BRANCH = "Digitare il titolo del Branch che si sta inserendo: ";
 	
@@ -445,7 +449,7 @@ public class GestoreModello implements Serializable {
 	 * @param qualeRamo the quale ramo
 	 */
 	public void inserimentoAzione (Entita e, int qualeRamo) {
-		Boolean presente = false;
+		boolean presente = false;
 		String t;
 		do {
 			t = Util.leggiString(MSG_TITOLO_AZIONE);
@@ -453,7 +457,12 @@ public class GestoreModello implements Serializable {
 			if(presente)
 				System.out.println(MSG_DUPLICATO);
 		} while(presente==true);
-		Azione action = new Azione(t);
+		boolean composta = Util.yesOrNo(MSG_COMPOSTA_SI_NO);
+		Azione action = new Azione(t,composta);
+		if(action.isComposta()) {
+			String modelloAzione = Util.leggiString(MSG_MODELLO_COMPOSTA);
+			action.setModelloComposta(modelloAzione);
+		}
 		e.addEntita(action, qualeRamo);
 		mod.addAzione(action);
 		System.out.println(String.format(MSG_NUOVA_ENTITA,action.getNome(),e.getNome()));

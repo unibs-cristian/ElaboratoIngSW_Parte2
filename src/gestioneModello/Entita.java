@@ -26,6 +26,9 @@ public interface Entita extends Serializable {
 	/** The Constant ID_TIPO_AZIONE. */
 	public final static String ID_TIPO_AZIONE = "AZ";
 	
+	/** The Constant ID_TIPO_AZIONE_COMPOSTA. */
+	public final static String ID_TIPO_AZIONE_COMPOSTA = "AZC";
+	
 	/** The Constant ID_TIPO_BRANCH. */
 	public final static String ID_TIPO_BRANCH = "BR";
 	
