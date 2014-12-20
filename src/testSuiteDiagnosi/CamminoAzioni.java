@@ -48,6 +48,11 @@ public class CamminoAzioni implements Serializable {
 		insiemeCammino.add(a);
 	}
 	
+	public void azzeraAzioni() {
+		while(!(insiemeCammino.isEmpty()))
+			insiemeCammino.remove(getAzioneAt(0));
+	}
+	
 	/**
 	 * Gets the insieme cammino.
 	 *

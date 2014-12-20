@@ -88,12 +88,14 @@ public class InserimentoCammino {
 		else
 			System.out.println(MSG_INS_CAMMINO);
 		Vector <Entita> entitaMod = Modello.getInstance().getEntita();
-	    boolean camminoValido = false;
-	    boolean sottoinsieme = true;
+		boolean camminoValido;
+		boolean sottoinsieme; 
 		do {
-			//Toglie le eventuali azioni presenti nel cammino
-			if(!equals(camm.isEmpty()))
-				camm.setInsiemeCammino(new Vector <Azione>());
+			camminoValido = false;
+			sottoinsieme = true;
+			//Toglie le eventuali azioni presenti nel cammino (utile per resettare il Vector di Azioni quando si è inserito un cammino errato.
+			if(!(camm.isEmpty()))
+				camm.azzeraAzioni();
 			
 			//Ripristina lo stato iniziale a vuoto se non lo e' (puo' accadere per esempio dopo che ho inserito un cammino non valido)
 			if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_VUOTO) == false)
@@ -248,8 +250,11 @@ public class InserimentoCammino {
 	 */
 	private void gestisciStatoComplessa(Entita e,Entita esterna,int numRamoEsterna,int posRamoEsterna) {
 		for(int i=0; i<e.getRami().length; i++) {
-			if(e.getRami()[i].isEmpty())
-				e.getRami()[i].setStato(new PercorsoTutto());  
+			if(e.getRami()[i].isEmpty()) {
+				e.getRami()[i].setStato(new PercorsoTutto()); 
+				if(camm.isGlobale())
+					camm.getStato().gestisciStato(camm, StatoCammino.PERCORSO_TUTTO);
+			}
 			else {
 				camm.getStato().gestisciStato(camm, StatoCammino.ENTRATO_RAMO);
 				e.getRami()[i].setStato(new EntratoRamo());
