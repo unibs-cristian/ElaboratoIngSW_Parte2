@@ -5,26 +5,28 @@ package gestioneModello;
 
 import java.util.Vector;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class NodoIniziale.
+ * Classe NodoIniziale.
+ * Un'istanza di questa classe rappresenta il nodo inizile di un modello, ovvero la prima entita' di 
+ * questo. 
+ * Tale entita' e' inserita automaticamente quando viene creato il modello.
  */
 public class NodoIniziale implements Entita{
 
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
-	/** The Constant MSG_TITOLO_NI. */
+	/** Costante per stampa a video */
 	public final static String MSG_TITOLO_NI = "NODO_INIZIALE";	
 	
-	/** The id. */
+	/** id numerico */
 	private int id;
 	
-	/** The id tipo. */
+	/** Tipo dell'entita' */
 	private static String idTipo;
 	
 	/**
-	 * Instantiates a new nodo iniziale.
+	 * Costruttore della classe NodoIniziale
 	 */
 	public NodoIniziale() {
 		id = Modello.getInstance().getContatore();
@@ -32,63 +34,36 @@ public class NodoIniziale implements Entita{
 		idTipo = ID_TIPO_NODO_INIZIALE;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
-	 */
 	public void addEntita(Entita e, int qualeRamo) {}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getId()
-	 */
 	public int getId() {
 		return id;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIndentazione()
-	 */
 	public int getIndentazione() {
 		return 0;
 	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getNome()
-	 */
+
 	public String getNome() {
 		return MSG_TITOLO_NI;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getEntita()
-	 */
 	public Vector<Entita> getEntita() {
 		Vector <Entita> daRestituire = new Vector<Entita>();
 		daRestituire.add(this);
 		return daRestituire;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getRami()
-	 */
 	public Ramo[] getRami() {
 		return null;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
-	 */
 	public boolean giaPresente(String nome) {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
-	 */
 	public void rimuoviEntitaAt(int id) {}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
@@ -96,18 +71,10 @@ public class NodoIniziale implements Entita{
 		return risultato.toString();
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIdTipo()
-	 */
 	public String getIdTipo() {
 		return idTipo;
 	}
 	
-	/**
-	 * Gets the azioni.
-	 *
-	 * @return the azioni
-	 */
 	public Vector <Entita> getAzioni() {
 		return null;
 	}

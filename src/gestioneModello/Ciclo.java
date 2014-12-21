@@ -14,6 +14,9 @@ import utilita.Util;
  * Classe Ciclo.
  * Un'istanza della classe Ciclo rappresenta un costrutto a due rami, analogo ai costrutti di tipo
  * while o do-while. 
+ * 
+ * INVARIANTE DI CLASSE : Tra le entita' che costituiscono il Ciclo, non ce ne devono essere due con
+ * lo stesso nome.
  */
 public class Ciclo implements Entita{
 

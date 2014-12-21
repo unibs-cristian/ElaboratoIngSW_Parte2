@@ -2,59 +2,64 @@
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package gestioneModello;
+
 import inputDati.GestoreModello;
 
 import java.util.*;
 
 import utilita.Util;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Modello.
+ * Classe Modello
+ * Un'istanza della classe Modello rappresenta un costrutto costituito da un nodo iniziale, da una o
+ * piu' entita' seplici (Azione o Azione Complessa) o complesse (Branch, Fork, Cicli), e da un nodo 
+ * finale  
+ * 
+ * INVARIANTI DI CLASSE : 
+ * Tra le entita' che costituiscono il Modello, tutte devono avere nomi diversi 
+ * tra di loro.
  */
 public class Modello implements Entita{
 	
-	/** The Constant serialVersionUID. */
+	/** Costante numerica per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
-	/** The Constant MSG_NOME_MODELLO. */
+	/** Costanti stringa per la stampa a video */
 	public final static String MSG_NOME_MODELLO = "NOME MODELLO : %s\n";
-	
-	/** The Constant MSG_DESCRIZIONE_MODELLO. */
 	public final static String MSG_DESCRIZIONE_MODELLO = "DESCRIZIONE MODELLO : %s\n\n";
 	
-	/** The Constant MSG_ERRORE_MODIFICA. */
+	/** Costante stringa per messaggio d'errore */
 	public final static String MSG_ERRORE_MODIFICA = "Errore. Non e' presente alcuna entita' da eliminare.";
 	
-	/** The nome. */
+	/** Il nome sintetico del modello */
 	private String nome;
 	
-	/** The descrizione. */
+	/** Breve descrizione testuale del modello */
 	private String descrizione;
-	
-	/** The gm. */
-	private GestoreModello gm;
-	
-	/** The elenco entita. */
+		
+	/** Vector contenente le entita' che costituiscono il modello */
 	private Vector <Entita> elencoEntita;
 	
-	/** The elenco azioni. */
+	/** Vector contenente le azioni (semplici o composte) che costituiscono il modello */
 	private Vector <Azione> elencoAzioni;
 	
-	/** The contatore entita' modello. */
+	/** Contatore delle entita' del modello */
 	private int contatoreEntitaModello;
 	
-	/** The id modello. */
+	/** Identificatore numerico del modello */
 	private int idModello;
 	
-	/** The id tipo. */
+	/** Riferimento all'istanza che gestisce l'inserimento delle entita' per il modello */
+	private GestoreModello gm;
+	
+	/** Stringa contenente l'id tipo del modello */
 	private String idTipo;
 	
-	/** The instance. */
+	/** L'istanza (unica) del modello */
 	private static Modello instance = null;
 	
 	/**
-	 * Instantiates a new modello.
+	 * Costruttore privato della classe Modello.
 	 */
 	private Modello() {
 		elencoEntita = new Vector<Entita>();
@@ -65,10 +70,10 @@ public class Modello implements Entita{
 	} 
 	
 	/**
-	 * Instantiates a new modello.
+	 * Costruttore privato della classe modello
 	 *
-	 * @param _nome the _nome
-	 * @param _descrizione the _descrizione
+	 * @param _nome : il nome da assegnare al modello
+	 * @param _descrizione : la descrizione da assegnare al modello
 	 */
 	private Modello (String _nome, String _descrizione) {
 		nome = _nome;
@@ -92,17 +97,14 @@ public class Modello implements Entita{
 		return contatoreEntitaModello;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getId()
-	 */
 	public int getId() {
 		return idModello;
 	}
 	
 	/**
-	 * Checks if is null.
+	 * Controlla presenza modello nel sistema
 	 *
-	 * @return true, if is null
+	 * @return true se l'applicazione non ha un modello su cui operare, false altrimenti. 
 	 */
 	public static boolean isNull() {
 		if(instance == null)
@@ -111,9 +113,9 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 * Gets the single instance of Modello.
+	 * Ritorna la singola istanza di Modello.
 	 *
-	 * @return single instance of Modello
+	 * @return l'istanza
 	 */
 	public static Modello getInstance() {
 		if(instance == null)
@@ -124,21 +126,18 @@ public class Modello implements Entita{
 	/**
 	 * Cambia modello.
 	 *
-	 * @param nuovo the nuovo
+	 * @param nuovo : il nuovo modello su cui si vuole operare
 	 */
 	public static void cambiaModello(Modello nuovo) {
 		instance = nuovo;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getEntita()
-	 */
 	public Vector <Entita> getEntita() {
 		return elencoEntita;
 	}
 	
 	/**
-	 * Gets the azione at.
+	 * Ritorna l'azione all'indice corrispondente
 	 *
 	 * @param index the index
 	 * @return the azione at
@@ -148,59 +147,50 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 * Gets the numero azioni.
+	 * Dice quante azioni sono state inserite nel modello.
 	 *
-	 * @return the numero azioni
+	 * @return la dimensione del Vector contenente le azioni.
 	 */
 	public int getNumeroAzioni() {
 		return elencoAzioni.size();
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getNome()
-	 */
-	public String getNome() {
-		return nome;
-	}
-	
-	/**
-	 * Gets the gm.
-	 *
-	 * @return the gm
-	 */
+	/** Restituisce l'istanza che gestisce l'inserimento delle entita' per il modello */
 	public GestoreModello getGm() {
 		return gm;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
-	 */
+	public String getNome() {
+		return nome;
+	}
+	
 	public void addEntita (Entita e, int qualeRamo) {
 		elencoEntita.add(e);
 	}
 	
 	/**
-	 * Adds the entita.
+	 * Aggiunge l'entita' e all'elenco di entita' che costituiscono il modello. 
 	 *
-	 * @param e the e
+	 * @param e : l'entita' da inserire 
 	 */
 	public void addEntita (Entita e) {
 		elencoEntita.add(e);
 	}
 	
 	/**
-	 * Adds the azione.
+	 * Aggiunge un'azione all'elenco di azioni inserite nel modello
 	 *
-	 * @param a the a
+	 * @param a : l'azione da aggiungere
 	 */
 	public void addAzione(Azione a) {
 		elencoAzioni.add(a);
 	}
 	
 	/**
-	 * Elimina ultima entita.
+	 * Elimina ultima entita inserita.
 	 */
 	public void eliminaUltimaEntita() {
+		//Se c'e' solo il nodo iniziale, non e' possibile effettuare la cancellazione.
 		if(elencoEntita.size()<=1)     
 			System.out.println(MSG_ERRORE_MODIFICA);
 		else
@@ -211,7 +201,7 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 * Gets the elenco azioni.
+	 * Fornisce le azioni inserite nel modello.
 	 *
 	 * @return the elenco azioni
 	 */
@@ -220,9 +210,9 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 * Nodo finale presente.
+	 * Dice se nel modello e' gia' presente il nodo finale
 	 *
-	 * @return true, if successful
+	 * @return true, se e' presente il nodo finale
 	 */
 	public boolean nodoFinalePresente() {
 		if(giaPresente(ID_TIPO_NODO_FINALE))
@@ -231,9 +221,6 @@ public class Modello implements Entita{
 			return false;
 	}	
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
-	 */
 	public boolean giaPresente(String nome) {
 		/* 
 		 * Controlla anche se il nome del modello o dell'entita' da inserire in esso  e' gia' 
@@ -258,10 +245,10 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 * Checks if is equal.
+	 * Controlla se due modelli sono uguali.
 	 *
-	 * @param altro the altro
-	 * @return true, if is equal
+	 * @param altro : il modello da confrontare
+	 * @return true se i due modelli sono uguali, false altrimenti
 	 */
 	public boolean isEqual(Modello altro) {
 		if((nome.equals(altro.getNome()) == false) || getNumeroAzioni() != altro.getNumeroAzioni())
@@ -274,18 +261,14 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 * Nessuna azione.
+	 * Controlla se nel modello e' stata inserita almeno un'azione.
 	 *
-	 * @return true, if successful
+	 * @return true se elencoAzioni e' vuoto, false altrimenti.
 	 */
 	public boolean nessunaAzione() {
 		return elencoAzioni.isEmpty();
 	}  
 	
-	// Rimuove l'entita' con tale id, se la trova
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
-	 */
 	public void rimuoviEntitaAt(int id) {
 		Entita e = null;
 		for (int i = 0; i < elencoEntita.size(); i++) 
@@ -307,9 +290,9 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 * Rimuovi azione.
+	 * Rimuovi l'azione avente un certo nome, se presente.
 	 *
-	 * @param nomeAzione the nome azione
+	 * @param nomeAzione : il nome dell'azione da eliminare.
 	 */
 	public void rimuoviAzione(String nomeAzione) {
 		for(int i=0; i<elencoAzioni.size(); i++)
@@ -318,26 +301,23 @@ public class Modello implements Entita{
 	}
 	
 	/**
-	 * Sets the nome.
+	 * Setta il nome del modello
 	 *
-	 * @param unNome the new nome
+	 * @param unNome : il nome da assegnare al modello
 	 */
 	public void setNome(String unNome) {
 		nome = unNome;
 	}
 	
 	/**
-	 * Sets the descrizione.
+	 * Setta la descrizione.
 	 *
-	 * @param unaDescrizione the new descrizione
+	 * @param unaDescrizione : la descrizione da assegnare al modello.
 	 */
 	public void setDescrizione(String unaDescrizione) {
 		descrizione = unaDescrizione;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {		
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(String.format(MSG_NOME_MODELLO, nome));
@@ -351,23 +331,14 @@ public class Modello implements Entita{
 		return risultato.toString();
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getRami()
-	 */
 	public Ramo[] getRami() {
 		return null;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIndentazione()
-	 */
 	public int getIndentazione() {
 		return 0;
 	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIdTipo()
-	 */
+		
 	public String getIdTipo() {
 		return idTipo;
 	}

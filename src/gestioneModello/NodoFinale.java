@@ -5,27 +5,27 @@ package gestioneModello;
 
 import java.util.Vector;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class NodoFinale.
+ * Classe NodoFinale
+ * Un'istanza di questa classe rappreseta il nodo finale di un modello
  */
 public class NodoFinale implements Entita
 {
 	
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
-	/** The Constant MSG_TITOLO_NF. */
+	/** Costante per stampa a video */
 	public final static String MSG_TITOLO_NF = "NODO_FINALE";
 	
-	/** The id. */
+	/** id numrico dell'entita' */
 	private int id;
 	
-	/** The id tipo. */
+	/** Il tipo dell'entita' */
 	private static String idTipo;
 	
 	/**
-	 * Instantiates a new nodo finale.
+	 * Costruttore della classe NodoFinale
 	 */
 	public NodoFinale() {
 		id = Modello.getInstance().getContatore();
@@ -33,63 +33,36 @@ public class NodoFinale implements Entita
 		idTipo = ID_TIPO_NODO_FINALE;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getId()
-	 */
 	public int getId() {
 		return id;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIndentazione()
-	 */
 	public int getIndentazione() {
 		return 0;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getNome()
-	 */
 	public String getNome() {
 		return MSG_TITOLO_NF;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getEntita()
-	 */
 	public Vector<Entita> getEntita() {
 		Vector <Entita> daRestituire = new Vector<Entita>();
 		daRestituire.add(this);
 		return daRestituire;
 	}
 	 
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
-	 */
 	public boolean giaPresente(String nome) {
 		return nome==ID_TIPO_NODO_FINALE;	
 	}	
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
-	 */
 	public void addEntita(Entita e, int qualeRamo) {}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
-	 */
 	public void rimuoviEntitaAt(int id) {}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getRami()
-	 */
+
 	public Ramo[] getRami() {
 		return null;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
@@ -97,18 +70,10 @@ public class NodoFinale implements Entita
 		return risultato.toString();
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIdTipo()
-	 */
 	public String getIdTipo() {
 		return idTipo;
 	}
 	
-	/**
-	 * Gets the azioni.
-	 *
-	 * @return the azioni
-	 */
 	public Vector <Entita> getAzioni() {
 		return null;
 	}

@@ -9,23 +9,24 @@ import controlloCammino.EntratoRamo;
 import controlloCammino.StatoCammino;
 import utilita.GUI;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Ramo.
+ * Classe Ramo.
+ * Un'istanza di questa classe rappresenta un singolo flusso alternativo di un'entita' complessa come
+ * Fork, Branch o Cicli.
  */
 public class Ramo implements Serializable {
 	
-	/** The Constant serialVersionUID. */
+	/** Costante numerica per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
-	/** The entita ramo. */
+	/** Vector di entita' che costituiscono il ramo */
 	private Vector <Entita> entitaRamo; 
 	
-	/** Lo stato del ramo quando l'utente inserisce un cammino */
+	/** Stato del ramo, necessario per controllare la validita' dei cammini inseriti. */
 	private StatoCammino statoRamo;
 	
 	/**
-	 * Instantiates a new ramo.
+	 * Costruttore della classe Ramo
 	 */
 	public Ramo()
 	{
@@ -34,45 +35,45 @@ public class Ramo implements Serializable {
 	}
 	
 	/**
-	 * Gets the entita ramo.
+	 * Fornisce le entita' che costituiscono il ramo.
 	 *
-	 * @return the entita ramo
+	 * @return il Vector contenente le entita'
 	 */
 	public Vector<Entita> getEntitaRamo() {
 		return entitaRamo;
 	}
 	 
 	/**
-	 * Aggiungi entita ramo.
+	 * Aggiunge un'entita' al ramo.
 	 *
-	 * @param daAggiungere the da aggiungere
+	 * @param daAggiungere : l'entita da aggiungere
 	 */
 	public void aggiungiEntitaRamo(Entita daAggiungere) {
 		entitaRamo.addElement(daAggiungere);
 	}
 	
 	/**
-	 * Checks if is empty.
+	 * Controlla se il ramo e' privo di entita'
 	 *
-	 * @return true, if is empty
+	 * @return true se non e' contenuta nessuna entita', false altrimenti.
 	 */
 	public boolean isEmpty() {
 		return entitaRamo.isEmpty();
 	}
 	
 	/**
-	 * Elimina entita ramo.
+	 * Elimina entita'
 	 *
-	 * @param i the i
+	 * @param i : la posizione dell'entita' da rimuovere 
 	 */
 	public void eliminaEntitaRamo(int i) {
 		entitaRamo.remove(i);
 	}
 	
 	/**
-	 * Gets the azioni ramo.
+	 * Fornisce le azioni che costituiscono il ramo
 	 *
-	 * @return the azioni ramo
+	 * @return Vector contenente le azioni.
 	 */
 	public Vector <Azione> getAzioniRamo() {
 		Vector <Azione> risultato = new Vector<Azione>();
@@ -83,19 +84,19 @@ public class Ramo implements Serializable {
 	}
 	
 	/**
-	 * Gets the numero entita.
+	 * Fornisce il numero di entita' inserite nel ramo
 	 *
-	 * @return the numero entita
+	 * @return la dimensione del Vector contenente le entita'
 	 */
 	public int getNumeroEntita() {
 		return entitaRamo.size();
 	}
 	
 	/**
-	 * Gets the entita at.
+	 * Fornisce l'entita' in una certa posizione
 	 *
-	 * @param index the index
-	 * @return the entita at
+	 * @param index : la posizione nel Vector dell'entita' da restituire
+	 * @return L'entita' avente quella posizione all'interno del Vector di entita' 
 	 */
 	public Entita getEntitaAt(int index) {
 		return entitaRamo.elementAt(index);
@@ -104,28 +105,11 @@ public class Ramo implements Serializable {
 	public StatoCammino getStato() {
 		return statoRamo;
 	}
-	
-	//TODO togliere se nn serve
-	/**
-	 * Presente.
-	 *
-	 * @param e the e
-	 * @return true, if successful
-	 */
-	public boolean presente(Entita e) {
-		for(int i=0; i<getNumeroEntita(); i++)
-			if(getEntitaAt(i).getNome().equals(e.getNome()))
-				return true;
-		return false;
-	}
-	
+
 	public void setStato(StatoCammino nuovo) {
 		statoRamo = nuovo;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		for(int i=0; i<entitaRamo.size(); i++) {

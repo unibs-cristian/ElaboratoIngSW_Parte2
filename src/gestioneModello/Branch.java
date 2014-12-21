@@ -12,7 +12,10 @@ import utilita.*;
  * Classe Branch.
  * Un'istanza della classe Branch rappresenta un costrutto avente un solo flusso d'ingresso e due o 
  * piu' flussi d'uscita. Solo uno dei flussi d'uscita puo' essere eseguito. Sono analoghi ai 
- * costrutti if-else if-...-else 
+ * costrutti if-else if-...-else.
+ * 
+ * INVARIANTE DI CLASSE : Tra le entita' che costituiscono il Branch, non ce ne devono essere due con
+ * lo stesso nome.
  */
 public class Branch implements Entita{
 	

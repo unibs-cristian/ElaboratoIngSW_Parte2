@@ -10,50 +10,50 @@ import java.util.Vector;
 import utilita.GUI;
 import utilita.Util;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Fork.
+ * Classe Fork.
+ * Un'istanza della classe Fork rappresenta un costrutto a due o piu' flussi. Ciascun flusso 
+ * rappresenta una sequenza di istruzioni che possono essere svolte in parallelo. 
+ * 
+ * INVARIANTE DI CLASSE : Tra le entita' che costituiscono il Fork, tutte devono avere nomi diversi 
+ * tra di loro.
  */
 public class Fork implements Entita{
 	
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
-	/** The Constant MSG_FORK. */
+	/** Costanti stringa per la stampa a video */
 	public final static String MSG_FORK = "{ INIZIO FORK %s (ID = %d)";
-	
-	/** The Constant MSG_ENTITA_RAMO_FORK. */
 	public final static String MSG_ENTITA_RAMO_FORK = "%s - ENTITA' RAMO PARALLELO N. %d\n";
-	
-	/** The Constant MSG_JOIN. */
 	public final static String MSG_JOIN = "FINE FORK %s (ID = %d) }\n";
 	
-	/** The id. */
+	/** L'id numerico che identifica l'entita' */
 	private int id;
 	
-	/** The titolo. */
+	/** Il nome dell'entita' */
 	private String titolo;
 	
-	/** The num rami. */
+	/** Il numero di flussi paralleli che costituiscono il Fork */
 	private int numRami;
 	
-	/** The elenco rami. */
+	/** Vettore contenente i flussi paralleli */
 	private Ramo[] elencoRami;
 	
-	/** The elenco entita. */
+	/** Elenco di entita', semplici o complesse, che costituiscono il Fork */
 	private Vector<Entita> elencoEntita;
 	
-	/** The valore indentazione. */
+	/** Valore numerico per la corretta stampa a video del modello */
 	private int valoreIndentazione;
 	
 	/** The id tipo. */
 	private String idTipo;
 	
 	/**
-	 * Instantiates a new fork.
+	 * Costruttore della classe Fork
 	 *
-	 * @param _titolo the _titolo
-	 * @param _numRami the _num rami
+	 * @param _titolo : il nome da assegnare all'entita'
+	 * @param _numRami : il numero di flussi paralleli che avra' il Fork.
 	 */
 	public Fork(String _titolo, int _numRami) {
 		id = Modello.getInstance().getContatore();
@@ -66,23 +66,18 @@ public class Fork implements Entita{
 		valoreIndentazione = GestoreModello.getRientro();
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getId()
-	 */
 	public int getId() {
 		return id;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getNome()
-	 */
+	public String getIdTipo() {
+		return idTipo;
+	}
+	
 	public String getNome() {
 		return titolo;
 	}
 
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getEntita()
-	 */
 	public Vector<Entita> getEntita() {
 		for(int i=0; i<elencoRami.length; i++) {
 			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
@@ -94,47 +89,35 @@ public class Fork implements Entita{
 	}
 	
 	/**
-	 * Adds the entita.
+	 * Aggiunge l'entita' e all'elenco di entita' che costituiscono il Fork.
 	 *
-	 * @param e the e
+	 * @param e : l'entita' da aggiungere
 	 */
 	public void addEntita(Entita e) {
 		elencoEntita.add(e);
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#addEntita(gestioneModello.Entita, int)
-	 */
 	public void addEntita(Entita e, int r) {
 		elencoRami[r].aggiungiEntitaRamo(e);
 	}
 	
 	/**
-	 * Gets the numero rami.
+	 * Restituisce il numero di flussi paralleli
 	 *
-	 * @return the numero rami
+	 * @return numRami
 	 */
 	public int getNumeroRami() {
 		return numRami;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getRami()
-	 */
 	public Ramo[] getRami() {
 		return elencoRami;
 	}
 
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIndentazione()
-	 */
 	public int getIndentazione() {
 		return valoreIndentazione;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
-	 */
 	public boolean giaPresente(String nome) {
 		if(titolo.equalsIgnoreCase(nome))
 			return true;
@@ -156,9 +139,6 @@ public class Fork implements Entita{
 		return trovata;	
 	}
 	 
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
-	 */
 	public void rimuoviEntitaAt(int id) {
 		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
 		for (int i=0; i<numRami; i++) {
@@ -183,9 +163,6 @@ public class Fork implements Entita{
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();
@@ -204,12 +181,5 @@ public class Fork implements Entita{
 		else
 			risultato.append(String.format(MSG_JOIN, titolo.toUpperCase(),id));
 		return risultato.toString();
-	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIdTipo()
-	 */
-	public String getIdTipo() {
-		return idTipo;
 	}
 }
