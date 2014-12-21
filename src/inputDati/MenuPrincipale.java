@@ -377,8 +377,7 @@ public class MenuPrincipale {
 					nuovo.setNome(nomeReport);
 					boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_REPORT);
 					if(salvataggioSiNo) {
-						File nomeFile = new File(nomeReport);
-						Stream.salvaFile(nomeFile, nuovo, true);
+						Stream.scriviSuFile(nomeReport, nuovo.toString());
 						System.out.println(String.format(MSG_REPORT_SALVATO,nomeReport));
 					}					
 					boolean visualizzaSiNo = Util.yesOrNo(MSG_VISUALIZZA_REPORT);

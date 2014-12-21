@@ -15,9 +15,6 @@ public class Stream implements Serializable
 			/** The Constant serialVersionUID. */
 			private static final long serialVersionUID = 1L;
 			
-			/** The Constant MSG_OK_FILE. */
-			private static final String MSG_OK_FILE = "File caricato correttamente.";
-			
 			/** The Constant MSG_SALVA. */
 			private static final String MSG_SALVA = "File salvato correttamente";
 			
@@ -39,6 +36,8 @@ public class Stream implements Serializable
 			/** The Constant NO_WRITE. */
 			private static final String NO_WRITE = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
 
+			private static final String ERRORE_PRINTSTREAM = "ERRORE. PRINTSTREAM NON APERTO";
+			
 			/**
 			 * Carica file.
 			 *
@@ -62,7 +61,6 @@ public class Stream implements Serializable
 		                    {
 		                            if (oggetto != null)
 		                            {
-		                                    System.out.println(MSG_OK_FILE);
 		                                    return oggetto;
 		                            }
 		                    }
@@ -182,6 +180,26 @@ public class Stream implements Serializable
 							System.out.println(NO_CLOSE + f.getName() );
 						}
 					}
+				}
+			}
+			
+			public static void scriviSuFile(String nomeFile, String daScrivere) {
+				PrintStream scrivi = null;
+				try {
+					FileOutputStream reportStampabile = new FileOutputStream(nomeFile);
+					scrivi = new PrintStream(reportStampabile);
+					scrivi.println(daScrivere);
+				}
+				catch (IOException e)
+				{
+					System.out.println("Errore: " + e);
+					System.exit(1);
+				}
+				finally {
+					if (scrivi != null)
+						scrivi.close();
+				    else
+				       System.out.println(ERRORE_PRINTSTREAM);
 				}
 			}
 }
