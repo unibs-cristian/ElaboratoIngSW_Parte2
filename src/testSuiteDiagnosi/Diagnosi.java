@@ -3,6 +3,7 @@
  */
 package testSuiteDiagnosi;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import gestioneModello.Azione;
@@ -12,7 +13,9 @@ import gestioneModello.Modello;
 /**
  * The Class Diagnosi.
  */
-public class Diagnosi {
+public class Diagnosi implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/** The tipo diagnosi. */
 	private int tipoDiagnosi;

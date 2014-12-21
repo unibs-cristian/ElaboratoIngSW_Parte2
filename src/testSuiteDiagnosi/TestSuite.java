@@ -36,6 +36,7 @@ public class TestSuite implements Serializable {
 	 */
 	private TestSuite() {
 		elencoClassi = new Vector <ClasseEquivalenza>();
+		elencoDiagnosi = new Vector <Diagnosi> ();
 	}
 	
 	/**
@@ -87,37 +88,9 @@ public class TestSuite implements Serializable {
 		elencoDiagnosi.add(diag);
 	}
 	
-	//TODO Chiedere se serve!!
-	 
-//	public Vector <Azione> getAzioniTS() {
-		
-	/*	Vector <Azione> azioniTS = new Vector<Azione>();
-		Vector <ClasseEquivalenza> classi = getElencoClassi();
-		//Per ogni classe di equivalenza mi faccio i cammini di esecuzione globali 
-		for(int i=0; i<classi.size(); i++) {
-			CamminoAzioni cammGlob = classi.elementAt(i).getCamminoGlobale();
-			//Per quel cammino globale ottengo le azioni
-			Vector <Azione> azCammGlob = cammGlob.getInsiemeCammino();
-			/* 
-			 * Le azioni del cammino globale vengono aggiunte a quelle del TS solo se non sono 
-			 * gia' presenti nel secondo vettore. 
-			 */
-			/*	for(int j=0; j<azCammGlob.size(); j++) {
-					Azione a = azCammGlob.elementAt(j);
-					boolean giaPresente = false;
-					for(int k=0; k<azioniTS.size(); k++) {
-						while(giaPresente == false) {
-							if(azioniTS.elementAt(k).getNome().equalsIgnoreCase(a.getNome()))
-								giaPresente = true;
-						}
-					}
-					// Se non ha trovato a in azioniTS, la aggiunge
-					if(giaPresente == false)
-						azioniTS.addElement(a);
-				}						
-			}  
-		return azioniTS;*/
-//	}
+	public boolean diagnosiNonInserita() {
+		return elencoDiagnosi.isEmpty();
+	}
 	
 	/**
 	 * Gia inserita.

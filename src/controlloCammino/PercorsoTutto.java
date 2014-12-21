@@ -25,6 +25,8 @@ public class PercorsoTutto implements StatoCammino {
 			camm.setStatoCammino(new EntratoRamo());
 		else if(stato.equals(STATO_OK))
 			camm.setStatoCammino(new StatoOk());
+		else if(stato.equals(PERCORSO_PARZ))
+			camm.setStatoCammino(new RamoPercorsoParz());
 	}
 	
 	public void gestisciStatoRamo(Ramo r, String stato) {}

@@ -4,7 +4,6 @@
 package gestioneDati;
 import testSuiteDiagnosi.Diagnosi;
 import testSuiteDiagnosi.TestSuite;
-import utilita.GUI;
 import gestioneModello.Modello;
 
 import java.io.Serializable;
@@ -20,7 +19,9 @@ public class Report implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/** The Constant MSG_TITOLO_REPORT. */
-	private static final String MSG_TITOLO_REPORT = "\n\nREPORT %s\n\n";
+	private static final String MSG_TITOLO_REPORT = "REPORT %s";
+	
+	private static final String CORNICE_TO_STRING = "---------------------------------------------------\n";
 	
 	/** The nome. */
 	private String nome;
@@ -38,12 +39,13 @@ public class Report implements Serializable{
 private static Report instance = null;
 	
 	/**
-	 * Instantiates a new report.
+	 * Costruttore che serve per creare un nuovo report vuoto.
 	 */
-	private Report() {
+/*	private Report() {
 		mod = null;
 		ts = null;
-	}
+		elencoDiag = null;
+	}  */
 
 	/**
 	 * Instantiates a new report.
@@ -52,7 +54,7 @@ private static Report instance = null;
 	 * @param _ts the _ts
 	 * @param _diag the _diag
 	 */
-	private Report(Modello _mod, TestSuite _ts, Diagnosi _diag) {
+	private Report(Modello _mod, TestSuite _ts) {
 		mod = _mod;
 		ts = _ts;
 		elencoDiag = ts.getElencoDiagnosi();
@@ -63,9 +65,9 @@ private static Report instance = null;
 	 *
 	 * @return single instance of Report
 	 */
-	public static Report getInstance() {
+	public static Report getInstance(Modello mod, TestSuite ts) {
 		if(instance==null)
-			instance = new Report();
+			instance = new Report(mod,ts);
 		return instance;
 	}
 	 
@@ -146,6 +148,10 @@ private static Report instance = null;
 		mod = m;
 	}
 	
+	public void setNome(String unNome) {
+		nome = unNome;
+	}
+	
 	/**
 	 * Sets the test suite.
 	 *
@@ -155,12 +161,13 @@ private static Report instance = null;
 		ts = aTS;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(GUI.incorniciaStringa(String.format(MSG_TITOLO_REPORT, nome)));
+		risultato.append(CORNICE_TO_STRING);
+		risultato.append(CORNICE_TO_STRING+"\n");
+		risultato.append(String.format(MSG_TITOLO_REPORT, nome)+"\n");
+		risultato.append(CORNICE_TO_STRING);
+		risultato.append(CORNICE_TO_STRING+"\n");
 		risultato.append("MODELLO" + "\n" + "-----------------" + "\n");
 		risultato.append(mod.toString()+"\n\n");
 		risultato.append("TEST SUITE" + "\n" + "-----------------" + "\n");
