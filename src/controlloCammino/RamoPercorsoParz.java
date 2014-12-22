@@ -7,19 +7,17 @@ package controlloCammino;
 import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class RamoPercorsoParz.
+ * La classe RamoPercorsoParz.
+ * Si e' in questo stato quando sono state inserite tutte le azioni di un ramo, 
+ * ma questo contiene ancora altre azioni da inserire. Quando verra' inserita l'ultima azione del 
+ * ramo si passera' allo stato PercorsoTutto.
  */
 public class RamoPercorsoParz implements StatoCammino{
 
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	//Si e' in questo stato quando sono state inserite tutte le azioni di un ramo, ma questo contiene ancora altre azioni da inserire
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
-	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(FERMATO_DENTRO))
 			camm.setStatoCammino(new FermatoDentro());
@@ -34,18 +32,14 @@ public class RamoPercorsoParz implements StatoCammino{
 			r.setStato(new FermatoDentro());
 		else if(stato.equals(PERCORSO_TUTTO))
 			r.setStato(new PercorsoTutto());
+		else if(stato.equals(STATO_NON_OK))
+			r.setStato(new StatoNonOk());
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#isValid()
-	 */
 	public boolean isValid() {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#getStringaStato()
-	 */
 	public String getStringaStato() {
 		return PERCORSO_PARZ;
 	}

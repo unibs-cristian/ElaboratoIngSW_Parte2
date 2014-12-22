@@ -6,18 +6,15 @@ package controlloCammino;
 import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class StatoVuoto.
+ * La classe StatoVuoto.
+ * Ci si trova in questo stato finche' non viene inserita un'azione.
  */
 public class StatoVuoto implements StatoCammino{
 
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
-	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(STATO_OK))
 			camm.setStatoCammino(new StatoOk());
@@ -27,16 +24,10 @@ public class StatoVuoto implements StatoCammino{
 			camm.setStatoCammino(new EntratoRamo());
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#isValid()
-	 */
 	public boolean isValid() {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#getStringaStato()
-	 */
 	public String getStringaStato() {
 		return STATO_VUOTO;
 	}

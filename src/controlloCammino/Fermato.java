@@ -6,33 +6,25 @@ package controlloCammino;
 import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Fermato.
+ * Classe Fermato.
+ * Questo stato si raggiunge dopo che l'entita' presa in considerazione non e' stata inserita. In 
+ * questo modo, quando l'utente inserisce altre entita' successive, lo stato diventa non valido.
  */
 public class Fermato implements StatoCammino {
 
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
-	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(STATO_NON_OK))
 			camm.setStatoCammino(new StatoNonOk());
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#getStringaStato()
-	 */
 	public String getStringaStato() {
 		return FERMATO;
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#isValid()
-	 */
 	public boolean isValid() {
 		return true;
 	}

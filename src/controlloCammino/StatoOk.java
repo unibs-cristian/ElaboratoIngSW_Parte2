@@ -6,18 +6,15 @@ package controlloCammino;
 import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class StatoOk.
+ * La classe StatoOk.
+ * Stato che indica che il cammino inserito fino all'entita' attuale e' corretto.
  */
 public class StatoOk implements StatoCammino{
 
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
-	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(FERMATO))
 			camm.setStatoCammino(new Fermato());
@@ -27,16 +24,10 @@ public class StatoOk implements StatoCammino{
 			camm.setStatoCammino(new SaltatoBlocco());
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#isValid()
-	 */
 	public boolean isValid() {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#getStringaStato()
-	 */
 	public String getStringaStato() {
 		return STATO_OK;
 	}

@@ -7,30 +7,23 @@ package controlloCammino;
 import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class StatoNonOk.
+ * La classe StatoNonOk.
+ * Ci si trova in questo stato quando il cammino inserito e' invalido e va dunque reinserito.
+ * Un cammino puo' essere invalido perche' strutturalmente non compatibile con il modello, oppure
+ * perche' un insieme del cammino non e' sottoinsieme del cammino globale.
  */
 public class StatoNonOk implements StatoCammino{
 
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
-	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#isValid()
-	 */
 	public boolean isValid() {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#getStringaStato()
-	 */
 	public String getStringaStato() {
 		return STATO_NON_OK;
 	}

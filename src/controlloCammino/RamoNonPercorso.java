@@ -7,24 +7,18 @@ package controlloCammino;
 import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
-// TODO: Auto-generated Javadoc
-/**s
- * 
- * The Class RamoNonPercorso.
+/**
+ * Classe RamoNonPercorso.
+ * Si va in questo stato quando la prima entita' di un ramo risulta non inserita nel cammino.
+ * Se viene inserita 
+ * qualsiasi altra azione del ramo corrente, si passera' allo stato non valido. Si ritorna invece 
+ * nello stato EntratoRamo quando si passa al ramo successivo.
  */
 public class RamoNonPercorso implements StatoCammino{
 
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	/*
-	 * Si e' in questo stato quando la prima azione del ramo non e' stata inserita. Se viene inserita 
-	 * qualsiasi altra azione del ramo corrente, si passera' allo stato non valido. Si ritorna invece 
-	 * nello stato EntratoRamo quando si passa al ramo successivo.
-	 */
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
-	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(STATO_NON_OK))
 			camm.setStatoCammino(new StatoNonOk());
@@ -47,16 +41,10 @@ public class RamoNonPercorso implements StatoCammino{
 			r.setStato(new StatoNonOk());
 	}
 	
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#isValid()
-	 */
 	public boolean isValid() {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#getStringaStato()
-	 */
 	public String getStringaStato() {
 		return NON_PERCORSO;
 	}

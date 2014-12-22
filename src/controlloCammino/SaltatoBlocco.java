@@ -3,19 +3,20 @@ package controlloCammino;
 import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
-//TODO: Auto-generated Javadoc
 /**
-* The Class SaltatoBlocco.
+* La classe SaltatoBlocco.
+* Questo particolare stato si raggiunge quando in un cammino globale un Fork ha un ramo settato
+* a percorso tutto e almeno un ramo con stato FermatoDentro. 
+* Tale stato serve per tenere conto del fatto che il blocco di esecuzione relativo al Fork non e' stato 
+* completamente inserito. Dunque in caso di inserimento di entita' successive, lo stato diventera' non
+* valido.
 */
 public class SaltatoBlocco implements StatoCammino{
 
 
-	/** The constant SerialVersionUID */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
-	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(STATO_NON_OK))
 			camm.setStatoCammino(new StatoNonOk());
@@ -25,16 +26,10 @@ public class SaltatoBlocco implements StatoCammino{
 			camm.setStatoCammino(new EntratoRamo());
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#isValid()
-	 */
 	public boolean isValid() {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#getStringaStato()
-	 */
 	public String getStringaStato() {
 		return SALTATO_BLOCCO;
 	}

@@ -6,23 +6,17 @@ package controlloCammino;
 import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
-
-// TODO: Auto-generated Javadoc
-/*
- * Si e' in questo stato quando si e' all'inizio di un ramo, ovvero in corrispondenza del flusso entrante
- * alla prima entita' del ramo. 
- */
 /**
- * The Class EntratoRamo.
+ * Classe EntratoRamo.
+ * Un'istanza di questa classe rappresenta lo stato di un ramo o di un cammino. Si e' in questo stato
+ * quando si e' all'inizio di un ramo di una qualsiasi entita' complessa, ovvero in corrispondenza
+ * del flusso entrante alla prima entita' del ramo.
  */
 public class EntratoRamo implements StatoCammino {
 	
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
-	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {	
 		if(stato.equals(NON_PERCORSO))
 			camm.setStatoCammino(new RamoNonPercorso());
@@ -39,18 +33,14 @@ public class EntratoRamo implements StatoCammino {
 			r.setStato(new RamoPercorsoParz());	
 		else if(stato.equals(PERCORSO_TUTTO))
 			r.setStato(new PercorsoTutto());
+		else if(stato.equals(STATO_NON_OK))
+			r.setStato(new StatoNonOk());
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#isValid()
-	 */
 	public boolean isValid() {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#getStringaStato()
-	 */
 	public String getStringaStato() {
 		return(ENTRATO_RAMO);
 	}		

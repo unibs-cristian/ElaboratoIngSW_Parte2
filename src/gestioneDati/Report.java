@@ -9,50 +9,42 @@ import gestioneModello.Modello;
 import java.io.Serializable;
 import java.util.Vector;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Report.
+ * Classe Report.
+ * Un'istanza della classe Report è una struttura contenente tutti i dati 
+ * forniti in input dall'utente e tutti i risultati ottenuti come output 
+ * dell'elaborazione. Il Report viene generato in base al Modello, al Test 
+ * Suite e alle diagnosi correntemente inserite.
  */
 public class Report implements Serializable{
 	
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
-	/** The Constant MSG_TITOLO_REPORT. */
+	/** Costanti stringa per stampa a video */
 	private static final String MSG_TITOLO_REPORT = "REPORT %s";
-	
 	private static final String CORNICE_TO_STRING = "---------------------------------------------------\n";
 	
-	/** The nome. */
+	/** Il nome del report */
 	private String nome;
 	
-	/** The mod. */
+	/** Il modello per il quale viene generato il Report */
 	private Modello mod;
 	
-	/** The ts. */
+	/** Il Test Suite in base al quale viene generato il Report */
 	private TestSuite ts;
 	
-	/** The elenco diag. */
+	/** Il Vector contenente le diagnosi */
 	private Vector <Diagnosi> elencoDiag;
 	
-/** The instance. */
+/** L'istanza unica di Report */
 private static Report instance = null;
 	
 	/**
-	 * Costruttore che serve per creare un nuovo report vuoto.
-	 */
-/*	private Report() {
-		mod = null;
-		ts = null;
-		elencoDiag = null;
-	}  */
-
-	/**
-	 * Instantiates a new report.
+	 * Costruttore della classe Report
 	 *
-	 * @param _mod the _mod
-	 * @param _ts the _ts
-	 * @param _diag the _diag
+	 * @param _mod : il modello per cui generare il Report
+	 * @param _ts : il test suite per cui generare il Report
 	 */
 	private Report(Modello _mod, TestSuite _ts) {
 		mod = _mod;
@@ -61,9 +53,9 @@ private static Report instance = null;
 	}
 	
 	/**
-	 * Gets the single instance of Report.
+	 * Fornisce l'istanza di Report.
 	 *
-	 * @return single instance of Report
+	 * @return l'unica istanza Report
 	 */
 	public static Report getInstance(Modello mod, TestSuite ts) {
 		if(instance==null)
@@ -74,16 +66,16 @@ private static Report instance = null;
 	/**
 	 * Cambia report.
 	 *
-	 * @param altro the altro
+	 * @param altro : il nuovo Report su cui operare
 	 */
 	public static void cambiaReport(Report altro) {
 		instance = altro;
 	}
 	
 	/**
-	 * Checks if is null.
+	 * Controlla se l'istanza unica della classe Report e' nulla.
 	 *
-	 * @return true, if is null
+	 * @return true, se non e' ancora stato creato un report
 	 */
 	public static boolean isNull() {
 		if(instance==null)
@@ -92,46 +84,47 @@ private static Report instance = null;
 	}
 	
 	/**
-	 * Gets the diagnosi at.
+	 * Restituisce un elemento del Vector contenente le diagnosi
 	 *
-	 * @param index the index
-	 * @return the diagnosi at
+	 * @param index : l'indice relativo alla posizione dell'elemento da restituire.
+	 * @return la diagnosi corrispondente alla posizione specificata per il Vector
 	 */
 	public Diagnosi getDiagnosiAt(int index) {
 		return elencoDiag.elementAt(index);
 	}
 	
+	// TODO verificare se servono. La diagnosi non è unica per un certo TS?
 	/**
-	 * Gets the modello.
+	 * Restituisce il modello relativo al Report
 	 *
-	 * @return the modello
+	 * @return il modello per il quale e' stato generato il Report
 	 */
 	public Modello getModello() {
 		return mod;
 	}
 	
 	/**
-	 * Gets the numero diag.
+	 * Restituisce il numero di diagnosi
 	 *
-	 * @return the numero diag
+	 * @return la dimensione del Vector contenente le diagnosi
 	 */
 	public int getNumeroDiag() {
 		return elencoDiag.size();
 	}
 	
 	/**
-	 * Gets the ts.
+	 * Restituisce il Test Suite
 	 *
-	 * @return the ts
+	 * @return il TS per cui e' stato creato il Report
 	 */
 	public TestSuite getTS() {
 		return ts;
 	}
 	
 	/**
-	 * Sets the diagnosi.
+	 * Assegna un insieme di diagnosi al report
 	 *
-	 * @param diagnosiTS the new diagnosi
+	 * @param diagnosiTS : il Vector da associare
 	 */
 	public void setDiagnosi(Vector <Diagnosi> diagnosiTS) {
 		for(int i=0; i<diagnosiTS.size(); i++) {
@@ -140,22 +133,27 @@ private static Report instance = null;
 	}
 
 	/**
-	 * Sets the modello.
+	 * Assegna il modello al Report
 	 *
-	 * @param m the new modello
+	 * @param m : il modello da assegnare
 	 */
 	public void setModello(Modello m) {
 		mod = m;
 	}
 	
+	/**
+	 * Assegna il nome al Report
+	 * 
+	 * @param unNome : il nome da dare al Report
+	 */
 	public void setNome(String unNome) {
 		nome = unNome;
 	}
 	
 	/**
-	 * Sets the test suite.
+	 * Assegna il Test Suite
 	 *
-	 * @param aTS the new test suite
+	 * @param aTS : il TS da assegnare al Report
 	 */
 	public void setTestSuite(TestSuite aTS) {
 		ts = aTS;

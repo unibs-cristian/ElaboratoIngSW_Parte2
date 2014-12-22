@@ -9,70 +9,54 @@ import java.io.Serializable;
 
 import testSuiteDiagnosi.CamminoAzioni;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Interface StatoCammino.
+ * Interface StatoCammino.
+ * Offre un'interfaccia comune per le varie classi che rappresentano tutti i possibili stati che puo'
+ * avere un cammino globale, un insieme del cammino o un ramo di un'entita' complessa.
  */
 public interface StatoCammino extends Serializable{
 	
-	/** The Constant ENTRATO_RAMO. */
+	/** Costanti stringa che rappresentano tutti i possibili stati */
 	public final static String ENTRATO_RAMO = "ENTRATO RAMO";
-	
-	/** The Constant FERMATO. */
 	public final static String FERMATO = "FERMATO";
-	
-	/** The Constant FERMATO_DENTRO. */
 	public final static String FERMATO_DENTRO = "FERMATO DENTRO";
-	
-	/** The Constant NON_PERCORSO. */
 	public final static String NON_PERCORSO = "RAMO NON PERCORSO";
-	
-	/** The Constant PERCORSO_PARZ. */
 	public final static String PERCORSO_PARZ = "RAMO PERCORSO PARZIALMENTE";
-	
-	/** The Constant PERCORSO_TUTTO. */
 	public final static String PERCORSO_TUTTO = "RAMO PERCORSO TUTTO";
-	
-	/** The Constant STATO_OK. */
 	public final static String STATO_OK = "OK";
-	
-	/** The Constant STATO_NON_OK. */
 	public final static String STATO_NON_OK = "NON VALIDO";
-	
-	/** The Constant STATO_VUOTO. */
 	public final static String STATO_VUOTO = "VUOTO";
-	
-	/** The Constant SALTATO_BLOCCO. */
 	public final static String SALTATO_BLOCCO = "SALTATO BLOCCO";
 	
 	/**
-	 * Gestisci stato.
+	 * Gestisce le transizioni di stato del cammino.
 	 *
-	 * @param camm the camm
-	 * @param stato the stato
+	 * @param camm : il cammino per il quale gestire le transizioni di stato.
+	 * @param stato : il nuovo stato da assegnare al cammino, se la transizione stato attuale - 
+	 * nuovo stato e' possibile
 	 */
 	public void gestisciStato(CamminoAzioni camm, String stato);
 	
 	/**
-	 * Gestisci stato ramo.
+	 * Gestisce le transizioni di stato di un ramo.
 	 *
-	 * @param r the ramo
-	 * @param stato the stato
+	 * @param r : il ramo per il quale gestire le transizioni di stato.
+	 * @param stato : il nuovo stato da assegnare 
 	 */
 	public void gestisciStatoRamo(Ramo r, String stato);
 	
 	/**
-	 * Gets the stringa stato.
+	 * Fornisce la stringa rappresentante lo stato attuale del cammino o del ramo.
+	 * La stringa restituita e' una delle costanti che rappresentano i possibili stati.
 	 *
-	 * @return the stringa stato
+	 * @return la stringa dello stato
 	 */
 	public String getStringaStato();
 	
 	/**
-	 * Checks if is valid.
+	 * Dice se lo stato e' valido.
 	 *
-	 * @return true, if is valid
+	 * @return true, se lo stato del cammino o del ramo e' uno stato valido, false altrimenti.
 	 */
 	public boolean isValid();
-
 }

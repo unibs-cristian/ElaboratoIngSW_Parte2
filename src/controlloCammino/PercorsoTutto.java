@@ -6,18 +6,15 @@ package controlloCammino;
 import gestioneModello.Ramo;
 import testSuiteDiagnosi.CamminoAzioni;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class PercorsoTutto.
+ * Classe PercorsoTutto.
+ * Si e' in questo stato quando tutte le entita' di un ramo sono state inserite
  */
 public class PercorsoTutto implements StatoCammino {
 	
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#gestisciStato(testSuiteDiagnosi.CamminoAzioni, java.lang.String)
-	 */
 	public void gestisciStato(CamminoAzioni camm, String stato) {
 		if(stato.equals(STATO_NON_OK))
 			camm.setStatoCammino(new StatoNonOk());
@@ -30,17 +27,11 @@ public class PercorsoTutto implements StatoCammino {
 	}
 	
 	public void gestisciStatoRamo(Ramo r, String stato) {}
-
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#isValid()
-	 */
+	
 	public boolean isValid() {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see controlloCammino.StatoCammino#getStringaStato()
-	 */
 	public String getStringaStato() {
 		return PERCORSO_TUTTO;
 	}
