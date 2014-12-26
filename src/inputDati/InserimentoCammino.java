@@ -23,56 +23,44 @@ import gestioneModello.Azione;
 import gestioneModello.Modello;
 import gestioneModello.Ramo;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class InserimentoCammino.
+ * Classe InserimentoCammino.
+ * Questa classe gestisce l'interazione con l'utente quando questo deve inserire un cammino
+ * globale oppure un insieme del cammino. Vengono inoltre  inoltre gestito lo stato in base a 
+ * quanto è stato inserito dall'utente.
+ * 
  */
 public class InserimentoCammino {
 	
-	/** The Constant MSG_CAMM_GLOBALE_1. */
+	/** Costanti stringa per il cammino globale */
 	public final static String MSG_CAMM_GLOBALE_1 = "Scegliere le azioni facenti parte del cammino globale relativo alla classe di equivalenza.";
-	
-	/** The Constant MSG_AGGIUNTA_CAMM_GLOBALE. */
 	public final static String MSG_AGGIUNTA_CAMM_GLOBALE = "Si desidera aggiungere l'azione %s al cammino globale?";
+	public final static String MSG_CAMM_GLOB = "Cammino Globale --> ";
 	
-	/** The Constant MSG_ERRORE_CAMMINO. */
+	/** Costanti stringa per l'insieme del cammino */
+	public final static String MSG_INS_CAMMINO = "Scegliere le azioni da aggiungere all'insieme del cammino";
+	public final static String MSG_INS_CAMM = "Insieme del Cammino --> ";
+	public final static String MSG_AGGIUNTA_INS_CAMM = "Si desidera aggiungere l'azione %s all'insieme del cammino?";
+	public final static String MSG_VAL_RILEV = "Inserire il valore della rilevazione relativa all'insieme del cammino";
+	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
+	
+	/** Messaggi di errore vari */
 	public final static String MSG_ERRORE_CAMMINO = "Errore! Il cammino e' vuoto. Inserire nuovamente.";
-	
-	/** The Constant MSG_CAMMINO_NON_VALIDO. */
 	public final static String MSG_CAMMINO_NON_VALIDO = "Errore! Cammino non valido perche' %s .Inserire nuovamente.";
-	
 	public final static String MSG_CAMMINO_INCORRETTO = "non corretto in base alla struttura del modello";
 	public final static String MSG_NON_SOTTOINSIEME = "non e' un sottoinsieme del cammino globale";
 	
-	/** The Constant MSG_INS_CAMMINO. */
-	public final static String MSG_INS_CAMMINO = "Scegliere le azioni da aggiungere all'insieme del cammino";
-	
-	/** The Constant MSG_CAMM_GLOB. */
-	public final static String MSG_CAMM_GLOB = "Cammino Globale --> ";
-	
-	/** The Constant MSG_INS_CAMM. */
-	public final static String MSG_INS_CAMM = "Insieme del Cammino --> ";
-	
-	/** The Constant MSG_AGGIUNTA_INS_CAMM. */
-	public final static String MSG_AGGIUNTA_INS_CAMM = "Si desidera aggiungere l'azione %s all'insieme del cammino?";
-	
-	/** The Constant MSG_VAL_RILEV. */
-	public final static String MSG_VAL_RILEV = "Inserire il valore della rilevazione relativa all'insieme del cammino";
-	
-	/** The Constant MSG_COPPIA_AGGIUNTA. */
-	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
-	
-	/** The ce. */
+	/** Classe di equivalenza per la quale si vuole inserire il cammino globale o l'insieme del cammino */
 	private ClasseEquivalenza ce;
 	
-	/** The camm. */
+	/** Il cammino contenente le azioni */
 	private CamminoAzioni camm;
 	
 	/**
-	 * Instantiates a new inserimento cammino.
+	 * Costruttore della classe InserimentoCammino
 	 *
-	 * @param _ce the _ce
-	 * @param _camm the _camm
+	 * @param _ce : la classe di equivalenza per la quale si vuole fare l'inserimento.
+	 * @param _camm : il cammino contenente le azioni.
 	 */
 	public InserimentoCammino(ClasseEquivalenza _ce,CamminoAzioni _camm) {
 		ce = _ce;
@@ -80,7 +68,7 @@ public class InserimentoCammino {
 	}
 	
 	/**
-	 * Inserisci camm.
+	 * Gestisce l'inserimento del cammino
 	 */
 	public void inserisciCamm() {
 		if(camm.isGlobale())
@@ -144,13 +132,39 @@ public class InserimentoCammino {
 	}
 	
 	/**
-	 * Gestisci stato azione.
+	 * Calcola il nuovo stato in base allo stato attuale, quando l'utente decide di inserire
+	 * o meno un'azione.
 	 *
-	 * @param e the e
-	 * @param esterna the esterna
-	 * @param posizioneRamo the posizione ramo
-	 */                                       //Sembra che esteran e poRamo non servano.
+	 * @param e : l'azione in questione
+	 * @param esterna : l'eventuale entita' complessa di cui fa parte l'azione da inserire.
+	 * Se nulla indica che l'azione e' direttamente inserita nel modello.
+	 * @param posizioneRamo : l'eventuale numero del ramo dell'entita' complessa in cui si trova l'azione
+	 */                                       
 	private void gestisciStatoAzione(Entita e, Entita esterna, int numRamo, int posizioneRamo) {
+		//Variabili per le precondizioni
+		boolean eNull = false;
+		boolean esternaNull = false;
+		boolean numRamoOk = false; 
+		boolean posRamoOk = false;
+		if(e == null)
+			eNull = true;
+		if(esterna == null)
+			esternaNull = true;
+		if(!esternaNull && numRamo>=0 && numRamo<=esterna.getRami().length-1)
+			numRamoOk = true;
+		if(!esternaNull && numRamoOk && posizioneRamo>=0 && posizioneRamo<=esterna.getRami()[numRamo].getNumeroEntita()-1)
+			posRamoOk = true;
+		
+		/* 
+		 * PRECONDIZIONI
+		 * 1) L'entita' e deve essere non nulla 
+		 * 2) L'entita' e deve essere un'azione
+		 * 3) Se l'entita' esterna non e' nulla, allora gli indici relativi al ramo e alla posizione nel ramo devono essere corretti
+		*/
+		assert eNull : "Violata precondizione metodo gestisciStatoAzione. Passata azione nulla.";
+		assert e.getIdTipo().equals(Entita.ID_TIPO_AZIONE) || e.getIdTipo().equals(Entita.ID_TIPO_AZIONE_COMPOSTA) : "Violata precondizione metodo gestisciStatoAzione. Chiamato metodo con entita' diversa da azione.";
+		assert esternaNull || (!esternaNull && numRamoOk && posRamoOk) : "Violata precondizione sul metodo gestisciStatoAzione. Il numero del ramo o la posizione nel ramo non sono corretti.";
+		
 		String richiestaInserimento;
 		if(camm.isGlobale())
 			richiestaInserimento = MSG_AGGIUNTA_CAMM_GLOBALE;
@@ -244,11 +258,38 @@ public class InserimentoCammino {
 	}
 	
 	/**
-	 * Gestisci stato complessa.
+	 * Gestisce lo stato per le entita' complesse.
 	 *
-	 * @param e the e
+	 * @param e : l'entita' complessa di cui gestire lo stato.
+	 * @param esterna : l'eventuale entita' complessa di cui fa a sua volta parte l'entita' complessa (livelli di annidamento multipli)
+	 * @param numRamoEsterna : Il numero del ramo dell'entita' complessa di cui e fa parte.
+	 * @param posRamoEsterna : La posizione di e nel ramo dell'entita' complessa di cui fa parte.
 	 */
 	private void gestisciStatoComplessa(Entita e,Entita esterna,int numRamoEsterna,int posRamoEsterna) {
+		//Variabili per le precondizioni
+				boolean eNull = false;
+				boolean esternaNull = false;
+				boolean numRamoOk = false; 
+				boolean posRamoOk = false;
+				if(e == null)
+					eNull = true;
+				if(esterna == null)
+					esternaNull = true;
+				if(!esternaNull && numRamoEsterna>=0 && numRamoEsterna<=esterna.getRami().length-1)
+					numRamoOk = true;
+				if(!esternaNull && numRamoOk && posRamoEsterna>=0 && posRamoEsterna<=esterna.getRami()[numRamoEsterna].getNumeroEntita()-1)
+					posRamoOk = true;
+				
+				/* 
+				 * PRECONDIZIONI
+				 * 1) L'entita' e deve essere non nulla 
+				 * 2) L'entita' e deve essere un branch, un fork o un ciclo.
+				 * 3) Se l'entita' esterna non e' nulla, allora gli indici relativi al ramo e alla posizione nel ramo devono essere corretti
+				*/
+				assert eNull : "Violata precondizione metodo gestisciStatoComplessa. Passata entita' complessa nulla.";
+				assert e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK): "Violata precondizione metodo gestisciStatoComplessa. Chiamato metodo con entita' diversa da branch, fork o ciclo.";
+				assert esternaNull || (!esternaNull && numRamoOk && posRamoOk) : "Violata precondizione sul metodo gestisciStatoAzione. Il numero del ramo o la posizione nel ramo non sono corretti.";
+
 		for(int i=0; i<e.getRami().length; i++) {
 			if(e.getRami()[i].isEmpty()) {
 				e.getRami()[i].setStato(new PercorsoTutto()); 
@@ -295,9 +336,18 @@ public class InserimentoCammino {
 			}
 	}
 	
-	//TODO precondizione (idtipo = fork) e f non nulla
-	//Se l'entita' complessa e' un fork, controllo che l'intero blocco di esecuzione sia stato inserito. Se non lo e', il cammino diventa SALTATO_BLOCCO
+	/**
+	 * Controlla se le azioni inserite nel cammino sono compatibili con la struttura del Fork
+	 * Gestisce lo stato dopo che e' stato completato l'inserimento relativamente ad un 
+	 * costrutto Fork-Join.	
+	 * @param f : il fork per il quale deve essere gestito lo stato.
+	 * @return : il nuovo stato calcolato al termine di un costrutto fork. 
+	 */
 	private StatoCammino controllaFork(Entita f) {
+		//Precondizioni
+		assert f!=null : "Violata precondizione metodo controllaFork. Passato fork nullo.";
+		assert f.getIdTipo().equals(Entita.ID_TIPO_FORK) : "Violata precondizione metodo controllaFork. Passata entita' diversa da Fork.";
+		
 		if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_NON_OK))
 			return new StatoNonOk();
 		else {
@@ -319,6 +369,7 @@ public class InserimentoCammino {
 				return new FermatoDentro();
 			else if(!camm.isGlobale() && ramiFermatoDentro == 1)
 				return new FermatoDentro();
+			//Un insieme del cammino non puo' prevedere piu' rami del Fork percorsi parzialmente
 			else if(!camm.isGlobale() && ramiFermatoDentro > 1)
 				return new StatoNonOk();
 			else
@@ -326,9 +377,17 @@ public class InserimentoCammino {
 		}
 	}
 	
-	//Se l'entita' complessa e' un branch o un ciclo e il cammino e' globale, controllo che nel caso in cui ci si fermi dentro l'entita' complessa, non vengano inserite azioni successive.
-	//Si controlla inoltre che un insieme del cammino non abbia piu' rami di un Branch percorsi completamente.
+	/**
+	 * Metodo che controlla se le azioni inserite nel Branch sono compatibili con la struttura del 
+	 * branch e gestisce di conseguenza lo stato al termine di quest'ultimo.
+	 * @param b : il branch per cui controllare e gestire lo stato 
+	 * @return : il nuovo stato calcolato in base all'analisi del Branch
+	 */
 	private StatoCammino controllaBranch(Entita b) {
+		//Precondizioni
+		assert b!=null : "Violata precondizione metodo controllaBranch. Passato branch nullo.";
+		assert b.getIdTipo().equals(Entita.ID_TIPO_BRANCH) : "Violata precondizione metodo controllaBranch. Passata entita' diversa da Branch";
+		
 		if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_NON_OK))
 			return new StatoNonOk();
 		else {
@@ -352,7 +411,18 @@ public class InserimentoCammino {
 		return new StatoOk();
 	}
 	
+	/**
+	 * Metodo che controlla se le azioni inserite nel Ciclo sono compatibili con la struttura del 
+	 * Ciclo stesso. Inoltre si gestisce di conseguenza lo stato del cammino al termine di 
+	 * quest'ultimo.
+	 * @param c : il ciclo per cui controllare e gestire lo stato 
+	 * @return : il nuovo stato calcolato in base all'analisi del Ciclo
+	 */
 	private StatoCammino controllaCiclo(Entita c) {
+		//Precondizioni
+		assert c!=null : "Violata precondizione metodo controllaBranch. Passato branch nullo.";
+		assert c.getIdTipo().equals(Entita.ID_TIPO_BRANCH) : "Violata precondizione metodo controllaBranch. Passata entita' diversa da Branch";
+
 		Ramo attivitaIniziali = c.getRami()[0];
 		Ramo condPermanenza = c.getRami()[1];
 		//Se il ramo delle attivita' iniziali non e' inserito o e' inserito solo parzialmente, allora il cammino diventa non valido se l'altro ramo e' stato percorso tutto o in parte
@@ -366,7 +436,36 @@ public class InserimentoCammino {
 		return new StatoOk();	
 	}
 	
+	/**
+	 * Metodo che gestisce lo stato dei singoli rami delle entita' complesse nel caso di livelli di
+	 * annidamento multipli. Al termine dell'inserimento di un'entita' complessa, viene calcolato e
+	 * gestito lo stato del cammino e viene settato di conseguenza lo stato del ramo dell'entita' 
+	 * complessa di cui l'entita' fa parte.
+	 *  
+	 * @param esterna : l'entita' complessa di cui l'entita' fa parte
+	 * @param interna : l'entita' complessa in base alla quale calcolare il nuovo stato.
+	 * @param numRamoEsterna : il numero di ramo dell'entita' complessa esterna in cui si trova
+	 * l'entita' interna.
+	 * @param posRamoEsterna : la posizione di interna nel ramo dell'entita' esterna
+	 */
 	private void gestisciStatoRami(Entita esterna, Entita interna, int numRamoEsterna, int posRamoEsterna) { 
+		/*
+		 * PRECONDIZIONI 
+		 * 1) esterna e interna non devono essere nulle
+		 * 2) il numero di ramo e la posizione nel ramo devono essere corretti.
+		 */
+		boolean numRamoOk = false; 
+		boolean posRamoOk = false;
+		if(numRamoEsterna>=0 && numRamoEsterna<=esterna.getRami().length-1)
+			numRamoOk = true;
+		if(numRamoOk && posRamoEsterna>=0 && posRamoEsterna<=esterna.getRami()[numRamoEsterna].getNumeroEntita()-1)
+			posRamoOk = true;
+	
+		assert interna != null : "Violata precondizione metodo gestisciStatoRami. Passata entita' interna null";
+		assert esterna != null : "Violata precondizione metodo gestisciStatoRami. Passata entita' esterna null";
+		assert numRamoOk : "Violata precondizione metodo gestisciStatoRami. Numero ramo esterna non corretto";
+		assert posRamoOk : "Violata precondizione metodo gestisciStatoRami. Posizione ramo esterna non corretta";
+	
 		Ramo ramoEsterna = esterna.getRami()[numRamoEsterna];
 		int ramiPercorsiTutti = getRamiPercorsi(interna, StatoCammino.PERCORSO_TUTTO);
 		int ramiFermatoDentro = getRamiPercorsi(interna,StatoCammino.FERMATO_DENTRO);
@@ -531,7 +630,26 @@ public class InserimentoCammino {
 		}
 	}
 	
+	/**
+	 * Metodo ausiliario che serve per farsi restituire il numero di rami di un'entita' complessa
+	 * aventi un certo stato. Puo' essere utile per verificare con facilita' se, ad esempio, e' 
+	 * stato inserito interamente un blocco di esecuzione di un Fork.
+	 * 
+	 * @param e : l'entita' complessa per cui calcolare il numero di rami aventi un certo stato
+	 * @param stringaStato : lo stato dei rami che interessa
+	 * @return : il numero di rami aventi come stato stringaStato
+	 */
 	private int getRamiPercorsi(Entita e, String stringaStato) {
+		/*
+		 * PRECONDIZIONI
+		 * 1) e non deve essere nulla
+		 * 2) e deve essere una entita' complessa (fork,ciclo o branch)
+		 * 3) la stringa dello stato non deve essere nullo
+		 */
+		assert e!=null : "Violata precondizione metodo getRamiPercorsi. Passata entita' nulla";
+		assert e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK) : "Violata precondizione metodo getRamiPercorsi. Passata entita' diversa da fork, branch o ciclo.";
+		assert stringaStato!=null : "Violata precondizione metodo getRamiPercorsi. Passata stringa stato nulla";
+		
 		int counter = 0;
 		for(int i=0; i<e.getRami().length; i++) 
 			if(e.getRami()[i].getStato().getStringaStato().equals(stringaStato) || (e.getRami()[i].isEmpty() && stringaStato.equals(StatoCammino.PERCORSO_TUTTO)))
