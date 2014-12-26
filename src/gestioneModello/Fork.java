@@ -94,11 +94,26 @@ public class Fork implements Entita{
 	 * @param e : l'entita' da aggiungere
 	 */
 	public void addEntita(Entita e) {
+		//PRECONDIZIONI 
+		assert e!=null : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+						
+		int sizeVecchio = elencoEntita.size();
 		elencoEntita.add(e);
+		
+		//POSTCONDIZIONE
+		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
 	}
 	
 	public void addEntita(Entita e, int r) {
+		//PRECONDIZIONI 
+		assert e!=null && (r>=0 && r<=e.getRami().length-1) : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+				
+		int sizeVecchio = elencoEntita.size();
 		elencoRami[r].aggiungiEntitaRamo(e);
+		
+		//POSTCONDIZIONE
+		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
+
 	}
 	
 	/**

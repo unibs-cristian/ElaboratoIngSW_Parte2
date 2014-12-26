@@ -5,9 +5,11 @@ package gestioneModello;
 import java.util.*;
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Interface Entita.
+ * L'Interface Entita.
+ * Standardizza l'accesso ad ogni tipo di Entita', semplici o composte.
+ * 
+ * @author Sampietri Cristian
  */
 public interface Entita extends Serializable {
 	

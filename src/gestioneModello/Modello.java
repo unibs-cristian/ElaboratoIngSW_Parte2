@@ -143,13 +143,15 @@ public class Modello implements Entita{
 	 * @return the azione at
 	 */
 	public Azione getAzioneAt(int index) {
+		// PRECONDIZIONE : 0 <= index <= elencoAzioni.size()-1
+		assert index >= 0 && index <= elencoAzioni.size()-1 : "Chimato getAzioneAt con index errato.";
 		return elencoAzioni.elementAt(index);
 	}
 	
 	/**
 	 * Dice quante azioni sono state inserite nel modello.
 	 *
-	 * @return la dimensione del Vector contenente le azioni.
+	 * @return la dimensione del Vector contenente le azioni
 	 */
 	public int getNumeroAzioni() {
 		return elencoAzioni.size();
@@ -165,17 +167,31 @@ public class Modello implements Entita{
 	}
 	
 	public void addEntita (Entita e, int qualeRamo) {
+		//PRECONDIZIONI 
+		assert e!=null && (qualeRamo>=0 && qualeRamo<=e.getRami().length-1) : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+		
+		int sizeVecchio = elencoEntita.size();
 		elencoEntita.add(e);
+		
+		//POSTCONDIZIONE
+		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
 	}
 	
 	/**
 	 * Aggiunge l'entita' e all'elenco di entita' che costituiscono il modello. 
 	 *
-	 * @param e : l'entita' da inserire 
+	 * @param e : l'entita' da inserire nel Vector elencoEntita
 	 */
-	public void addEntita (Entita e) {
+	public void addEntita(Entita e) {
+		//PRECONDIZIONI 
+		assert e!=null : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+				
+		int sizeVecchio = elencoEntita.size();
 		elencoEntita.add(e);
-	}
+				
+		//POSTCONDIZIONE
+		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
+	} 
 	
 	/**
 	 * Aggiunge un'azione all'elenco di azioni inserite nel modello
@@ -183,7 +199,14 @@ public class Modello implements Entita{
 	 * @param a : l'azione da aggiungere
 	 */
 	public void addAzione(Azione a) {
+		//PRECONDIZIONI
+		assert a!=null : "Chiamato addAzione con a nulla";
+		
+		int sizeVecchio = elencoEntita.size();
 		elencoAzioni.add(a);
+		
+		//POSTCONDIZIONE
+		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addAzione";
 	}
 	
 	/**
@@ -251,6 +274,8 @@ public class Modello implements Entita{
 	 * @return true se i due modelli sono uguali, false altrimenti
 	 */
 	public boolean isEqual(Modello altro) {
+		// PRECONDIZIONE
+		assert altro!=null : "Precondizione violata nel metodo isEqual";
 		if((nome.equals(altro.getNome()) == false) || getNumeroAzioni() != altro.getNumeroAzioni())
 			return false;
 		else 
@@ -269,7 +294,7 @@ public class Modello implements Entita{
 		return elencoAzioni.isEmpty();
 	}  
 	
-	public void rimuoviEntitaAt(int id) {
+	public void rimuoviEntitaAt(int id) {		
 		Entita e = null;
 		for (int i = 0; i < elencoEntita.size(); i++) 
 		{

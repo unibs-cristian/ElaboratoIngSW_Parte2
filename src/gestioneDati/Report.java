@@ -90,6 +90,10 @@ private static Report instance = null;
 	 * @return la diagnosi corrispondente alla posizione specificata per il Vector
 	 */
 	public Diagnosi getDiagnosiAt(int index) {
+		//PRECONDIZIONI 
+		assert index>=0 && index<=elencoDiag.size()-1 : "Chiamato getDiagnosiAt con indice errato";
+				
+
 		return elencoDiag.elementAt(index);
 	}
 	
@@ -138,6 +142,8 @@ private static Report instance = null;
 	 * @param m : il modello da assegnare
 	 */
 	public void setModello(Modello m) {
+		//PRECONDIZIONE
+		assert m!=null : "Chiamato setModello con m null";
 		mod = m;
 	}
 	
@@ -156,6 +162,8 @@ private static Report instance = null;
 	 * @param aTS : il TS da assegnare al Report
 	 */
 	public void setTestSuite(TestSuite aTS) {
+		//PRECONDIZIONE
+		assert aTS!=null : "Chiamato setTestSuite con un TS nullo";
 		ts = aTS;
 	}
 	
@@ -170,10 +178,8 @@ private static Report instance = null;
 		risultato.append(mod.toString()+"\n\n");
 		risultato.append("TEST SUITE" + "\n" + "-----------------" + "\n");
 		risultato.append(ts.toString()+"\n\n");
-		for(int i=0; i<getNumeroDiag(); i++) {
-			risultato.append("DIAGNOSI N." + i + "\n" + "-------------------" + "\n");
-			risultato.append(getDiagnosiAt(i).toString() + "\n");    //TODO serve metodo per toString diagnosi
-		}
+		for(int i=0; i<getNumeroDiag(); i++)
+			risultato.append(elencoDiag.elementAt(i).toString() + "\n");
 		return risultato.toString();
 	}
 }
