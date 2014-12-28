@@ -110,7 +110,7 @@ public class InserimentoCammino {
 					sottoinsieme = false;
 			}
 			
-			System.out.println("Stato finale : "+camm.getStato().getStringaStato());
+//			System.out.println("Stato finale : "+camm.getStato().getStringaStato());
 			if(camminoValido  == false)
 				System.out.println(String.format(MSG_CAMMINO_NON_VALIDO,MSG_CAMMINO_INCORRETTO));
 			else if(sottoinsieme == false)
@@ -254,7 +254,7 @@ public class InserimentoCammino {
 					camm.getStato().gestisciStato(camm, StatoCammino.FERMATO);
 			}
 		}
-		System.out.println("Stato --> " + camm.getStato().getStringaStato());
+//		System.out.println("Stato --> " + camm.getStato().getStringaStato());
 	}
 	
 	/**
@@ -356,7 +356,7 @@ public class InserimentoCammino {
 			int ramiPercorsiTutti = getRamiPercorsi(f, StatoCammino.PERCORSO_TUTTO);
 			int ramiFermatoDentro = getRamiPercorsi(f, StatoCammino.FERMATO_DENTRO);
 			int ramiFork = f.getRami().length;
-			System.out.println("Rami percorsi tutti del fork = "+ramiPercorsiTutti);
+	//		System.out.println("Rami percorsi tutti del fork = "+ramiPercorsiTutti);
 			//Verifico che ci sia almeno un ramo percorso completamente.
 			//Se c'e' almeno un ramo percorso completamente, allora tutti i rami devono essere percorsi completamente.
 			if(ramiPercorsiTutti == ramiFork)   //Se tutti i rami sono percorsi completamente allora viene mantenuto lo stato attuale
@@ -482,39 +482,39 @@ public class InserimentoCammino {
 			if(ramiPercorsiTutti >= 1) {
 				if(ramoEsterna.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO) || ramoEsterna.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO)) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
-					System.out.println("Ramo non valido per " + esterna.getNome());
+		//			System.out.println("Ramo non valido per " + esterna.getNome());
 				}
 				else if(posRamoEsterna == ramoEsterna.getNumeroEntita()-1) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.PERCORSO_TUTTO);
-					System.out.println("Percorso tutto il ramo di " + esterna.getNome());
+		//			System.out.println("Percorso tutto il ramo di " + esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.PERCORSO_PARZ);
-					System.out.println("Percorso parz il ramo di " + esterna.getNome());
+		//			System.out.println("Percorso parz il ramo di " + esterna.getNome());
 				}
 			}
 			else if(ramiPercorsiTutti < 1 && ramiFermatoDentro >= 1) {
 				if(ramoEsterna.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO) || ramoEsterna.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO)) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
-					System.out.println("Ramo non valido per " + esterna.getNome());
+		//			System.out.println("Ramo non valido per " + esterna.getNome());
 				}
 				else if(posRamoEsterna == 0) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.NON_PERCORSO);
-					System.out.println("Ramo non percorso per "+ esterna.getNome());
+		//			System.out.println("Ramo non percorso per "+ esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
-					System.out.println("Ramo fermato dentro per "+ esterna.getNome());
+		//			System.out.println("Ramo fermato dentro per "+ esterna.getNome());
 				}
 			}
 			else if(ramiNonPercorsi == interna.getRami().length) {
 				if(posRamoEsterna == 0) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.NON_PERCORSO);
-					System.out.println("Ramo non percorso per "+ esterna.getNome());
+		//			System.out.println("Ramo non percorso per "+ esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
-					System.out.println("Ramo fermato dentro per "+ esterna.getNome());
+		//			System.out.println("Ramo fermato dentro per "+ esterna.getNome());
 				}
 			}
 		}
@@ -565,38 +565,37 @@ public class InserimentoCammino {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
 		}
 		else if(tipoInterna.equalsIgnoreCase(Entita.ID_TIPO_BRANCH) && !camm.isGlobale()) {
-			System.out.println("breakpoint");
 			//Se in un insieme del cammino un branch ha piu' rami percorsi tutti o fermati dentro, allora il cammino diventa non valido.
 			if((ramiPercorsiTutti > 1 && ramiVuoti == 0) || ramiFermatoDentro > 1) {
 				ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
-				System.out.println("Ramo non valido per " + esterna.getNome());
+		//		System.out.println("Ramo non valido per " + esterna.getNome());
 			}
 			else if((ramiPercorsiTutti == 1 && ramiVuoti == 0) && ramiFermatoDentro > 0) {
 				ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
-				System.out.println("Ramo non valido per " + esterna.getNome());
+		//		System.out.println("Ramo non valido per " + esterna.getNome());
 			}
 			else if(ramiFermatoDentro == 1) {
 				ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
-				System.out.println("Ramo fermato dentro per " + esterna.getNome());
+		//		System.out.println("Ramo fermato dentro per " + esterna.getNome());
 			}
 			else if(ramiPercorsiTutti >=1) {
 				if(posRamoEsterna == esterna.getRami()[numRamoEsterna].getNumeroEntita()-1) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.PERCORSO_TUTTO);
-					System.out.println("Percorso tutto il ramo di " + esterna.getNome());
+		//			System.out.println("Percorso tutto il ramo di " + esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.PERCORSO_PARZ);
-					System.out.println("Percorso tutto il ramo di " + esterna.getNome());
+		//			System.out.println("Percorso tutto il ramo di " + esterna.getNome());
 				}
 			}
 			else if(ramiNonPercorsi == interna.getRami().length && ramiPercorsiTutti == 0 && ramiFermatoDentro == 0){
 				if(posRamoEsterna == 0) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.NON_PERCORSO);
-					System.out.println("Ramo non percorso per " + esterna.getNome());
+		//			System.out.println("Ramo non percorso per " + esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
-					System.out.println("Ramo Fermato dentro per " + esterna.getNome());
+		//			System.out.println("Ramo Fermato dentro per " + esterna.getNome());
 				}
 			}
 		}
