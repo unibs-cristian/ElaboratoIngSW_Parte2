@@ -74,7 +74,8 @@ public class MenuPrincipale {
 	public final static String MSG_TITOLO_MENU_CARICAMENTO = "MENU' GESTIONE CARICAMENTO\n\nCosa si desidera fare?";
 	public static final String MSG_CARICA_MODELLO = "1 - Carica un modello esistente";
 	public static final String MSG_CARICA_TS = "2 - Carica un test suite esistente";
-	public static final String MSG_ESCI = "3 - Ritorna al menu' principale";
+	public static final String MSG_CARICA_REPORT = "3 - Carica un report esistente";
+	public static final String MSG_ESCI = "4 - Ritorna al menu' principale";
 	public static final String MSG_NOME_MODELLO_PREESISTENTE = "Nome modello da caricare: ";
 	public static final String MSG_SOVRASCRIVI_MODELLO = "Attenzione, esiste gia' un modello inserito. Si desidera abbandonare tale modello e lavorare su quello caricato?";
 	public static final String MSG_CARICAMENTO_ANNULLATO = "Caricamento annullato.";
@@ -84,6 +85,7 @@ public class MenuPrincipale {
 	public static final String MSG_MODELLO_TS_NON_OK = "Attenzione, il Test Suite caricato si riferisce ad un modello diverso da quello presente nel sistema. Verra' caricato il modello corretto per poter eseguire correttamente diagnosi e probabilita'";
 	public final static String MSG_NOME_REPORT_PREESISTENTE = "Nome Report da caricare: ";
 	public final static String MSG_REPORT_CARICATO = "Il report %s e' stato caricato con successo.";
+	public final static String MSG_SEGNALAZIONE_REPORT = "Attenzione! Il Report caricato si riferisce ad un Test Suite o ad un Modello diverso da quelli\nattualmente caricati.";
 	public final static String MSG_VISUALIZZA_REPORT_CARICATO = "Si desidera visualizzare il report caricato?";
 
 	/** Costanti stringa per il salvataggio */
@@ -254,7 +256,7 @@ public class MenuPrincipale {
 				do {
 					do {
 						System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-						//Inserimento cardinalit‡ e creazione classe di equivalenza.
+						//Inserimento cardinalit√† e creazione classe di equivalenza.
 						int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
 						ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita);
 						//Inserimento Cammino Globale
@@ -314,8 +316,8 @@ public class MenuPrincipale {
 				Diagnosi d2 = new Diagnosi(2, ts);
 				ts.addDiagnosi(d1);
 				ts.addDiagnosi(d2);
-				d1.eseguiDiagnosiMetodo1(true);
-				d2.eseguiDiagnosiMetodo2(true);			
+//				d1.eseguiDiagnosiMetodo1(true);
+//				d2.eseguiDiagnosiMetodo2(true);			
 			}
 		}
 	}
@@ -337,8 +339,8 @@ public class MenuPrincipale {
 				TestSuite ts = TestSuite.getInstance();
 				Diagnosi d1 = new Diagnosi(1, ts);
 				Diagnosi d2 = new Diagnosi(2, ts);
-				ProbabilitaMetodo1.stampaRisultati(d1.eseguiDiagnosiMetodo1(false) );
-				ProbabilitaMetodo2.stampaRisultati(d2.eseguiDiagnosiMetodo2(false) );
+				ProbabilitaMetodo1.stampaRisultati(d1.eseguiDiagnosiMetodo1(false));
+				ProbabilitaMetodo2.stampaRisultati(d2.eseguiDiagnosiMetodo2(false));
 				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d1.eseguiDiagnosiMetodo1(false) );
 				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d2.eseguiDiagnosiMetodo2(false) );
 			}
@@ -357,7 +359,7 @@ public class MenuPrincipale {
 			Modello modCorrente = Modello.getInstance();
 			TestSuite tsCorrente = TestSuite.getInstance();
 			// Se il Test Suite non ha almeno una diagnosi associata, viene stampato un messaggio d'errore ed il metodo si arresta.
-			// Viene inoltre impedita la creazione del report se il Test Suite attuale non Ë corrispondente al modello attuale.
+			// Viene inoltre impedita la creazione del report se il Test Suite attuale non √® corrispondente al modello attuale.
 			if(tsCorrente.diagnosiNonInserita() || !(tsCorrente.getModello().isEqual(modCorrente)))
 				System.out.println(MSG_ERRORE_REPORT_2);
 			else {
@@ -407,6 +409,7 @@ public class MenuPrincipale {
 		Vector <String> vociMenuCaricamento = new Vector<String>();
 		vociMenuCaricamento.add(MSG_CARICA_MODELLO);
 		vociMenuCaricamento.add(MSG_CARICA_TS);
+		vociMenuCaricamento.add(MSG_CARICA_REPORT);
 		vociMenuCaricamento.add(MSG_ESCI);
 		Menu menuCaricamento = new Menu(MSG_TITOLO_MENU_CARICAMENTO, vociMenuCaricamento);
 		boolean finito = false;
@@ -414,7 +417,8 @@ public class MenuPrincipale {
 			switch(menuCaricamento.scegliVoce()) {
 				case 1: caricamentoModello(); break;
 				case 2: caricamentoTS(); break;
-				case 3: finito = true; break;
+				case 3: caricamentoReport(); break;
+				case 4: finito = true; break;
 				default : System.out.println(MSG_ERRORE); break;
 			}
 		} while(finito == false);	
@@ -495,6 +499,37 @@ public class MenuPrincipale {
 				}
 			}
 		}  
+	}
+	
+	/**
+	 * Caricamento report
+	 */
+	private static void caricamentoReport() {
+		File nomeFile = new File(Util.leggiString(MSG_NOME_REPORT_PREESISTENTE));
+		Report repCaricato = null;
+		repCaricato = (Report) Stream.caricaFile(nomeFile, repCaricato);
+		Report repCorrente;
+		boolean sovrascriviReport = false;
+		if(Report.isNull())
+			repCorrente = null;
+		else {
+			//Se c'e' gia' un report inserito, chiede se lo si vuole sostituire 
+			repCorrente = Report.getInstance(null,null);
+			if(Util.yesOrNo(MSG_SOVRASCRIVI_REPORT))
+				sovrascriviReport = true;
+			else
+				System.out.println(MSG_CARICAMENTO_ANNULLATO);
+		}
+		Modello modCorrente = Modello.getInstance();
+		TestSuite tsCorrente = TestSuite.getInstance();
+		if(sovrascriviReport || repCorrente == null)
+		{
+			Report.cambiaReport(repCaricato);
+			if(repCaricato!=null)
+				System.out.println(String.format(MSG_REPORT_CARICATO,repCaricato.getNome()));
+			if(!modCorrente.getNome().equals(repCaricato.getModello().getNome()) || !tsCorrente.isEqual(repCaricato.getTS()))
+				System.out.println(MSG_SEGNALAZIONE_REPORT);				
+		}
 	}
 	
 	/**
