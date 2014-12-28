@@ -62,7 +62,7 @@ public class MenuPrincipale {
 
 	/** Costante stringa per i metodi che operano sui report. */
 	public final static String MSG_ERRORE_REPORT_1 = "Attenzione! Per creare un report deve essere inserito un modello, un test suite e un insieme delle diagnosi minimali.";
-	public final static String MSG_ERRORE_REPORT_2 = "Attenzione! Per creare un report e' necessario associare al Test Suite un insieme delle diagnosi minimali.";
+	public final static String MSG_ERRORE_REPORT_2 = "Attenzione! Per creare un report e' necessario associare al Test Suite un insieme delle diagnosi minimali e aver caricato il modello corrispondente\na quello del Test Suite.";
 	public final static String MSG_SOVRASCRIVI_REPORT = "Attenzione, esiste gia' un Report inserito. Si desidera sostituirlo?";
 	public final static String MSG_REPORT_INESISTENTE = "Errore. Nessun Report inserito";
 	public final static String MSG_INSERIMENTO_REPORT_ANNULLATO = "Inserimento Report annulato.";
@@ -312,12 +312,12 @@ public class MenuPrincipale {
 			else
 			{
 				TestSuite ts = TestSuite.getInstance();
-				Diagnosi d1 = new Diagnosi(1, ts);
-				Diagnosi d2 = new Diagnosi(2, ts);
-				ts.addDiagnosi(d1);
-				ts.addDiagnosi(d2);
-//				d1.eseguiDiagnosiMetodo1(true);
-//				d2.eseguiDiagnosiMetodo2(true);			
+				if(!ts.hasDiagnosi()) {
+					Diagnosi d = new Diagnosi(1,ts);				
+					ts.setDiagnosi(d);
+				}
+				//TODO inserire qui il metodo per stampare diagnosi.
+				
 			}
 		}
 	}
@@ -360,7 +360,7 @@ public class MenuPrincipale {
 			TestSuite tsCorrente = TestSuite.getInstance();
 			// Se il Test Suite non ha almeno una diagnosi associata, viene stampato un messaggio d'errore ed il metodo si arresta.
 			// Viene inoltre impedita la creazione del report se il Test Suite attuale non è corrispondente al modello attuale.
-			if(tsCorrente.diagnosiNonInserita() || !(tsCorrente.getModello().isEqual(modCorrente)))
+			if(!tsCorrente.hasDiagnosi() || !(tsCorrente.getModello().isEqual(modCorrente)))
 				System.out.println(MSG_ERRORE_REPORT_2);
 			else {
 				Report nuovo;
