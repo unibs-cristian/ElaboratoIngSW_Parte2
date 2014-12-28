@@ -16,6 +16,11 @@ import gestioneModello.Modello;
 public class Diagnosi implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public final static String MSG_NUMERO_CLASSE = "CLASSE %d\n";
+	public final static String MSG_DIAGNOSI_MINIMALI = "Diagnosi Minimali D%d = {";
+	public final static String MSG_DIAGNOSI_MINIMALE_SINGOLA = "{%s}";
+	public final static String MSG_CARDINALITA = "Cardinalita' D%d: %d";
 
 	/** The tipo diagnosi. */
 	private int tipoDiagnosi;
@@ -34,6 +39,9 @@ public class Diagnosi implements Serializable {
 	
 	/** The risultato classi per probabilita. */
 	private Vector<Vector<Integer>> risultatoClassiPerProbabilita;
+	
+	/** The risultato string. */
+	private StringBuffer risultatoString = new StringBuffer();
 
 	private boolean stampaDiagnosi;
 	
@@ -144,8 +152,17 @@ public class Diagnosi implements Serializable {
 			
 			CalcoloRisultato(insiemeDiCopertura, matrice);
 			
-			if(stampaDiagnosi)
-				stampaDiagnosi1(i, classe);
+//			if(stampaDiagnosi)
+//				stampaDiagnosi1(i, classe);
+			
+			/** Aggiungo le diagnosi minimali e la cardinalit√† al toString(). */
+			risultatoString.append(String.format(MSG_NUMERO_CLASSE, i));
+			risultatoString.append(String.format(MSG_DIAGNOSI_MINIMALI, i));
+			for(int dm=0; dm<risultatoAzioni.size(); dm++) {
+				if(risultatoAzioni.get(dm) == 1)
+					risultatoString.append(String.format(MSG_DIAGNOSI_MINIMALE_SINGOLA, elencoAzioni.get(dm).getNome()));
+			}
+			risultatoString.append(String.format(MSG_CARDINALITA, i+1, classe.getCardinalita()));			
 			
 			/** Inserimento dei risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
@@ -154,7 +171,7 @@ public class Diagnosi implements Serializable {
 
 	private void Metto0AColonneCon0(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
 		
-		/** Elaboro la matrice (metto a 0 le colonne dove Ë presente uno 0. */
+		/** Elaboro la matrice (metto a 0 le colonne dove √® presente uno 0. */
 		for (int col=0; col<elencoAzioni.size(); col++) {
 			
 			boolean dueTrovato = false;
@@ -338,8 +355,8 @@ public class Diagnosi implements Serializable {
 		}
 		
 //		stampaDiagnosi(matriceClassiPerProbabilita2);
-		if(stampaDiagnosi)
-			stampaDiagnosi2();
+//		if(stampaDiagnosi)
+//			stampaDiagnosi2();
 		
 		/** Invio risultati. */
 		//ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
@@ -356,10 +373,14 @@ public class Diagnosi implements Serializable {
 		return tipoDiagnosi;
 	}
 
-	public void stampaDiagnosi1(int i, ClasseEquivalenza classe) {		
+	public String toString() {
+		return risultatoString.toString();
+	}
+	
+	/*public void stampaDiagnosi1(int i, ClasseEquivalenza classe) {		
 		System.out.println("DIAGNOSI METODO 1");
 		
-		/** Stampo le diagnosi minimali e la cardinalit‡. */
+		
 		System.out.print("Diagnosi Minimali D" + i +" = {");
 		for(int dm=0; dm<risultatoAzioni.size(); dm++) {
 			if(risultatoAzioni.get(dm) == 1)
@@ -373,7 +394,7 @@ public class Diagnosi implements Serializable {
 		
 		System.out.println("\n\nDIAGNOSI METODO 2");
 		
-	}
+	}*/
 	
 	/*public String toString() {
 		
