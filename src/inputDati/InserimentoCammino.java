@@ -331,7 +331,7 @@ public class InserimentoCammino {
 				gestisciStatoRami(esterna, e, numRamoEsterna, posRamoEsterna);
 				if(!camm.getStato().getStringaStato().equals(StatoCammino.STATO_NON_OK)) {
 					camm.getStato().gestisciStato(camm, esterna.getRami()[numRamoEsterna].getStato().getStringaStato());
-					System.out.println("Ramo di " + esterna.getNome() + "settato a "+esterna.getRami()[numRamoEsterna].getStato().getStringaStato());
+	//				System.out.println("Ramo di " + esterna.getNome() + "settato a "+esterna.getRami()[numRamoEsterna].getStato().getStringaStato());
 				}
 			}
 	}
