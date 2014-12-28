@@ -134,6 +134,13 @@ public class TestSuite implements Serializable {
 		return elencoDiagnosi;
 	}
 	
+	public boolean isEqual(TestSuite altro) {
+		for(int i=0; i<elencoClassi.size(); i++)
+			if(!altro.getClasseAt(i).isEqual(elencoClassi.elementAt(i)))
+				return false;
+		return true;
+	}
+	
 	/**
 	 * Gets the modello.
 	 *

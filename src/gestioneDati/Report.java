@@ -107,6 +107,10 @@ private static Report instance = null;
 		return mod;
 	}
 	
+	public String getNome() {
+		return nome;
+	}
+	
 	/**
 	 * Restituisce il numero di diagnosi
 	 *
