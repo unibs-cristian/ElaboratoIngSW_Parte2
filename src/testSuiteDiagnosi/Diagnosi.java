@@ -3,78 +3,55 @@
  */
 package testSuiteDiagnosi;
 
-import java.io.Serializable;
 import java.util.Vector;
 
+import sun.security.jca.GetInstance;
 import gestioneModello.Azione;
+import gestioneModello.Entita;
 import gestioneModello.Modello;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Diagnosi.
- */
-public class Diagnosi implements Serializable {
+public class Diagnosi {
 
-	private static final long serialVersionUID = 1L;
-
-	/** The tipo diagnosi. */
+	public final static String MSG_DIAGNOSI_UTILIZZATA = "RISULTATI CALCOLO PROBABILITA' CON METODO SELEZIONATO:\n";
+	public final static String MSG_RISULTATO_PROBABILITA = "%d) P(%s) = %f\n";
+	
 	private int tipoDiagnosi;
-	
-	/** The test suite. */
 	private TestSuite testSuite;
-	
-	/** The elenco classi. */
 	private Vector<ClasseEquivalenza> elencoClassi;
-	
-	/** The elenco azioni. */
 	private Vector<Azione> elencoAzioni;
-	
-	/** The risultato azioni. */
 	private Vector<Integer> risultatoAzioni;
-	
-	/** The risultato classi per probabilita. */
 	private Vector<Vector<Integer>> risultatoClassiPerProbabilita;
-
-	private boolean stampaDiagnosi;
+	private Vector<Float> risultatoFinaleProbabilita;
+	
+	private static Diagnosi instance = null;
 	
 	/* 	 2: OK
 		 1: KO
 		-1: !KO
 		-2: !OK 	*/
 	
-	/**
-	 * Instantiates a new diagnosi.
-	 *
-	 * @param tipoDiagnosi the tipo diagnosi
-	 * @param testSuite the test suite
-	 */
 	public Diagnosi (int tipoDiagnosi, TestSuite testSuite) {
 		
 		this.tipoDiagnosi = tipoDiagnosi;
 		this.testSuite = testSuite;
 	}
 	
-	/**
-	 * Esegui diagnosi.
-	 */
 	public void eseguiDiagnosi() {
 		if(tipoDiagnosi == 1) {
-			eseguiDiagnosiMetodo1(stampaDiagnosi);
+			eseguiDiagnosiMetodo1();
 			System.out.println("1) CHIAMATA DIAGNOSI 1");
 		}
 		else {
-			eseguiDiagnosiMetodo2(stampaDiagnosi);
+			eseguiDiagnosiMetodo2();
 			System.out.println("2) CHIAMATA DIAGNOSI 2");
 		}
 	}
 	
-	/**
-	 * Esegui diagnosi metodo1.
-	 * @return 
-	 */
-	public Vector<Float> eseguiDiagnosiMetodo1 (boolean stampaDiagnosi) {
+	public void eseguiDiagnosiMetodo1 () {
 		
-		/** Inizializza i vettori che servono per i risultati da passare a calcolo probabilita'. */
+		System.out.println("DIAGNOSI METODO 1");
+		
+		/** Inizializzo i vettori che servono per i risultati da passare a calcolo probabilita'. */
 		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
 		
 		/** Ottengo vettori di classi e azioni da test suite. */
@@ -82,14 +59,6 @@ public class Diagnosi implements Serializable {
 		Modello mod = Modello.getInstance();
 		elencoAzioni = mod.getElencoAzioni();
 		
-		DiagnosiClassePerClasse(stampaDiagnosi);
-		
-		//ProbabilitaMetodo1() metodo1 = new ProbabilitaMetodo1();
-		return ProbabilitaMetodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
-		//risultatoFinaleProbabilitaM1 = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
-	}
-	
-	private void DiagnosiClassePerClasse(boolean stampaDiagnosi) {
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
 			risultatoAzioni = new Vector<Integer>();
@@ -137,94 +106,94 @@ public class Diagnosi implements Serializable {
 			
 		//	System.out.println("Creazione matrice base..");
 		//	stampaDiagnosi(matrice);
-			Metto0AColonneCon0(insiemeDiCopertura, matrice);
+			
+			/** Elaboro la matrice (metto a 0 le colonne dove e' presente uno 0. */
+			for (int col=0; col<elencoAzioni.size(); col++) {
+				
+				boolean dueTrovato = false;
+				
+				for(int riga=0; riga<insiemeDiCopertura.size(); riga++) {
+					int valore = matrice[riga][col];
+					
+					if(!dueTrovato) {
+						if(valore == 2) {
+							/** Inserisco -2 negli spazi vuoti di elementi OK */
+							for(int k=0; k<elencoAzioni.size(); k++) {
+								if(matrice[riga][k] == -1)
+									matrice[riga][k] = -2;								
+							}
+							dueTrovato = true;
+							riga=-1;
+						}
+					}
+					else {
+						if(valore == 1) {
+							matrice[riga][col] = 2;
+						}						
+					}
+				}
+			}
 			
 		//	System.out.println("Generazione matrice elaborata..");
 		//	stampaDiagnosi(matrice);
 			
-			CalcoloRisultato(insiemeDiCopertura, matrice);
-			
-			if(stampaDiagnosi)
-				stampaDiagnosi1(i, classe);
-			
-			/** Inserimento dei risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
-			risultatoClassiPerProbabilita.add(risultatoAzioni);
-		}		
-	}
-
-	private void Metto0AColonneCon0(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
-		
-		/** Elaboro la matrice (metto a 0 le colonne dove è presente uno 0. */
-		for (int col=0; col<elencoAzioni.size(); col++) {
-			
-			boolean dueTrovato = false;
-			
-			for(int riga=0; riga<insiemeDiCopertura.size(); riga++) {
-				int valore = matrice[riga][col];
+			/** Calcolo risultati ed inserimento in vettore. */
+			for(int s=0; s<elencoAzioni.size(); s++) {
 				
-				if(!dueTrovato) {
-					if(valore == 2) {
-						/** Inserisco -2 negli spazi vuoti di elementi OK */
-						for(int k=0; k<elencoAzioni.size(); k++) {
-							if(matrice[riga][k] == -1)
-								matrice[riga][k] = -2;								
-						}
-						dueTrovato = true;
-						riga=-1;
+				/** Calcolo risultati */
+				boolean valoreDue = false;
+				boolean valoreMenoUno = false;
+				boolean valoreUno = false;
+				
+				for(int f=0; f<insiemeDiCopertura.size(); f++) {
+					if(matrice[f][s] == 2) {
+						valoreDue = true;
+					} 
+					else {
+						if(matrice[f][s] == -1)
+							valoreMenoUno = true;
+						if(matrice[f][s] == 1)
+							valoreUno = true;
 					}
 				}
-				else {
-					if(valore == 1) {
-						matrice[riga][col] = 2;
-					}						
-				}
+				
+				int valoreAzione = -1;
+				if(valoreDue)
+					valoreAzione = 0;
+				else if(valoreUno && valoreMenoUno)
+					valoreAzione = 0;
+				else if(valoreUno && !valoreMenoUno)
+					valoreAzione = 1;
+				
+				/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
+				risultatoAzioni.add(valoreAzione);
+
+			//	System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
 			}
-		}		
+			
+			/** Stampo le diagnosi minimali e la cardinalita'. */
+			System.out.print("Diagnosi Minimali D" + i +" = {");
+			for(int dm=0; dm<risultatoAzioni.size(); dm++) {
+				if(risultatoAzioni.get(dm) == 1)
+					System.out.print("{" + elencoAzioni.get(dm).getNome() + "}");
+			}
+			System.out.println("}");
+			System.out.println("Cardinalita' D" + (i+1) + ": " + classe.getCardinalita() + "\n");
+			
+			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
+			risultatoClassiPerProbabilita.add(risultatoAzioni);
+		}
+		
+		ProbabilitaMetodo1 metodo1 = new ProbabilitaMetodo1();
+		risultatoFinaleProbabilita = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
+		
+//		stampaRisultati(risultatoFinaleProbabilita);
 	}
 	
-	private void CalcoloRisultato(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
-		/** Calcolo risultati ed inserimento in vettore. */
-		for(int s=0; s<elencoAzioni.size(); s++) {
-			
-			/** Calcolo risultati */
-			boolean valoreDue = false;
-			boolean valoreMenoUno = false;
-			boolean valoreUno = false;
-			
-			for(int f=0; f<insiemeDiCopertura.size(); f++) {
-				if(matrice[f][s] == 2) {
-					valoreDue = true;
-				} 
-				else {
-					if(matrice[f][s] == -1)
-						valoreMenoUno = true;
-					if(matrice[f][s] == 1)
-						valoreUno = true;
-				}
-			}
-			
-			int valoreAzione = -1;
-			if(valoreDue)
-				valoreAzione = 0;
-			else if(valoreUno && valoreMenoUno)
-				valoreAzione = 0;
-			else if(valoreUno && !valoreMenoUno)
-				valoreAzione = 1;
-			
-			/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
-			risultatoAzioni.add(valoreAzione);
-
-		//	System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
-		}
-	}
-
-
-	/**
-	 * Esegui diagnosi metodo2.
-	 * @param stampaDiagnosi2 
-	 * @return 
-	 */
-	public Vector<Float> eseguiDiagnosiMetodo2 (boolean stampaDiagnosi) {
+	public void eseguiDiagnosiMetodo2 () {
+		
+		System.out.println("\n\nDIAGNOSI METODO 2");
+		
 		/** Ottengo vettori di classi e azioni da test suite. */
 		elencoClassi = testSuite.getElencoClassi();		
 		Modello mod = Modello.getInstance();
@@ -338,48 +307,42 @@ public class Diagnosi implements Serializable {
 		}
 		
 //		stampaDiagnosi(matriceClassiPerProbabilita2);
-		if(stampaDiagnosi)
-			stampaDiagnosi2();
 		
 		/** Invio risultati. */
-		//ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
-		return ProbabilitaMetodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
-		//risultatoFinaleProbabilitaM2.(testSuite, matriceClassiPerProbabilita2);
+		ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
+		risultatoFinaleProbabilita = metodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
+		
+//		stampaRisultati(risultatoFinaleProbabilita);
 	}
 	
-	/**
-	 * Tipo diagnosi.
-	 *
-	 * @return the int
-	 */
 	public int tipoDiagnosi() {
 		return tipoDiagnosi;
 	}
-
-	public void stampaDiagnosi1(int i, ClasseEquivalenza classe) {		
-		System.out.println("DIAGNOSI METODO 1");
+	
+	public String toString() {
 		
-		/** Stampo le diagnosi minimali e la cardinalità. */
-		System.out.print("Diagnosi Minimali D" + i +" = {");
-		for(int dm=0; dm<risultatoAzioni.size(); dm++) {
-			if(risultatoAzioni.get(dm) == 1)
-				System.out.print("{" + elencoAzioni.get(dm).getNome() + "}");
-		}
-		System.out.println("}");
-		System.out.println("Cardinalita' D" + (i+1) + ": " + classe.getCardinalita() + "\n");		
-	}
-
-	public void stampaDiagnosi2() {
+		StringBuffer risultato = new StringBuffer();
+		risultato.append(MSG_DIAGNOSI_UTILIZZATA);
 		
-		System.out.println("\n\nDIAGNOSI METODO 2");
-		
+		for(int i=0; i<risultatoFinaleProbabilita.size(); i++) {
+			String action = elencoAzioni.get(i).getNome();
+			Float result = risultatoFinaleProbabilita.get(i);
+			
+			risultato.append(String.format(MSG_RISULTATO_PROBABILITA, i, action, result));
+		}  
+		return risultato.toString();
 	}
 	
-	/**
-	 * Stampa diagnosi.
-	 *
-	 * @param matrice the matrice
-	 *
+	/*public void stampaRisultati(Vector<Float> risultato) {
+		System.out.println("RISULTATO PROBABILITA' CON METODO "+tipoDiagnosi);
+		for(int i=0; i<risultato.size(); i++) {
+			String action = elencoAzioni.get(i).getNome();
+			Float result = risultato.get(i);
+		
+			System.out.println("" + i + ") P(" + action + ") = " + result);
+		}
+	}*/
+	
 	public void stampaDiagnosi(int[][] matrice) {
 		for(int i=0; i<matrice.length; i++) {
 			for(int j=0; j<matrice[0].length; j++) {
@@ -389,5 +352,5 @@ public class Diagnosi implements Serializable {
 			System.out.println("");
 		}
 		System.out.println("\n\n");
-	}*/
+	}
 }
