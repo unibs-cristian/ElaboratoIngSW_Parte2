@@ -82,7 +82,7 @@ public class MenuPrincipale {
 	public final static String MSG_MODELLO_CARICATO = "Il modello %s e' stato caricato con successo.";
 	public static final String MSG_NOME_TS_PREESISTENTE = "Nome Test Suite da caricare: ";
 	public final static String MSG_CARICAMENTO_OK = "Caricamento completato correttamente.";
-	public static final String MSG_MODELLO_TS_NON_OK = "Attenzione, il Test Suite caricato si riferisce ad un modello diverso da quello presente nel sistema. Verra' caricato il modello corretto per poter eseguire correttamente diagnosi e probabilita'";
+	public static final String MSG_MODELLO_TS_NON_OK = "Attenzione, il Test Suite caricato si riferisce ad un modello diverso da quello presente nel sistema.\nVerra' caricato il modello corretto per poter eseguire correttamente diagnosi e probabilita'";
 	public final static String MSG_NOME_REPORT_PREESISTENTE = "Nome Report da caricare: ";
 	public final static String MSG_REPORT_CARICATO = "Il report %s e' stato caricato con successo.";
 	public final static String MSG_SEGNALAZIONE_REPORT = "Attenzione! Il Report caricato si riferisce ad un Test Suite o ad un Modello diverso da quelli\nattualmente caricati.";
@@ -256,7 +256,7 @@ public class MenuPrincipale {
 				do {
 					do {
 						System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-						//Inserimento cardinalità e creazione classe di equivalenza.
+						//Inserimento cardinalitÃ  e creazione classe di equivalenza.
 						int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
 						ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita);
 						//Inserimento Cammino Globale
@@ -316,8 +316,7 @@ public class MenuPrincipale {
 					Diagnosi d = new Diagnosi(1,ts);				
 					ts.setDiagnosi(d);
 				}
-				//TODO inserire qui il metodo per stampare diagnosi.
-				
+				//TODO inserire qui il metodo per stampare diagnosi.				
 			}
 		}
 	}
@@ -359,7 +358,7 @@ public class MenuPrincipale {
 			Modello modCorrente = Modello.getInstance();
 			TestSuite tsCorrente = TestSuite.getInstance();
 			// Se il Test Suite non ha almeno una diagnosi associata, viene stampato un messaggio d'errore ed il metodo si arresta.
-			// Viene inoltre impedita la creazione del report se il Test Suite attuale non è corrispondente al modello attuale.
+			// Viene inoltre impedita la creazione del report se il Test Suite attuale non Ã¨ corrispondente al modello attuale.
 			if(!tsCorrente.hasDiagnosi() || !(tsCorrente.getModello().isEqual(modCorrente)))
 				System.out.println(MSG_ERRORE_REPORT_2);
 			else {
@@ -525,10 +524,11 @@ public class MenuPrincipale {
 		if(sovrascriviReport || repCorrente == null)
 		{
 			Report.cambiaReport(repCaricato);
-			if(repCaricato!=null)
+			if(repCaricato!=null) {
 				System.out.println(String.format(MSG_REPORT_CARICATO,repCaricato.getNome()));
-			if(!modCorrente.getNome().equals(repCaricato.getModello().getNome()) || !tsCorrente.isEqual(repCaricato.getTS()))
-				System.out.println(MSG_SEGNALAZIONE_REPORT);				
+				if(!modCorrente.getNome().equals(repCaricato.getModello().getNome()) || !tsCorrente.isEqual(repCaricato.getTS()))
+					System.out.println(MSG_SEGNALAZIONE_REPORT);
+			}
 		}
 	}
 	
