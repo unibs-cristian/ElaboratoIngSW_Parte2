@@ -25,7 +25,7 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 */
 	public static Vector<Tupla> ElencoProbabilitaOrdinatoSenzaDoppioni(Vector<Float> probabilitaTestSuite)
 	{
-		return RimuoviDoppioniElencoProbabilitaOrdinato(OrdinaElencoProbabilita(ElencoProbabilita() ) );
+		return RimuoviDoppioniElencoProbabilitaOrdinato(OrdinaElencoProbabilita(ElencoProbabilita(probabilitaTestSuite) ) );
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 *
 	 * @return the vector
 	 */
-	private static Vector<Tupla> ElencoProbabilita ()
+	private static Vector<Tupla> ElencoProbabilita (Vector<Float> probabilitaTestSuite)
 	{
 		//Inserisco l'elenco probabilita' in un vettore di tuple
 		Vector<Tupla> elencoProbabilita = new Vector<Tupla>();
@@ -43,7 +43,7 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 				Vector<Integer> listaAzioni = new Vector<Integer>();
 				listaAzioni.add(i + 1);
 				tuplaDaInserire.setListaAzioni(listaAzioni);
-				elencoProbabilita.set(i, tuplaDaInserire);
+				elencoProbabilita.add(tuplaDaInserire);
 		}
 		
 		return elencoProbabilita;
