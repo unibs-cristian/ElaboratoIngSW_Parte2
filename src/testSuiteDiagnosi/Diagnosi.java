@@ -323,7 +323,7 @@ public class Diagnosi implements Serializable {
 
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
-		risultato.append("ELENCO DIAGNOSI MINIMALI\n\n");
+		risultato.append("\nELENCO DIAGNOSI MINIMALI\n\n");
 		
 		for(int i=0; i<elencoClassi.size(); i++) {
 			ClasseEquivalenza classe = elencoClassi.get(i);
