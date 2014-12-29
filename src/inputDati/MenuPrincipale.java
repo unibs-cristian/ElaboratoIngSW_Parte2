@@ -339,12 +339,11 @@ public class MenuPrincipale {
 				System.out.println("TS rilevato!");
 				
 				TestSuite ts = TestSuite.getInstance();
-				Diagnosi d1 = new Diagnosi(1, ts);
-				Diagnosi d2 = new Diagnosi(2, ts);
-				ProbabilitaMetodo1.stampaRisultati(d1.eseguiDiagnosiMetodo1(false));
-				ProbabilitaMetodo2.stampaRisultati(d2.eseguiDiagnosiMetodo2(false));
-				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d1.eseguiDiagnosiMetodo1(false) );
-				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d2.eseguiDiagnosiMetodo2(false) );
+				Diagnosi d = new Diagnosi(ts, true);
+				ProbabilitaMetodo1.stampaRisultati(d.eseguiDiagnosiMetodo1());
+				ProbabilitaMetodo2.stampaRisultati(d.eseguiDiagnosiMetodo2());
+				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d.eseguiDiagnosiMetodo1() );
+				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d.eseguiDiagnosiMetodo2() );
 			}
 		}
 	}
