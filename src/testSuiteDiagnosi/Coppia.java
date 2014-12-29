@@ -5,26 +5,27 @@ package testSuiteDiagnosi;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Coppia.
+ * La Classe Coppia.
+ * Una coppia si riferisce ad una data classe di equivalenza ed e' costituita da un insieme 
+ * del cammino e dal relativo valore della rilevazione effettuata.
  */
 public class Coppia implements Serializable {
 	
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio. */
 	private static final long serialVersionUID = 1L;
 	
-	/** The insieme cammino. */
+	/** L'insieme del cammino della coppia. */
 	private CamminoAzioni insiemeCammino;
 	
-	/** The valore rilevazione. */
+	/** Il valore della rilevazione. */
 	private String valoreRilevazione;
 	
 	/**
-	 * Instantiates a new coppia.
+	 * Costruttore della classe coppia.
 	 *
-	 * @param _insiemeCammino the _insieme cammino
-	 * @param _valoreRilevazione the _valore rilevazione
+	 * @param _insiemeCammino : l'insieme del cammino da assegnare alla coppia.
+	 * @param _valoreRilevazione : il valore della rilevazione da assegnare alla coppia.
 	 */
 	public Coppia(CamminoAzioni _insiemeCammino, String _valoreRilevazione) {
 		insiemeCammino = _insiemeCammino;
@@ -32,28 +33,29 @@ public class Coppia implements Serializable {
 	}
 	
 	/**
-	 * Gets the valore rilevazione.
+	 * Fornisce il valore rilevazione.
 	 *
-	 * @return the valore rilevazione
+	 * @return il valore della rilevazione
 	 */
 	public String getValoreRilevazione() {
 		return valoreRilevazione;
 	}
 	 
 	/**
-	 * Gets the insieme cammino.
+	 * Fornisce l'insieme del cammino.
 	 *
-	 * @return the insieme cammino
+	 * @return l'insieme del cammino
 	 */
 	public CamminoAzioni getInsiemeCammino() {
 		return insiemeCammino;
 	}
 	
 	/**
-	 * Checks if is equal.
+	 * Controlla se due coppie sono uguali, ovvero hanno stesso insieme del cammino e stesso 
+	 * valore della rilevazione.
 	 *
-	 * @param altra the altra
-	 * @return true, if is equal
+	 * @param altra : la coppia con cui confrontare
+	 * @return true, se le due coppie sono uguali, false altrimenti.
 	 */
 	public boolean isEqual(Coppia altra) {
 		// Confronta i valori della rilevazione. Se non coincidono le coppie sono diverse.
@@ -64,9 +66,6 @@ public class Coppia implements Serializable {
 			return getInsiemeCammino().isEqual(altra.getInsiemeCammino());
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("Insieme del cammino ---> " + insiemeCammino.toString() + "\n");
