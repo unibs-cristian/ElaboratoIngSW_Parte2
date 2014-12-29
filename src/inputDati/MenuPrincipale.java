@@ -274,7 +274,6 @@ public class MenuPrincipale {
 							InserimentoCammino inserimentoInsCamm = new InserimentoCammino(ce, insCamm);
 							inserimentoInsCamm.inserisciCamm();
 							System.out.println(String.format(MSG_COPPIA_AGGIUNTA,i));
-							i++;
 						} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
 						//Se la classe e' gia' presente nel TS non la aggiunge e fa ripetere l'inserimento.
 						if(ts.giaInserita(ce)) {
@@ -286,7 +285,8 @@ public class MenuPrincipale {
 							ts.addClasseEquivalenza(ce);
 							giaPresente = false;
 						}
-					} while(giaPresente == true);					
+					} while(giaPresente == true);
+					i++;
 				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
 				
 				boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_TS);
