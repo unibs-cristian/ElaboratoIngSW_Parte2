@@ -5,28 +5,29 @@ package testSuiteDiagnosi;
 import java.util.Vector;
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ClasseEquivalenza.
+ * La Classe ClasseEquivalenza.
+ * Una classe di equivalenza di un Test Suite e' costituita un insieme di coppie 
+ * insieme del cammino - valore della rilevazione.
  */
 public class ClasseEquivalenza implements Serializable {
 
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio. */
 	private static final long serialVersionUID = 1L;
 
-	/** The cardinalita. */
+	/** La cardinalita' della classe. */
 	private int cardinalita;
 	
-	/** The cammino globale. */
+	/** Il cammino globale della classe di equivalenza. */
 	private CamminoAzioni camminoGlobale;
 	
-	/** The elenco coppie. */
+	/** L'insieme di coppie insieme del cammino - valore della rilevazione. */
 	private Vector<Coppia> elencoCoppie;
 
 	/**
-	 * Instantiates a new classe equivalenza.
+	 * Costruttore della classe ClasseEquivalenza
 	 *
-	 * @param _cardinalita the _cardinalita
+	 * @param _cardinalita : la cardinalita' da assegnare alla classe.
 	 */
 	public ClasseEquivalenza(int _cardinalita) {
 		cardinalita = _cardinalita;
@@ -34,71 +35,78 @@ public class ClasseEquivalenza implements Serializable {
 	}
 	 
 	/**
-	 * Adds the coppia.
+	 * Aggiunge la coppia alla classe.
 	 *
-	 * @param daAggiungere the da aggiungere
+	 * @param daAggiungere : la coppia da aggiungere
 	 */
 	public void addCoppia(Coppia daAggiungere) {
+		// PRECONDIZIONE
+		assert daAggiungere!=null : "Violata precondizione metodo addCoppia. Passata coppia null.";
+		
+		int sizeVecchia = elencoCoppie.size();
 		elencoCoppie.add(daAggiungere);
+		
+		// POSTCONDIZIONE
+		assert elencoCoppie.size() == sizeVecchia+1 : "Violata postcondizione metodo addCoppia. La coppia non e' stata inserita.";
 	}
 	
 	/**
-	 * Gets the cardinalita.
+	 * Fornisce la cardinalita' della classe.
 	 *
-	 * @return the cardinalita
+	 * @return il valore dell'attributo cardinalita'.
 	 */
 	public int getCardinalita() {
 		return cardinalita;
 	}
 	
 	/**
-	 * Gets the elenco coppie.
+	 * Fornisce le coppie della classe
 	 *
-	 * @return the elenco coppie
+	 * @return la struttura dati contenente le coppie
 	 */
 	public Vector <Coppia> getElencoCoppie() {
 		return elencoCoppie;
 	}
 	
 	/**
-	 * Gets the coppia at.
+	 * Fornisce una coppia ad uno specifico indice.
 	 *
-	 * @param index the index
-	 * @return the coppia at
+	 * @param index : la posizione della coppia nel Vector
+	 * @return la coppia avente quell'indice nel Vector
 	 */
 	public Coppia getCoppiaAt(int index) {
 		return elencoCoppie.elementAt(index);
 	}
 	
 	/**
-	 * Gets the numero coppie.
+	 * Fornisce il numero di coppie della classe di equivalenza
 	 *
-	 * @return the numero coppie
+	 * @return la dimensione della struttura dati contenente le coppie
 	 */
 	public int getNumeroCoppie() {
 		return elencoCoppie.size();
 	}
 	
 	/**
-	 * Gets the cammino globale.
+	 * Fornisce il cammino globale
 	 *
-	 * @return the cammino globale
+	 * @return il cammino globale
 	 */
 	public CamminoAzioni getCamminoGlobale() {
 		return camminoGlobale;
 	}
 	
 	/**
-	 * Checks if is equal.
+	 * Controlla se due classi di equivalenza sono uguali.
 	 *
-	 * @param altra the altra
-	 * @return true, if is equal
+	 * @param altra : la classe da confrontare
+	 * @return true, se le due classi sono uguali, false altrimenti.
 	 */
 	public boolean isEqual(ClasseEquivalenza altra) {
 		// Se le due classi hanno diverso cammino globale o diverso numero di coppie, allora sono diverse.
 		if(camminoGlobale.isEqual(altra.getCamminoGlobale()) == false || getNumeroCoppie() != altra.getNumeroCoppie())
 			return false;
-		// 
+		
 		else
 		{
 			for(int i=0; i<getNumeroCoppie(); i++) 
@@ -109,17 +117,14 @@ public class ClasseEquivalenza implements Serializable {
 	}
 	
 	/**
-	 * Sets the cammino globale.
+	 * Setta il cammino globale.
 	 *
-	 * @param cammGlob the new cammino globale
+	 * @param cammGlob : il cammino globale da assegnare alla classe di equivalenza
 	 */
 	public void setCamminoGlobale(CamminoAzioni cammGlob) {
 		camminoGlobale = cammGlob;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("Cardinalita' = " + cardinalita + "\n");
