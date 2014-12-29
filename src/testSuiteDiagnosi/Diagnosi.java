@@ -35,6 +35,7 @@ public class Diagnosi implements Serializable {
 	}
 	
 	public void eseguiDiagnosi(boolean eseguiProbabilita) {
+		elencoDiagnosiMinimali = new Vector<Vector<String>>();
 		if(!eseguiProbabilita) {
 			calcoloDiagnosiMinimali();
 		}
