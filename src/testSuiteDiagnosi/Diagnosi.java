@@ -46,14 +46,6 @@ public class Diagnosi implements Serializable {
 	
 	public Vector<Float> eseguiDiagnosiMetodo1 () {
 		
-		/** Inizializza i vettori che servono per i risultati da passare a calcolo probabilita'. */
-		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
-		
-		/** Ottengo vettori di classi e azioni da test suite. */
-		elencoClassi = testSuite.getElencoClassi();		
-		Modello mod = Modello.getInstance();
-		elencoAzioni = mod.getElencoAzioni();
-		
 		calcoloDiagnosiMinimali();
 		
 		//ProbabilitaMetodo1() metodo1 = new ProbabilitaMetodo1();
@@ -62,6 +54,14 @@ public class Diagnosi implements Serializable {
 	}
 	
 	private void calcoloDiagnosiMinimali() {
+		/** Inizializza i vettori che servono per i risultati da passare a calcolo probabilita'. */
+		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
+		
+		/** Ottengo vettori di classi e azioni da test suite. */
+		elencoClassi = testSuite.getElencoClassi();		
+		Modello mod = Modello.getInstance();
+		elencoAzioni = mod.getElencoAzioni();
+		
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
 			risultatoAzioni = new Vector<Integer>();
