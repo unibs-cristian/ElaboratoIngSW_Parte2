@@ -7,80 +7,44 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import gestioneModello.Azione;
+import gestioneModello.Entita;
 import gestioneModello.Modello;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Diagnosi.
- */
 public class Diagnosi implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	public final static String MSG_NUMERO_CLASSE = "CLASSE %d\n";
-	public final static String MSG_DIAGNOSI_MINIMALI = "Diagnosi Minimali D%d = {";
-	public final static String MSG_DIAGNOSI_MINIMALE_SINGOLA = "{%s}";
-	public final static String MSG_CARDINALITA = "Cardinalita' D%d: %d";
 
-	/** The tipo diagnosi. */
-	private int tipoDiagnosi;
-	
-	/** The test suite. */
 	private TestSuite testSuite;
-	
-	/** The elenco classi. */
 	private Vector<ClasseEquivalenza> elencoClassi;
-	
-	/** The elenco azioni. */
 	private Vector<Azione> elencoAzioni;
-	
-	/** The risultato azioni. */
 	private Vector<Integer> risultatoAzioni;
-	
-	/** The risultato classi per probabilita. */
 	private Vector<Vector<Integer>> risultatoClassiPerProbabilita;
+	private Vector<Vector<String>> elencoDiagnosiMinimali;
 	
-	/** The risultato string. */
-	private StringBuffer risultatoString = new StringBuffer();
-
-	private boolean stampaDiagnosi;
 	
 	/* 	 2: OK
 		 1: KO
 		-1: !KO
 		-2: !OK 	*/
-	
-	/**
-	 * Instantiates a new diagnosi.
-	 *
-	 * @param tipoDiagnosi the tipo diagnosi
-	 * @param testSuite the test suite
-	 */
-	public Diagnosi (int tipoDiagnosi, TestSuite testSuite) {
-		
-		this.tipoDiagnosi = tipoDiagnosi;
+
+	public Diagnosi (TestSuite testSuite, boolean eseguiProbabilita) {
 		this.testSuite = testSuite;
+		
+		eseguiDiagnosi(eseguiProbabilita);
+		
 	}
 	
-	/**
-	 * Esegui diagnosi.
-	 */
-	public void eseguiDiagnosi() {
-		if(tipoDiagnosi == 1) {
-			eseguiDiagnosiMetodo1(stampaDiagnosi);
-			System.out.println("1) CHIAMATA DIAGNOSI 1");
+	public void eseguiDiagnosi(boolean eseguiProbabilita) {
+		if(!eseguiProbabilita) {
+			calcoloDiagnosiMinimali();
 		}
 		else {
-			eseguiDiagnosiMetodo2(stampaDiagnosi);
-			System.out.println("2) CHIAMATA DIAGNOSI 2");
+			eseguiDiagnosiMetodo1();
+			eseguiDiagnosiMetodo2();
 		}
 	}
 	
-	/**
-	 * Esegui diagnosi metodo1.
-	 * @return 
-	 */
-	public Vector<Float> eseguiDiagnosiMetodo1 (boolean stampaDiagnosi) {
+	public Vector<Float> eseguiDiagnosiMetodo1 () {
 		
 		/** Inizializza i vettori che servono per i risultati da passare a calcolo probabilita'. */
 		risultatoClassiPerProbabilita = new Vector<Vector<Integer>>();
@@ -90,14 +54,14 @@ public class Diagnosi implements Serializable {
 		Modello mod = Modello.getInstance();
 		elencoAzioni = mod.getElencoAzioni();
 		
-		DiagnosiClassePerClasse(stampaDiagnosi);
+		calcoloDiagnosiMinimali();
 		
 		//ProbabilitaMetodo1() metodo1 = new ProbabilitaMetodo1();
 		return ProbabilitaMetodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 		//risultatoFinaleProbabilitaM1 = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 	}
 	
-	private void DiagnosiClassePerClasse(boolean stampaDiagnosi) {
+	private void calcoloDiagnosiMinimali() {
 		/** Seleziono una classe per volta. */
 		for(int i=0; i<elencoClassi.size(); i++) {
 			risultatoAzioni = new Vector<Integer>();
@@ -152,17 +116,7 @@ public class Diagnosi implements Serializable {
 			
 			CalcoloRisultato(insiemeDiCopertura, matrice);
 			
-//			if(stampaDiagnosi)
-//				stampaDiagnosi1(i, classe);
-			
-			/** Aggiungo le diagnosi minimali e la cardinalità al toString(). */
-			risultatoString.append(String.format(MSG_NUMERO_CLASSE, i));
-			risultatoString.append(String.format(MSG_DIAGNOSI_MINIMALI, i));
-			for(int dm=0; dm<risultatoAzioni.size(); dm++) {
-				if(risultatoAzioni.get(dm) == 1)
-					risultatoString.append(String.format(MSG_DIAGNOSI_MINIMALE_SINGOLA, elencoAzioni.get(dm).getNome()));
-			}
-			risultatoString.append(String.format(MSG_CARDINALITA, i+1, classe.getCardinalita()));			
+			caricamentoVettoreDiagnosiMinimali();
 			
 			/** Inserimento dei risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita  */
 			risultatoClassiPerProbabilita.add(risultatoAzioni);
@@ -171,7 +125,7 @@ public class Diagnosi implements Serializable {
 
 	private void Metto0AColonneCon0(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
 		
-		/** Elaboro la matrice (metto a 0 le colonne dove è presente uno 0. */
+		/** Elaboro la matrice (metto a 0 le colonne dove Ã¨ presente uno 0. */
 		for (int col=0; col<elencoAzioni.size(); col++) {
 			
 			boolean dueTrovato = false;
@@ -234,14 +188,17 @@ public class Diagnosi implements Serializable {
 		//	System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
 		}
 	}
+	
+	public void caricamentoVettoreDiagnosiMinimali() {
+		Vector<String> diagnosiMinimali = new Vector<String>();
+		for(int dm=0; dm<risultatoAzioni.size(); dm++) {
+			if(risultatoAzioni.get(dm) == 1)
+				diagnosiMinimali.add(elencoAzioni.get(dm).getNome());
+		}
+		elencoDiagnosiMinimali.add(diagnosiMinimali);		
+	}
 
-
-	/**
-	 * Esegui diagnosi metodo2.
-	 * @param stampaDiagnosi2 
-	 * @return 
-	 */
-	public Vector<Float> eseguiDiagnosiMetodo2 (boolean stampaDiagnosi) {
+	public Vector<Float> eseguiDiagnosiMetodo2 () {
 		/** Ottengo vettori di classi e azioni da test suite. */
 		elencoClassi = testSuite.getElencoClassi();		
 		Modello mod = Modello.getInstance();
@@ -355,8 +312,6 @@ public class Diagnosi implements Serializable {
 		}
 		
 //		stampaDiagnosi(matriceClassiPerProbabilita2);
-//		if(stampaDiagnosi)
-//			stampaDiagnosi2();
 		
 		/** Invio risultati. */
 		//ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
@@ -364,17 +319,25 @@ public class Diagnosi implements Serializable {
 		//risultatoFinaleProbabilitaM2.(testSuite, matriceClassiPerProbabilita2);
 	}
 	
-	/**
-	 * Tipo diagnosi.
-	 *
-	 * @return the int
-	 */
-	public int tipoDiagnosi() {
-		return tipoDiagnosi;
-	}
 
 	public String toString() {
-		return risultatoString.toString();
+		StringBuffer risultato = new StringBuffer();
+		risultato.append("ELENCO DIAGNOSI MINIMALI\n");
+		
+		for(int i=0; i<elencoClassi.size(); i++) {
+			ClasseEquivalenza classe = elencoClassi.get(i);
+			Vector<String> diagnosiMinimali = elencoDiagnosiMinimali.get(i);
+			risultato.append(String.format("Diagnosi Minimali D%d = {", i));
+			
+			for(int j=0; j<diagnosiMinimali.size(); j++) {
+				risultato.append(String.format("{%s}", diagnosiMinimali.get(j)));
+			}
+			
+			risultato.append("}\n");
+			risultato.append(String.format("Cardinalita' D%d: %d\n\n", i, classe.getCardinalita()));
+		}
+		
+		return risultato.toString();
 	}
 	
 	/*public void stampaDiagnosi1(int i, ClasseEquivalenza classe) {		
