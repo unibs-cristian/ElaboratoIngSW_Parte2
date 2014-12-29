@@ -7,7 +7,6 @@ import testSuiteDiagnosi.TestSuite;
 import gestioneModello.Modello;
 
 import java.io.Serializable;
-import java.util.Vector;
 
 /**
  * Classe Report.
@@ -34,8 +33,8 @@ public class Report implements Serializable{
 	/** Il Test Suite in base al quale viene generato il Report */
 	private TestSuite ts;
 	
-	/** Il Vector contenente le diagnosi */
-	private Diagnosi diagnosi;
+	/** La diagnosi */
+	private Diagnosi diag;
 	
 /** L'istanza unica di Report */
 private static Report instance = null;
@@ -49,7 +48,7 @@ private static Report instance = null;
 	private Report(Modello _mod, TestSuite _ts) {
 		mod = _mod;
 		ts = _ts;
-		diagnosi = ts.getDiagnosi();
+		diag = ts.getDiagnosi();
 	}
 	
 	/**
@@ -84,21 +83,6 @@ private static Report instance = null;
 	}
 	
 	/**
-	 * Restituisce un elemento del Vector contenente le diagnosi
-	 *
-	 * @param index : l'indice relativo alla posizione dell'elemento da restituire.
-	 * @return la diagnosi corrispondente alla posizione specificata per il Vector
-	 */
-/*	public Diagnosi getDiagnosiAt(int index) {
-		//PRECONDIZIONI 
-		assert index>=0 && index<=elencoDiag.size()-1 : "Chiamato getDiagnosiAt con indice errato";
-				
-
-		return elencoDiag.elementAt(index);
-	}
-*/	
-	// TODO verificare se servono. La diagnosi non è unica per un certo TS?
-	/**
 	 * Restituisce il modello relativo al Report
 	 *
 	 * @return il modello per il quale e' stato generato il Report
@@ -107,19 +91,15 @@ private static Report instance = null;
 		return mod;
 	}
 	
+	/** 
+	 * Restituisce il nome del Report
+	 *  
+	 * @return il valore dell'attributo nome dell'istanza.
+	 */
 	public String getNome() {
 		return nome;
 	}
 	
-	/**
-	 * Restituisce il numero di diagnosi
-	 *
-	 * @return la dimensione del Vector contenente le diagnosi
-	 */
-/*	public int getNumeroDiag() {
-		return elencoDiag.size();
-	}
-*/	
 	/**
 	 * Restituisce il Test Suite
 	 *
@@ -128,18 +108,7 @@ private static Report instance = null;
 	public TestSuite getTS() {
 		return ts;
 	}
-	
-	/**
-	 * Assegna un insieme di diagnosi al report
-	 *
-	 * @param diagnosiTS : il Vector da associare
-	 */
-/*	public void setDiagnosi(Vector <Diagnosi> diagnosiTS) {
-		for(int i=0; i<diagnosiTS.size(); i++) {
-			elencoDiag.addElement(diagnosiTS.elementAt(i));
-		}
-	}
-*/
+
 	/**
 	 * Assegna il modello al Report
 	 *
@@ -182,8 +151,8 @@ private static Report instance = null;
 		risultato.append(mod.toString()+"\n\n");
 		risultato.append("TEST SUITE" + "\n" + "-----------------" + "\n");
 		risultato.append(ts.toString()+"\n\n");
-//		for(int i=0; i<getNumeroDiag(); i++)
-//			risultato.append(elencoDiag.elementAt(i).toString() + "\n");
+		risultato.append("INSIEME DELLE DIAGNOSI MINIMALI" + "\n");
+		risultato.append(diag.toString() + "\n");
 		return risultato.toString();
 	}
 }
