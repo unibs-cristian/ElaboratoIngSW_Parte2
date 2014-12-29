@@ -323,19 +323,20 @@ public class Diagnosi implements Serializable {
 
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
-		risultato.append("ELENCO DIAGNOSI MINIMALI\n");
+		risultato.append("ELENCO DIAGNOSI MINIMALI\n\n");
 		
 		for(int i=0; i<elencoClassi.size(); i++) {
 			ClasseEquivalenza classe = elencoClassi.get(i);
 			Vector<String> diagnosiMinimali = elencoDiagnosiMinimali.get(i);
-			risultato.append(String.format("Diagnosi Minimali D%d = {", i));
+			risultato.append(String.format("\tCLASSE DI EQUIVALENZA N. %d\n", i+1));
+			risultato.append(String.format("\tCardinalita': %d\n", classe.getCardinalita()));
+			risultato.append("\tDiagnosi Minimali = {");
 			
 			for(int j=0; j<diagnosiMinimali.size(); j++) {
 				risultato.append(String.format("{%s}", diagnosiMinimali.get(j)));
 			}
 			
-			risultato.append("}\n");
-			risultato.append(String.format("Cardinalita' D%d: %d\n\n", i, classe.getCardinalita()));
+			risultato.append("}\n\n");
 		}
 		
 		return risultato.toString();
