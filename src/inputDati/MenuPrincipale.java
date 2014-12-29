@@ -265,13 +265,13 @@ public class MenuPrincipale {
 						inserimento.inserisciCamm();
 						
 						System.out.println(MSG_INS_COP);
-						i++;
 						//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
 						do {
 							CamminoAzioni insCamm = new CamminoAzioni(false);
 							InserimentoCammino inserimentoInsCamm = new InserimentoCammino(ce, insCamm);
 							inserimentoInsCamm.inserisciCamm();
-							System.out.println(String.format(MSG_COPPIA_AGGIUNTA,i));					
+							System.out.println(String.format(MSG_COPPIA_AGGIUNTA,i));
+							i++;
 						} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
 						//Se la classe e' gia' presente nel TS non la aggiunge e fa ripetere l'inserimento.
 						if(ts.giaInserita(ce)) {
