@@ -7,41 +7,44 @@ import gestioneModello.Modello;
 import utilita.GUI;
 import java.util.Vector;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class TestSuite.
+ * La classe Test Suite.
+ * Un Test Suite e' un insieme di prove, strutturate in classi di equivalenza.
+ * 
+ * INVARIANTE DI CLASSE : Un Test Suite non puo' contenere due classi di equivalenza uguali.
  */
 public class TestSuite implements Serializable {
 	
-	/** The Constant serialVersionUID. */
+	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
-	/** The Constant MSG_INTESTAZIONE_TS. */
+	/** Costante per stampa a video */
 	public final static String MSG_INTESTAZIONE_TS = "\n\nTEST SUITE PER IL MODELLO %s\n\n";
 	
-	/** The elenco classi. */
+	/** Vector con le classi di equivalenza che costituiscono il Test Suite. */
 	private Vector <ClasseEquivalenza> elencoClassi;
 	
-	/** The elenco diagnosi. */
-	private Diagnosi diagnosi;
+	/** La diagnosi associata al Test Suite */
+	private Diagnosi diag;
 	
-	/** The mod. */
+	/** Il Modello relativo al Test Suite */
 	private Modello mod;
 	
-	/** The instance. */
+	/** L'istanza unica di Test Suite */
 	private static TestSuite instance = null;
 	
 	/**
-	 * Instantiates a new test suite.
+	 * Costruttore della classe TestSuite. 
+	 * Crea la struttura dati per contenere le classi di equivalenza inserite dall'utente.
 	 */
 	private TestSuite() {
 		elencoClassi = new Vector <ClasseEquivalenza>();
 	}
 	
 	/**
-	 * Gets the single instance of TestSuite.
+	 * Fornisce l'istanza singola di TestSuite
 	 *
-	 * @return single instance of TestSuite
+	 * @return Il Test Suite corrente. Se vuoto ne crea uno nuovo.
 	 */
 	public static TestSuite getInstance() {
 		if(instance==null)
@@ -52,16 +55,16 @@ public class TestSuite implements Serializable {
 	/**
 	 * Cambia test suite.
 	 *
-	 * @param nuovo the nuovo
+	 * @param nuovo : il nuovo Test Suite
 	 */
 	public static void cambiaTestSuite(TestSuite nuovo) {
 		instance = nuovo;
 	}
 	
 	/**
-	 * Checks if is null.
+	 * Controlla se il Test Suite e' nullo.
 	 *
-	 * @return true, if is null
+	 * @return true, se non c'e' nessun Test Suite inserito
 	 */
 	public static boolean isNull() {
 		if(instance==null)
@@ -70,68 +73,102 @@ public class TestSuite implements Serializable {
 	}
 	
 	/**
-	 * Adds the classe equivalenza.
+	 * Aggiunge la classe di equivalenza.
 	 *
-	 * @param clEq the cl eq
+	 * @param clEq : la classe d'equivalenza da aggiungere alla struttura dati
 	 */
 	public void addClasseEquivalenza(ClasseEquivalenza clEq) {
+		//PRECONDIZIONE
+		assert clEq!=null : "Violata precondizione metodo addClasseEquivalenza. Passata classe nulla.";
+		
+		int sizeVecchia = elencoClassi.size();
 		elencoClassi.add(clEq);
+		
+		//POSTCONDIZIONE
+		assert elencoClassi.size() == sizeVecchia+1;
 	}
 	
 	/**
-	 * Adds the diagnosi.
+	 * Controlla se una classe di equivalenza e' gia' presente nel Test Suite, per evitare
+	 * l'inserimento di doppioni
 	 *
-	 * @param diag the diag
-	 */
-	
-	
-	/**
-	 * Gia inserita.
-	 *
-	 * @param ce the ce
-	 * @return true, if successful
+	 * @param ce : la classe d'equivalenza di cui verificare la presenza.
+	 * @return true, se la classe e' gia' presente, false altrimenti.
 	 */
 	public boolean giaInserita(ClasseEquivalenza ce) {
+		//PRECONDIZIONE
+		assert ce!=null : "Violata precondizione nel metodo giaInserita. Passata classe nulla.";
+		
 		for(int i=0; i<getNumeroCE(); i++)
 			if(getClasseAt(i).isEqual(ce))
 				return true;
 		return false;
-	}
+	} 
 		
-	// Le classi di equivalenza verranno inserite dall'utente come le entita' nel modello.
 	/**
-	 * Gets the elenco classi.
+	 * Fornisce le classi d'equivalenza del Test Suite.
 	 *
-	 * @return the elenco classi
+	 * @return la struttura dati contenente le classi.
 	 */
 	public Vector <ClasseEquivalenza> getElencoClassi() {
 		return elencoClassi;
 	}
 	
-	public void addDiagnosi(Diagnosi dia) {
-		this.diagnosi = dia;
-	}
-	
-	public Diagnosi getDiagnosi() {
-		return diagnosi;
-	}
-	
 	/**
-	 * Gets the classe at.
+	 * Fornisce la classe d'equivalenza all'indice specificato.
 	 *
-	 * @param indice the indice
-	 * @return the classe at
+	 * @param indice : la posizione della classe da restituire nella struttura dati.
+	 * @return la classe alla posizione specificata.
 	 */
 	public ClasseEquivalenza getClasseAt(int indice) {
 		return elencoClassi.elementAt(indice);
 	}
 	
 	/**
-	 * Gets the elenco diagnosi.
+	 * Fornisce la diagnosi
 	 *
-	 * @return the elenco diagnosi
+	 * @return la diagnosi
 	 */
+	public Diagnosi getDiagnosi() {
+		return diag;
+	}
 	
+	/**
+	 * Fornisce il modello relativo al Test Suite
+	 *
+	 * @return il modello 
+	 */
+	public Modello getModello() {
+		return mod;
+	}
+	
+	/**
+	 * Fornisce il numero di classi di equivalenza facenti parte del Test Suite
+	 *
+	 * @return la dimensione della struttura dati contenente le classi di equivalenza.
+	 */
+	public int getNumeroCE() {
+		return elencoClassi.size();
+	}
+	
+	/**
+	 * Controlla se il Test Suite ha gia' un insieme delle diagnosi associato
+	 * 
+	 * @return true, se la diagnosi e' diversa da null, false altrimenti
+	 */
+	public boolean hasDiagnosi() {
+		if(diag == null)
+			return false;
+		else
+			return true;
+	}
+	
+	/**
+	 * Confronta due Test Suite verificandone l'uguaglianza.
+	 * 
+	 * @param altro : il Test Suite con cui confrontare
+	 * @return true, se i due Test Suite sono uguali, false altrimenti.
+	 */
 	public boolean isEqual(TestSuite altro) {
 		for(int i=0; i<elencoClassi.size(); i++)
 			if(!altro.getClasseAt(i).isEqual(elencoClassi.elementAt(i)))
@@ -140,35 +177,23 @@ public class TestSuite implements Serializable {
 	}
 	
 	/**
-	 * Gets the modello.
-	 *
-	 * @return the modello
+	 * Setta l'istanza di Diagnosi
+	 * 
+	 * @param d : la diagnosi da associare.
 	 */
-	public Modello getModello() {
-		return mod;
+	public void setDiagnosi(Diagnosi d) {
+		diag = d;
 	}
 	
 	/**
-	 * Gets the numero ce.
+	 * Setta l'istanza di modello.
 	 *
-	 * @return the numero ce
-	 */
-	public int getNumeroCE() {
-		return elencoClassi.size();
-	}
-	
-	/**
-	 * Sets the modello.
-	 *
-	 * @param m the new modello
+	 * @param m : il modello da associare
 	 */
 	public void setModello(Modello m) {
 		mod = m;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(String.format(GUI.incorniciaStringa(MSG_INTESTAZIONE_TS), mod.getNome()));
