@@ -316,7 +316,7 @@ public class MenuPrincipale {
 			{
 				TestSuite ts = TestSuite.getInstance();
 				if(!ts.hasDiagnosi()) {
-					Diagnosi d = new Diagnosi(1,ts);				
+					Diagnosi d = new Diagnosi(ts,false);				
 					ts.setDiagnosi(d);
 				}
 				System.out.println(ts.getDiagnosi().toString());			
