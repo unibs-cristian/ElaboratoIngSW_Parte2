@@ -9,6 +9,9 @@ import java.io.Serializable;
  * La Classe ClasseEquivalenza.
  * Una classe di equivalenza di un Test Suite e' costituita un insieme di coppie 
  * insieme del cammino - valore della rilevazione.
+ * 
+ * INVARIANTE DI CLASSE : 
+ * Non contiene coppie uguali tra loro. 
  */
 public class ClasseEquivalenza implements Serializable {
 
@@ -94,6 +97,25 @@ public class ClasseEquivalenza implements Serializable {
 	 */
 	public CamminoAzioni getCamminoGlobale() {
 		return camminoGlobale;
+	}
+	
+	/** 
+	 * Controlla se una coppia e' gia' stata inserita come parte dell'insieme di copertura
+	 * di una classe di equivalenza
+	 * 
+	 * @param c : la coppia di cui verificare la presenza
+	 * @return true, se la coppia e' presente, false altrimenti.
+	 * @throws NullPointerException se c == null
+	 */
+	public boolean giaPresente(Coppia c) {
+		//PRECONDIZIONE
+		if(c==null)
+			throw new NullPointerException("Violata precondizione metodo giaPresente. Inserita coppia nulla.");
+		
+		for(int i=0; i<getNumeroCoppie(); i++)
+			if(getCoppiaAt(i).isEqual(c))
+				return true;
+		return false;
 	}
 	
 	/**

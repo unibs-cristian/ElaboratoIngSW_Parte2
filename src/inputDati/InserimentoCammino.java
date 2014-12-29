@@ -49,6 +49,7 @@ public class InserimentoCammino {
 	public final static String MSG_CAMMINO_NON_VALIDO = "Errore! Cammino non valido perche' %s .Inserire nuovamente.";
 	public final static String MSG_CAMMINO_INCORRETTO = "non corretto in base alla struttura del modello";
 	public final static String MSG_NON_SOTTOINSIEME = "non e' un sottoinsieme del cammino globale";
+	public final static String MSG_ERRORE_CO = "Errore! E' gia' presente nella classe di equivalenza una coppia uguale. Ripetere l'inserimento.";
 	
 	/** Classe di equivalenza per la quale si vuole inserire il cammino globale o l'insieme del cammino */
 	private ClasseEquivalenza ce;
@@ -126,7 +127,10 @@ public class InserimentoCammino {
 				System.out.println(MSG_INS_CAMM + camm.toString());
 				String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
 				Coppia c = new Coppia(camm, valoreRilevazione);
-				ce.addCoppia(c);
+				if(!ce.giaPresente(c))
+					ce.addCoppia(c);
+				else
+					System.out.println(MSG_ERRORE_CO);
 			}
 		}
 	}
