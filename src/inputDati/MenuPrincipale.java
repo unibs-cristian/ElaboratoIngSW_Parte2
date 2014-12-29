@@ -130,6 +130,9 @@ public class MenuPrincipale {
 	}
 	
 	private void gestisci(Menu m) {
+		//Precondizione
+		assert m!=null : "Violata precondizione metodo gestisci. Passato menu' nullo.";
+		
 		boolean finito = false;
 		do {
 			switch(m.scegliVoce()) {

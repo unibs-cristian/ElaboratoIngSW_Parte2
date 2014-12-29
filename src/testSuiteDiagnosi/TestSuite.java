@@ -10,6 +10,8 @@ import java.util.Vector;
 /**
  * La classe Test Suite.
  * Un Test Suite e' un insieme di prove, strutturate in classi di equivalenza.
+ * 
+ * INVARIANTE DI CLASSE : Un Test Suite non puo' contenere due classi di equivalenza uguali.
  */
 public class TestSuite implements Serializable {
 	
@@ -101,7 +103,7 @@ public class TestSuite implements Serializable {
 			if(getClasseAt(i).isEqual(ce))
 				return true;
 		return false;
-	}
+	} 
 		
 	/**
 	 * Fornisce le classi d'equivalenza del Test Suite.

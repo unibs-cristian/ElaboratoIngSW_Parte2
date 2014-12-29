@@ -108,19 +108,6 @@ private static Report instance = null;
 	public TestSuite getTS() {
 		return ts;
 	}
-	
-	
-	/**
-	 * Assegna un insieme di diagnosi al report
-	 *
-	 * @param diagnosiTS : il Vector da associare
-	 */
-	/*
-	public void setDiagnosi(Vector <Diagnosi> diagnosiTS) {
-		for(int i=0; i<diagnosiTS.size(); i++) {
-			elencoDiag.addElement(diagnosiTS.elementAt(i));
-		}
-	} */
 
 	/**
 	 * Assegna il modello al Report

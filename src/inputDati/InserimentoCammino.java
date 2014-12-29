@@ -267,28 +267,28 @@ public class InserimentoCammino {
 	 */
 	private void gestisciStatoComplessa(Entita e,Entita esterna,int numRamoEsterna,int posRamoEsterna) {
 		//Variabili per le precondizioni
-				boolean eNull = false;
-				boolean esternaNull = false;
-				boolean numRamoOk = false; 
-				boolean posRamoOk = false;
-				if(e == null)
-					eNull = true;
-				if(esterna == null)
-					esternaNull = true;
-				if(!esternaNull && numRamoEsterna>=0 && numRamoEsterna<=esterna.getRami().length-1)
-					numRamoOk = true;
-				if(!esternaNull && numRamoOk && posRamoEsterna>=0 && posRamoEsterna<=esterna.getRami()[numRamoEsterna].getNumeroEntita()-1)
-					posRamoOk = true;
+		boolean eNull = false;
+		boolean esternaNull = false;
+		boolean numRamoOk = false; 
+		boolean posRamoOk = false;
+		if(e == null)
+			eNull = true;
+		if(esterna == null)
+			esternaNull = true;
+		if(!esternaNull && numRamoEsterna>=0 && numRamoEsterna<=esterna.getRami().length-1)
+			numRamoOk = true;
+		if(!esternaNull && numRamoOk && posRamoEsterna>=0 && posRamoEsterna<=esterna.getRami()[numRamoEsterna].getNumeroEntita()-1)
+			posRamoOk = true;
 				
-				/* 
-				 * PRECONDIZIONI
-				 * 1) L'entita' e deve essere non nulla 
-				 * 2) L'entita' e deve essere un branch, un fork o un ciclo.
-				 * 3) Se l'entita' esterna non e' nulla, allora gli indici relativi al ramo e alla posizione nel ramo devono essere corretti
-				*/
-				assert eNull : "Violata precondizione metodo gestisciStatoComplessa. Passata entita' complessa nulla.";
-				assert e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK): "Violata precondizione metodo gestisciStatoComplessa. Chiamato metodo con entita' diversa da branch, fork o ciclo.";
-				assert esternaNull || (!esternaNull && numRamoOk && posRamoOk) : "Violata precondizione sul metodo gestisciStatoAzione. Il numero del ramo o la posizione nel ramo non sono corretti.";
+		/* 
+		 * PRECONDIZIONI
+		 * 1) L'entita' e deve essere non nulla 
+		 * 2) L'entita' e deve essere un branch, un fork o un ciclo.
+		 * 3) Se l'entita' esterna non e' nulla, allora gli indici relativi al ramo e alla posizione nel ramo devono essere corretti
+		 */
+		assert eNull : "Violata precondizione metodo gestisciStatoComplessa. Passata entita' complessa nulla.";
+		assert e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK): "Violata precondizione metodo gestisciStatoComplessa. Chiamato metodo con entita' diversa da branch, fork o ciclo.";
+		assert esternaNull || (!esternaNull && numRamoOk && posRamoOk) : "Violata precondizione sul metodo gestisciStatoAzione. Il numero del ramo o la posizione nel ramo non sono corretti.";
 
 		for(int i=0; i<e.getRami().length; i++) {
 			if(e.getRami()[i].isEmpty()) {
