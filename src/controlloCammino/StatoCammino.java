@@ -4,10 +4,9 @@
 package controlloCammino;
 
 import gestioneModello.Ramo;
+import gestioneTS.CamminoAzioni;
 
 import java.io.Serializable;
-
-import testSuiteDiagnosi.CamminoAzioni;
 
 /**
  * Interface StatoCammino.

@@ -1,12 +1,13 @@
 /*
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
-package gestioneDati;
-import testSuiteDiagnosi.Diagnosi;
-import testSuiteDiagnosi.TestSuite;
+package gestioneReport;
 import gestioneModello.Modello;
+import gestioneTS.TestSuite;
 
 import java.io.Serializable;
+
+import diagnosiStatistiche.Diagnosi;
 
 /**
  * Classe Report.

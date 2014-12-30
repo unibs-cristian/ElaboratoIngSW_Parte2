@@ -4,7 +4,7 @@
 package controlloCammino;
 
 import gestioneModello.Ramo;
-import testSuiteDiagnosi.CamminoAzioni;
+import gestioneTS.CamminoAzioni;
 
 /**
  * La classe StatoOk.

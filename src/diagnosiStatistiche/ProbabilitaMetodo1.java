@@ -1,7 +1,9 @@
 /*
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
-package testSuiteDiagnosi;
+package diagnosiStatistiche;
+
+import gestioneTS.TestSuite;
 
 import java.util.Vector;
 import java.io.Serializable;

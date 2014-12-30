@@ -1,7 +1,7 @@
 /*
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
-package testSuiteDiagnosi;
+package gestioneTS;
 
 import java.io.Serializable;
 

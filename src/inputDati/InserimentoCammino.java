@@ -15,13 +15,13 @@ import controlloCammino.StatoNonOk;
 import controlloCammino.StatoOk;
 import controlloCammino.StatoVuoto;
 import gestioneModello.Entita;
-import testSuiteDiagnosi.CamminoAzioni;
-import testSuiteDiagnosi.ClasseEquivalenza;
-import testSuiteDiagnosi.Coppia;
 import utilita.Util;
 import gestioneModello.Azione;
 import gestioneModello.Modello;
 import gestioneModello.Ramo;
+import gestioneTS.CamminoAzioni;
+import gestioneTS.ClasseEquivalenza;
+import gestioneTS.Coppia;
 
 /**
  * Classe InserimentoCammino.
@@ -424,8 +424,8 @@ public class InserimentoCammino {
 	 */
 	private StatoCammino controllaCiclo(Entita c) {
 		//Precondizioni
-		assert c!=null : "Violata precondizione metodo controllaBranch. Passato branch nullo.";
-		assert c.getIdTipo().equals(Entita.ID_TIPO_BRANCH) : "Violata precondizione metodo controllaBranch. Passata entita' diversa da Branch";
+		assert c!=null : "Violata precondizione metodo controllaCiclo. Passato ciclo nullo.";
+		assert c.getIdTipo().equals(Entita.ID_TIPO_CICLO) : "Violata precondizione metodo controllaCiclo. Passata entita' diversa da Ciclo";
 
 		Ramo attivitaIniziali = c.getRami()[0];
 		Ramo condPermanenza = c.getRami()[1];

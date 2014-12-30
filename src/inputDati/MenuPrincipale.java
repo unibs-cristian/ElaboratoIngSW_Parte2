@@ -1,19 +1,19 @@
 package inputDati;
 
-import gestioneDati.Report;
 import gestioneModello.Modello;
 import gestioneModello.NodoIniziale;
+import gestioneReport.Report;
+import gestioneTS.CamminoAzioni;
+import gestioneTS.ClasseEquivalenza;
+import gestioneTS.TestSuite;
 
 import java.io.File;
 import java.util.Vector;
 
-import testSuiteDiagnosi.CamminoAzioni;
-import testSuiteDiagnosi.ClasseEquivalenza;
-import testSuiteDiagnosi.Diagnosi;
-import testSuiteDiagnosi.OrdinaElencoProbabilitaEIntervalliPosizione;
-import testSuiteDiagnosi.ProbabilitaMetodo1;
-import testSuiteDiagnosi.ProbabilitaMetodo2;
-import testSuiteDiagnosi.TestSuite;
+import diagnosiStatistiche.Diagnosi;
+import diagnosiStatistiche.OrdinaElencoProbabilitaEIntervalliPosizione;
+import diagnosiStatistiche.ProbabilitaMetodo1;
+import diagnosiStatistiche.ProbabilitaMetodo2;
 import utilita.Menu;
 import utilita.Stream;
 import utilita.Util;

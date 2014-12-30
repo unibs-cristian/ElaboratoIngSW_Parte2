@@ -1,7 +1,7 @@
 /*
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
-package testSuiteDiagnosi;
+package gestioneTS;
 import java.util.Vector;
 import java.io.Serializable;
 
@@ -100,8 +100,8 @@ public class ClasseEquivalenza implements Serializable {
 	}
 	
 	/** 
-	 * Controlla se una coppia e' gia' stata inserita come parte dell'insieme di copertura
-	 * di una classe di equivalenza
+	 * Controlla se una coppia e' gia' stata inserita come parte 
+	 * dell'insieme di copertura di una classe di equivalenza
 	 * 
 	 * @param c : la coppia di cui verificare la presenza
 	 * @return true, se la coppia e' presente, false altrimenti.

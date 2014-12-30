@@ -1,7 +1,7 @@
 /*
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
-package testSuiteDiagnosi;
+package diagnosiStatistiche;
 
 import java.io.Serializable;
 import java.util.Vector;
@@ -9,6 +9,10 @@ import java.util.Vector;
 import gestioneModello.Azione;
 import gestioneModello.Entita;
 import gestioneModello.Modello;
+import gestioneTS.CamminoAzioni;
+import gestioneTS.ClasseEquivalenza;
+import gestioneTS.Coppia;
+import gestioneTS.TestSuite;
 
 public class Diagnosi implements Serializable {
 

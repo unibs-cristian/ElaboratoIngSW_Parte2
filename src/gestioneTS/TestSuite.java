@@ -1,11 +1,15 @@
 /*
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
-package testSuiteDiagnosi;
+package gestioneTS;
 import java.io.Serializable;
+
 import gestioneModello.Modello;
 import utilita.GUI;
+
 import java.util.Vector;
+
+import diagnosiStatistiche.Diagnosi;
 
 /**
  * La classe Test Suite.
