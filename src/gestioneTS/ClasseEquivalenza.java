@@ -72,25 +72,6 @@ public class ClasseEquivalenza implements Serializable {
 	}
 	
 	/**
-	 * Fornisce una coppia ad uno specifico indice.
-	 *
-	 * @param index : la posizione della coppia nel Vector
-	 * @return la coppia avente quell'indice nel Vector
-	 */
-	public Coppia getCoppiaAt(int index) {
-		return elencoCoppie.elementAt(index);
-	}
-	
-	/**
-	 * Fornisce il numero di coppie della classe di equivalenza
-	 *
-	 * @return la dimensione della struttura dati contenente le coppie
-	 */
-	public int getNumeroCoppie() {
-		return elencoCoppie.size();
-	}
-	
-	/**
 	 * Fornisce il cammino globale
 	 *
 	 * @return il cammino globale
@@ -112,8 +93,8 @@ public class ClasseEquivalenza implements Serializable {
 		if(c==null)
 			throw new NullPointerException("Violata precondizione metodo giaPresente. Inserita coppia nulla.");
 		
-		for(int i=0; i<getNumeroCoppie(); i++)
-			if(getCoppiaAt(i).isEqual(c))
+		for(int i=0; i<elencoCoppie.size(); i++)
+			if(elencoCoppie.elementAt(i).isEqual(c))
 				return true;
 		return false;
 	}
@@ -126,13 +107,13 @@ public class ClasseEquivalenza implements Serializable {
 	 */
 	public boolean isEqual(ClasseEquivalenza altra) {
 		// Se le due classi hanno diverso cammino globale o diverso numero di coppie, allora sono diverse.
-		if(camminoGlobale.isEqual(altra.getCamminoGlobale()) == false || getNumeroCoppie() != altra.getNumeroCoppie())
+		if(camminoGlobale.isEqual(altra.getCamminoGlobale()) == false || elencoCoppie.size() != altra.getElencoCoppie().size())
 			return false;
 		
 		else
 		{
-			for(int i=0; i<getNumeroCoppie(); i++) 
-				if(getCoppiaAt(i).isEqual(altra.getCoppiaAt(i)) == false)
+			for(int i=0; i<elencoCoppie.size(); i++) 
+				if(elencoCoppie.elementAt(i).isEqual(altra.getElencoCoppie().elementAt(i)) == false)
 					return false;
 		}
 		return true;
@@ -151,10 +132,9 @@ public class ClasseEquivalenza implements Serializable {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("Cardinalita' = " + cardinalita + "\n");
 		risultato.append("Cammino Globale --> " + camminoGlobale.toString() + "\n");
-		for(int i=0; i<getNumeroCoppie(); i++) {
-			risultato.append(String.format("Coppia n.%d\n" + getCoppiaAt(i).toString(),i+1));
-		}
-		
+		for(int i=0; i<elencoCoppie.size(); i++) {
+			risultato.append(String.format("Coppia n.%d\n" + elencoCoppie.elementAt(i).toString(),i+1));
+		}		
 		return risultato.toString();
 	}
 }

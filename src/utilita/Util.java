@@ -9,26 +9,16 @@ import java.util.*;
  * The Class Util.
  */
 public class Util
-{
-	
-	/** The Constant ERRORE_NUMERO. */
-	private static final String ERRORE_NUMERO = "Errore, il carattere inserito non è un numero.";
-	
+{	
 	/** The Constant ERRORE_STRINGA_VUOTA. */
 	private static final String ERRORE_STRINGA_VUOTA = "Errore, non è possibile inserire una stringa vuota. \nReinserire la stringa: ";
-	
-	/** The Constant ERRORE_SESSO. */
-	private static final String ERRORE_SESSO = "Errore, reinserire il sesso: ";
 	
 	/** The Constant ERRORE_INTERO_COMPRESO. */
 	private static final String ERRORE_INTERO_COMPRESO = "Errore. Insere un numero compreso tra %s e %s: ";
 	
 	/** The Constant ERRORE_INTERO. */
 	private static final String ERRORE_INTERO = "Errore, il carattere inserito non è un intero.";
-	
-	/** The Constant ERRORE_STRINGA_VUOTA_O_SPAZI. */
-	private static final String ERRORE_STRINGA_VUOTA_O_SPAZI = "Errore, non è possibile inserire una stringa vuota o con spazi. \nReinserire la stringa:";
-	
+		
 	/** The Constant RILEV_OK. */
 	public final static String RILEV_OK = "OK";
 	
@@ -77,37 +67,6 @@ public class Util
 		return lettore.next();
 	}
 	
-	/**
-	 * Leggi double.
-	 *
-	 * @param messaggio the messaggio
-	 * @return the double
-	 */
-	 public static double leggiDouble (String messaggio)
-	 {
-	 boolean finito = false;
-	 double valoreLetto = 0;
-
-	 do
-	 	{
-		 System.out.print(messaggio); 
-		 if (lettore.hasNextDouble())
-		 	{
-		 		valoreLetto = lettore.nextDouble();
-		 		finito = true;
-		 	}
-		 else
-		 	{
-		 		System.out.println(ERRORE_NUMERO);
-		 		@SuppressWarnings("unused")
-		 		String daButtare = lettore.next();
-		 	}
-	 	} 
-	 while (!finito);
-	 
-	 return valoreLetto;
-	 }
-	
 	 /**
  	 * Leggi string piena.
  	 *
@@ -132,45 +91,6 @@ public class Util
 		}		
 		}
 		return nome.trim();
-	}
-	
-	/**
-	 * Leggi string piena no spazi.
-	 *
-	 * @param messaggio the messaggio
-	 * @return the string
-	 */
-	public static String leggiStringPienaNoSpazi (String messaggio)
-	{
-		System.out.print(messaggio);
-		boolean esci = false;
-		String nome = null;
-		while (!esci)
-		{
-		nome = lettore.next();
-		if (nome.trim().length() != 0 && nome.trim().length() == nome.replaceAll("\\u0020","").length() )
-		{
-			esci = true;
-		}
-		else
-		{
-			System.out.print(ERRORE_STRINGA_VUOTA_O_SPAZI);
-		}
-		}
-		return nome.trim();
-	}
-	 
-	 
-	/**
-	 * Leggi char.
-	 *
-	 * @param messaggio the messaggio
-	 * @return the char
-	 */
-	public static char leggiChar(String messaggio)
-	{
-		String letto = leggiStringPiena(messaggio);
-		return letto.charAt(0);
 	}
 	
 	/**
@@ -206,7 +126,7 @@ public class Util
 	 * @param messaggio the messaggio
 	 * @return the int
 	 */
-	public static int leggiInt(String messaggio)
+	private static int leggiInt(String messaggio)
 	{		
 		boolean fine = false;
 		int numero = 0;		
@@ -228,66 +148,6 @@ public class Util
 		}
 		return numero;
 	}	
-	
-	
-	/**
-	 * Leggi sesso.
-	 *
-	 * @param messaggio the messaggio
-	 * @return the char
-	 */
-	public static char leggiSesso (String messaggio)
-	{
-		String toReturn = null;
-		while (toReturn == null)
-		{
-			System.out.print(messaggio + "(M/m/f/F): ");
-			String sesso = lettore.next();
-			if ( sesso.toLowerCase().equals("m") || sesso.toLowerCase().equals("f"))
-			{
-				toReturn = sesso.toLowerCase();
-			}
-			else
-			{
-			System.out.print(ERRORE_SESSO);
-			}
-		}
-	return toReturn.charAt(0);
-	}
-	
-	/**
-	 * Leggi array intero.
-	 *
-	 * @param lunghezza the lunghezza
-	 * @param numerazione the numerazione
-	 * @param messaggio the messaggio
-	 * @return the int[]
-	 */
-    public static int[] leggiArrayIntero(int lunghezza, String numerazione, String messaggio)
-    {
-            System.out.println(messaggio);
-            int array[] = new int [lunghezza];
-            for(int i = 0; i < lunghezza ; i++)
-                    array[i] = leggiInt(numerazione + (i + 1) + ":");
-            return array;
-    }
-	
-    /**
-     * Leggi doppio arrayintero.
-     *
-     * @param lunghezza the lunghezza
-     * @param messaggio the messaggio
-     * @return the int[][]
-     */
-    public static int[][] leggiDoppioArrayintero (int lunghezza, String messaggio)
-    {
-    	System.out.println(messaggio);
-    	int array[][] = new int [lunghezza][lunghezza];
-    	for(int i=0;i<lunghezza; i++)
-    		for(int j=0; j<lunghezza; j++)
-    			array[i][j] = leggiInt("Riga " + (i + 1) +" e colonna "+ (j + 1) + ":");
-    	return array;
-    }
     
     /**
      * Yes or no.

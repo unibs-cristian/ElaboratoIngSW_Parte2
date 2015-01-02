@@ -1,7 +1,7 @@
 /*
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
-package diagnosiStatistiche;
+package statisticheGuasti;
 import java.io.Serializable;
 import java.util.Vector;
 

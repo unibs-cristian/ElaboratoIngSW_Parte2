@@ -1,7 +1,7 @@
 /*
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
-package diagnosiStatistiche;
+package statisticheGuasti;
 import java.io.Serializable;
 import java.util.Vector;
 
@@ -23,9 +23,9 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 *
 	 * @return the vector
 	 */
-	public static Vector<Tupla> ElencoProbabilitaOrdinatoSenzaDoppioni(Vector<Float> probabilitaTestSuite)
+	public static Vector<Tupla> elencoProbabilitaOrdinatoSenzaDoppioni(Vector<Float> probabilitaTestSuite)
 	{
-		return RimuoviDoppioniElencoProbabilitaOrdinato(OrdinaElencoProbabilita(ElencoProbabilita(probabilitaTestSuite) ) );
+		return rimuoviDoppioniElencoProbabilitaOrdinato(ordinaElencoProbabilita(elencoProbabilita(probabilitaTestSuite) ) );
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 *
 	 * @return the vector
 	 */
-	private static Vector<Tupla> ElencoProbabilita (Vector<Float> probabilitaTestSuite)
+	private static Vector<Tupla> elencoProbabilita (Vector<Float> probabilitaTestSuite)
 	{
 		//Inserisco l'elenco probabilita' in un vettore di tuple
 		Vector<Tupla> elencoProbabilita = new Vector<Tupla>();
@@ -55,7 +55,7 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 * @param elencoProbabilita the elenco probabilita
 	 * @return the vector
 	 */
-	private static Vector<Tupla> OrdinaElencoProbabilita(Vector<Tupla> elencoProbabilita)
+	private static Vector<Tupla> ordinaElencoProbabilita(Vector<Tupla> elencoProbabilita)
 	{
 		Vector<Tupla> elencoProbabilitaOrdinato = new Vector<Tupla>();
 		//Ordino le tuple
@@ -78,7 +78,7 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 * @param elencoProbabilita the elenco probabilita
 	 * @return the vector
 	 */
-	private static Vector<Tupla> RimuoviDoppioniElencoProbabilitaOrdinato(Vector<Tupla> elencoProbabilita)
+	private static Vector<Tupla> rimuoviDoppioniElencoProbabilitaOrdinato(Vector<Tupla> elencoProbabilita)
 	{
 		//Rimuovo i doppioni tenendo traccia di quali erano
 		for (int i = 0; i < elencoProbabilita.size(); i++)
@@ -101,12 +101,12 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 *
 	 * @return the vector
 	 */
-	public Vector<int[]> IntervalliiPosizione(Vector<Float> probabilitaTestSuite)
+	public Vector<int[]> intervalliiPosizione(Vector<Float> probabilitaTestSuite)
 	{
 		Vector<int[]> intervalliPosizione = new Vector<int[]>();
 		Vector<Integer> azioniOrdinatePerProbabilita = new Vector<Integer>();
 		
-		Vector<Tupla> elencoProbabilitaOrdinatoSenzaDoppioni = ElencoProbabilitaOrdinatoSenzaDoppioni(probabilitaTestSuite);
+		Vector<Tupla> elencoProbabilitaOrdinatoSenzaDoppioni = elencoProbabilitaOrdinatoSenzaDoppioni(probabilitaTestSuite);
 		
 		int posizione = 1;
 		for (int i = 0; i < elencoProbabilitaOrdinatoSenzaDoppioni.size(); i++)

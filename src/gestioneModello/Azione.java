@@ -85,36 +85,24 @@ public class Azione implements Entita{
 	}
 	 
 	/**
-	 * 
+	 * Fornisce il nome dell'azione.
 	 */
 	public String getNome() {
 		return titolo;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#giaPresente(java.lang.String)
-	 */
 	public boolean giaPresente(String nome) {
 		return titolo.equalsIgnoreCase(nome);
 	}
-	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIndentazione()
-	 */
+
 	public int getIndentazione() {
 		return valoreIndentazione;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getRami()
-	 */
 	public Ramo[] getRami() {
 		return null;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#rimuoviEntitaAt(int)
-	 */
 	public void rimuoviEntitaAt(int id) {}
 	
 	public void setIdTipo() {
@@ -128,9 +116,6 @@ public class Azione implements Entita{
 		modelloComposta=m;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString()
 	{
 		StringBuffer risultato = new StringBuffer();

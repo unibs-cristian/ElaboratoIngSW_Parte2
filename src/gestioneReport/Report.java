@@ -3,11 +3,10 @@
  */
 package gestioneReport;
 import gestioneModello.Modello;
+import gestioneTS.Diagnosi;
 import gestioneTS.TestSuite;
 
 import java.io.Serializable;
-
-import diagnosiStatistiche.Diagnosi;
 
 /**
  * Classe Report.

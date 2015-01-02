@@ -5,15 +5,15 @@ import gestioneModello.NodoIniziale;
 import gestioneReport.Report;
 import gestioneTS.CamminoAzioni;
 import gestioneTS.ClasseEquivalenza;
+import gestioneTS.Diagnosi;
 import gestioneTS.TestSuite;
 
 import java.io.File;
 import java.util.Vector;
 
-import diagnosiStatistiche.Diagnosi;
-import diagnosiStatistiche.OrdinaElencoProbabilitaEIntervalliPosizione;
-import diagnosiStatistiche.ProbabilitaMetodo1;
-import diagnosiStatistiche.ProbabilitaMetodo2;
+import statisticheGuasti.OrdinaElencoProbabilitaEIntervalliPosizione;
+import statisticheGuasti.ProbabilitaMetodo1;
+import statisticheGuasti.ProbabilitaMetodo2;
 import utilita.Menu;
 import utilita.Stream;
 import utilita.Util;
@@ -190,8 +190,8 @@ public class MenuPrincipale {
 		if(Modello.isNull() == false)
 			sovrascrivi = Util.yesOrNo(MSG_MODELLO_ESISTENTE);
 		else {
-			String nome_modello = Util.leggiString(MSG_NOME_MODELLO);
-			String descrizione_modello = Util.leggiString(MSG_DESCRIZIONE_MODELLO);
+			String nome_modello = Util.leggiStringPiena(MSG_NOME_MODELLO);
+			String descrizione_modello = Util.leggiStringPiena(MSG_DESCRIZIONE_MODELLO);
 			Modello m = Modello.getInstance();
 			m.setNome(nome_modello);
 			m.setDescrizione(descrizione_modello);
@@ -333,17 +333,15 @@ public class MenuPrincipale {
 		else 
 		{							
 			if(TestSuite.isNull())
-				System.out.println("TS nullo!");
+				System.out.println(MSG_NO_TS);
 			else
-			{
-				System.out.println("TS rilevato!");
-				
+			{	
 				TestSuite ts = TestSuite.getInstance();
 				Diagnosi d = new Diagnosi(ts, true);
 				ProbabilitaMetodo1.stampaRisultati(d.eseguiDiagnosiMetodo1());
 				ProbabilitaMetodo2.stampaRisultati(d.eseguiDiagnosiMetodo2());
-				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d.eseguiDiagnosiMetodo1() );
-				OrdinaElencoProbabilitaEIntervalliPosizione.ElencoProbabilitaOrdinatoSenzaDoppioni(d.eseguiDiagnosiMetodo2() );
+				OrdinaElencoProbabilitaEIntervalliPosizione.elencoProbabilitaOrdinatoSenzaDoppioni(d.eseguiDiagnosiMetodo1() );
+				OrdinaElencoProbabilitaEIntervalliPosizione.elencoProbabilitaOrdinatoSenzaDoppioni(d.eseguiDiagnosiMetodo2() );
 			}
 		}
 	}

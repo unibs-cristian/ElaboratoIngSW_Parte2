@@ -1,18 +1,15 @@
 /*
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
-package diagnosiStatistiche;
+package gestioneTS;
 
 import java.io.Serializable;
 import java.util.Vector;
 
+import statisticheGuasti.ProbabilitaMetodo1;
+import statisticheGuasti.ProbabilitaMetodo2;
 import gestioneModello.Azione;
-import gestioneModello.Entita;
 import gestioneModello.Modello;
-import gestioneTS.CamminoAzioni;
-import gestioneTS.ClasseEquivalenza;
-import gestioneTS.Coppia;
-import gestioneTS.TestSuite;
 
 public class Diagnosi implements Serializable {
 
@@ -114,12 +111,12 @@ public class Diagnosi implements Serializable {
 			
 		//	System.out.println("Creazione matrice base..");
 		//	stampaDiagnosi(matrice);
-			Metto0AColonneCon0(insiemeDiCopertura, matrice);
+			metto0AColonneCon0(insiemeDiCopertura, matrice);
 			
 		//	System.out.println("Generazione matrice elaborata..");
 		//	stampaDiagnosi(matrice);
 			
-			CalcoloRisultato(insiemeDiCopertura, matrice);
+			calcoloRisultato(insiemeDiCopertura, matrice);
 			
 			caricamentoVettoreDiagnosiMinimali();
 			
@@ -128,7 +125,7 @@ public class Diagnosi implements Serializable {
 		}		
 	}
 
-	private void Metto0AColonneCon0(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
+	private void metto0AColonneCon0(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
 		
 		/** Elaboro la matrice (metto a 0 le colonne dove Ã¨ presente uno 0. */
 		for (int col=0; col<elencoAzioni.size(); col++) {
@@ -158,7 +155,7 @@ public class Diagnosi implements Serializable {
 		}		
 	}
 	
-	private void CalcoloRisultato(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
+	private void calcoloRisultato(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
 		/** Calcolo risultati ed inserimento in vettore. */
 		for(int s=0; s<elencoAzioni.size(); s++) {
 			

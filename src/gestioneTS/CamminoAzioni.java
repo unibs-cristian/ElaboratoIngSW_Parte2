@@ -74,15 +74,6 @@ public class CamminoAzioni implements Serializable {
 	}
 	
 	/**
-	 * Ritorna il numero di azioni del cammino
-	 *
-	 * @return la dimensione del Vector contenente le azioni.
-	 */
-	public int getNumeroAzioni() {
-		return insiemeCammino.size();
-	}
-	
-	/**
 	 * Fornisce l'azione all'indice specificato
 	 *
 	 * @param index : la posizione dell'azione nel Vector
@@ -108,9 +99,9 @@ public class CamminoAzioni implements Serializable {
 	 * @return true se questo cammino e' sottoinsieme del cammino 'altro'.
 	 */
 	public boolean inclusoIn(CamminoAzioni altro) {
-		if(this.getNumeroAzioni() > altro.getNumeroAzioni())
+		if(this.insiemeCammino.size() > altro.getInsiemeCammino().size())
 			return false;
-		for(int i=0; i<getNumeroAzioni(); i++)
+		for(int i=0; i<insiemeCammino.size(); i++)
 			if(altro.presente(getAzioneAt(i)) == false)
 				return false;
 		return true;
@@ -132,10 +123,10 @@ public class CamminoAzioni implements Serializable {
 	 * @return true se i due cammini contengono le stesse azioni, false altrimenti
 	 */
 	public boolean isEqual(CamminoAzioni altro) {
-		if(altro.getNumeroAzioni() != getNumeroAzioni())
+		if(altro.getInsiemeCammino().size() != insiemeCammino.size())
 			return false;
 		else {
-			for(int i=0; i<getNumeroAzioni(); i++) {
+			for(int i=0; i<insiemeCammino.size(); i++) {
 				if(getAzioneAt(i).getNome().equalsIgnoreCase(altro.getAzioneAt(i).getNome())==false)
 					return false;
 			}
@@ -159,7 +150,7 @@ public class CamminoAzioni implements Serializable {
 	 * @return true, se presente, false altrimenti.
 	 */
 	public boolean presente(Azione a) {
-		for(int i=0; i<getNumeroAzioni(); i++) {
+		for(int i=0; i<insiemeCammino.size(); i++) {
 			if(a.getNome().equalsIgnoreCase(getAzioneAt(i).getNome()))
 				return true;
 		}

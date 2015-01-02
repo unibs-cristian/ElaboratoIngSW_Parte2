@@ -9,8 +9,6 @@ import utilita.GUI;
 
 import java.util.Vector;
 
-import diagnosiStatistiche.Diagnosi;
-
 /**
  * La classe Test Suite.
  * Un Test Suite e' un insieme di prove, strutturate in classi di equivalenza.
@@ -103,8 +101,8 @@ public class TestSuite implements Serializable {
 		//PRECONDIZIONE
 		assert ce!=null : "Violata precondizione nel metodo giaInserita. Passata classe nulla.";
 		
-		for(int i=0; i<getNumeroCE(); i++)
-			if(getClasseAt(i).isEqual(ce))
+		for(int i=0; i<elencoClassi.size(); i++)
+			if(elencoClassi.elementAt(i).isEqual(ce))
 				return true;
 		return false;
 	} 
@@ -116,16 +114,6 @@ public class TestSuite implements Serializable {
 	 */
 	public Vector <ClasseEquivalenza> getElencoClassi() {
 		return elencoClassi;
-	}
-	
-	/**
-	 * Fornisce la classe d'equivalenza all'indice specificato.
-	 *
-	 * @param indice : la posizione della classe da restituire nella struttura dati.
-	 * @return la classe alla posizione specificata.
-	 */
-	public ClasseEquivalenza getClasseAt(int indice) {
-		return elencoClassi.elementAt(indice);
 	}
 	
 	/**
@@ -144,15 +132,6 @@ public class TestSuite implements Serializable {
 	 */
 	public Modello getModello() {
 		return mod;
-	}
-	
-	/**
-	 * Fornisce il numero di classi di equivalenza facenti parte del Test Suite
-	 *
-	 * @return la dimensione della struttura dati contenente le classi di equivalenza.
-	 */
-	public int getNumeroCE() {
-		return elencoClassi.size();
 	}
 	
 	/**
@@ -175,7 +154,7 @@ public class TestSuite implements Serializable {
 	 */
 	public boolean isEqual(TestSuite altro) {
 		for(int i=0; i<elencoClassi.size(); i++)
-			if(!altro.getClasseAt(i).isEqual(elencoClassi.elementAt(i)))
+			if(!altro.getElencoClassi().elementAt(i).isEqual(elencoClassi.elementAt(i)))
 				return false;
 		return true;
 	}
@@ -201,9 +180,9 @@ public class TestSuite implements Serializable {
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(String.format(GUI.incorniciaStringa(MSG_INTESTAZIONE_TS), mod.getNome()));
-		for(int i=0; i<getNumeroCE(); i++) {
+		for(int i=0; i<elencoClassi.size(); i++) {
 			risultato.append("\n\n");
-			risultato.append(String.format("- CLASSE DI EQUIVALENZA N.%d\n"+getClasseAt(i).toString(),i+1));
+			risultato.append(String.format("- CLASSE DI EQUIVALENZA N.%d\n"+elencoClassi.elementAt(i).toString(),i+1));
 		}
 		return risultato.toString();
 	}
