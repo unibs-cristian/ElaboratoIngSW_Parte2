@@ -30,19 +30,19 @@ public interface StatoCammino extends Serializable{
 	/**
 	 * Gestisce le transizioni di stato del cammino.
 	 *
-	 * @param camm : il cammino per il quale gestire le transizioni di stato.
-	 * @param stato : il nuovo stato da assegnare al cammino, se la transizione stato attuale - 
+	 * @param camminoDaGestire : il cammino per il quale gestire le transizioni di stato.
+	 * @param nuovoStatoCammino : il nuovo stato da assegnare al cammino, se la transizione stato attuale - 
 	 * nuovo stato e' possibile
 	 */
-	public void gestisciStato(CamminoAzioni camm, String stato);
+	public void gestisciStatoCammino(CamminoAzioni camminoDaGestire, String nuovoStatoCammino);
 	
 	/**
 	 * Gestisce le transizioni di stato di un ramo.
 	 *
-	 * @param r : il ramo per il quale gestire le transizioni di stato.
-	 * @param stato : il nuovo stato da assegnare 
+	 * @param ramoDaGestire : il ramo per il quale gestire le transizioni di stato.
+	 * @param nuovoStatoRamo : il nuovo stato da assegnare 
 	 */
-	public void gestisciStatoRamo(Ramo r, String stato);
+	public void gestisciStatoRamo(Ramo ramoDaGestire, String nuovoStatoRamo);
 	
 	/**
 	 * Fornisce la stringa rappresentante lo stato attuale del cammino o del ramo.
