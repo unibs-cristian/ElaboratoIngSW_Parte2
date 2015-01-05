@@ -4,20 +4,19 @@
 package utilita;
 import java.util.*;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Util.
  */
 public class Util
 {	
 	/** The Constant ERRORE_STRINGA_VUOTA. */
-	private static final String ERRORE_STRINGA_VUOTA = "Errore, non è possibile inserire una stringa vuota. \nReinserire la stringa: ";
+	private static final String ERRORE_STRINGA_VUOTA = "Errore, non Ã¨ possibile inserire una stringa vuota. \nReinserire la stringa: ";
 	
 	/** The Constant ERRORE_INTERO_COMPRESO. */
 	private static final String ERRORE_INTERO_COMPRESO = "Errore. Insere un numero compreso tra %s e %s: ";
 	
 	/** The Constant ERRORE_INTERO. */
-	private static final String ERRORE_INTERO = "Errore, il carattere inserito non è un intero.";
+	private static final String ERRORE_INTERO = "Errore, il carattere inserito non Ã¨ un intero.";
 		
 	/** The Constant RILEV_OK. */
 	public final static String RILEV_OK = "OK";
