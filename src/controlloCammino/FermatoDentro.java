@@ -16,16 +16,16 @@ public class FermatoDentro implements StatoCammino {
 	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	public void gestisciStato(CamminoAzioni camm, String stato) {
-		if(stato.equals(STATO_NON_OK))
-			camm.setStatoCammino(new StatoNonOk());
-		if(stato.equals(ENTRATO_RAMO) && camm.isGlobale())
-			camm.setStatoCammino(new EntratoRamo());
+	public void gestisciStatoCammino(CamminoAzioni camminoDaGestire, String nuovoStatoCammino) {
+		if(nuovoStatoCammino.equals(STATO_NON_OK))
+			camminoDaGestire.setStatoCammino(new StatoNonOk());
+		if(nuovoStatoCammino.equals(ENTRATO_RAMO) && camminoDaGestire.globaleSiNo())
+			camminoDaGestire.setStatoCammino(new EntratoRamo());
 	}
 	
-	public void gestisciStatoRamo(Ramo r, String stato) {
-		if(stato.equals(STATO_NON_OK))
-			r.setStato(new StatoNonOk());
+	public void gestisciStatoRamo(Ramo ramoDaGestire, String nuovoStatoRamo) {
+		if(nuovoStatoRamo.equals(STATO_NON_OK))
+			ramoDaGestire.setStato(new StatoNonOk());
 	}
 	
 	public boolean isValid() {
