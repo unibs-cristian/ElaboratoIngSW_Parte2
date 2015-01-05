@@ -37,35 +37,35 @@ public class Azione implements Entita{
 	private String idTipo;
 	
 	/** Il nome del modello a cui si riferisce l'entita' composta */
-	private String modelloComposta;
+	private String titoloModelloComposta;
 	
 	/** Dice se l'azione e' composta o semplice */
-	private boolean composta;
+	private boolean compostaSiNo;
 	
 	/**
 	 * Costruttore per la classe Azione
 	 *
 	 * @param _titolo : il nome da assegnare all'azione
 	 */
-	public Azione(String _titolo, boolean _composta) {
+	public Azione(String _titolo, boolean _compostaSiNo) {
 		titolo = _titolo;
-		composta = _composta;
+		compostaSiNo = _compostaSiNo;
 		valoreIndentazione=GestoreModello.getRientro();
 		id = Modello.getInstance().getContatore();
 		Modello.getInstance().incrementaContatore();
 		setIdTipo();
 	}
 	
-	public void addEntita(Entita e, int qualeRamo) {}
+	public void aggiungiAlRamo(Entita daAggiungere, int qualeRamo) {}
+	
+	public boolean compostaSiNo() {
+		return compostaSiNo;
+	}
 	
 	public Vector<Entita> getEntita() {
 		Vector <Entita> elencoEntita = new Vector<Entita>();
 		elencoEntita.add(this);
 		return elencoEntita;
-	}
-	
-	public boolean isComposta() {
-		return composta;
 	}
 	
 	/**
@@ -91,8 +91,8 @@ public class Azione implements Entita{
 		return titolo;
 	}
 	
-	public boolean giaPresente(String nome) {
-		return titolo.equalsIgnoreCase(nome);
+	public boolean giaInseritaSiNo(String nomeEntitaDaInserire) {
+		return titolo.equalsIgnoreCase(nomeEntitaDaInserire);
 	}
 
 	public int getIndentazione() {
@@ -103,41 +103,53 @@ public class Azione implements Entita{
 		return null;
 	}
 	
-	public void rimuoviEntitaAt(int id) {}
+	public boolean isComplessa() {
+		return false;
+	}
+
+	public boolean isAzione() {
+		return true;
+	}
+
+	public boolean isBranch() {
+		return false;
+	}
+
+	public boolean isCiclo() {
+		return false;
+	}
+
+	public boolean isFork() {
+		return false;
+	}
+	
+	public void rimuoviEntita(int idEntitaDaRimuovere) {}
 	
 	public void setIdTipo() {
-		if(composta)
+		if(compostaSiNo)
 			idTipo=ID_TIPO_AZIONE_COMPOSTA;
 		else 
 			idTipo=ID_TIPO_AZIONE;
 	}
 	
 	public void setModelloComposta(String m) {
-		modelloComposta=m;
+		titoloModelloComposta=m;
 	}
 	
 	public String toString()
 	{
-		StringBuffer risultato = new StringBuffer();
-		if(composta)
-			risultato.append(String.format(MSG_AZIONE_COMPOSTA,titolo,modelloComposta));
+		StringBuffer stringaDaStampare = new StringBuffer();
+		if(compostaSiNo)
+			stringaDaStampare.append(String.format(MSG_AZIONE_COMPOSTA,titolo,titoloModelloComposta));
 		else
-			risultato.append(String.format(MSG_AZIONE,titolo));
-		return risultato.toString();
+			stringaDaStampare.append(String.format(MSG_AZIONE,titolo));
+		return stringaDaStampare.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see gestioneModello.Entita#getIdTipo()
-	 */
 	public String getIdTipo() {
 		return idTipo;
 	}
-	
-	/**
-	 * Gets the azioni.
-	 *
-	 * @return the azioni
-	 */
+
 	public Vector <Entita> getAzioni() {
 		return null;
 	}
