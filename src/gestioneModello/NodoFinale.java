@@ -51,13 +51,33 @@ public class NodoFinale implements Entita
 		return daRestituire;
 	}
 	 
-	public boolean giaPresente(String nome) {
-		return nome==ID_TIPO_NODO_FINALE;	
+	public boolean giaInseritaSiNo(String nomeEntitaDaInserire) {
+		return nomeEntitaDaInserire==ID_TIPO_NODO_FINALE;	
 	}	
 	
-	public void addEntita(Entita e, int qualeRamo) {}
+	public boolean isComplessa() {
+		return false;
+	}
+
+	public boolean isAzione() {
+		return false;
+	}
+
+	public boolean isBranch() {
+		return false;
+	}
+
+	public boolean isCiclo() {
+		return false;
+	}
+
+	public boolean isFork() {
+		return false;
+	}
 	
-	public void rimuoviEntitaAt(int id) {}
+	public void aggiungiAlRamo(Entita daAggiungere, int qualeRamo) {}
+	
+	public void rimuoviEntita(int idEntitaDaRimuovere) {}
 
 	public Ramo[] getRami() {
 		return null;
