@@ -5,7 +5,6 @@ package utilita;
 
 import java.util.*;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class OurMath.
  */
