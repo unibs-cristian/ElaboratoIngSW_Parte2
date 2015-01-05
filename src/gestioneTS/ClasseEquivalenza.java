@@ -2,8 +2,12 @@
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package gestioneTS;
+import inputDati.InserimentoCammino;
+
 import java.util.Vector;
 import java.io.Serializable;
+
+import utilita.Util;
 
 /**
  * La Classe ClasseEquivalenza.
@@ -15,6 +19,11 @@ import java.io.Serializable;
  */
 public class ClasseEquivalenza implements Serializable {
 
+	/** Costanti stringa per la stampa a video di messaggi */
+	public final static String MSG_INS_COP = "INSERIMENTO INSIEME DI COPERTURA";
+	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
+	public final static String MSG_CONTINUA_SI_NO_COPPIA = "Si desidera inserire un'altra coppia (insieme del cammino ; valore della rilevazione)?";
+	
 	/** Costante per il salvataggio. */
 	private static final long serialVersionUID = 1L;
 
@@ -84,19 +93,38 @@ public class ClasseEquivalenza implements Serializable {
 	 * Controlla se una coppia e' gia' stata inserita come parte 
 	 * dell'insieme di copertura di una classe di equivalenza
 	 * 
-	 * @param c : la coppia di cui verificare la presenza
+	 * @param daVerificare : la coppia di cui verificare la presenza
 	 * @return true, se la coppia e' presente, false altrimenti.
 	 * @throws NullPointerException se c == null
 	 */
-	public boolean giaPresente(Coppia c) {
+	public boolean coppiaGiaPresente(Coppia daVerificare) {
 		//PRECONDIZIONE
-		if(c==null)
+		if(daVerificare==null)
 			throw new NullPointerException("Violata precondizione metodo giaPresente. Inserita coppia nulla.");
 		
 		for(int i=0; i<elencoCoppie.size(); i++)
-			if(elencoCoppie.elementAt(i).isEqual(c))
+			if(elencoCoppie.elementAt(i).isEqual(daVerificare))
 				return true;
 		return false;
+	}
+	
+	/** 
+	 * @param attuale : la classe di equivalenza per cui viene inserito l'insieme 
+	 * di copertura
+	 * @param numClasseEq : il numero della classe nel test suite
+ 	 */
+	public void inserisciInsiemeCopertura(int numClasseEq) {
+		System.out.println(MSG_INS_COP);
+		//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
+	    do {
+			InserimentoCammino inserimentoInsCamm = new InserimentoCammino(this, new CamminoAzioni(false));
+			/*
+			 * L'inserimento del cammino è compito dei metodi di una classe apposita
+			 * che ne gestisce anche lo stato
+			 */
+			inserimentoInsCamm.inserisciCamm();
+			System.out.println(String.format(MSG_COPPIA_AGGIUNTA,numClasseEq));
+		} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
 	}
 	
 	/**
