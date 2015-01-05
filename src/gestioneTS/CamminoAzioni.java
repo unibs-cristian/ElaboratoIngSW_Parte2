@@ -20,6 +20,11 @@ public class CamminoAzioni implements Serializable {
 	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 	
+	/** Costanti stringa per messaggi d'errore */
+	public final static String MSG_CAMMINO_NON_VALIDO = "Errore! Cammino non valido perche' %s .Inserire nuovamente.";
+	public final static String MSG_CAMMINO_INCORRETTO = "non corretto in base alla struttura del modello";
+	public final static String MSG_NON_SOTTOINSIEME = "non e' un sottoinsieme del cammino globale";
+	
 	/** Il Vector contenente le azioni del cammino */
 	private Vector <Azione> insiemeCammino;
 	
@@ -34,8 +39,8 @@ public class CamminoAzioni implements Serializable {
 	 *
 	 * @param tipo : se true, crea un cammino globale, altrimenti un insieme del cammino.
 	 */
-	public CamminoAzioni(boolean tipo) {
-		globaleSiNo = tipo;
+	public CamminoAzioni(boolean _globaleSiNo) {
+		globaleSiNo = _globaleSiNo;
 		insiemeCammino = new Vector<Azione>();
 		statoCorrente = new StatoVuoto();
 	}
@@ -43,17 +48,31 @@ public class CamminoAzioni implements Serializable {
 	/**
 	 * Aggiungi un'azione al cammino
 	 *
-	 * @param a : l'azione da aggiungere al cammino
+	 * @param daAggiungere : l'azione da aggiungere al cammino
 	 */
-	public void aggiungiAzione(Azione a) {
+	public void aggiungiAzione(Azione daAggiungere) {
 		//PRECONDIZIONE
-		assert a!=null : "Violata precondizione metodo aggiungiAzione. Passata azione nulla";		
+		assert daAggiungere!=null : "Violata precondizione metodo aggiungiAzione. Passata azione nulla";		
 		
 		int sizeVecchio = insiemeCammino.size();
-		insiemeCammino.add(a);
+		insiemeCammino.add(daAggiungere);
 		
 		//POSTCONDIZIONE
 		assert insiemeCammino.size() == sizeVecchio+1 : "Violata postcondizione metodo aggiungiAzione. L'azione non e' stata aggiunta al cammino.";
+	}
+	
+	/**
+	 * Controlla se un'azione e' presente nel cammino.
+	 *
+	 * @param daVerificare : l'azione di cui verificare la presenza nel cammino
+	 * @return true, se presente, false altrimenti.
+	 */
+	public boolean azioneGiaPresente(Azione daVerificare) {
+		for(int i=0; i<insiemeCammino.size(); i++) {
+			if(daVerificare.getNome().equalsIgnoreCase(getAzioneAt(i).getNome()))
+				return true;
+		}
+		return false;
 	}
 	
 	public void azzeraAzioni() {
@@ -102,7 +121,7 @@ public class CamminoAzioni implements Serializable {
 		if(this.insiemeCammino.size() > altro.getInsiemeCammino().size())
 			return false;
 		for(int i=0; i<insiemeCammino.size(); i++)
-			if(altro.presente(getAzioneAt(i)) == false)
+			if(altro.azioneGiaPresente(getAzioneAt(i)) == false)
 				return false;
 		return true;
 	}
@@ -134,27 +153,27 @@ public class CamminoAzioni implements Serializable {
 		return true;
 	}
 	
+	public boolean isValid(ClasseEquivalenza classe) {
+		if(!getStato().isValid()) {
+			System.out.println(String.format(MSG_CAMMINO_NON_VALIDO,MSG_CAMMINO_INCORRETTO));
+			return false;
+		}
+		//Se un insieme del cammino non e' sottoinsieme del cammino globale, viene considerato non valido
+		else if(!globaleSiNo() && !inclusoIn(classe.getCamminoGlobale())) {
+			System.out.println(String.format(MSG_CAMMINO_NON_VALIDO, MSG_NON_SOTTOINSIEME));
+			return false;
+		}
+		else
+			return true;
+	}
+	
 	/**
 	 * Controlla se un cammino e' globale o e' un insieme del cammino.
 	 *
 	 * @return true, se il cammino e' globale, false se e' un insieme del cammino.
 	 */
-	public boolean isGlobale() {
+	public boolean globaleSiNo() {
 		return globaleSiNo;
-	}
-	
-	/**
-	 * Controlla se un'azione e' presente nel cammino.
-	 *
-	 * @param a : l'azione di cui verificare la presenza nel cammino
-	 * @return true, se presente, false altrimenti.
-	 */
-	public boolean presente(Azione a) {
-		for(int i=0; i<insiemeCammino.size(); i++) {
-			if(a.getNome().equalsIgnoreCase(getAzioneAt(i).getNome()))
-				return true;
-		}
-		return false;
 	}
 	
 	public void setInsiemeCammino(Vector <Azione> nuovo) {
@@ -168,7 +187,6 @@ public class CamminoAzioni implements Serializable {
 	 */
 	public void setStatoCammino(StatoCammino state) {
 		statoCorrente = state;
-	//	System.out.println("Cambiato stato in " + state.getStringaStato());
 	}
 	
 	public String toString() {
