@@ -91,28 +91,25 @@ public class Branch implements Entita{
 	}
 	
 	public Vector<Entita> getEntita() {
-		for(int i=0; i<elencoRami.length; i++) {
-			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
-			for(int j=0; j<entitaRamo.size(); j++) {
-				addEntita(entitaRamo.elementAt(j));
-			}
-		}
+		for(int i=0; i<elencoRami.length; i++)
+			for(int j=0; j<elencoRami[i].getEntitaRamo().size(); j++)
+				addToElencoEntita(elencoRami[i].getEntitaRamo().elementAt(j));
 		return elencoEntita;
 	}
 	 
-	public boolean giaPresente(String nome) {
-		if(titolo.equalsIgnoreCase(nome))
+	public boolean giaInseritaSiNo(String nomeEntitaDaInserire) {
+		if(titolo.equalsIgnoreCase(nomeEntitaDaInserire))
 			return true;
 		boolean trovata = false;
 		int i=0;
+		// Cerca l'entita' nei vari rami.
 		while(trovata == false && i<numeroRami) {
 			int j=0;
 			while(trovata == false && j<getRami()[i].getNumeroEntita()) {
-				Entita e = getRami()[i].getEntitaAt(j);
-				if(e.getNome().equalsIgnoreCase(nome))
+				if(getRami()[i].getEntitaAt(j).getNome().equalsIgnoreCase(nomeEntitaDaInserire))
 					return true;
 				else {
-					trovata = e.giaPresente(nome);
+					trovata = getRami()[i].getEntitaAt(j).giaInseritaSiNo(nomeEntitaDaInserire);
 					j++;
 				}
 			}
@@ -124,14 +121,14 @@ public class Branch implements Entita{
 	/**
 	 * Aggiunge l'entita' e all'elenco delle entita' interne del Branch.
 	 *
-	 * @param e : l'entita' da aggiungere
+	 * @param daAggiungere : l'entita' da aggiungere
 	 */
-	public void addEntita(Entita e) {
+	public void addToElencoEntita(Entita daAggiungere) {
 		//PRECONDIZIONI 
-		assert e!=null : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+		assert daAggiungere!=null : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
 		
 		int sizeVecchio = elencoEntita.size();
-		elencoEntita.add(e);
+		elencoEntita.add(daAggiungere);
 		
 		//POSTCONDIZIONE
 		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
@@ -140,15 +137,15 @@ public class Branch implements Entita{
 	/**
 	 * Aggiunge l'entita' e all'elenco delle entita' che costituiscono il ramo r del Branch.
 	 * 
-	 * @param e : l'entita' da aggiungere
-	 * @param r : il ramo al cui elenco deve essere aggiunta l'entita' e
+	 * @param daAggiungere : l'entita' da aggiungere
+	 * @param qualeRamo : il ramo al cui elenco deve essere aggiunta l'entita' e
 	 */
-	public void addEntita(Entita e, int r) {
+	public void aggiungiAlRamo(Entita daAggiungere, int qualeRamo) {
 		//PRECONDIZIONI 
-		assert e!=null && (r>=0 && r<=e.getRami().length-1) : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+		assert daAggiungere!=null && (qualeRamo>=0 && qualeRamo<=daAggiungere.getRami().length-1) : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
 
 		int sizeVecchio = elencoEntita.size();
-		elencoRami[r].aggiungiEntitaRamo(e);
+		elencoRami[qualeRamo].aggiungiEntitaRamo(daAggiungere);
 		
 		//POSTCONDIZIONE
 		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
@@ -162,26 +159,45 @@ public class Branch implements Entita{
 		return valoreIndentazione;
 	}
 	
-	public void rimuoviEntitaAt(int id) {
-		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
+	public boolean isComplessa() {
+		return true;
+	}
+
+	public boolean isAzione() {
+		return false;
+	}
+	
+	public boolean isBranch() {
+		return true;
+	}
+	
+	public boolean isCiclo() {
+		return false;
+	}
+	
+	public boolean isFork() {
+		return false;
+	}
+	
+	public Entita ottieniEntita(int numeroRamo, int posizioneRamo) {
+		return elencoRami[numeroRamo].getEntitaAt(posizioneRamo);
+	}
+	
+	public void rimuoviEntita(int idEntitaDaRimuovere) {
 		for (int i=0; i<numeroRami; i++) {
-			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
-			//Ricerca l'entita' da eliminare tra le entita' interne del ramo i-esimo
-			for(int j=0; j<entitaRamo.size(); j++) {
-				Entita e = entitaRamo.elementAt(j);
-				//Se la trova la elimina dalle entita' del ramo i-esimo di this e restituisce true
-				if(e.getId()==id)
+			for(int j=0; j<elencoRami[i].getNumeroEntita(); j++) {
+				//Se trova l'entita' la elimina dalle entita' del ramo i-esimo di this e restituisce true
+				if(ottieniEntita(i, j).getId()==idEntitaDaRimuovere)
 				{
-					if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,e.getNome()))) {
-						elencoRami[i].eliminaEntitaRamo(j);
+					if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,ottieniEntita(i, j).getNome()))) {
 						Modello.getInstance().decrementaContatore();
-						if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE) || e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE_COMPOSTA))
-							Modello.getInstance().rimuoviAzione(e.getNome());
-						System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
-					}
+						if(ottieniEntita(i, j).isAzione())
+							Modello.getInstance().rimuoviAzione(ottieniEntita(i, j).getNome());
+						System.out.println(String.format(MSG_ENTITA_RIMOSSA, ottieniEntita(i, j).getNome(),ottieniEntita(i, j).getId()));
+						elencoRami[i].eliminaEntitaRamo(j);					}
 				}
 				else 
-					e.rimuoviEntitaAt(id);
+					ottieniEntita(i, j).rimuoviEntita(idEntitaDaRimuovere);
 			}
 		}
 	}
@@ -190,17 +206,17 @@ public class Branch implements Entita{
 	{
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("\n");
-        risultato.append(GUI.indenta(String.format(MSG_BRANCH, titolo.toUpperCase(), id),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
+        risultato.append(UtilitaStringhe.indenta(String.format(MSG_BRANCH, titolo.toUpperCase(), id),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
 		risultato.append("\n");
 		for(int i=0; i<elencoRami.length; i++) {
-			risultato.append(GUI.indenta(String.format(MSG_ENTITA_RAMO_BRANCH, titolo.toUpperCase(),i+1), SPAZIO, valoreIndentazione));
+			risultato.append(UtilitaStringhe.indenta(String.format(MSG_ENTITA_RAMO_BRANCH, titolo.toUpperCase(),i+1), SPAZIO, valoreIndentazione));
 			if(elencoRami[i].isEmpty())
-				risultato.append(GUI.indenta(MSG_RAMO_VUOTO,SPAZIO,valoreIndentazione));
+				risultato.append(UtilitaStringhe.indenta(MSG_RAMO_VUOTO,SPAZIO,valoreIndentazione));
 			else
 				risultato.append(elencoRami[i].toString());
 		}
 		if(valoreIndentazione >= GestoreModello.FATTORE_INCREMENTO)
-			risultato.append(GUI.indenta(String.format(MSG_MERGE, titolo.toUpperCase(),id),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
+			risultato.append(UtilitaStringhe.indenta(String.format(MSG_MERGE, titolo.toUpperCase(),id),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
 		else
 			risultato.append(String.format(MSG_MERGE, titolo.toUpperCase(),id));
 		return risultato.toString();
