@@ -15,13 +15,13 @@ public class StatoVuoto implements StatoCammino{
 	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	public void gestisciStato(CamminoAzioni camm, String stato) {
-		if(stato.equals(STATO_OK))
-			camm.setStatoCammino(new StatoOk());
-		else if(stato.equals(FERMATO))
-			camm.setStatoCammino(new Fermato());
-		else if(stato.equals(ENTRATO_RAMO))
-			camm.setStatoCammino(new EntratoRamo());
+	public void gestisciStatoCammino(CamminoAzioni camminoDaGestire, String nuovoStatoCammino) {
+		if(nuovoStatoCammino.equals(STATO_OK))
+			camminoDaGestire.setStatoCammino(new StatoOk());
+		else if(nuovoStatoCammino.equals(FERMATO))
+			camminoDaGestire.setStatoCammino(new Fermato());
+		else if(nuovoStatoCammino.equals(ENTRATO_RAMO))
+			camminoDaGestire.setStatoCammino(new EntratoRamo());
 	}
 
 	public boolean isValid() {
@@ -32,5 +32,5 @@ public class StatoVuoto implements StatoCammino{
 		return STATO_VUOTO;
 	}
 
-	public void gestisciStatoRamo(Ramo r, String stato) {}	
+	public void gestisciStatoRamo(Ramo ramoDaGestire, String nuovoStatoRamo) {}	
 }
