@@ -17,22 +17,22 @@ public class SaltatoBlocco implements StatoCammino{
 	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	public void gestisciStato(CamminoAzioni camm, String stato) {
-		if(stato.equals(STATO_NON_OK))
-			camm.setStatoCammino(new StatoNonOk());
-		else if(stato.equals(FERMATO))
-			camm.setStatoCammino(new Fermato());
-		else if(stato.equals(ENTRATO_RAMO))
-			camm.setStatoCammino(new EntratoRamo());
+	public void gestisciStatoCammino(CamminoAzioni camminoDaGestire, String nuovoStatoCammino) {
+		if(nuovoStatoCammino.equals(STATO_NON_OK))
+			camminoDaGestire.setStatoCammino(new StatoNonOk());
+		else if(nuovoStatoCammino.equals(FERMATO))
+			camminoDaGestire.setStatoCammino(new Fermato());
+		else if(nuovoStatoCammino.equals(ENTRATO_RAMO))
+			camminoDaGestire.setStatoCammino(new EntratoRamo());
 	}
-
-	public boolean isValid() {
-		return true;
-	}
+	
+	public void gestisciStatoRamo(Ramo ramoDaGestire, String nuovoStatoRamo) {}
 
 	public String getStringaStato() {
 		return SALTATO_BLOCCO;
 	}
-
-	public void gestisciStatoRamo(Ramo r, String stato) {}
+	
+	public boolean isValid() {
+		return true;
+	}
 }
