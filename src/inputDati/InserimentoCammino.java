@@ -3,8 +3,6 @@
  */
 package inputDati;
 
-import java.util.Vector;
-
 import controlloCammino.EntratoRamo;
 import controlloCammino.Fermato;
 import controlloCammino.FermatoDentro;
@@ -27,7 +25,7 @@ import gestioneTS.Coppia;
  * Classe InserimentoCammino.
  * Questa classe gestisce l'interazione con l'utente quando questo deve inserire un cammino
  * globale oppure un insieme del cammino. Vengono inoltre  inoltre gestito lo stato in base a 
- * quanto è stato inserito dall'utente.
+ * quanto Ã¨ stato inserito dall'utente.
  * 
  */
 public class InserimentoCammino {
@@ -46,9 +44,6 @@ public class InserimentoCammino {
 	
 	/** Messaggi di errore vari */
 	public final static String MSG_ERRORE_CAMMINO = "Errore! Il cammino e' vuoto. Inserire nuovamente.";
-	public final static String MSG_CAMMINO_NON_VALIDO = "Errore! Cammino non valido perche' %s .Inserire nuovamente.";
-	public final static String MSG_CAMMINO_INCORRETTO = "non corretto in base alla struttura del modello";
-	public final static String MSG_NON_SOTTOINSIEME = "non e' un sottoinsieme del cammino globale";
 	public final static String MSG_ERRORE_CO = "Errore! E' gia' presente nella classe di equivalenza una coppia uguale. Ripetere l'inserimento.";
 	
 	/** Classe di equivalenza per la quale si vuole inserire il cammino globale o l'insieme del cammino */
@@ -72,246 +67,168 @@ public class InserimentoCammino {
 	 * Gestisce l'inserimento del cammino
 	 */
 	public void inserisciCamm() {
-		if(camm.isGlobale())
+		if(camm.globaleSiNo())
 			System.out.println(MSG_CAMM_GLOBALE_1);
 		else
 			System.out.println(MSG_INS_CAMMINO);
-		Vector <Entita> entitaMod = Modello.getInstance().getEntita();
-		boolean camminoValido;
-		boolean sottoinsieme; 
 		do {
-			camminoValido = false;
-			sottoinsieme = true;
-			//Toglie le eventuali azioni presenti nel cammino (utile per resettare il Vector di Azioni quando si è inserito un cammino errato.
+			//Toglie le eventuali azioni presenti nel cammino (utile per resettare il Vector di Azioni quando si Ã¨ inserito un cammino errato.
 			if(!(camm.isEmpty()))
-				camm.azzeraAzioni();
-			
+				camm.azzeraAzioni();		
 			//Ripristina lo stato iniziale a vuoto se non lo e' (puo' accadere per esempio dopo che ho inserito un cammino non valido)
 			if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_VUOTO) == false)
 				camm.setStatoCammino(new StatoVuoto());
 			
-			for(int i=1; i<entitaMod.size()-1; i++) {
-				Entita e = entitaMod.elementAt(i);
-				String tipo = e.getIdTipo();
-				if(tipo.equals(Entita.ID_TIPO_AZIONE) || tipo.equals(Entita.ID_TIPO_AZIONE_COMPOSTA))
-					gestisciStatoAzione(e, null, -1, -1);
-				else if(tipo.equals(Entita.ID_TIPO_BRANCH) || tipo.equals(Entita.ID_TIPO_CICLO) || tipo.equals(Entita.ID_TIPO_FORK))
-					gestisciStatoComplessa(e,null,-1,-1);
+			//Inserimento azioni e gestione stato del cammino. 
+			for(int i=1; i<Modello.getInstance().getEntita().size()-1; i++) {
+				//TODO fatto intervento manutenzione
+				if(Modello.getInstance().getEntita().get(i).isAzione())
+					gestisciStatoAzione(Modello.getInstance().getEntita().get(i), null, -1, -1);
+				else if(Modello.getInstance().getEntita().get(i).isComplessa())
+					gestisciStatoComplessa(Modello.getInstance().getEntita().get(i),null,-1,-1);
 			}
-			//Controllo se al termine dell'inserimento il cammino si trova in uno stato valido. Se non lo e', lo faccio reinserire, stampando a video un opportuno messaggio di errore.
-			if(camm.isEmpty())
-				camminoValido = false;
-			else
-				camminoValido = camm.getStato().isValid();
-			
-			//Controllo se l'insieme del cammino e' un sottoinsieme del cammino globale
-			if(!camm.isGlobale()) {
-				CamminoAzioni cammGlob = ce.getCamminoGlobale();
-				if(camm.inclusoIn(cammGlob) == false)
-					sottoinsieme = false;
-			}
-			
-//			System.out.println("Stato finale : "+camm.getStato().getStringaStato());
-			if(camminoValido  == false)
-				System.out.println(String.format(MSG_CAMMINO_NON_VALIDO,MSG_CAMMINO_INCORRETTO));
-			else if(sottoinsieme == false)
-				System.out.println(String.format(MSG_CAMMINO_NON_VALIDO, MSG_NON_SOTTOINSIEME));
-		} while(!camminoValido || !sottoinsieme);
+		} while(!camm.isValid(ce));
 		
-		if(!(camm.isEmpty())) {
-			if(camm.isGlobale()) {
-				System.out.println(MSG_CAMM_GLOB + camm.toString());
-				ce.setCamminoGlobale(camm);
+		visualizzaCammino();
+		
+		if(camm.globaleSiNo())
+			ce.setCamminoGlobale(camm);
+		// Se e' un insieme del cammino, viene richiesto anche il valore della rilevazione
+		else {
+			String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
+			Coppia nuova = new Coppia(camm, valoreRilevazione);
+			if(!ce.coppiaGiaPresente(nuova))
+				ce.addCoppia(nuova);
+			else
+				System.out.println(MSG_ERRORE_CO);
 			}
-			else {
-				System.out.println(MSG_INS_CAMM + camm.toString());
-				String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
-				Coppia c = new Coppia(camm, valoreRilevazione);
-				if(!ce.giaPresente(c))
-					ce.addCoppia(c);
-				else
-					System.out.println(MSG_ERRORE_CO);
-			}
-		}
+	}
+	
+	private void visualizzaCammino() {
+		if(camm.globaleSiNo())
+			System.out.println(MSG_CAMM_GLOB + camm.toString());
+		else
+			System.out.println(MSG_INS_CAMM + camm.toString());	
+	}
+	
+	private String getRichiestaInserimento() {
+		if(camm.globaleSiNo())
+			return MSG_AGGIUNTA_CAMM_GLOBALE;
+		else
+			return MSG_AGGIUNTA_INS_CAMM;
 	}
 	
 	/**
 	 * Calcola il nuovo stato in base allo stato attuale, quando l'utente decide di inserire
 	 * o meno un'azione.
 	 *
-	 * @param e : l'azione in questione
+	 * @param azione : l'azione in questione
 	 * @param esterna : l'eventuale entita' complessa di cui fa parte l'azione da inserire.
 	 * Se nulla indica che l'azione e' direttamente inserita nel modello.
+	 * @param numRamoEsterna : il numero del ramo dell'entita' esterna
 	 * @param posizioneRamo : l'eventuale numero del ramo dell'entita' complessa in cui si trova l'azione
 	 */                                       
-	private void gestisciStatoAzione(Entita e, Entita esterna, int numRamo, int posizioneRamo) {
-		//Variabili per le precondizioni
-		boolean eNull = false;
-		boolean esternaNull = false;
-		boolean numRamoOk = false; 
-		boolean posRamoOk = false;
-		if(e == null)
-			eNull = true;
-		if(esterna == null)
-			esternaNull = true;
-		if(!esternaNull && numRamo>=0 && numRamo<=esterna.getRami().length-1)
-			numRamoOk = true;
-		if(!esternaNull && numRamoOk && posizioneRamo>=0 && posizioneRamo<=esterna.getRami()[numRamo].getNumeroEntita()-1)
-			posRamoOk = true;
-		
-		/* 
-		 * PRECONDIZIONI
-		 * 1) L'entita' e deve essere non nulla 
-		 * 2) L'entita' e deve essere un'azione
-		 * 3) Se l'entita' esterna non e' nulla, allora gli indici relativi al ramo e alla posizione nel ramo devono essere corretti
-		*/
-		assert eNull : "Violata precondizione metodo gestisciStatoAzione. Passata azione nulla.";
-		assert e.getIdTipo().equals(Entita.ID_TIPO_AZIONE) || e.getIdTipo().equals(Entita.ID_TIPO_AZIONE_COMPOSTA) : "Violata precondizione metodo gestisciStatoAzione. Chiamato metodo con entita' diversa da azione.";
-		assert esternaNull || (!esternaNull && numRamoOk && posRamoOk) : "Violata precondizione sul metodo gestisciStatoAzione. Il numero del ramo o la posizione nel ramo non sono corretti.";
-		
-		String richiestaInserimento;
-		if(camm.isGlobale())
-			richiestaInserimento = MSG_AGGIUNTA_CAMM_GLOBALE;
-		else
-			richiestaInserimento = MSG_AGGIUNTA_INS_CAMM;
+	private void gestisciStatoAzione(Entita azione, Entita esterna, int numRamoEsterna, int posizioneRamo) {
+		verificaPrecondizioni6(azione, esterna, numRamoEsterna, posizioneRamo);
 		
 		//Calcolo del nuovo stato nel caso in cui un'azione viene inserita		
-		if(Util.yesOrNo(String.format(richiestaInserimento,e.getNome()))) {
-			camm.aggiungiAzione((Azione)e);
+		if(Util.yesOrNo(String.format(getRichiestaInserimento(),azione.getNome()))) {
+			camm.aggiungiAzione((Azione)azione);
 			//Se lo stato era VUOTO, il nuovo stato sara' OK
 			if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_VUOTO))
-				camm.getStato().gestisciStato(camm, StatoCammino.STATO_OK);
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.STATO_OK);
 			//Se lo stato era FERMATO DENTRO, il nuovo stato sara' NON_OK
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.FERMATO))
-				camm.getStato().gestisciStato(camm, StatoCammino.STATO_NON_OK);
-			else if(camm.getStato().getStringaStato().equalsIgnoreCase(StatoCammino.PERCORSO_PARZ) && esterna != null && posizioneRamo == esterna.getRami()[numRamo].getNumeroEntita()-1) {
-				camm.getStato().gestisciStato(camm, StatoCammino.PERCORSO_TUTTO);
-				Ramo daSettare = esterna.getRami()[numRamo];
-				daSettare.getStato().gestisciStatoRamo(daSettare, StatoCammino.PERCORSO_TUTTO);				
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.STATO_NON_OK);
+			else if(camm.getStato().getStringaStato().equalsIgnoreCase(StatoCammino.PERCORSO_PARZ) && esterna != null && posizioneRamo == esterna.getRami()[numRamoEsterna].getNumeroEntita()-1) {
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.PERCORSO_TUTTO);
+				esterna.getRami()[numRamoEsterna].getStato().gestisciStatoRamo(esterna.getRami()[numRamoEsterna], StatoCammino.PERCORSO_TUTTO);				
 			}
 			//Se sono appena entrato in un ramo e inserisco la prima azione, vado in PERCORSO_PARZ e setto anche il relativo ramo a quello stato
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.ENTRATO_RAMO) && esterna!=null) {
-				if(posizioneRamo == esterna.getRami()[numRamo].getNumeroEntita()-1) {
-					camm.getStato().gestisciStato(camm, StatoCammino.PERCORSO_TUTTO);
-					Ramo daSettare = esterna.getRami()[numRamo];
-					daSettare.getStato().gestisciStatoRamo(daSettare, StatoCammino.PERCORSO_TUTTO);
+				if(posizioneRamo == esterna.getRami()[numRamoEsterna].getNumeroEntita()-1) {
+					camm.getStato().gestisciStatoCammino(camm, StatoCammino.PERCORSO_TUTTO);
+					esterna.getRami()[numRamoEsterna].getStato().gestisciStatoRamo(esterna.getRami()[numRamoEsterna], StatoCammino.PERCORSO_TUTTO);
 				}
 				else if(posizioneRamo == 0) {
-					camm.getStato().gestisciStato(camm, StatoCammino.PERCORSO_PARZ);
-					Ramo daSettare = esterna.getRami()[numRamo];
-					daSettare.getStato().gestisciStatoRamo(daSettare, StatoCammino.PERCORSO_PARZ);
+					camm.getStato().gestisciStatoCammino(camm, StatoCammino.PERCORSO_PARZ);
+					esterna.getRami()[numRamoEsterna].getStato().gestisciStatoRamo(esterna.getRami()[numRamoEsterna], StatoCammino.PERCORSO_PARZ);
 				}
 			}			
 			//Se mi sono fermato in un ramo e inserisco un'alra entita', allora questo diventa non valido.
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO)) {
-				camm.getStato().gestisciStato(camm, StatoCammino.STATO_NON_OK);
-				if(esterna!=null) {
-					Ramo daSettare = esterna.getRami()[numRamo];
-					daSettare.getStato().gestisciStatoRamo(daSettare, StatoCammino.STATO_NON_OK);
-				}
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.STATO_NON_OK);
+				if(esterna!=null)
+					esterna.getRami()[numRamoEsterna].getStato().gestisciStatoRamo(esterna.getRami()[numRamoEsterna], StatoCammino.STATO_NON_OK);
 			}
 			//Se sono in stato NON_PERCORSO (relativamente ad un ramo) ed inserisco un'azione di quel ramo, finisco in stato NON_OK
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO) && esterna != null) {
-				camm.getStato().gestisciStato(camm, StatoCammino.STATO_NON_OK);
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.STATO_NON_OK);
 				if(esterna!=null) {
-					Ramo daSettare = esterna.getRami()[numRamo];
-					daSettare.getStato().gestisciStatoRamo(daSettare, StatoCammino.STATO_NON_OK);
+					esterna.getRami()[numRamoEsterna].getStato().gestisciStatoRamo(esterna.getRami()[numRamoEsterna], StatoCammino.STATO_NON_OK);
 				}
 			}
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.SALTATO_BLOCCO)) {
-				camm.getStato().gestisciStato(camm, StatoCammino.STATO_NON_OK);
-				if(esterna!=null) {
-					Ramo daSettare = esterna.getRami()[numRamo];
-					daSettare.getStato().gestisciStatoRamo(daSettare, StatoCammino.STATO_NON_OK);
-				}
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.STATO_NON_OK);
+				if(esterna!=null)
+					esterna.getRami()[numRamoEsterna].getStato().gestisciStatoRamo(esterna.getRami()[numRamoEsterna], StatoCammino.STATO_NON_OK);
 			}
-			//TODO forse si puo' mettere altrove
 		}	
 		//Calcolo del nuovo stato nel caso in cui un'azione non viene inserita
 		else {
 			//Se sono negli stati OK e VUOTO, vado nello stato FERMATO
 			if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_OK))
-				camm.getStato().gestisciStato(camm, StatoCammino.FERMATO);
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.FERMATO);
 			//Se sono nel ramo in posizione 0 e non viene inserita l'azione, allora lo stato del ramo diventa NON_PERCORSO
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.ENTRATO_RAMO) && esterna!=null && posizioneRamo==0) {
-				camm.getStato().gestisciStato(camm, StatoCammino.NON_PERCORSO);
-				Ramo daSettare = esterna.getRami()[numRamo];
-				daSettare.getStato().gestisciStatoRamo(daSettare, StatoCammino.NON_PERCORSO);
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.NON_PERCORSO);
+				esterna.getRami()[numRamoEsterna].getStato().gestisciStatoRamo(esterna.getRami()[numRamoEsterna], StatoCammino.NON_PERCORSO);
 			}
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.PERCORSO_PARZ)) {
-				camm.getStato().gestisciStato(camm, StatoCammino.FERMATO_DENTRO);
-				if(esterna!=null) {
-					Ramo daSettare = esterna.getRami()[numRamo];
-					daSettare.getStato().gestisciStatoRamo(daSettare, StatoCammino.FERMATO_DENTRO);
-				}
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.FERMATO_DENTRO);
+				if(esterna!=null)
+					esterna.getRami()[numRamoEsterna].getStato().gestisciStatoRamo(esterna.getRami()[numRamoEsterna], StatoCammino.FERMATO_DENTRO);
 			}
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_VUOTO))
-				camm.getStato().gestisciStato(camm, StatoCammino.FERMATO);	
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.FERMATO);	
 			//Se tutta l'entita' complessa precedente e' stata saltata e non viene aggiunta una nuova azione al di fuori di essa, il cammino diventa FERMATO
 			else if(camm.getStato().getStringaStato().equals(StatoCammino.SALTATO_BLOCCO)) {
 				if(esterna!=null) {
-					camm.getStato().gestisciStato(camm, StatoCammino.FERMATO_DENTRO);
-					Ramo daSettare = esterna.getRami()[numRamo];
-					daSettare.getStato().gestisciStatoRamo(daSettare, StatoCammino.FERMATO_DENTRO);
+					camm.getStato().gestisciStatoCammino(camm, StatoCammino.FERMATO_DENTRO);
+					esterna.getRami()[numRamoEsterna].getStato().gestisciStatoRamo(esterna.getRami()[numRamoEsterna], StatoCammino.FERMATO_DENTRO);
 				}
 				else
-					camm.getStato().gestisciStato(camm, StatoCammino.FERMATO);
+					camm.getStato().gestisciStatoCammino(camm, StatoCammino.FERMATO);
 			}
 		}
-//		System.out.println("Stato --> " + camm.getStato().getStringaStato());
 	}
 	
 	/**
 	 * Gestisce lo stato per le entita' complesse.
 	 *
-	 * @param e : l'entita' complessa di cui gestire lo stato.
+	 * @param attuale : l'entita' complessa di cui gestire lo stato.
 	 * @param esterna : l'eventuale entita' complessa di cui fa a sua volta parte l'entita' complessa (livelli di annidamento multipli)
 	 * @param numRamoEsterna : Il numero del ramo dell'entita' complessa di cui e fa parte.
 	 * @param posRamoEsterna : La posizione di e nel ramo dell'entita' complessa di cui fa parte.
 	 */
-	private void gestisciStatoComplessa(Entita e,Entita esterna,int numRamoEsterna,int posRamoEsterna) {
-		//Variabili per le precondizioni
-		boolean eNull = false;
-		boolean esternaNull = false;
-		boolean numRamoOk = false; 
-		boolean posRamoOk = false;
-		if(e == null)
-			eNull = true;
-		if(esterna == null)
-			esternaNull = true;
-		if(!esternaNull && numRamoEsterna>=0 && numRamoEsterna<=esterna.getRami().length-1)
-			numRamoOk = true;
-		if(!esternaNull && numRamoOk && posRamoEsterna>=0 && posRamoEsterna<=esterna.getRami()[numRamoEsterna].getNumeroEntita()-1)
-			posRamoOk = true;
-				
-		/* 
-		 * PRECONDIZIONI
-		 * 1) L'entita' e deve essere non nulla 
-		 * 2) L'entita' e deve essere un branch, un fork o un ciclo.
-		 * 3) Se l'entita' esterna non e' nulla, allora gli indici relativi al ramo e alla posizione nel ramo devono essere corretti
-		 */
-		assert eNull : "Violata precondizione metodo gestisciStatoComplessa. Passata entita' complessa nulla.";
-		assert e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK): "Violata precondizione metodo gestisciStatoComplessa. Chiamato metodo con entita' diversa da branch, fork o ciclo.";
-		assert esternaNull || (!esternaNull && numRamoOk && posRamoOk) : "Violata precondizione sul metodo gestisciStatoAzione. Il numero del ramo o la posizione nel ramo non sono corretti.";
-
-		for(int i=0; i<e.getRami().length; i++) {
-			if(e.getRami()[i].isEmpty()) {
-				e.getRami()[i].setStato(new PercorsoTutto()); 
-				camm.getStato().gestisciStato(camm, StatoCammino.PERCORSO_TUTTO);
+	private void gestisciStatoComplessa(Entita attuale,Entita esterna,int numRamoEsterna,int posRamoEsterna) {
+		verificaPrecondizioni2(attuale, esterna, numRamoEsterna, posRamoEsterna);
+		
+		for(int i=0; i<attuale.getRami().length; i++) {
+			if(attuale.getRami()[i].isEmpty()) {
+				attuale.getRami()[i].setStato(new PercorsoTutto()); 
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.PERCORSO_TUTTO);
 			}
 			else {
-				camm.getStato().gestisciStato(camm, StatoCammino.ENTRATO_RAMO);
-				e.getRami()[i].setStato(new EntratoRamo());
+				camm.getStato().gestisciStatoCammino(camm, StatoCammino.ENTRATO_RAMO);
+				attuale.getRami()[i].setStato(new EntratoRamo());
 			}
-			//TODO si puo' aggiungere lo stato al costruttore per evitare tutte queste chiamate di metodi
-			Ramo ramoCorrente = e.getRami()[i];
-			for(int j=0; j<ramoCorrente.getNumeroEntita(); j++) {
-				Entita ent = ramoCorrente.getEntitaAt(j);
-				if(ent.getIdTipo().equals(Entita.ID_TIPO_AZIONE) || ent.getIdTipo().equals(Entita.ID_TIPO_AZIONE_COMPOSTA)) {
-					gestisciStatoAzione(ent, e, i, j);			
+			for(int j=0; j<attuale.getRami()[i].getNumeroEntita(); j++) {
+				if(attuale.getRami()[i].getEntitaAt(j).isAzione()) {
+					gestisciStatoAzione(attuale.getRami()[i].getEntitaAt(j), attuale, i, j);			
 				}
-				else if(ent.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || ent.getIdTipo().equals(Entita.ID_TIPO_CICLO) || ent.getIdTipo().equals(Entita.ID_TIPO_FORK))					
-					gestisciStatoComplessa(ent,e,i,j);     //Gestisco l'entita' complessa ent, con entita' esterna e
+				else if(attuale.getRami()[i].getEntitaAt(j).isComplessa())					
+					gestisciStatoComplessa(attuale.getRami()[i].getEntitaAt(j),attuale,i,j);     //Gestisco l'entita' complessa ent, con entita' esterna e
 			}
 		}
 		//Controlli effettuati una volta giunti al termine dell'entita
@@ -319,23 +236,21 @@ public class InserimentoCammino {
 			if(esterna==null) {
 				
 				if(!camm.getStato().getStringaStato().equals(StatoCammino.STATO_NON_OK) && (!(camm.getStato().getStringaStato().equals(StatoCammino.FERMATO)) && !(camm.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO))))
-					if(esterna == null && getRamiPercorsi(e, StatoCammino.NON_PERCORSO) == e.getRami().length)
-						camm.getStato().gestisciStato(camm, StatoCammino.FERMATO);
+					if(esterna == null && getRamiPercorsi(attuale, StatoCammino.NON_PERCORSO) == attuale.getRami().length)
+						camm.getStato().gestisciStatoCammino(camm, StatoCammino.FERMATO);
 				
-				if(e.getIdTipo().equals(Entita.ID_TIPO_FORK)) {
-					String state = controllaFork(e).getStringaStato();
-					camm.getStato().gestisciStato(camm, state);
+				if(attuale.getIdTipo().equals(Entita.ID_TIPO_FORK)) {
+					camm.getStato().gestisciStatoCammino(camm, controllaFork(attuale).getStringaStato());
 				}
-				else if(e.getIdTipo().equals(Entita.ID_TIPO_BRANCH))
-					camm.getStato().gestisciStato(camm, controllaBranch(e).getStringaStato());
-				else if(e.getIdTipo().equals(Entita.ID_TIPO_CICLO))
-					camm.getStato().gestisciStato(camm, controllaCiclo(e).getStringaStato());
+				else if(attuale.getIdTipo().equals(Entita.ID_TIPO_BRANCH))
+					camm.getStato().gestisciStatoCammino(camm, controllaBranch(attuale).getStringaStato());
+				else if(attuale.getIdTipo().equals(Entita.ID_TIPO_CICLO))
+					camm.getStato().gestisciStatoCammino(camm, controllaCiclo(attuale).getStringaStato());
 			}
 			else {
-				gestisciStatoRami(esterna, e, numRamoEsterna, posRamoEsterna);
+				gestisciStatoRami(esterna, attuale, numRamoEsterna, posRamoEsterna);
 				if(!camm.getStato().getStringaStato().equals(StatoCammino.STATO_NON_OK)) {
-					camm.getStato().gestisciStato(camm, esterna.getRami()[numRamoEsterna].getStato().getStringaStato());
-	//				System.out.println("Ramo di " + esterna.getNome() + "settato a "+esterna.getRami()[numRamoEsterna].getStato().getStringaStato());
+					camm.getStato().gestisciStatoCammino(camm, esterna.getRami()[numRamoEsterna].getStato().getStringaStato());
 				}
 			}
 	}
@@ -344,23 +259,20 @@ public class InserimentoCammino {
 	 * Controlla se le azioni inserite nel cammino sono compatibili con la struttura del Fork
 	 * Gestisce lo stato dopo che e' stato completato l'inserimento relativamente ad un 
 	 * costrutto Fork-Join.	
-	 * @param f : il fork per il quale deve essere gestito lo stato.
+	 * @param daControllare : il fork per il quale deve essere gestito lo stato.
 	 * @return : il nuovo stato calcolato al termine di un costrutto fork. 
 	 */
-	private StatoCammino controllaFork(Entita f) {
-		//Precondizioni
-		assert f!=null : "Violata precondizione metodo controllaFork. Passato fork nullo.";
-		assert f.getIdTipo().equals(Entita.ID_TIPO_FORK) : "Violata precondizione metodo controllaFork. Passata entita' diversa da Fork.";
-		
+	private StatoCammino controllaFork(Entita daControllare) {
+		verificaPrecondizioni5(daControllare);
+				
 		if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_NON_OK))
 			return new StatoNonOk();
 		else {
-			assert f != null && f.getIdTipo().equalsIgnoreCase(Entita.ID_TIPO_FORK);
+			assert daControllare != null && daControllare.getIdTipo().equalsIgnoreCase(Entita.ID_TIPO_FORK);
 			
-			int ramiPercorsiTutti = getRamiPercorsi(f, StatoCammino.PERCORSO_TUTTO);
-			int ramiFermatoDentro = getRamiPercorsi(f, StatoCammino.FERMATO_DENTRO);
-			int ramiFork = f.getRami().length;
-	//		System.out.println("Rami percorsi tutti del fork = "+ramiPercorsiTutti);
+			int ramiPercorsiTutti = getRamiPercorsi(daControllare, StatoCammino.PERCORSO_TUTTO);
+			int ramiFermatoDentro = getRamiPercorsi(daControllare, StatoCammino.FERMATO_DENTRO);
+			int ramiFork = daControllare.getRami().length;
 			//Verifico che ci sia almeno un ramo percorso completamente.
 			//Se c'e' almeno un ramo percorso completamente, allora tutti i rami devono essere percorsi completamente.
 			if(ramiPercorsiTutti == ramiFork)   //Se tutti i rami sono percorsi completamente allora viene mantenuto lo stato attuale
@@ -369,12 +281,12 @@ public class InserimentoCammino {
 			else if(ramiPercorsiTutti >= 1 && ramiPercorsiTutti < ramiFork)
 				return new SaltatoBlocco();
 			//Se il cammino e' globale e c'e' almeno un ramo fermato dentro, allora il nuovo stato e' fermato dentro.
-			else if(camm.isGlobale() && ramiFermatoDentro >= 1)
+			else if(camm.globaleSiNo() && ramiFermatoDentro >= 1)
 				return new FermatoDentro();
-			else if(!camm.isGlobale() && ramiFermatoDentro == 1)
+			else if(!camm.globaleSiNo() && ramiFermatoDentro == 1)
 				return new FermatoDentro();
 			//Un insieme del cammino non puo' prevedere piu' rami del Fork percorsi parzialmente
-			else if(!camm.isGlobale() && ramiFermatoDentro > 1)
+			else if(!camm.globaleSiNo() && ramiFermatoDentro > 1)
 				return new StatoNonOk();
 			else
 				return new FermatoDentro();
@@ -384,20 +296,18 @@ public class InserimentoCammino {
 	/**
 	 * Metodo che controlla se le azioni inserite nel Branch sono compatibili con la struttura del 
 	 * branch e gestisce di conseguenza lo stato al termine di quest'ultimo.
-	 * @param b : il branch per cui controllare e gestire lo stato 
+	 * @param daControllare : il branch per cui controllare e gestire lo stato 
 	 * @return : il nuovo stato calcolato in base all'analisi del Branch
 	 */
-	private StatoCammino controllaBranch(Entita b) {
-		//Precondizioni
-		assert b!=null : "Violata precondizione metodo controllaBranch. Passato branch nullo.";
-		assert b.getIdTipo().equals(Entita.ID_TIPO_BRANCH) : "Violata precondizione metodo controllaBranch. Passata entita' diversa da Branch";
-		
+	private StatoCammino controllaBranch(Entita daControllare) {
+		verificaPrecondizioni4(daControllare);
+				
 		if(camm.getStato().getStringaStato().equals(StatoCammino.STATO_NON_OK))
 			return new StatoNonOk();
 		else {
-			int ramiPercorsiTutti = getRamiPercorsi(b, StatoCammino.PERCORSO_TUTTO);
-			int ramiFermatiDentro = getRamiPercorsi(b, StatoCammino.FERMATO_DENTRO);
-			int ramiNonPercorsi = getRamiPercorsi(b, StatoCammino.NON_PERCORSO); 
+			int ramiPercorsiTutti = getRamiPercorsi(daControllare, StatoCammino.PERCORSO_TUTTO);
+			int ramiFermatiDentro = getRamiPercorsi(daControllare, StatoCammino.FERMATO_DENTRO);
+			int ramiNonPercorsi = getRamiPercorsi(daControllare, StatoCammino.NON_PERCORSO); 
 			boolean fermato = false;
 			if(camm.getStato().getStringaStato().equals(StatoCammino.FERMATO) || camm.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO))
 				fermato = true;
@@ -407,9 +317,9 @@ public class InserimentoCammino {
 					return new FermatoDentro();
 				else 
 					return new StatoNonOk();
-			else if(ramiNonPercorsi == b.getRami().length)
+			else if(ramiNonPercorsi == daControllare.getRami().length)
 				return new Fermato();
-			else if(!camm.isGlobale() && (ramiPercorsiTutti > 1 || ramiFermatiDentro > 1))
+			else if(!camm.globaleSiNo() && (ramiPercorsiTutti > 1 || ramiFermatiDentro > 1))
 				return new StatoNonOk();
 		}
 		return new StatoOk();
@@ -419,23 +329,19 @@ public class InserimentoCammino {
 	 * Metodo che controlla se le azioni inserite nel Ciclo sono compatibili con la struttura del 
 	 * Ciclo stesso. Inoltre si gestisce di conseguenza lo stato del cammino al termine di 
 	 * quest'ultimo.
-	 * @param c : il ciclo per cui controllare e gestire lo stato 
+	 * @param daControllare : il ciclo per cui controllare e gestire lo stato 
 	 * @return : il nuovo stato calcolato in base all'analisi del Ciclo
 	 */
-	private StatoCammino controllaCiclo(Entita c) {
-		//Precondizioni
-		assert c!=null : "Violata precondizione metodo controllaCiclo. Passato ciclo nullo.";
-		assert c.getIdTipo().equals(Entita.ID_TIPO_CICLO) : "Violata precondizione metodo controllaCiclo. Passata entita' diversa da Ciclo";
+	private StatoCammino controllaCiclo(Entita daControllare) {
+		verificaPrecondizioni3(daControllare);
 
-		Ramo attivitaIniziali = c.getRami()[0];
-		Ramo condPermanenza = c.getRami()[1];
 		//Se il ramo delle attivita' iniziali non e' inserito o e' inserito solo parzialmente, allora il cammino diventa non valido se l'altro ramo e' stato percorso tutto o in parte
-		if(attivitaIniziali.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO) || attivitaIniziali.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO))
-			if(condPermanenza.getStato().equals(StatoCammino.PERCORSO_TUTTO) || condPermanenza.getStato().equals(StatoCammino.FERMATO_DENTRO))
+		if(daControllare.getRami()[0].getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO) || daControllare.getRami()[0].getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO))
+			if(daControllare.getRami()[1].getStato().equals(StatoCammino.PERCORSO_TUTTO) || daControllare.getRami()[1].getStato().equals(StatoCammino.FERMATO_DENTRO))
 				return new StatoNonOk();
-			else if(attivitaIniziali.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO))
+			else if(daControllare.getRami()[0].getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO))
 				return new Fermato();
-			else if(attivitaIniziali.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO))
+			else if(daControllare.getRami()[0].getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO))
 				return new FermatoDentro(); 
 		return new StatoOk();	
 	}
@@ -453,23 +359,8 @@ public class InserimentoCammino {
 	 * @param posRamoEsterna : la posizione di interna nel ramo dell'entita' esterna
 	 */
 	private void gestisciStatoRami(Entita esterna, Entita interna, int numRamoEsterna, int posRamoEsterna) { 
-		/*
-		 * PRECONDIZIONI 
-		 * 1) esterna e interna non devono essere nulle
-		 * 2) il numero di ramo e la posizione nel ramo devono essere corretti.
-		 */
-		boolean numRamoOk = false; 
-		boolean posRamoOk = false;
-		if(numRamoEsterna>=0 && numRamoEsterna<=esterna.getRami().length-1)
-			numRamoOk = true;
-		if(numRamoOk && posRamoEsterna>=0 && posRamoEsterna<=esterna.getRami()[numRamoEsterna].getNumeroEntita()-1)
-			posRamoOk = true;
-	
-		assert interna != null : "Violata precondizione metodo gestisciStatoRami. Passata entita' interna null";
-		assert esterna != null : "Violata precondizione metodo gestisciStatoRami. Passata entita' esterna null";
-		assert numRamoOk : "Violata precondizione metodo gestisciStatoRami. Numero ramo esterna non corretto";
-		assert posRamoOk : "Violata precondizione metodo gestisciStatoRami. Posizione ramo esterna non corretta";
-	
+		verificaPrecondizioni2(interna, esterna, numRamoEsterna, posRamoEsterna);
+			
 		Ramo ramoEsterna = esterna.getRami()[numRamoEsterna];
 		int ramiPercorsiTutti = getRamiPercorsi(interna, StatoCammino.PERCORSO_TUTTO);
 		int ramiFermatoDentro = getRamiPercorsi(interna,StatoCammino.FERMATO_DENTRO);
@@ -481,44 +372,36 @@ public class InserimentoCammino {
 		
 		String tipoInterna = interna.getIdTipo();
 		//Gestisco il caso in cui l'entita' interna sia un Branch
-		if(tipoInterna.equals(Entita.ID_TIPO_BRANCH) && camm.isGlobale()) {
+		if(tipoInterna.equals(Entita.ID_TIPO_BRANCH) && camm.globaleSiNo()) {
 			//Se il cammino e' globale e sono stati percorsi totalmente almeno un ramo, allora il ramo esterno viene settato di conseguenza, a seconda della posizione di interna nel ramo.
 			if(ramiPercorsiTutti >= 1) {
 				if(ramoEsterna.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO) || ramoEsterna.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO)) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
-		//			System.out.println("Ramo non valido per " + esterna.getNome());
 				}
 				else if(posRamoEsterna == ramoEsterna.getNumeroEntita()-1) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.PERCORSO_TUTTO);
-		//			System.out.println("Percorso tutto il ramo di " + esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.PERCORSO_PARZ);
-		//			System.out.println("Percorso parz il ramo di " + esterna.getNome());
 				}
 			}
 			else if(ramiPercorsiTutti < 1 && ramiFermatoDentro >= 1) {
 				if(ramoEsterna.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO) || ramoEsterna.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO)) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
-		//			System.out.println("Ramo non valido per " + esterna.getNome());
 				}
 				else if(posRamoEsterna == 0) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.NON_PERCORSO);
-		//			System.out.println("Ramo non percorso per "+ esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
-		//			System.out.println("Ramo fermato dentro per "+ esterna.getNome());
 				}
 			}
 			else if(ramiNonPercorsi == interna.getRami().length) {
 				if(posRamoEsterna == 0) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.NON_PERCORSO);
-		//			System.out.println("Ramo non percorso per "+ esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
-		//			System.out.println("Ramo fermato dentro per "+ esterna.getNome());
 				}
 			}
 		}
@@ -547,20 +430,20 @@ public class InserimentoCammino {
 			else if(ramiPercorsiTutti >= 1 && ramiPercorsiTutti < ramiFork)
 				ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
 			//Se il cammino e' globale e c'e' almeno un ramo fermato dentro, allora il nuovo stato e' fermato dentro.
-			else if(camm.isGlobale() && ramiFermatoDentro >= 1) {
+			else if(camm.globaleSiNo() && ramiFermatoDentro >= 1) {
 				if(ramoEsterna.getStato().getStringaStato().equals(StatoCammino.PERCORSO_PARZ) || ramoEsterna.getStato().getStringaStato().equals(StatoCammino.ENTRATO_RAMO))
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
 				else if(ramoEsterna.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO) || ramoEsterna.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO))
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
 			}
-			else if(!camm.isGlobale() && ramiFermatoDentro == 1) {
+			else if(!camm.globaleSiNo() && ramiFermatoDentro == 1) {
 				ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
 				if(ramoEsterna.getStato().getStringaStato().equals(StatoCammino.PERCORSO_PARZ) || ramoEsterna.getStato().getStringaStato().equals(StatoCammino.ENTRATO_RAMO))
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
 				else if(ramoEsterna.getStato().getStringaStato().equals(StatoCammino.FERMATO_DENTRO) || ramoEsterna.getStato().getStringaStato().equals(StatoCammino.NON_PERCORSO))
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
 			}
-			else if(!camm.isGlobale() && ramiFermatoDentro > 1)
+			else if(!camm.globaleSiNo() && ramiFermatoDentro > 1)
 				ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
 			else if(ramiNonPercorsi == interna.getRami().length)
 				if(posRamoEsterna == 0)
@@ -568,38 +451,31 @@ public class InserimentoCammino {
 				else
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
 		}
-		else if(tipoInterna.equalsIgnoreCase(Entita.ID_TIPO_BRANCH) && !camm.isGlobale()) {
+		else if(tipoInterna.equalsIgnoreCase(Entita.ID_TIPO_BRANCH) && !camm.globaleSiNo()) {
 			//Se in un insieme del cammino un branch ha piu' rami percorsi tutti o fermati dentro, allora il cammino diventa non valido.
 			if((ramiPercorsiTutti > 1 && ramiVuoti == 0) || ramiFermatoDentro > 1) {
 				ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
-		//		System.out.println("Ramo non valido per " + esterna.getNome());
 			}
 			else if((ramiPercorsiTutti == 1 && ramiVuoti == 0) && ramiFermatoDentro > 0) {
 				ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.STATO_NON_OK);
-		//		System.out.println("Ramo non valido per " + esterna.getNome());
 			}
 			else if(ramiFermatoDentro == 1) {
 				ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
-		//		System.out.println("Ramo fermato dentro per " + esterna.getNome());
 			}
 			else if(ramiPercorsiTutti >=1) {
 				if(posRamoEsterna == esterna.getRami()[numRamoEsterna].getNumeroEntita()-1) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.PERCORSO_TUTTO);
-		//			System.out.println("Percorso tutto il ramo di " + esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.PERCORSO_PARZ);
-		//			System.out.println("Percorso tutto il ramo di " + esterna.getNome());
 				}
 			}
 			else if(ramiNonPercorsi == interna.getRami().length && ramiPercorsiTutti == 0 && ramiFermatoDentro == 0){
 				if(posRamoEsterna == 0) {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.NON_PERCORSO);
-		//			System.out.println("Ramo non percorso per " + esterna.getNome());
 				}
 				else {
 					ramoEsterna.getStato().gestisciStatoRamo(ramoEsterna, StatoCammino.FERMATO_DENTRO);
-		//			System.out.println("Ramo Fermato dentro per " + esterna.getNome());
 				}
 			}
 		}
@@ -643,20 +519,109 @@ public class InserimentoCammino {
 	 * @return : il numero di rami aventi come stato stringaStato
 	 */
 	private int getRamiPercorsi(Entita e, String stringaStato) {
-		/*
-		 * PRECONDIZIONI
-		 * 1) e non deve essere nulla
-		 * 2) e deve essere una entita' complessa (fork,ciclo o branch)
-		 * 3) la stringa dello stato non deve essere nullo
-		 */
-		assert e!=null : "Violata precondizione metodo getRamiPercorsi. Passata entita' nulla";
-		assert e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK) : "Violata precondizione metodo getRamiPercorsi. Passata entita' diversa da fork, branch o ciclo.";
-		assert stringaStato!=null : "Violata precondizione metodo getRamiPercorsi. Passata stringa stato nulla";
+		verificaPrecondizioni1(e,stringaStato);
 		
 		int counter = 0;
 		for(int i=0; i<e.getRami().length; i++) 
 			if(e.getRami()[i].getStato().getStringaStato().equals(stringaStato) || (e.getRami()[i].isEmpty() && stringaStato.equals(StatoCammino.PERCORSO_TUTTO)))
 				counter++;
 		return counter;
+	}
+	
+	private boolean isComplessa(Entita daVerificare) {
+		return daVerificare.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || daVerificare.getIdTipo().equals(Entita.ID_TIPO_CICLO) || daVerificare.getIdTipo().equals(Entita.ID_TIPO_FORK);
+	}
+	
+	private boolean isCiclo(Entita daControllare) {
+		return daControllare.getIdTipo().equals(Entita.ID_TIPO_CICLO);
+	}
+	
+	private boolean isBranch(Entita daControllare) {
+		return daControllare.getIdTipo().equals(Entita.ID_TIPO_BRANCH);
+	}
+	
+	private boolean isFork(Entita daControllare) {
+		return daControllare.getIdTipo().equals(Entita.ID_TIPO_FORK);
+	}
+	
+	private boolean isAzione(Entita daControllare) {
+		return daControllare.getIdTipo().equals(Entita.ID_TIPO_AZIONE) || daControllare.getIdTipo().equals(Entita.ID_TIPO_AZIONE_COMPOSTA);
+	}
+	
+	private void verificaPrecondizioni1(Entita e, String stringaStato) {
+		/*
+		 * PRECONDIZIONI
+		 * 1) e non deve essere nulla
+		 * 2) e deve essere una entita' complessa (fork,ciclo o branch)
+		 * 3) la stringa dello stato non deve essere nullo
+		 */
+		
+		assert e!=null : "Violata precondizione metodo getRamiPercorsi. Passata entita' nulla";
+		assert isComplessa(e) : "Violata precondizione metodo getRamiPercorsi. Passata entita' diversa da fork, branch o ciclo.";
+		assert stringaStato!=null : "Violata precondizione metodo getRamiPercorsi. Passata stringa stato nulla";
+	}
+	
+	private void verificaPrecondizioni2(Entita interna, Entita esterna, int numRamoEsterna, int posRamoEsterna) {
+		/*
+		 * PRECONDIZIONI 
+		 * 1) esterna e interna non devono essere nulle
+		 * 2) il numero di ramo e la posizione nel ramo devono essere corretti.
+		 */
+		boolean numRamoOk = false; 
+		boolean posRamoOk = false;
+		if(numRamoEsterna>=0 && numRamoEsterna<=esterna.getRami().length-1)
+			numRamoOk = true;
+		if(numRamoOk && posRamoEsterna>=0 && posRamoEsterna<=esterna.getRami()[numRamoEsterna].getNumeroEntita()-1)
+			posRamoOk = true;
+	
+		assert interna != null : "Violata precondizione metodo gestisciStatoRami. Passata entita' interna null";
+		assert esterna != null : "Violata precondizione metodo gestisciStatoRami. Passata entita' esterna null";
+		assert numRamoOk : "Violata precondizione metodo gestisciStatoRami. Numero ramo esterna non corretto";
+		assert posRamoOk : "Violata precondizione metodo gestisciStatoRami. Posizione ramo esterna non corretta";
+	}
+	
+	private void verificaPrecondizioni3(Entita daControllare) {
+		//Precondizioni
+		assert daControllare!=null : "Violata precondizione metodo controllaCiclo. Passato ciclo nullo.";
+		assert isCiclo(daControllare) : "Violata precondizione metodo controllaCiclo. Passata entita' diversa da Ciclo";
+
+	}
+	
+	private void verificaPrecondizioni4(Entita daControllare) {
+		//Precondizioni
+		assert daControllare!=null : "Violata precondizione metodo controllaBranch. Passato branch nullo.";
+		assert isBranch(daControllare) : "Violata precondizione metodo controllaBranch. Passata entita' diversa da Branch";
+	}
+	
+	private void verificaPrecondizioni5(Entita daControllare) {
+		//Precondizioni
+		assert daControllare!=null : "Violata precondizione metodo controllaFork. Passato fork nullo.";
+		assert isFork(daControllare) : "Violata precondizione metodo controllaFork. Passata entita' diversa da Fork.";
+	}
+	
+	private void verificaPrecondizioni6(Entita interna, Entita esterna, int numRamoEsterna, int posRamoEsterna) {
+		// Variabili per le precondizioni
+		boolean eNull = false;
+		boolean esternaNull = false;
+		boolean numRamoOk = false; 
+		boolean posRamoOk = false;
+		if(interna == null)
+			eNull = true;
+		if(esterna == null)
+			esternaNull = true;
+		if(!esternaNull && numRamoEsterna>=0 && numRamoEsterna<=esterna.getRami().length-1)
+			numRamoOk = true;
+		if(!esternaNull && numRamoOk && posRamoEsterna>=0 && posRamoEsterna<=esterna.getRami()[numRamoEsterna].getNumeroEntita()-1)
+			posRamoOk = true;
+				
+		/* 
+		 * PRECONDIZIONI
+		 * 1) L'entita' e deve essere non nulla 
+		 * 2) L'entita' e deve essere un'azione
+		 * 3) Se l'entita' esterna non e' nulla, allora gli indici relativi al ramo e alla posizione nel ramo devono essere corretti
+		 */
+		assert eNull : "Violata precondizione metodo gestisciStatoAzione. Passata azione nulla.";
+		assert isAzione(interna) : "Violata precondizione metodo gestisciStatoAzione. Chiamato metodo con entita' diversa da azione.";
+		assert esternaNull || (!esternaNull && numRamoOk && posRamoOk) : "Violata precondizione sul metodo gestisciStatoAzione. Il numero del ramo o la posizione nel ramo non sono corretti.";
 	}
 }
