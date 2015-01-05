@@ -5,7 +5,6 @@ package utilita;
 
 import java.io.*;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Stream.
  */
@@ -45,13 +44,13 @@ public class Stream implements Serializable
 			 * @param oggetto the oggetto
 			 * @return the object
 			 */
-			public static Object caricaFile (File f, Object oggetto)
+			public static Object caricaFile (File daCaricare, Object oggetto)
 		    {
-		            if (f.exists() )
+		            if (daCaricare.exists() )
 		            {
 		                    try
 		                    {
-		                    	oggetto = (Object) caricaSingoloOggetto(f);
+		                    	oggetto = (Object) caricaSingoloOggetto(daCaricare);
 		                    }
 		                    catch (ClassCastException excCast)
 		                    {
@@ -77,20 +76,20 @@ public class Stream implements Serializable
 			 * @param oggetto the oggetto
 			 * @param controlloSovrascrittura the controllo sovrascrittura
 			 */
-		    public static void salvaFile(File f, Object oggetto, Boolean controlloSovrascrittura)
+		    public static void salvaFile(File daSalvare, Object oggetto, Boolean controlloSovrascrittura)
 		    {
-		    	if (f.exists() )
+		    	if (daSalvare.exists() )
 		    		{
 		    		if (controlloSovrascrittura)
 		    			{
 		    			if (Util.yesOrNo(DOMANDA_SOVRASCRIVERE) )
-		    				salvaSingoloOggetto(f, oggetto);
+		    				salvaSingoloOggetto(daSalvare, oggetto);
 		    			}
 		    		else
-		    			salvaSingoloOggetto(f, oggetto);		    			
+		    			salvaSingoloOggetto(daSalvare, oggetto);		    			
 		    		}		    	
 		    	else
-		    		salvaSingoloOggetto(f, oggetto);
+		    		salvaSingoloOggetto(daSalvare, oggetto);
 		    }
 			
 			/**
@@ -99,7 +98,7 @@ public class Stream implements Serializable
 			 * @param f the f
 			 * @return the object
 			 */
-			public static Object caricaSingoloOggetto (File f) 
+			public static Object caricaSingoloOggetto (File daCaricare) 
 			{
 				Object letto = null;
 				ObjectInputStream ingresso = null;
@@ -108,22 +107,22 @@ public class Stream implements Serializable
 				{
 					ingresso = new ObjectInputStream(
 							new BufferedInputStream(
-									new FileInputStream(f) ) );
+									new FileInputStream(daCaricare) ) );
 					
 					letto = ingresso.readObject();
 				}
 				catch (FileNotFoundException excNotFound)
 				{
-					System.out.println(NO_FILE + f.getName() );
+					System.out.println(NO_FILE + daCaricare.getName() );
 				} 
 				//Contiene anche FileNotFoundException, ma meglio tenerle entrambe.
 				catch (IOException excLettura) 
 				{
-					System.out.println(NO_READ + f.getName() );
+					System.out.println(NO_READ + daCaricare.getName() );
 				}
 				catch (ClassNotFoundException excCast)
 				{
-					System.out.printf(NO_CAST, f.getName() );
+					System.out.printf(NO_CAST, daCaricare.getName() );
 					System.out.println();
 				}
 				
@@ -137,7 +136,7 @@ public class Stream implements Serializable
 						}
 						catch (IOException excChiusura)
 						{
-							System.out.println(NO_CLOSE + f.getName() );
+							System.out.println(NO_CLOSE + daCaricare.getName() );
 						}
 					}
 				}				
