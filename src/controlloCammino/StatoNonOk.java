@@ -18,7 +18,7 @@ public class StatoNonOk implements StatoCammino{
 	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	public void gestisciStato(CamminoAzioni camm, String stato) {}
+	public void gestisciStatoCammino(CamminoAzioni camminoDaGestire, String nuovoStatoCammino) {}
 
 	public boolean isValid() {
 		return false;
@@ -28,5 +28,5 @@ public class StatoNonOk implements StatoCammino{
 		return STATO_NON_OK;
 	}
 
-	public void gestisciStatoRamo(Ramo r, String stato) {}
+	public void gestisciStatoRamo(Ramo ramoDaGestire, String nuovoStatoRamo) {}
 }
