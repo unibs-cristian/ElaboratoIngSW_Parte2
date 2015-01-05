@@ -30,6 +30,7 @@ public class Modello implements Entita{
 	
 	/** Costante stringa per messaggio d'errore */
 	public final static String MSG_ERRORE_MODIFICA = "Errore. Non e' presente alcuna entita' da eliminare.";
+	public final static String MSG_NO_MODELLO = "Errore! Nessun modello inserito.";
 	
 	/** Il nome sintetico del modello */
 	private String nome;
@@ -166,32 +167,32 @@ public class Modello implements Entita{
 		return nome;
 	}
 	
-	public void addEntita (Entita e, int qualeRamo) {
-		//PRECONDIZIONI 
-		assert e!=null && (qualeRamo>=0 && qualeRamo<=e.getRami().length-1) : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
-		
-		int sizeVecchio = elencoEntita.size();
-		elencoEntita.add(e);
-		
-		//POSTCONDIZIONE
-		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
-	}
-	
 	/**
 	 * Aggiunge l'entita' e all'elenco di entita' che costituiscono il modello. 
 	 *
-	 * @param e : l'entita' da inserire nel Vector elencoEntita
+	 * @param daAggiungere : l'entita' da inserire nel Vector elencoEntita
 	 */
-	public void addEntita(Entita e) {
+	public void addToElencoEntita(Entita daAggiungere) {
 		//PRECONDIZIONI 
-		assert e!=null : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+		assert daAggiungere!=null : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
 				
 		int sizeVecchio = elencoEntita.size();
-		elencoEntita.add(e);
+		elencoEntita.add(daAggiungere);
 				
 		//POSTCONDIZIONE
 		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
 	} 
+	
+	public void aggiungiAlRamo (Entita daAggiungere, int qualeRamo) {
+		//PRECONDIZIONI 
+		assert daAggiungere!=null && (qualeRamo>=0 && qualeRamo<=daAggiungere.getRami().length-1) : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+		
+		int sizeVecchio = elencoEntita.size();
+		elencoEntita.add(daAggiungere);
+		
+		//POSTCONDIZIONE
+		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
+	}
 	
 	/**
 	 * Aggiunge un'azione all'elenco di azioni inserite nel modello
@@ -219,7 +220,7 @@ public class Modello implements Entita{
 		else
 		{
 			int index = getContatore()-1;
-			rimuoviEntitaAt(index);
+			rimuoviEntita(index);
 		}
 	}
 	
@@ -238,33 +239,53 @@ public class Modello implements Entita{
 	 * @return true, se e' presente il nodo finale
 	 */
 	public boolean nodoFinalePresente() {
-		if(giaPresente(ID_TIPO_NODO_FINALE))
+		if(giaInseritaSiNo(ID_TIPO_NODO_FINALE))
 			return true;
 		else
 			return false;
 	}	
 	
-	public boolean giaPresente(String nome) {
+	public boolean giaInseritaSiNo(String nomeEntitaDaInserire) {
 		/* 
 		 * Controlla anche se il nome del modello o dell'entita' da inserire in esso  e' gia' 
 		 * presente, per impedire l'inserimento di entita' aventi lo stesso nome.
 		 */
 		Boolean trovato = false;
-		if(this.nome.equalsIgnoreCase(nome))
+		if(this.nome.equalsIgnoreCase(nomeEntitaDaInserire))
 			return true;
 		else {
 			// Prende l'entita' i-esima. Se il nome coincide ritorna true, altrimenti cerca all'interno dell'entita'
 			int i=0;
 			while(trovato == false && i<elencoEntita.size()) {
-				if(elencoEntita.elementAt(i).getNome().equalsIgnoreCase(nome)) 
+				if(elencoEntita.elementAt(i).getNome().equalsIgnoreCase(nomeEntitaDaInserire)) 
 					return true;
 				else {
-					trovato = elencoEntita.elementAt(i).giaPresente(nome);
+					trovato = elencoEntita.elementAt(i).giaInseritaSiNo(nomeEntitaDaInserire);
 					i++;
 				}
 			}
 		}
 		return trovato;
+	}
+	
+	public boolean isComplessa() {
+		return true;
+	}
+
+	public boolean isAzione() {
+		return false;
+	}
+
+	public boolean isBranch() {
+		return false;
+	}
+	
+	public boolean isCiclo() {
+		return false;
+	}
+
+	public boolean isFork() {
+		return false;
 	}
 	
 	/**
@@ -294,23 +315,21 @@ public class Modello implements Entita{
 		return elencoAzioni.isEmpty();
 	}  
 	
-	public void rimuoviEntitaAt(int id) {		
-		Entita e = null;
+	public void rimuoviEntita(int idEntitaDaRimuovere) {		
 		for (int i = 0; i < elencoEntita.size(); i++) 
 		{
-			e = elencoEntita.get(i);
-			if(e.getId()==id)
+			if(elencoEntita.get(i).getId()==idEntitaDaRimuovere)
 			{
-				if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,e.getNome()))) {
+				if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,elencoEntita.get(i).getNome()))) {
+					if(elencoEntita.get(i).isAzione())
+						rimuoviAzione(elencoEntita.get(i).getNome());
+					System.out.println(String.format(MSG_ENTITA_RIMOSSA, elencoEntita.get(i).getNome(),elencoEntita.get(i).getId())); 
 					elencoEntita.remove(i);
 					decrementaContatore();
-					if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE) || e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE_COMPOSTA))
-						rimuoviAzione(e.getNome());
-					System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId())); 
 				}
 			}
 			else
-				e.rimuoviEntitaAt(id);
+				elencoEntita.get(i).rimuoviEntita(idEntitaDaRimuovere);
 		}
 	}
 	
