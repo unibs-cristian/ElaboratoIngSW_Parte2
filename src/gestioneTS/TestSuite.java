@@ -2,10 +2,13 @@
  * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
  */
 package gestioneTS;
+import inputDati.InserimentoCammino;
+
 import java.io.Serializable;
 
 import gestioneModello.Modello;
-import utilita.GUI;
+import utilita.Util;
+import utilita.UtilitaStringhe;
 
 import java.util.Vector;
 
@@ -23,14 +26,20 @@ public class TestSuite implements Serializable {
 	/** Costante per stampa a video */
 	public final static String MSG_INTESTAZIONE_TS = "\n\nTEST SUITE PER IL MODELLO %s\n\n";
 	
+	/** Costanti stringa per messaggi stampati a video */
+	public final static String MSG_CONTINUA_SI_NO_CE = "Si desidera inserire un'altra classe di equivalenza?";
+	public final static String MSG_INS_CLASSE_EQ = "CLASSE DI EQUIVALENZA N. %d - INSERIMENTO INFORMAZIONI";
+	public final static String MSG_CARD_CE = "Inserire la cardinalita' relativa alla classe di equivalenza : ";
+	public final static String MSG_ERRORE_CE = "Errore! E' gia' presente nel Test Suite una classe di equivalenza uguale. Ripetere l'inserimento.";
+	
 	/** Vector con le classi di equivalenza che costituiscono il Test Suite. */
 	private Vector <ClasseEquivalenza> elencoClassi;
 	
 	/** La diagnosi associata al Test Suite */
-	private Diagnosi diag;
+	private Diagnosi diagnosiAssociata;
 	
 	/** Il Modello relativo al Test Suite */
-	private Modello mod;
+	private Modello modelloAssociato;
 	
 	/** L'istanza unica di Test Suite */
 	private static TestSuite instance = null;
@@ -79,12 +88,12 @@ public class TestSuite implements Serializable {
 	 *
 	 * @param clEq : la classe d'equivalenza da aggiungere alla struttura dati
 	 */
-	public void addClasseEquivalenza(ClasseEquivalenza clEq) {
+	public void addClasseEquivalenza(ClasseEquivalenza daAggiungere) {
 		//PRECONDIZIONE
-		assert clEq!=null : "Violata precondizione metodo addClasseEquivalenza. Passata classe nulla.";
+		assert daAggiungere!=null : "Violata precondizione metodo addClasseEquivalenza. Passata classe nulla.";
 		
 		int sizeVecchia = elencoClassi.size();
-		elencoClassi.add(clEq);
+		elencoClassi.add(daAggiungere);
 		
 		//POSTCONDIZIONE
 		assert elencoClassi.size() == sizeVecchia+1;
@@ -97,12 +106,12 @@ public class TestSuite implements Serializable {
 	 * @param ce : la classe d'equivalenza di cui verificare la presenza.
 	 * @return true, se la classe e' gia' presente, false altrimenti.
 	 */
-	public boolean giaInserita(ClasseEquivalenza ce) {
+	public boolean classeGiaPresente(ClasseEquivalenza daVerificare) {
 		//PRECONDIZIONE
-		assert ce!=null : "Violata precondizione nel metodo giaInserita. Passata classe nulla.";
+		assert daVerificare!=null : "Violata precondizione nel metodo giaInserita. Passata classe nulla.";
 		
 		for(int i=0; i<elencoClassi.size(); i++)
-			if(elencoClassi.elementAt(i).isEqual(ce))
+			if(elencoClassi.elementAt(i).isEqual(daVerificare))
 				return true;
 		return false;
 	} 
@@ -122,7 +131,7 @@ public class TestSuite implements Serializable {
 	 * @return la diagnosi
 	 */
 	public Diagnosi getDiagnosi() {
-		return diag;
+		return diagnosiAssociata;
 	}
 	
 	/**
@@ -131,7 +140,7 @@ public class TestSuite implements Serializable {
 	 * @return il modello 
 	 */
 	public Modello getModello() {
-		return mod;
+		return modelloAssociato;
 	}
 	
 	/**
@@ -140,10 +149,43 @@ public class TestSuite implements Serializable {
 	 * @return true, se la diagnosi e' diversa da null, false altrimenti
 	 */
 	public boolean hasDiagnosi() {
-		if(diag == null)
+		if(diagnosiAssociata == null)
 			return false;
 		else
 			return true;
+	}
+	
+	/**
+	 * Inserisce le classi di equivalenza nel Test Suite
+	 * @param attuale : il test suite per cui effettuare l'inserimento.
+	 */
+	public void inserisciClassiEquivalenza() {
+		int i=1;
+		boolean giaPresente = false;
+		//Inserimento classi di equivalenza
+		do {
+			do {
+				System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
+				//Inserimento cardinalita' e creazione classe di equivalenza.
+				int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
+				ClasseEquivalenza daInserire = new ClasseEquivalenza(cardinalita);
+				//Inserimento Cammino Globale
+				InserimentoCammino inserimento = new InserimentoCammino(daInserire, new CamminoAzioni(true));
+				inserimento.inserisciCamm();
+				daInserire.inserisciInsiemeCopertura(i);
+				//Se la classe e' gia' presente nel TS non la aggiunge e fa ripetere l'inserimento.
+				if(classeGiaPresente(daInserire)) {
+					System.out.println(MSG_ERRORE_CE);
+					giaPresente = true;
+				}
+				//Se non e' gia' presente, aggiunge la nuova classe al TS
+				else {
+					addClasseEquivalenza(daInserire);
+					giaPresente = false;
+				}
+			} while(giaPresente == true);
+			i++;
+		} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));
 	}
 	
 	/**
@@ -165,7 +207,7 @@ public class TestSuite implements Serializable {
 	 * @param d : la diagnosi da associare.
 	 */
 	public void setDiagnosi(Diagnosi d) {
-		diag = d;
+		diagnosiAssociata = d;
 	}
 	
 	/**
@@ -174,12 +216,12 @@ public class TestSuite implements Serializable {
 	 * @param m : il modello da associare
 	 */
 	public void setModello(Modello m) {
-		mod = m;
+		modelloAssociato = m;
 	}
 	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
-		risultato.append(String.format(GUI.incorniciaStringa(MSG_INTESTAZIONE_TS), mod.getNome()));
+		risultato.append(String.format(UtilitaStringhe.incorniciaStringa(MSG_INTESTAZIONE_TS), modelloAssociato.getNome()));
 		for(int i=0; i<elencoClassi.size(); i++) {
 			risultato.append("\n\n");
 			risultato.append(String.format("- CLASSE DI EQUIVALENZA N.%d\n"+elencoClassi.elementAt(i).toString(),i+1));
