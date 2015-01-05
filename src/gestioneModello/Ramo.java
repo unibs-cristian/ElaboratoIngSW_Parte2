@@ -7,7 +7,7 @@ import java.util.Vector;
 
 import controlloCammino.EntratoRamo;
 import controlloCammino.StatoCammino;
-import utilita.GUI;
+import utilita.UtilitaStringhe;
 
 /**
  * Classe Ramo.
@@ -64,10 +64,10 @@ public class Ramo implements Serializable {
 	/**
 	 * Elimina entita'
 	 *
-	 * @param i : la posizione dell'entita' da rimuovere 
+	 * @param posizione : la posizione dell'entita' da rimuovere 
 	 */
-	public void eliminaEntitaRamo(int i) {
-		entitaRamo.remove(i);
+	public void eliminaEntitaRamo(int posizione) {
+		entitaRamo.remove(posizione);
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public class Ramo implements Serializable {
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		for(int i=0; i<entitaRamo.size(); i++) {
-			risultato.append(GUI.indenta(entitaRamo.elementAt(i).toString(),Entita.SPAZIO,entitaRamo.elementAt(i).getIndentazione()));
+			risultato.append(UtilitaStringhe.indenta(entitaRamo.elementAt(i).toString(),Entita.SPAZIO,entitaRamo.elementAt(i).getIndentazione()));
 			risultato.append("\n");
 		}
 		return risultato.toString();
