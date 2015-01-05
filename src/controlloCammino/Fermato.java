@@ -16,9 +16,9 @@ public class Fermato implements StatoCammino {
 	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	public void gestisciStato(CamminoAzioni camm, String stato) {
-		if(stato.equals(STATO_NON_OK))
-			camm.setStatoCammino(new StatoNonOk());
+	public void gestisciStatoCammino(CamminoAzioni camminoDaGestire, String nuovoStatoCammino) {
+		if(nuovoStatoCammino.equals(STATO_NON_OK))
+			camminoDaGestire.setStatoCammino(new StatoNonOk());
 	}
 
 	public String getStringaStato() {
@@ -29,5 +29,5 @@ public class Fermato implements StatoCammino {
 		return true;
 	}
 
-	public void gestisciStatoRamo(Ramo r, String stato) {}
+	public void gestisciStatoRamo(Ramo ramoDaGestire, String nuovoStatoRamo) {}
 }
