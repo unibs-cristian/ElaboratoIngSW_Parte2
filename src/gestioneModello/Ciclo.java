@@ -7,8 +7,8 @@ import inputDati.GestoreModello;
 
 import java.util.Vector;
 
-import utilita.GUI;
 import utilita.Util;
+import utilita.UtilitaStringhe;
 
 /**
  * Classe Ciclo.
@@ -18,7 +18,7 @@ import utilita.Util;
  * INVARIANTE DI CLASSE : Tra le entita' che costituiscono il Ciclo, non ce ne devono essere due con
  * lo stesso nome.
  */
-public class Ciclo implements Entita{
+public class Ciclo implements Entita {
 
 	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
@@ -79,25 +79,25 @@ public class Ciclo implements Entita{
 	/**
 	 * Aggiunge l'entita' e all'elenco di entita' interne del Ciclo
 	 *
-	 * @param e l'entita' da aggiungere.
+	 * @param daAggiungere l'entita' da aggiungere.
 	 */
-	public void addEntita(Entita e) {
+	public void addToElencoEntita(Entita daAggiungere) {
 		//PRECONDIZIONI 
-		assert e!=null : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+		assert daAggiungere!=null : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
 				
 		int sizeVecchio = elencoEntita.size();
-		elencoEntita.add(e);
+		elencoEntita.add(daAggiungere);
 		
 		//POSTCONDIZIONE
 		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
 	}
 	
-	public void addEntita(Entita e, int r) {
+	public void aggiungiAlRamo(Entita daAggiungere, int qualeRamo) {
 		//PRECONDIZIONI 
-		assert e!=null && (r>=0 && r<=e.getRami().length-1) : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
+		assert daAggiungere!=null && (qualeRamo>=0 && qualeRamo<=daAggiungere.getRami().length-1) : "Chiamato addEntita con entita' nulla o con numero di ramo errato";
 		
 		int sizeVecchio = elencoEntita.size();
-		elencoRami[r].aggiungiEntitaRamo(e);
+		elencoRami[qualeRamo].aggiungiEntitaRamo(daAggiungere);
 		
 		//POSTCONDIZIONE
 		assert elencoEntita.size() == sizeVecchio+1 : "Postcondizione violata nel metodo addEntita";
@@ -105,9 +105,8 @@ public class Ciclo implements Entita{
 	
 	public Vector<Entita> getEntita() {
 		for(int i=0; i<elencoRami.length; i++) {
-			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
-			for(int j=0; j<entitaRamo.size(); j++) {
-				addEntita(entitaRamo.elementAt(j));
+			for(int j=0; j<elencoRami[i].getEntitaRamo().size(); j++) {
+				addToElencoEntita(elencoRami[i].getEntitaRamo().elementAt(j));
 			}
 		}
 		return elencoEntita;
@@ -142,19 +141,18 @@ public class Ciclo implements Entita{
 		return elencoRami;
 	}
 	
-	public boolean giaPresente(String nome) {
-		if(titolo.equalsIgnoreCase(nome))
+	public boolean giaInseritaSiNo(String nomeEntitaDaInserire) {
+		if(titolo.equalsIgnoreCase(nomeEntitaDaInserire))
 			return true;
 		boolean trovata = false;
 		int i=0;
 		while(trovata == false && i<NUM_RAMI_CICLO) {
 			int j=0;
 			while(trovata == false && j<getRami()[i].getNumeroEntita()) {
-				Entita e = getRami()[i].getEntitaAt(j);
-				if(e.getNome().equalsIgnoreCase(nome))
+				if(getRami()[i].getEntitaAt(j).getNome().equalsIgnoreCase(nomeEntitaDaInserire))
 					return true;
 				else {
-					trovata = e.giaPresente(nome);
+					trovata = getRami()[i].getEntitaAt(j).giaInseritaSiNo(nomeEntitaDaInserire);
 					j++;
 				}
 			}
@@ -162,27 +160,47 @@ public class Ciclo implements Entita{
 		}
 		return trovata;	
 	}
+	
+	public boolean isComplessa() {
+		return true;
+	}
+
+	public boolean isAzione() {
+		return false;
+	}
+
+	public boolean isBranch() {
+		return false;
+	}
+
+	public boolean isCiclo() {
+		return true;
+	}
+
+	public boolean isFork() {
+		return false;
+	}
   
-	public void rimuoviEntitaAt(int id) {
-		//Per ogni ramo metto le entita' in un vector. Se una di quelle soddisfa la condizione, la tolgo dal ramo
+	public Entita ottieniEntita(int numeroRamo, int posizioneRamo) {
+		return elencoRami[numeroRamo].getEntitaAt(posizioneRamo);
+	}
+	
+	public void rimuoviEntita(int idEntitaDaRimuovere) {
 		for (int i=0; i<numRami; i++) {
-			Vector <Entita> entitaRamo = elencoRami[i].getEntitaRamo();
-			//Ricerca l'entita' da eliminare tra le entita' interne del ramo i-esimo
-			for(int j=0; j<entitaRamo.size(); j++) {
-				Entita e = entitaRamo.elementAt(j);
-				//Se la trova la elimina dalle entita' del ramo i-esimo di this e restituisce true
-				if(e.getId()==id)
+			for(int j=0; j<elencoRami[i].getNumeroEntita(); j++) {
+				//Se trova l'entita' la elimina dalle entita' del ramo i-esimo di this e restituisce true
+				if(ottieniEntita(i, j).getId()==idEntitaDaRimuovere)
 				{
-					if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,e.getNome()))) {
-						elencoRami[i].eliminaEntitaRamo(j);
+					if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,ottieniEntita(i, j).getNome()))) {
 						Modello.getInstance().decrementaContatore();
-						if(e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE) || e.getIdTipo().equalsIgnoreCase(ID_TIPO_AZIONE_COMPOSTA))
-							Modello.getInstance().rimuoviAzione(e.getNome());
-						System.out.println(String.format(MSG_ENTITA_RIMOSSA, e.getNome(),e.getId()));
+						if(ottieniEntita(i, j).isAzione())
+							Modello.getInstance().rimuoviAzione(ottieniEntita(i, j).getNome());
+						System.out.println(String.format(MSG_ENTITA_RIMOSSA, ottieniEntita(i, j).getNome(),ottieniEntita(i, j).getId()));
+						elencoRami[i].eliminaEntitaRamo(j);
 					}
 				}
 				else 
-					e.rimuoviEntitaAt(id);
+					ottieniEntita(i, j).rimuoviEntita(idEntitaDaRimuovere);
 			}
 		}
 	}
@@ -190,27 +208,27 @@ public class Ciclo implements Entita{
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append("\n");
-        risultato.append(GUI.indenta(String.format(MSG_CICLO, titolo.toUpperCase(), id),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
+        risultato.append(UtilitaStringhe.indenta(String.format(MSG_CICLO, titolo.toUpperCase(), id),SPAZIO,valoreIndentazione-GestoreModello.FATTORE_INCREMENTO));
 		risultato.append("\n");
 		if(elencoRami[0].getEntitaRamo().isEmpty())
 		{
-			risultato.append(GUI.indenta(String.format(MSG_ATTIVITA_INIZIALI,titolo), SPAZIO, valoreIndentazione));
-			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione));
+			risultato.append(UtilitaStringhe.indenta(String.format(MSG_ATTIVITA_INIZIALI,titolo), SPAZIO, valoreIndentazione));
+			risultato.append(UtilitaStringhe.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione));
 		}
 		else
 		{
-			risultato.append(GUI.indenta(String.format(MSG_ATTIVITA_INIZIALI,titolo), SPAZIO, valoreIndentazione));
+			risultato.append(UtilitaStringhe.indenta(String.format(MSG_ATTIVITA_INIZIALI,titolo), SPAZIO, valoreIndentazione));
 			for(int j=0; j<elencoRami[0].getEntitaRamo().size(); j++) {
 				risultato.append(elencoRami[0].toString());
 			}
 		}
-		risultato.append(GUI.indenta(String.format(MSG_COND_PERMANENZA_CICLO,titolo), SPAZIO, valoreIndentazione));
+		risultato.append(UtilitaStringhe.indenta(String.format(MSG_COND_PERMANENZA_CICLO,titolo), SPAZIO, valoreIndentazione));
 		if(elencoRami[1].getEntitaRamo().isEmpty())
-			risultato.append(GUI.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione));
+			risultato.append(UtilitaStringhe.indenta(MSG_RAMO_VUOTO, SPAZIO, valoreIndentazione));
 		else
 			risultato.append(elencoRami[1].toString());
 		if(valoreIndentazione >= GestoreModello.FATTORE_INCREMENTO)
-			risultato.append(GUI.indenta(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),id),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
+			risultato.append(UtilitaStringhe.indenta(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),id),SPAZIO,valoreIndentazione - GestoreModello.FATTORE_INCREMENTO));
 		else
 			risultato.append(String.format(MSG_BRANCH_CICLO, titolo.toUpperCase(),id));
 		return risultato.toString();
