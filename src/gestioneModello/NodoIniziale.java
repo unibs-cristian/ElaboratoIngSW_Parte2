@@ -34,7 +34,7 @@ public class NodoIniziale implements Entita{
 		idTipo = ID_TIPO_NODO_INIZIALE;
 	}
 	
-	public void addEntita(Entita e, int qualeRamo) {}
+	public void aggiungiAlRamo(Entita daAggiungere, int qualeRamo) {}
 	
 	public int getId() {
 		return id;
@@ -58,11 +58,31 @@ public class NodoIniziale implements Entita{
 		return null;
 	}
 	
-	public boolean giaPresente(String nome) {
+	public boolean giaInseritaSiNo(String nomeEntitaDaInserire) {
+		return false;
+	}
+	
+	public boolean isComplessa() {
 		return false;
 	}
 
-	public void rimuoviEntitaAt(int id) {}
+	public boolean isAzione() {
+		return false;
+	}
+
+	public boolean isBranch() {
+		return false;
+	}
+
+	public boolean isCiclo() {
+		return false;
+	}
+
+	public boolean isFork() {
+		return false;
+	}
+
+	public void rimuoviEntita(int idEntitaDaRimuovere) {}
 	
 	public String toString()
 	{
