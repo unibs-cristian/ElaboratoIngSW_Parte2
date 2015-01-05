@@ -1,15 +1,15 @@
 /*
- * @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
- */
+* @author Pietro Rossi, Lorenzo Rubagotti, Cristian Sampietri
+*/
 package utilita;
 
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
- * The Class GUI.
+ * The Class UtilitaStringhe.
  */
-public class GUI
+public class UtilitaStringhe
 {
 
 	/** The Constant SPAZIO. */
@@ -255,3 +255,4 @@ public class GUI
 		 return daRestituire.toString();
 	 }
 }
+
