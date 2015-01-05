@@ -89,7 +89,6 @@ public class GestoreModello implements Serializable {
 	/** Messaggio stampato a video al termine della creazione di un'entita' */
 	public final static String MSG_NUOVA_ENTITA = "La nuova entita' %s e' stata aggiunta a %s";
 		
-	//TODO se torno al menu' principale non posso piu' modificare. Vedere se va bene.
 	/** Messaggio di conferma per il ritorno al menu' principale */
 	public final static String MSG_CONFERMA = "Attenzione! Se si ritorna al menu' principale non sara' piu' possibile inserire entita' per\nquesto modello. Sei sicuro di voler uscire dalla modalita' inserimento?";
 		
@@ -125,20 +124,11 @@ public class GestoreModello implements Serializable {
 	/**
 	 * Menu inserimento primario per il modello
 	 */
-	public void menuInserimentoPrimario() {
-		Vector<String> opzioniMenuInserimento = new Vector<String>();
-		opzioniMenuInserimento.add(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
-		opzioniMenuInserimento.add(MSG_INSERIMENTO_BRANCH);      //Voce 2 --> branch
-		opzioniMenuInserimento.add(MSG_INSERIMENTO_CICLO);       //Voce 3 --> ciclo
-		opzioniMenuInserimento.add(MSG_INSERIMENTO_FORK);        //Voce 4 --> fork 
-		opzioniMenuInserimento.add(MSG_MODIFICA_MODELLO);        //Voce 5 --> modifica modello
-		opzioniMenuInserimento.add(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
-		opzioniMenuInserimento.add(MSG_USCITA_INSERIMENTO);      //Voce 7 --> ritorna al menu' principale (aggiungere richiesta di salvataggio modello)
-		opzioniMenuInserimento.add(MSG_INSERIMENTO_NODO_FINALE); //Voce 8 --> nodo finale
-		opzioniMenuInserimento.add(MSG_SALVATAGGIO_MODELLO);     //Voce 9 --> salvataggio modello 
-		Menu menuInserimentoEntita = new Menu(MSG_TITOLO_MENU_INSERIMENTO_MODELLO,opzioniMenuInserimento);
+	public void gestisciMenuInserimentoPrimario() {
 		
-		boolean insFinito = false;
+		Menu menuInserimentoEntita = new Menu(MSG_TITOLO_MENU_INSERIMENTO_MODELLO,ottieniOpzioniMenu(1));
+		
+		boolean fineInserimento = false;
 		setRientro(0);
 		
 		do {
@@ -215,7 +205,7 @@ public class GestoreModello implements Serializable {
 					if(!(Util.yesOrNo(MSG_CONFERMA)))
 						break;
 					else {
-						insFinito = true;
+						fineInserimento = true;
 						break;
 					}
 					
@@ -241,68 +231,49 @@ public class GestoreModello implements Serializable {
 					
 				case 9 : 
 					{
-						File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO));
-						Stream.salvaFile(nomeFile, mod, true);
+						Stream.salvaFile(new File(Util.leggiString(MSG_NOME_MODELLO)), mod, true);
 					}
 				break;
 					
 				default : System.out.println(MSG_ERRORE); break;
 			}
-		} while(insFinito == false);
+		} while(fineInserimento == false);
 	}
 	
 	/**
 	 * Menu inserimento secondario.
 	 * Gestisce l'interazione con l'utente per le entita' complesse quali Branch, Fork e Cicli
 	 *
-	 * @param e : l'entita' per cui gestire l'inserimento
-	 * @param tipo : il tipo dell'entita' e
+	 * @param daGestire : l'entita' per cui gestire l'inserimento
+	 * @param tipo : il tipo dell'entita' 
 	 */
-	private void menuInserimentoSecondario(Entita e, int tipo) {
+	private void gestisciMenuInserimentoComplessa(Entita daGestire, int tipoEntita) {
 		/*
 		 * PRECONDIZIONI : l'entita' per la quale si gestisce l'inserimento non deve essere nulla e
 		 * l'intero deve corrispondere ad una delle tre opzioni specificate nelle costanti numeriche.
 		 */
-		assert e != null && (tipo == OPZ_BRANCH || tipo == OPZ_CICLO || tipo == OPZ_FORK) : MSG_ERRORE_PRECONDIZIONE_1; 
-		
-		String t = "";		
-		//TODO METTERE METODO AUSILIARIO IN FASE DI REFACTORING !!!!
-		switch(tipo) {
-		case OPZ_BRANCH: t=MSG_TITOLO_MENU_BRANCH; break;
-		case OPZ_CICLO: t=MSG_TITOLO_MENU_CICLO; break;
-		case OPZ_FORK: t=MSG_TITOLO_MENU_FORK; break;
-		}
+		assert daGestire != null && (tipoEntita == OPZ_BRANCH || tipoEntita == OPZ_CICLO || tipoEntita == OPZ_FORK) : MSG_ERRORE_PRECONDIZIONE_1; 
 	
-		Vector <String> opzioniMenuSecondario = new Vector<String>();
-		opzioniMenuSecondario.add(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
-		opzioniMenuSecondario.add(MSG_INSERIMENTO_BRANCH);      //Voce 2 --> branch
-		opzioniMenuSecondario.add(MSG_INSERIMENTO_CICLO);       //Voce 3 --> ciclo
-		opzioniMenuSecondario.add(MSG_INSERIMENTO_FORK);        //Voce 4 --> fork 
-		opzioniMenuSecondario.add(MSG_MODIFICA_MODELLO);        //Voce 5 --> modifica modello
-		opzioniMenuSecondario.add(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
-		opzioniMenuSecondario.add(MSG_CHIUSURA_RAMO);           //Voce 7 --> Chiudi ramo
-			
-		boolean ramoVuotoPresente = false;  //Serve per impedire l'inserimento di piu' rami vuoti
-		for(int i=0; i<e.getRami().length; i++)
+		for(int i=0; i<daGestire.getRami().length; i++)
 		{
-			Menu menuSecondario = new Menu(String.format(t, e.getNome(), i+1),opzioniMenuSecondario);
+			Menu menuSecondario = new Menu(String.format(ottieniTitoloMenuSecondario(tipoEntita), daGestire.getNome(), i+1),ottieniOpzioniMenu(2));
 				
-			switch(tipo) {
-			case OPZ_BRANCH: System.out.println(String.format(MSG_RAMO_BRANCH, e.getNome(), e.getId(), i+1));
+			switch(tipoEntita) {
+			case OPZ_BRANCH: System.out.println(String.format(MSG_RAMO_BRANCH, daGestire.getNome(), daGestire.getId(), i+1));
 				System.out.println(MSG_RAMO_SUCC);
 				break;
 			case OPZ_CICLO:
 				{
 					if(i==0)
 					{
-						System.out.println(String.format(MSG_ATTIVITA_INIZIALI_CICLO, e.getNome())); break;
+						System.out.println(String.format(MSG_ATTIVITA_INIZIALI_CICLO, daGestire.getNome())); break;
 					}
 					else if(i==1)
 					{
-						System.out.println(String.format(MSG_ATTIVITA_COND_PERMANENZA_CICLO, e.getNome())); break;
+						System.out.println(String.format(MSG_ATTIVITA_COND_PERMANENZA_CICLO, daGestire.getNome())); break;
 					}
 				}
-				case OPZ_FORK:   System.out.println(String.format(MSG_RAMO_FORK, e.getNome(), e.getId(), i+1));
+				case OPZ_FORK:   System.out.println(String.format(MSG_RAMO_FORK, daGestire.getNome(), daGestire.getId(), i+1));
 				                 System.out.println(MSG_RAMO_SUCC);
 				                 break;
 				}
@@ -311,31 +282,30 @@ public class GestoreModello implements Serializable {
 				do {
 					switch(menuSecondario.scegliVoce()) {
 					case 1:    
-						inserimentoAzione(e,i);
+						inserimentoAzione(daGestire,i);
 						break;
 
 					case 2:  
-						inserimentoBranch(e,i);
+						inserimentoBranch(daGestire,i);
 						break;
 					
 					case 3 : 
-						inserimentoCiclo(e,i);
+						inserimentoCiclo(daGestire,i);
 						break;
 						
 					case 4 :
-						inserimentoFork(e,i);
+						inserimentoFork(daGestire,i);
 						break;
 					 
 					case 5:
 					{	
-						Ramo r = e.getRami()[i];
 						/*
 						 * Se il ramo corrente e' vuoto, non viene eliminata alcuna entita' e viene stampato a
 						 * video un opportuno messaggio d'errore.
 						 * L'eliminazione dell'entita' composta deve avvenire da menu' principale ed avviene dopo 
 						 * aver eliminato tutte le sottoentita' che la compongono.
 						 */
-						if(r.isEmpty())
+						if(daGestire.getRami()[i].isEmpty())
 						{
 							System.out.println(Modello.MSG_ERRORE_MODIFICA);
 							break;
@@ -352,21 +322,20 @@ public class GestoreModello implements Serializable {
 						System.out.println(mod.toString()); 
 						break;
 					
-					case 7:   
-					if(e.getRami()[i].isEmpty())
+					case 7:   //Chiusura ramo corrente
+					if(daGestire.getRami()[i].isEmpty()) 
 						/*
-					 	* Se c'e' gia' un ramo vuoto inserito e il ramo corrente e' vuoto, non esce dal menu' 
-					 	* e stampa a video un errore.
+					 	* Se il ramo corrente e' vuoto, controlla i rami precedenti. Se ne trova
+					 	* uno vuoto, stampa a video un messaggio d'errore e impedisce di chiudere
+					 	* il ramo.
 						*/
-						if(ramoVuotoPresente) {
-							System.out.println(MSG_ERRORE_RAMI);
-							break;
+						for(int j=0; j<i; j++) {
+							if(daGestire.getRami()[j].isEmpty()) {
+								System.out.println(MSG_ERRORE_RAMI);
+								break;
+							}
 						}
-						else {
-							ramoVuotoPresente = true;
-							esci = true;
-							break;
-						}
+					//Se il ramo corrente non e' vuoto, esce dal ramo e passa al successivo.
 					else {
 						esci = true;
 						break;
@@ -376,154 +345,189 @@ public class GestoreModello implements Serializable {
 					}
 				} while(!esci);
 			} 
-			switch(tipo) {
+		ottieniMessaggioChiusura(daGestire,tipoEntita);
+		decrementaRientro();
+	}
+	
+	/** 
+	 * Metodo ausiliario che ritorna il titolo del menu' secondario in base
+	 * al tipo di entita' da gestire
+	 *  
+	 * @param tipo : codice numerico che indica l'entita' da restituire
+	 * @return il titolo del menu' secondario.
+	 */
+	private String ottieniTitoloMenuSecondario(int tipo) {		
+		switch(tipo) {
+			case OPZ_BRANCH: return MSG_TITOLO_MENU_BRANCH;
+			case OPZ_CICLO: return MSG_TITOLO_MENU_CICLO;
+			case OPZ_FORK: return MSG_TITOLO_MENU_FORK; 
+			default : return "";
+		}
+	}
+	
+	private void ottieniMessaggioChiusura(Entita e, int tipo) {
+		switch(tipo) {
 			case OPZ_BRANCH: System.out.println(String.format(MSG_CHIUSURA_BRANCH, e.getNome(), e.getId(), e.getId())); break;
 			case OPZ_CICLO: System.out.println(String.format(MSG_CHIUSURA_CICLO, e.getId())); break;
 			case OPZ_FORK: System.out.println(String.format(MSG_CHIUSURA_FORK, e.getNome(), e.getId(), e.getId())); break;
-			}
-			decrementaRientro();
+		}
+	}
+	
+	/**
+	 * Metodo ausiliario che consente di ottenere un Vector di stringhe 
+	 * contenente le opzioni di un menu'
+	 * 
+	 * @param tipoMenu : se 1, fornisce le stringhe per il menu' principale.
+	 * se 2, fornisce le stringhe per il menu' secondario.
+	 * @return
+	 */
+	private Vector <String> ottieniOpzioniMenu(int tipoMenu) {
+		Vector <String> opzioniMenu = new Vector<>();
+		opzioniMenu.add(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
+		opzioniMenu.add(MSG_INSERIMENTO_BRANCH);      //Voce 2 --> branch
+		opzioniMenu.add(MSG_INSERIMENTO_CICLO);       //Voce 3 --> ciclo
+		opzioniMenu.add(MSG_INSERIMENTO_FORK);        //Voce 4 --> fork 
+		opzioniMenu.add(MSG_MODIFICA_MODELLO);        //Voce 5 --> modifica modello
+		opzioniMenu.add(MSG_VISUALIZZAZIONE_MODELLO); //Voce 6 --> visualizza modello parziale
+		
+		if(tipoMenu == 1) {
+			opzioniMenu.add(MSG_USCITA_INSERIMENTO);      //Voce 7 menu' inserimento --> ritorna al menu' principale (aggiungere richiesta di salvataggio modello)
+			opzioniMenu.add(MSG_INSERIMENTO_NODO_FINALE); //Voce 8 --> nodo finale
+			opzioniMenu.add(MSG_SALVATAGGIO_MODELLO);     //Voce 9 --> salvataggio modello
+		}
+		else
+			opzioniMenu.add(MSG_CHIUSURA_RAMO);           //Voce 7 menu' inserimento secondario --> Chiudi ramo
+		
+		return opzioniMenu;
 	}
 	
 	/**
 	 * Inserimento azione.
 	 *
-	 * @param e : l'entita' esterna alla quale deve essere aggiunta l'azione. Se non c'e' alcun 
+	 * @param esterna : l'entita' esterna alla quale deve essere aggiunta l'azione. Se non c'e' alcun 
 	 * livello di annidamento, questa e' il modello stesso, altrimenti e' un'entita' complessa.
 	 * 
 	 * @param qualeRamo : il ramo dell'entita' complessa sul quale aggiungere l'entita'. Se non 
 	 * c'e' alcun livello di annidamento, puo' assumere un valore qualsiasi
 	 */
-	private void inserimentoAzione (Entita e, int qualeRamo) {
+	private void inserimentoAzione (Entita esterna, int qualeRamo) {
 		/*
 		 * PRECONDIZIONI : l'entita' e non deve essere nulla. Inoltre se il tipo dell'entita' esterna
 		 * e' relativo ad una delle entita' complesse, allora l'intero relativo al ramo deve essere
 		 * compreso tra 0 e il numero di rami di e meno uno. 
 		 */
-		assert e!=null : MSG_ERRORE_PRECONDIZIONE_2;
-		assert e.getIdTipo().equals(Entita.ID_TIPO_MODELLO) || ((e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK) && (qualeRamo >= 0 && qualeRamo < e.getRami().length))) : MSG_ERRORE_PRECONDIZIONE_2 ;
-		boolean presente = false;
-		String t;
+		assert esterna!=null : MSG_ERRORE_PRECONDIZIONE_2;
+		assert esterna.isComplessa(): MSG_ERRORE_PRECONDIZIONE_2 ;
+		String nome;
 		do {
-			t = Util.leggiString(MSG_TITOLO_AZIONE);
-			presente = mod.giaPresente(t);
-			if(presente)
+			nome = Util.leggiString(MSG_TITOLO_AZIONE);
+			if(mod.giaInseritaSiNo(nome))
 				System.out.println(MSG_DUPLICATO);
-		} while(presente==true);
-		boolean composta = Util.yesOrNo(MSG_COMPOSTA_SI_NO);
-		Azione action = new Azione(t,composta);
-		if(action.isComposta()) {
-			String modelloAzione = Util.leggiString(MSG_MODELLO_COMPOSTA);
-			action.setModelloComposta(modelloAzione);
-		}
-		e.addEntita(action, qualeRamo);
+		} while(mod.giaInseritaSiNo(nome));
+		Azione action = new Azione(nome,Util.yesOrNo(MSG_COMPOSTA_SI_NO));
+		if(action.compostaSiNo())
+			action.setModelloComposta(Util.leggiString(MSG_MODELLO_COMPOSTA));
+		esterna.aggiungiAlRamo(action, qualeRamo);
 		mod.addAzione(action);
-		System.out.println(String.format(MSG_NUOVA_ENTITA,action.getNome(),e.getNome()));
+		System.out.println(String.format(MSG_NUOVA_ENTITA,action.getNome(),esterna.getNome()));
 	}
 	
 	/**
 	 * Inserimento branch.
 	 *
-	 * @param e : l'entita' esterna alla quale deve essere aggiunto il branch. Se non c'e' alcun 
+	 * @param esterna : l'entita' esterna alla quale deve essere aggiunto il branch. Se non c'e' alcun 
 	 * livello di annidamento, questa e' il modello stesso, altrimenti e' un'entita' complessa.
 	 * 
 	 * @param qualeRamo : il ramo dell'entita' complessa sul quale aggiungere il branch. Se non 
 	 * c'e' alcun livello di annidamento, puo' assumere un valore qualsiasi
 	 */
-	private void inserimentoBranch(Entita e, int qualeRamo) {
+	private void inserimentoBranch(Entita esterna, int qualeRamo) {
 		/*
 		 * PRECONDIZIONI : l'entita' e non deve essere nulla. Inoltre se il tipo dell'entita' esterna
 		 * e' relativo ad una delle entita' complesse, allora l'intero relativo al ramo deve essere
 		 * compreso tra 0 e il numero di rami di e meno uno. 
 		 */
-		assert e!=null : MSG_ERRORE_PRECONDIZIONE_3;
-		assert e.getIdTipo().equals(Entita.ID_TIPO_MODELLO) || ((e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK) && (qualeRamo >= 0 && qualeRamo < e.getRami().length))) : MSG_ERRORE_PRECONDIZIONE_3 ;
-		String t;
-		Boolean presente = false;
+		assert esterna!=null : MSG_ERRORE_PRECONDIZIONE_3;
+		assert esterna.getIdTipo().equals(Entita.ID_TIPO_MODELLO) || ((esterna.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || esterna.getIdTipo().equals(Entita.ID_TIPO_CICLO) || esterna.getIdTipo().equals(Entita.ID_TIPO_FORK) && (qualeRamo >= 0 && qualeRamo < esterna.getRami().length))) : MSG_ERRORE_PRECONDIZIONE_3 ;
+		String nome;
 		do {
-			t = Util.leggiString(MSG_TITOLO_BRANCH);
-			presente = mod.giaPresente(t);
-			if(presente)
+			nome = Util.leggiString(MSG_TITOLO_BRANCH);
+			if(mod.giaInseritaSiNo(nome))
 				System.out.println(MSG_DUPLICATO);
-		} while(presente==true);
-		int n = Util.leggiIntConMinimo(MSG_NUM_RAMI_BRANCH, MIN_RAMI);
+		} while(mod.giaInseritaSiNo(nome));
 		incrementaRientro();
-		Branch b = new Branch(t, n);
-		for (int i=0; i<b.getNumeroRami(); i++)
-			b.getRami()[i] = new Ramo();
-		e.addEntita(b, qualeRamo);
-		menuInserimentoSecondario(b,OPZ_BRANCH); 
-		System.out.println(String.format(MSG_NUOVA_ENTITA,b.getNome(),e.getNome()));
+		Branch nuovo = new Branch(nome, Util.leggiIntConMinimo(MSG_NUM_RAMI_BRANCH, MIN_RAMI));
+		for (int i=0; i<nuovo.getNumeroRami(); i++)
+			nuovo.getRami()[i] = new Ramo();
+		esterna.aggiungiAlRamo(nuovo, qualeRamo);
+		gestisciMenuInserimentoComplessa(nuovo,OPZ_BRANCH); 
+		System.out.println(String.format(MSG_NUOVA_ENTITA,nuovo.getNome(),esterna.getNome()));
 	}
 	
 	/**
 	 * Inserimento ciclo.
 	 *
-	 * @param e : l'entita' esterna alla quale deve essere aggiunto il ciclo. Se non c'e' alcun 
+	 * @param esterna : l'entita' esterna alla quale deve essere aggiunto il ciclo. Se non c'e' alcun 
 	 * livello di annidamento, questa e' il modello stesso, altrimenti e' un'entita' complessa.
 	 * 
 	 * @param qualeRamo : il ramo dell'entita' complessa sul quale aggiungere il ciclo. Se non 
 	 * c'e' alcun livello di annidamento, puo' assumere un valore qualsiasi
 	 */
-	private void inserimentoCiclo(Entita e, int qualeRamo) {
+	private void inserimentoCiclo(Entita esterna, int qualeRamo) {
 		/*
 		 * PRECONDIZIONI : l'entita' e non deve essere nulla. Inoltre se il tipo dell'entita' esterna
 		 * e' relativo ad una delle entita' complesse, allora l'intero relativo al ramo deve essere
 		 * compreso tra 0 e il numero di rami di e meno uno. 
 		 */
-		assert e!=null : MSG_ERRORE_PRECONDIZIONE_4;
-		assert e.getIdTipo().equals(Entita.ID_TIPO_MODELLO) || ((e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK) && (qualeRamo >= 0 && qualeRamo < e.getRami().length))) : MSG_ERRORE_PRECONDIZIONE_4 ;
+		assert esterna!=null : MSG_ERRORE_PRECONDIZIONE_4;
+		assert esterna.getIdTipo().equals(Entita.ID_TIPO_MODELLO) || ((esterna.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || esterna.getIdTipo().equals(Entita.ID_TIPO_CICLO) || esterna.getIdTipo().equals(Entita.ID_TIPO_FORK) && (qualeRamo >= 0 && qualeRamo < esterna.getRami().length))) : MSG_ERRORE_PRECONDIZIONE_4 ;
 
-		String t;
-		Boolean presente = false;
+		String nome;
 		do {
-			t = Util.leggiString(MSG_TITOLO_CICLO);
-			presente = mod.giaPresente(t);
-			if(presente)
+			nome = Util.leggiString(MSG_TITOLO_CICLO);
+			if(mod.giaInseritaSiNo(nome))
 				System.out.println(MSG_DUPLICATO);
-		} while(presente==true);
+		} while(mod.giaInseritaSiNo(nome));
 		incrementaRientro();
-		Ciclo c = new Ciclo(t);
-		for (int i=0; i<c.getNumeroRami(); i++)
-			c.getRami()[i] = new Ramo();
-		e.addEntita(c, qualeRamo);
-		menuInserimentoSecondario(c,OPZ_CICLO);
-		System.out.println(String.format(MSG_NUOVA_ENTITA,c.getNome(),e.getNome()));
+		Ciclo nuovo = new Ciclo(nome);
+		for (int i=0; i<nuovo.getNumeroRami(); i++)
+			nuovo.getRami()[i] = new Ramo();
+		esterna.aggiungiAlRamo(nuovo, qualeRamo);
+		gestisciMenuInserimentoComplessa(nuovo,OPZ_CICLO);
+		System.out.println(String.format(MSG_NUOVA_ENTITA,nuovo.getNome(),esterna.getNome()));
 	}
 	
 	/**
 	 * Inserimento fork.
 	 *
-	 * @param e : l'entita' esterna alla quale deve essere aggiunto il fork. Se non c'e' alcun 
+	 * @param esterna : l'entita' esterna alla quale deve essere aggiunto il fork. Se non c'e' alcun 
 	 * livello di annidamento, questa e' il modello stesso, altrimenti e' un'entita' complessa.
 	 * 
 	 * @param qualeRamo : il ramo dell'entita' complessa sul quale aggiungere il fork. Se non 
 	 * c'e' alcun livello di annidamento, puo' assumere un valore qualsiasi
 	 */
-	private void inserimentoFork(Entita e, int qualeRamo) {
+	private void inserimentoFork(Entita esterna, int qualeRamo) {
 		/*
 		 * PRECONDIZIONI : l'entita' e non deve essere nulla. Inoltre se il tipo dell'entita' esterna
 		 * e' relativo ad una delle entita' complesse, allora l'intero relativo al ramo deve essere
 		 * compreso tra 0 e il numero di rami di e meno uno. 
 		 */
-		assert e!=null : MSG_ERRORE_PRECONDIZIONE_5;
-		assert e.getIdTipo().equals(Entita.ID_TIPO_MODELLO) || ((e.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || e.getIdTipo().equals(Entita.ID_TIPO_CICLO) || e.getIdTipo().equals(Entita.ID_TIPO_FORK) && (qualeRamo >= 0 && qualeRamo < e.getRami().length))) : MSG_ERRORE_PRECONDIZIONE_5 ;
+		assert esterna!=null : MSG_ERRORE_PRECONDIZIONE_5;
+		assert esterna.getIdTipo().equals(Entita.ID_TIPO_MODELLO) || ((esterna.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || esterna.getIdTipo().equals(Entita.ID_TIPO_CICLO) || esterna.getIdTipo().equals(Entita.ID_TIPO_FORK) && (qualeRamo >= 0 && qualeRamo < esterna.getRami().length))) : MSG_ERRORE_PRECONDIZIONE_5 ;
 
-		String t;
-		Boolean presente = false;
+		String nome;
 		do {
-			t = Util.leggiString(MSG_TITOLO_FORK);
-			presente = mod.giaPresente(t);
-			if(presente)
+			nome = Util.leggiString(MSG_TITOLO_FORK);
+			if(mod.giaInseritaSiNo(nome))
 				System.out.println(MSG_DUPLICATO);
-		} while(presente==true);
-		int n = Util.leggiIntConMinimo(MSG_NUM_RAMI_FORK, MIN_RAMI);
+		} while(mod.giaInseritaSiNo(nome));
 		incrementaRientro();
-		Fork temp = new Fork(t, n);
-		for (int i=0; i<temp.getNumeroRami(); i++)
-			temp.getRami()[i] = new Ramo();
-		e.addEntita(temp, qualeRamo);
-		menuInserimentoSecondario(temp,OPZ_FORK);
-		System.out.println(String.format(MSG_NUOVA_ENTITA,temp.getNome(),e.getNome()));
+		Fork nuovo = new Fork(nome, Util.leggiIntConMinimo(MSG_NUM_RAMI_FORK, MIN_RAMI));
+		for (int i=0; i<nuovo.getNumeroRami(); i++)
+			nuovo.getRami()[i] = new Ramo();
+		esterna.aggiungiAlRamo(nuovo, qualeRamo);
+		gestisciMenuInserimentoComplessa(nuovo,OPZ_FORK);
+		System.out.println(String.format(MSG_NUOVA_ENTITA,nuovo.getNome(),esterna.getNome()));
 	}
 	
 	/**
@@ -532,8 +536,7 @@ public class GestoreModello implements Serializable {
 	private void inserimentoNodoFinale () {
 		// PRECONDIZIONE : il modello non deve essere nullo
 		assert mod!=null : MSG_ERRORE_PRECONDIZIONE_6;
-		NodoFinale nodo_f = new NodoFinale();
-		mod.addEntita(nodo_f);
+		mod.addToElencoEntita(new NodoFinale());
 		System.out.println(String.format(MSG_NODO_FINALE,mod.getNome()));
 	}
 	
