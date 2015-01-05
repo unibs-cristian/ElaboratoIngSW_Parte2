@@ -4,7 +4,6 @@
 package utilita;
 
 import java.util.Vector;
-// TODO: Auto-generated Javadoc
 /**
  * The Class Menu.
  */
@@ -51,7 +50,7 @@ public class Menu
 	{
 		System.out.println();
 		
-		GUI.incorniciaMenu(nomeMenu, listaOpzioni, 0);
+		UtilitaStringhe.incorniciaMenu(nomeMenu, listaOpzioni, 0);
 		
 		System.out.println();
 		return Util.leggiIntCompreso(1, listaOpzioni.size(), RICHIESTA_INSERIMENTO);
