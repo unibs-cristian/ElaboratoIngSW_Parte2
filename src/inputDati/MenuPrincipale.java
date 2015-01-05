@@ -3,8 +3,6 @@ package inputDati;
 import gestioneModello.Modello;
 import gestioneModello.NodoIniziale;
 import gestioneReport.Report;
-import gestioneTS.CamminoAzioni;
-import gestioneTS.ClasseEquivalenza;
 import gestioneTS.Diagnosi;
 import gestioneTS.TestSuite;
 
@@ -46,13 +44,6 @@ public class MenuPrincipale {
 	public final static String MSG_SOVRASCRIVI_TS = "Attenzione, esiste gia' un Test Suite inserito. Si desidera abbandonare tale Test Suite e lavorare su quello nuovo?";
 	public final static String MSG_INSERIMENTO_TS_ANNULLATO = "Inserimento Test Suite annulato.";
 	public final static String MSG_TS = "\n\nCREAZIONE DEL TEST SUITE RELATIVO AL MODELLO %s\n\n";
-	public final static String MSG_INS_CLASSE_EQ = "CLASSE DI EQUIVALENZA N. %d - INSERIMENTO INFORMAZIONI";
-	public final static String MSG_CARD_CE = "Inserire la cardinalita' relativa alla classe di equivalenza : ";
-	public final static String MSG_INS_COP = "INSERIMENTO INSIEME DI COPERTURA";
-	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
-	public final static String MSG_CONTINUA_SI_NO_COPPIA = "Si desidera inserire un'altra coppia (insieme del cammino ; valore della rilevazione)?";
-	public final static String MSG_ERRORE_CE = "Errore! E' gia' presente nel Test Suite una classe di equivalenza uguale. Ripetere l'inserimento.";
-	public final static String MSG_CONTINUA_SI_NO_CE = "Si desidera inserire un'altra classe di equivalenza?";
 	public final static String MSG_SALVATAGGIO_TS = "Si desidera salvare il Test Suite inserito?";
 	public final static String MSG_NOME_TS = "Che nome si desidera dare al Test Suite?";
 	public final static String MSG_SINTESI_TS = "Si desidera vedere una sintesi delle classi di equivalenza e degli insiemi di copertura inseriti\nper il TS corrente?";
@@ -114,6 +105,10 @@ public class MenuPrincipale {
 	}
 	
 	private void crea() {
+		this.gestisci(new Menu(titolo, ottieniVoci()));
+	}
+	
+	private Vector <String> ottieniVoci() {
 		Vector<String> vociMenuPrincipale = new Vector<String>();
 		vociMenuPrincipale.add(MSG_NUOVO_MODELLO);
 		vociMenuPrincipale.add(MSG_VISUALIZZAZIONE_MODELLO);
@@ -125,17 +120,16 @@ public class MenuPrincipale {
 		vociMenuPrincipale.add(MSG_CARICAMENTO);
 		vociMenuPrincipale.add(MSG_SALVATAGGIO);
 		vociMenuPrincipale.add(MSG_USCITA_PROGRAMMA);
-		Menu menuPrincipale = new Menu(titolo, vociMenuPrincipale);
-		this.gestisci(menuPrincipale);
+		return vociMenuPrincipale;
 	}
 	
-	private void gestisci(Menu m) {
+	private void gestisci(Menu principale) {
 		//Precondizione
-		assert m!=null : "Violata precondizione metodo gestisci. Passato menu' nullo.";
+		assert principale!=null : "Violata precondizione metodo gestisci. Passato menu' nullo.";
 		
 		boolean finito = false;
 		do {
-			switch(m.scegliVoce()) {
+			switch(principale.scegliVoce()) {
 				case 1:
 					inserimentoNuovoModello();
 					break;
@@ -185,30 +179,22 @@ public class MenuPrincipale {
 	/**
 	 * Inserimento nuovo modello (ozpione 1)
 	 */
-	private static void inserimentoNuovoModello() {
-		boolean sovrascrivi = false;
+	//TODO eseguito intervento di manutenzione.
+	private static void inserimentoNuovoModello() {		
+		boolean esci = false;
+		//Se c'e' gia' un modello chiede di sovrascriverlo.
 		if(Modello.isNull() == false)
-			sovrascrivi = Util.yesOrNo(MSG_MODELLO_ESISTENTE);
-		else {
-			String nome_modello = Util.leggiStringPiena(MSG_NOME_MODELLO);
-			String descrizione_modello = Util.leggiStringPiena(MSG_DESCRIZIONE_MODELLO);
-			Modello m = Modello.getInstance();
-			m.setNome(nome_modello);
-			m.setDescrizione(descrizione_modello);
-			NodoIniziale ni = new NodoIniziale();
-			m.addEntita(ni);
-			m.getGm().menuInserimentoPrimario();
-		}
-		if(sovrascrivi) {
-			Modello.cambiaModello(null);
-			Modello nuovo = Modello.getInstance();
-			String nome_modello = Util.leggiString(MSG_NOME_MODELLO);
-			String descrizione_modello = Util.leggiString(MSG_DESCRIZIONE_MODELLO);
-			nuovo.setNome(nome_modello);
-			nuovo.setDescrizione(descrizione_modello);
-			NodoIniziale ni = new NodoIniziale();
-			nuovo.addEntita(ni);
-			nuovo.getGm().menuInserimentoPrimario();
+			if(Util.yesOrNo(MSG_MODELLO_ESISTENTE))
+				Modello.cambiaModello(null);
+			else 
+				esci = true;
+				
+		//Se l'utente non ha rifiutato di sovrascrivere il vecchio modello, ne crea uno nuovo.
+		if(!esci) {
+			Modello.getInstance().setNome(Util.leggiStringPiena(MSG_NOME_MODELLO));
+			Modello.getInstance().setDescrizione(Util.leggiStringPiena(MSG_DESCRIZIONE_MODELLO));
+			Modello.getInstance().addToElencoEntita(new NodoIniziale());
+			Modello.getInstance().getGm().gestisciMenuInserimentoPrimario();
 		}
 	}
 	
@@ -220,9 +206,8 @@ public class MenuPrincipale {
 			System.out.println(MSG_NO_MODELLO);
 		else 
 		{
-			Modello daVisualizzare = Modello.getInstance();
 			System.out.println(MSG_STAMPA_MOD_CORRENTE);
-			System.out.println(daVisualizzare.toString());
+			System.out.println(Modello.getInstance().toString());
 		}
 	}
 	
@@ -230,7 +215,7 @@ public class MenuPrincipale {
 	 * Inserimento Test Suit (opzione 3).
 	 */
 	private static void inserimentoTS() { 
-		TestSuite ts;
+		TestSuite nuovo;
 		boolean continua = false;
 		boolean esci = false;
 		if(TestSuite.isNull() == false)       //Se c'e' gia' un TS inserito chiede all'utente se vuole sovrascriverlo.
@@ -242,62 +227,23 @@ public class MenuPrincipale {
 			}
 		
 		if(esci == false) {
-			ts = TestSuite.getInstance();
+			nuovo = TestSuite.getInstance();
 			if(Modello.isNull()==false) {
-				Modello modelloCorrente = Modello.getInstance();
-				ts.setModello(modelloCorrente);
+				nuovo.setModello(Modello.getInstance());
 				continua = true;
 			}
 			else 
 				System.out.println(MSG_NO_MODELLO);			
 			if(continua) {
-				Modello modelloCorrente = Modello.getInstance();
-				System.out.println(String.format(MSG_TS, modelloCorrente.getNome()));		
-				int i=1;
-				boolean giaPresente = false;
-				//Inserimento classi di equivalenza
-				do {
-					do {
-						System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-						//Inserimento cardinalita'�e creazione classe di equivalenza.
-						int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
-						ClasseEquivalenza ce = new ClasseEquivalenza(cardinalita);
-						//Inserimento Cammino Globale
-						CamminoAzioni cammGlob = new CamminoAzioni(true);
-						InserimentoCammino inserimento = new InserimentoCammino(ce, cammGlob);
-						inserimento.inserisciCamm();
-						
-						System.out.println(MSG_INS_COP);
-						//Inserimento insieme di copertura (insiemi di coppie insieme cammino - val rilev)
-						do {
-							CamminoAzioni insCamm = new CamminoAzioni(false);
-							InserimentoCammino inserimentoInsCamm = new InserimentoCammino(ce, insCamm);
-							inserimentoInsCamm.inserisciCamm();
-							System.out.println(String.format(MSG_COPPIA_AGGIUNTA,i));
-						} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
-						//Se la classe e' gia' presente nel TS non la aggiunge e fa ripetere l'inserimento.
-						if(ts.giaInserita(ce)) {
-							System.out.println(MSG_ERRORE_CE);
-							giaPresente = true;
-						}
-						//Se non e' gia' presente, aggiunge la nuova classe al TS
-						else {
-							ts.addClasseEquivalenza(ce);
-							giaPresente = false;
-						}
-					} while(giaPresente == true);
-					i++;
-				} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_CE));	
-				
+				System.out.println(String.format(MSG_TS, Modello.getInstance().getNome()));		
+				nuovo.inserisciClassiEquivalenza();	
 				boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_TS);
 				if(salvataggioSiNo) {
 					File nomeFile = new File(Util.leggiString(MSG_NOME_TS));
-					Stream.salvaFile(nomeFile, ts, true);
+					Stream.salvaFile(nomeFile, nuovo, true);
 				}
-					
-				boolean visualizzaSiNo = Util.yesOrNo(MSG_SINTESI_TS);
-				if(visualizzaSiNo)
-					System.out.println(ts.toString());
+				if(Util.yesOrNo(MSG_SINTESI_TS))
+					System.out.println(nuovo.toString());
 			}	
 		}
 	}
@@ -314,12 +260,10 @@ public class MenuPrincipale {
 				System.out.println(MSG_NO_TS);
 			else
 			{
-				TestSuite ts = TestSuite.getInstance();
-				if(!ts.hasDiagnosi()) {
-					Diagnosi d = new Diagnosi(ts,false);				
-					ts.setDiagnosi(d);
+				if(!TestSuite.getInstance().hasDiagnosi()) {				
+					TestSuite.getInstance().setDiagnosi(new Diagnosi(TestSuite.getInstance(),false));
 				}
-				System.out.println(ts.getDiagnosi().toString());			
+				System.out.println(TestSuite.getInstance().getDiagnosi().toString());			
 			}
 		}
 	}
@@ -336,12 +280,12 @@ public class MenuPrincipale {
 				System.out.println(MSG_NO_TS);
 			else
 			{	
-				TestSuite ts = TestSuite.getInstance();
-				Diagnosi d = new Diagnosi(ts, true);
-				ProbabilitaMetodo1.stampaRisultati(d.eseguiDiagnosiMetodo1());
-				ProbabilitaMetodo2.stampaRisultati(d.eseguiDiagnosiMetodo2());
-				OrdinaElencoProbabilitaEIntervalliPosizione.elencoProbabilitaOrdinatoSenzaDoppioni(d.eseguiDiagnosiMetodo1() );
-				OrdinaElencoProbabilitaEIntervalliPosizione.elencoProbabilitaOrdinatoSenzaDoppioni(d.eseguiDiagnosiMetodo2() );
+				TestSuite attuale = TestSuite.getInstance();
+				Diagnosi diagMin = new Diagnosi(attuale, true);
+				ProbabilitaMetodo1.stampaRisultati(diagMin.eseguiDiagnosiMetodo1());
+				ProbabilitaMetodo2.stampaRisultati(diagMin.eseguiDiagnosiMetodo2());
+				OrdinaElencoProbabilitaEIntervalliPosizione.elencoProbabilitaOrdinatoSenzaDoppioni(diagMin.eseguiDiagnosiMetodo1() );
+				OrdinaElencoProbabilitaEIntervalliPosizione.elencoProbabilitaOrdinatoSenzaDoppioni(diagMin.eseguiDiagnosiMetodo2() );
 			}
 		}
 	}
@@ -355,11 +299,9 @@ public class MenuPrincipale {
 		if(Modello.isNull() || TestSuite.isNull())
 			System.out.println(MSG_ERRORE_REPORT_1);
 		else {
-			Modello modCorrente = Modello.getInstance();
-			TestSuite tsCorrente = TestSuite.getInstance();
 			// Se il Test Suite non ha almeno una diagnosi associata, viene stampato un messaggio d'errore ed il metodo si arresta.
-			// Viene inoltre impedita la creazione del report se il Test Suite attuale non ÃƒÂ¨ corrispondente al modello attuale.
-			if(!tsCorrente.hasDiagnosi() || !(tsCorrente.getModello().isEqual(modCorrente)))
+			// Viene inoltre impedita la creazione del report se il Test Suite attuale non e' corrispondente al modello attuale.
+			if(!TestSuite.getInstance().hasDiagnosi() || !(TestSuite.getInstance().getModello().isEqual(Modello.getInstance())))
 				System.out.println(MSG_ERRORE_REPORT_2);
 			else {
 				Report nuovo;
@@ -374,7 +316,7 @@ public class MenuPrincipale {
 				// Si prosegue se l'utente non ha rifiutato di sovrascrivere un eventuale report gia' presente.
 				if(esci == false) {
 					String nomeReport = Util.leggiString(MSG_NOME_REPORT) + ".txt";
-					nuovo = Report.getInstance(modCorrente,tsCorrente);
+					nuovo = Report.getInstance(Modello.getInstance(),TestSuite.getInstance());
 					nuovo.setNome(nomeReport);
 					boolean salvataggioSiNo = Util.yesOrNo(MSG_SALVATAGGIO_REPORT);
 					if(salvataggioSiNo) {
@@ -525,7 +467,7 @@ public class MenuPrincipale {
 		{
 			Report.cambiaReport(repCaricato);
 			if(repCaricato!=null) {
-				System.out.println(String.format(MSG_REPORT_CARICATO,repCaricato.getNome()));
+				System.out.println(String.format(MSG_REPORT_CARICATO,repCaricato.getNomeReport()));
 				if(!modCorrente.getNome().equals(repCaricato.getModello().getNome()) || !tsCorrente.isEqual(repCaricato.getTS()))
 					System.out.println(MSG_SEGNALAZIONE_REPORT);
 			}
@@ -561,9 +503,8 @@ public class MenuPrincipale {
 		if(Modello.isNull())
 			System.out.println(MSG_NO_MODELLO);
 		else {
-			Modello mod = Modello.getInstance();
 			File nomeFile = new File(Util.leggiString(MSG_NOME_MODELLO_SALVA));
-			Stream.salvaFile(nomeFile, mod, true);
+			Stream.salvaFile(nomeFile, Modello.getInstance(), true);
 		}
 	}
 	
@@ -574,9 +515,8 @@ public class MenuPrincipale {
 		if(TestSuite.isNull())
 			System.out.println(MSG_NO_TS);
 		else {
-			TestSuite ts = TestSuite.getInstance();
 			File nomeFile = new File(Util.leggiString(MSG_NOME_TS));
-			Stream.salvaFile(nomeFile, ts, true);
+			Stream.salvaFile(nomeFile, TestSuite.getInstance(), true);
 		}
 	}
 	
@@ -587,9 +527,9 @@ public class MenuPrincipale {
 		if(Report.isNull())
 			System.out.println(MSG_NO_REPORT);
 		else {
-			Report r = Report.getInstance(Modello.getInstance(), TestSuite.getInstance());
+			Report attuale = Report.getInstance(Modello.getInstance(), TestSuite.getInstance());
 			File nomeFile = new File(Util.leggiString(MSG_NOME_REPORT));
-			Stream.salvaFile(nomeFile, r, true);
+			Stream.salvaFile(nomeFile, attuale, true);
 		}
 	}
 	
