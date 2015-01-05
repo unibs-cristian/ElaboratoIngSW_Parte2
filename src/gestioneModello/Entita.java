@@ -32,10 +32,10 @@ public interface Entita extends Serializable {
 	/**
 	 * Aggiunge l'entita' al ramo speficato dell'entita' complessa
 	 *
-	 * @param e : l'entita' da aggiungere
+	 * @param daAggiungere : l'entita' da aggiungere
 	 * @param qualeRamo : il ramo a cui aggiungere l'entita' 
 	 */
-	public void addEntita(Entita e, int qualeRamo);
+	public void aggiungiAlRamo(Entita daAggiungere, int qualeRamo);
 	
 	/**
 	 * Ritorna l'id numerico dell'entita'.
@@ -82,18 +82,58 @@ public interface Entita extends Serializable {
 	/**
 	 * Metodo che serve a garantire l'invariante di classe di Modello e delle altre entita' complesse.
 	 *
-	 * @param nome : il nome di cui verificare l'eventuale presenza nel modello o nell'entita' complessa.
+	 * @param nomeEntitaDaInserire : il nome di cui verificare l'eventuale presenza nel modello o nell'entita' complessa.
 	 * @return true se e' gia' presente nel modello o nell'entita' complessa un'altra entita' con lo 
 	 * stesso nome.
 	 */
-	public boolean giaPresente(String nome);
+	public boolean giaInseritaSiNo(String nomeEntitaDaInserire);
+	
+	/**
+	 * Dice se l'entita' e e' complessa
+	 * 
+	 * @param e : l'entita' da verificare.
+	 * @return true se complessa
+	 */
+	public boolean isComplessa();
+	
+	/**
+	 * Dice se l'entita' e e' un'azione
+	 * 
+	 * @param e : l'entita' da verificare.
+	 * @return true se azione (semplice o composta)
+	 */
+	public boolean isAzione();
+	
+	/**
+	 * Dice se l'entita' e e' un branch
+	 * 
+	 * @param e : l'entita' da verificare.
+	 * @return true se branch
+	 */
+	public boolean isBranch();
+	
+	/**
+	 * Dice se l'entita' e e' un ciclo
+	 * 
+	 * @param e : l'entita' da verificare.
+	 * @return true se ciclo
+	 */
+	public boolean isCiclo();
+	
+	/**
+	 * Dice se l'entita' e e' un fork
+	 * 
+	 * @param e : l'entita' da verificare.
+	 * @return true se fork
+	 */
+	public boolean isFork();
 	
 	/**
 	 * Rimuove l'entita' avente l'identificatore numerico passato come parametro.
 	 *
-	 * @param id : l'id dell'entita' da eliminare
+	 * @param idEntitaDaRimuovere : l'id dell'entita' da eliminare
 	 */
-	public void rimuoviEntitaAt(int id);
+	public void rimuoviEntita(int idEntitaDaRimuovere);
 	
 	/**
 	 * Metodo to string.
