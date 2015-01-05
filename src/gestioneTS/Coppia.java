@@ -63,7 +63,7 @@ public class Coppia implements Serializable {
 			return false;
 		// Se i valori della rilevazione sono uguali, viene effettuato il confronto degli insiemi dei cammini.
 		else
-			return getInsiemeCammino().isEqual(altra.getInsiemeCammino());
+			return insiemeCammino.isEqual(altra.getInsiemeCammino());
 	}
 	
 	public String toString() {
