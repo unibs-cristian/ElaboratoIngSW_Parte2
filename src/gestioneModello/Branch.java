@@ -192,9 +192,10 @@ public class Branch implements Entita{
 					if(Util.yesOrNo(String.format(MSG_CONFERMA_CANCELLAZIONE,ottieniEntita(i, j).getNome()))) {
 						Modello.getInstance().decrementaContatore();
 						if(ottieniEntita(i, j).isAzione())
-							Modello.getInstance().rimuoviAzione(ottieniEntita(i, j).getNome());
+							Modello.getInstance().rimuoviAzione(ottieniEntita(i, j).getNome());					
+						elencoRami[i].eliminaEntitaRamo(j);
 						System.out.println(String.format(MSG_ENTITA_RIMOSSA, ottieniEntita(i, j).getNome(),ottieniEntita(i, j).getId()));
-						elencoRami[i].eliminaEntitaRamo(j);					}
+					}
 				}
 				else 
 					ottieniEntita(i, j).rimuoviEntita(idEntitaDaRimuovere);
