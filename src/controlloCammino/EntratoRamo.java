@@ -17,24 +17,24 @@ public class EntratoRamo implements StatoCammino {
 	/** Costante per il salvataggio */
 	private static final long serialVersionUID = 1L;
 
-	public void gestisciStato(CamminoAzioni camm, String stato) {	
-		if(stato.equals(NON_PERCORSO))
-			camm.setStatoCammino(new RamoNonPercorso());
-		else if(stato.equals(PERCORSO_PARZ))
-			camm.setStatoCammino(new RamoPercorsoParz());
-		else if(stato.equals(PERCORSO_TUTTO))
-			camm.setStatoCammino(new PercorsoTutto());
+	public void gestisciStatoCammino(CamminoAzioni camminoDaGestire, String nuovoStatoCammino) {	
+		if(nuovoStatoCammino.equals(NON_PERCORSO))
+			camminoDaGestire.setStatoCammino(new RamoNonPercorso());
+		else if(nuovoStatoCammino.equals(PERCORSO_PARZ))
+			camminoDaGestire.setStatoCammino(new RamoPercorsoParz());
+		else if(nuovoStatoCammino.equals(PERCORSO_TUTTO))
+			camminoDaGestire.setStatoCammino(new PercorsoTutto());
 	}
 	
-	public void gestisciStatoRamo(Ramo r, String stato) {
-		if(stato.equals(NON_PERCORSO))
-			r.setStato(new RamoNonPercorso());
-		else if(stato.equals(PERCORSO_PARZ))
-			r.setStato(new RamoPercorsoParz());	
-		else if(stato.equals(PERCORSO_TUTTO))
-			r.setStato(new PercorsoTutto());
-		else if(stato.equals(STATO_NON_OK))
-			r.setStato(new StatoNonOk());
+	public void gestisciStatoRamo(Ramo ramoDaGestire, String nuovoStatoRamo) {
+		if(nuovoStatoRamo.equals(NON_PERCORSO))
+			ramoDaGestire.setStato(new RamoNonPercorso());
+		else if(nuovoStatoRamo.equals(PERCORSO_PARZ))
+			ramoDaGestire.setStato(new RamoPercorsoParz());	
+		else if(nuovoStatoRamo.equals(PERCORSO_TUTTO))
+			ramoDaGestire.setStato(new PercorsoTutto());
+		else if(nuovoStatoRamo.equals(STATO_NON_OK))
+			ramoDaGestire.setStato(new StatoNonOk());
 	}
 
 	public boolean isValid() {
