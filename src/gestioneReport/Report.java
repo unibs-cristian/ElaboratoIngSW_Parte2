@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * Classe Report.
- * Un'istanza della classe Report è una struttura contenente tutti i dati 
+ * Un'istanza della classe Report e' una struttura contenente tutti i dati 
  * forniti in input dall'utente e tutti i risultati ottenuti come output 
  * dell'elaborazione. Il Report viene generato in base al Modello, al Test 
  * Suite e alle diagnosi correntemente inserite.
@@ -25,7 +25,7 @@ public class Report implements Serializable{
 	private static final String CORNICE_TO_STRING = "---------------------------------------------------\n";
 	
 	/** Il nome del report */
-	private String nome;
+	private String nomeReport;
 	
 	/** Il modello per il quale viene generato il Report */
 	private Modello mod;
@@ -52,23 +52,25 @@ private static Report instance = null;
 	}
 	
 	/**
-	 * Fornisce l'istanza di Report.
+	 * Fornisce l'istanza di Report. 
 	 *
+	 * @param unModello : il modello da associare.
+	 * @param unTestSuite : il test suite da associare
 	 * @return l'unica istanza Report
 	 */
-	public static Report getInstance(Modello mod, TestSuite ts) {
+	public static Report getInstance(Modello unModello, TestSuite unTestSuite) {
 		if(instance==null)
-			instance = new Report(mod,ts);
+			instance = new Report(unModello,unTestSuite);
 		return instance;
 	}
 	 
 	/**
 	 * Cambia report.
 	 *
-	 * @param altro : il nuovo Report su cui operare
+	 * @param nuovoReport : il nuovo Report su cui operare
 	 */
-	public static void cambiaReport(Report altro) {
-		instance = altro;
+	public static void cambiaReport(Report nuovoReport) {
+		instance = nuovoReport;
 	}
 	
 	/**
@@ -96,8 +98,8 @@ private static Report instance = null;
 	 *  
 	 * @return il valore dell'attributo nome dell'istanza.
 	 */
-	public String getNome() {
-		return nome;
+	public String getNomeReport() {
+		return nomeReport;
 	}
 	
 	/**
@@ -126,7 +128,7 @@ private static Report instance = null;
 	 * @param unNome : il nome da dare al Report
 	 */
 	public void setNome(String unNome) {
-		nome = unNome;
+		nomeReport = unNome;
 	}
 	
 	/**
@@ -144,7 +146,7 @@ private static Report instance = null;
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(CORNICE_TO_STRING);
 		risultato.append(CORNICE_TO_STRING+"\n");
-		risultato.append(String.format(MSG_TITOLO_REPORT, nome)+"\n");
+		risultato.append(String.format(MSG_TITOLO_REPORT, nomeReport)+"\n");
 		risultato.append(CORNICE_TO_STRING);
 		risultato.append(CORNICE_TO_STRING+"\n");
 		risultato.append("MODELLO" + "\n" + "-----------------" + "\n");
