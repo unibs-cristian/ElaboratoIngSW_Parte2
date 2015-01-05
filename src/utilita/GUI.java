@@ -6,7 +6,6 @@ package utilita;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GUI.
  */
@@ -51,14 +50,14 @@ public class GUI
 	 *
 	 * @param titolo the titolo
 	 */
-	public static void incorniciaTitolo(String titolo)
+	public static void incorniciaTitolo(String daIncorniciare)
 	{
-		rigaSotto(titolo.length());
+		rigaSotto(daIncorniciare.length());
 		System.out.println();
 		rigaLato();
-		System.out.print(titolo);
+		System.out.print(daIncorniciare);
 		rigaLato();
-		rigaSotto(titolo.length());
+		rigaSotto(daIncorniciare.length());
 	}
 	
 	/**
@@ -107,12 +106,12 @@ public class GUI
 	 * @param profondita the profondita
 	 * @return the string
 	 */
-	public static String indenta(String testo, String carattere, int profondita)
+	public static String indenta(String daIndentare, String carattereIndenazione, int profonditaIndentazione)
 	{
 		StringBuffer daRestituire = new StringBuffer();
-		for(int i = 0; i<profondita; i++)
-			daRestituire.append(carattere);
-		daRestituire.append(testo);
+		for(int i = 0; i<profonditaIndentazione; i++)
+			daRestituire.append(carattereIndenazione);
+		daRestituire.append(daIndentare);
 		return daRestituire.toString();
 	}
 	
@@ -157,12 +156,12 @@ public class GUI
 	 * @param larghezza the larghezza
 	 * @return the string
 	 */
-	public static String incolonna (String s, int larghezza)
+	public static String incolonna (String daIncolonnare, int larghezza)
 		{
 		StringBuffer res = new StringBuffer(larghezza);
-		int numCharDaStampare = Math.min(larghezza,s.length());
-		res.append(s.substring(0, numCharDaStampare));
-		for (int i=s.length()+1; i<=larghezza; i++)
+		int numCharDaStampare = Math.min(larghezza,daIncolonnare.length());
+		res.append(daIncolonnare.substring(0, numCharDaStampare));
+		for (int i=daIncolonnare.length()+1; i<=larghezza; i++)
 			res.append(SPAZIO);
 		return res.toString();
 		}
@@ -174,19 +173,19 @@ public class GUI
  	 * @param larghezza the larghezza
  	 * @return the string
  	 */
-	 public static String centrata (String s, int larghezza)
+	 public static String centrata (String daCentrare, int larghezza)
 		{
 		 StringBuffer res = new StringBuffer(larghezza);
-		 if (larghezza <= s.length())
-			res.append(s.substring(larghezza));
+		 if (larghezza <= daCentrare.length())
+			res.append(daCentrare.substring(larghezza));
 		 else
 			{
-			 int spaziPrima = (larghezza - s.length())/2;
-			 int spaziDopo = larghezza - spaziPrima - s.length();
+			 int spaziPrima = (larghezza - daCentrare.length())/2;
+			 int spaziDopo = larghezza - spaziPrima - daCentrare.length();
 			 for (int i=1; i<=spaziPrima; i++)
 				res.append(SPAZIO);
 				
-			 res.append(s);
+			 res.append(daCentrare);
 			
 			 for (int i=1; i<=spaziDopo; i++)
 				res.append(SPAZIO);
@@ -202,12 +201,12 @@ public class GUI
  	 * @param lunghezza the lunghezza
  	 * @return the string
  	 */
-	 public static String ripetiChar (char carattere, int lunghezza)
+	 public static String ripetiChar (char charDaRipetere, int ripetizioni)
 		{
-			StringBuffer result = new StringBuffer(lunghezza);
-			for (int i = 0; i < lunghezza; i++)
+			StringBuffer result = new StringBuffer(ripetizioni);
+			for (int i = 0; i < ripetizioni; i++)
 				{
-				result.append(carattere);
+				result.append(charDaRipetere);
 				}
 			return result.toString();
 		}	 
@@ -219,12 +218,12 @@ public class GUI
 		 * @param lunghezza the lunghezza
 		 * @return the string
 		 */
-	 public static String ripetiStringa(String stringa, int lunghezza)
+	 public static String ripetiStringa(String daRipetere, int ripetizioni)
 		{
-			StringBuffer result = new StringBuffer(lunghezza);
-			for (int i = 0; i < lunghezza; i++)
+			StringBuffer result = new StringBuffer(ripetizioni);
+			for (int i = 0; i < ripetizioni; i++)
 			{
-				result.append(stringa);
+				result.append(daRipetere);
 			}
 			return result.toString();
 		}
