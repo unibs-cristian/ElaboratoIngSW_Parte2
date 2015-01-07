@@ -98,6 +98,8 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_ENTITA_ELIMINATA = "E' stata eliminata l'entita' di nome %s (id %d)";
 	public final static String MSG_NODO_FINALE = "Nodo finale inserito per il modello %s";
 	public final static String MSG_MODELLO_INCOMPLETO = "Attenzione! Per inserire il nodo finale e' necessario che nel modello sia presente almeno un'azione.";	
+	public final static String MSG_MODELLO_NON_COMPLETO_1 = "Attenzione! Completare l'inserimento delle entita' prima di tornare al menu' principale";
+	public final static String MSG_MODELLO_NON_COMPLETO_2 = "Attenzione! Completare l'inserimento delle entita' prima di effettuare il salvataggio";
 	
 	/** Costanti numeriche varie */
 	public final static int MIN_RAMI = 2;
@@ -202,10 +204,16 @@ public class GestoreModello implements Serializable {
 					break;
 				
 				case 7: 
-					if(!(Util.yesOrNo(MSG_CONFERMA)))
-						break;
+					if(mod.nodoFinalePresente()) {
+						if(!(Util.yesOrNo(MSG_CONFERMA)))
+							break;
+						else {
+							fineInserimento = true;
+							break;
+						}
+					}
 					else {
-						fineInserimento = true;
+						System.out.println(MSG_MODELLO_NON_COMPLETO_1);
 						break;
 					}
 					
@@ -230,10 +238,14 @@ public class GestoreModello implements Serializable {
 					}
 					
 				case 9 : 
-					{
+					if(mod.nodoFinalePresente()) {
 						Stream.salvaFile(new File(Util.leggiString(MSG_NOME_MODELLO)), mod, true);
+						break;
+					} 
+					else {
+						System.out.println(MSG_MODELLO_NON_COMPLETO_2);
+						break;
 					}
-				break;
 					
 				default : System.out.println(MSG_ERRORE); break;
 			}
@@ -322,24 +334,32 @@ public class GestoreModello implements Serializable {
 						System.out.println(mod.toString()); 
 						break;
 					
-					case 7:   //Chiusura ramo corrente
-					if(daGestire.getRami()[i].isEmpty()) 
+					case 7:   //Chiusura ramo corrente 
+						if(daGestire.getRami()[i].isEmpty()) { 
 						/*
 					 	* Se il ramo corrente e' vuoto, controlla i rami precedenti. Se ne trova
 					 	* uno vuoto, stampa a video un messaggio d'errore e impedisce di chiudere
 					 	* il ramo.
 						*/
-						for(int j=0; j<i; j++) {
-							if(daGestire.getRami()[j].isEmpty()) {
-								System.out.println(MSG_ERRORE_RAMI);
-								break;
+							if(i==0)
+								esci=true;
+							else {
+								for(int j=0; j<i; j++) {
+									if(daGestire.getRami()[j].isEmpty()) {
+										System.out.println(MSG_ERRORE_RAMI);
+										break;
+									}
+									if(j==i-1 && !daGestire.getRami()[j].isEmpty())
+										esci = true;
+								}
 							}
+							break;
 						}
 					//Se il ramo corrente non e' vuoto, esce dal ramo e passa al successivo.
-					else {
-						esci = true;
-						break;
-					}
+						else {
+							esci = true;
+							break;
+						}
 				
 					default : System.out.println(MSG_ERRORE);	
 					}
@@ -420,7 +440,7 @@ public class GestoreModello implements Serializable {
 		assert esterna.isComplessa(): MSG_ERRORE_PRECONDIZIONE_2 ;
 		String nome;
 		do {
-			nome = Util.leggiString(MSG_TITOLO_AZIONE);
+			nome = Util.leggiStringPiena(MSG_TITOLO_AZIONE);
 			if(mod.giaInseritaSiNo(nome))
 				System.out.println(MSG_DUPLICATO);
 		} while(mod.giaInseritaSiNo(nome));
@@ -451,7 +471,7 @@ public class GestoreModello implements Serializable {
 		assert esterna.getIdTipo().equals(Entita.ID_TIPO_MODELLO) || ((esterna.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || esterna.getIdTipo().equals(Entita.ID_TIPO_CICLO) || esterna.getIdTipo().equals(Entita.ID_TIPO_FORK) && (qualeRamo >= 0 && qualeRamo < esterna.getRami().length))) : MSG_ERRORE_PRECONDIZIONE_3 ;
 		String nome;
 		do {
-			nome = Util.leggiString(MSG_TITOLO_BRANCH);
+			nome = Util.leggiStringPiena(MSG_TITOLO_BRANCH);
 			if(mod.giaInseritaSiNo(nome))
 				System.out.println(MSG_DUPLICATO);
 		} while(mod.giaInseritaSiNo(nome));
@@ -484,7 +504,7 @@ public class GestoreModello implements Serializable {
 
 		String nome;
 		do {
-			nome = Util.leggiString(MSG_TITOLO_CICLO);
+			nome = Util.leggiStringPiena(MSG_TITOLO_CICLO);
 			if(mod.giaInseritaSiNo(nome))
 				System.out.println(MSG_DUPLICATO);
 		} while(mod.giaInseritaSiNo(nome));
@@ -517,7 +537,7 @@ public class GestoreModello implements Serializable {
 
 		String nome;
 		do {
-			nome = Util.leggiString(MSG_TITOLO_FORK);
+			nome = Util.leggiStringPiena(MSG_TITOLO_FORK);
 			if(mod.giaInseritaSiNo(nome))
 				System.out.println(MSG_DUPLICATO);
 		} while(mod.giaInseritaSiNo(nome));

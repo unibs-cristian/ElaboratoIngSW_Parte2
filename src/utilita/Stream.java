@@ -98,7 +98,7 @@ public class Stream implements Serializable
 			 * @param f the f
 			 * @return the object
 			 */
-			public static Object caricaSingoloOggetto (File daCaricare) 
+			public static Object caricaSingoloOggetto(File daCaricare) 
 			{
 				Object letto = null;
 				ObjectInputStream ingresso = null;
@@ -125,7 +125,11 @@ public class Stream implements Serializable
 					System.out.printf(NO_CAST, daCaricare.getName() );
 					System.out.println();
 				}
-				
+				catch (ClassCastException erroreCast)
+				{
+					System.out.printf(NO_CAST, daCaricare.getName());
+					System.out.println();
+				}			
 				finally
 				{
 					if (ingresso != null)
