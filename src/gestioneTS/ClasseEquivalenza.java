@@ -21,7 +21,6 @@ public class ClasseEquivalenza implements Serializable {
 
 	/** Costanti stringa per la stampa a video di messaggi */
 	public final static String MSG_INS_COP = "INSERIMENTO INSIEME DI COPERTURA";
-	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
 	public final static String MSG_CONTINUA_SI_NO_COPPIA = "Si desidera inserire un'altra coppia (insieme del cammino ; valore della rilevazione)?";
 	
 	/** Costante per il salvataggio. */
@@ -103,7 +102,7 @@ public class ClasseEquivalenza implements Serializable {
 			throw new NullPointerException("Violata precondizione metodo giaPresente. Inserita coppia nulla.");
 		
 		for(int i=0; i<elencoCoppie.size(); i++)
-			if(elencoCoppie.elementAt(i).isEqual(daVerificare))
+			if(elencoCoppie.elementAt(i).getInsiemeCammino().isEqual(daVerificare.getInsiemeCammino()))
 				return true;
 		return false;
 	}
@@ -119,11 +118,10 @@ public class ClasseEquivalenza implements Serializable {
 	    do {
 			InserimentoCammino inserimentoInsCamm = new InserimentoCammino(this, new CamminoAzioni(false));
 			/*
-			 * L'inserimento del cammino è compito dei metodi di una classe apposita
+			 * L'inserimento del cammino e' compito dei metodi di una classe apposita
 			 * che ne gestisce anche lo stato
 			 */
 			inserimentoInsCamm.inserisciCamm();
-			System.out.println(String.format(MSG_COPPIA_AGGIUNTA,numClasseEq));
 		} while(Util.yesOrNo(MSG_CONTINUA_SI_NO_COPPIA));
 	}
 	

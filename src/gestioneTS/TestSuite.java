@@ -166,7 +166,7 @@ public class TestSuite implements Serializable {
 		do {
 			do {
 				System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-				//Inserimento cardinalita'Â e creazione classe di equivalenza.
+				//Inserimento cardinalita e creazione classe di equivalenza.
 				int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
 				ClasseEquivalenza daInserire = new ClasseEquivalenza(cardinalita);
 				//Inserimento Cammino Globale

@@ -40,7 +40,7 @@ public class InserimentoCammino {
 	public final static String MSG_INS_CAMM = "Insieme del Cammino --> ";
 	public final static String MSG_AGGIUNTA_INS_CAMM = "Si desidera aggiungere l'azione %s all'insieme del cammino?";
 	public final static String MSG_VAL_RILEV = "Inserire il valore della rilevazione relativa all'insieme del cammino";
-	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza n.%d";
+	public final static String MSG_COPPIA_AGGIUNTA = "La coppia (Insieme del Cammino ; Valore della Rilevazione) e' stata aggiunta alla classe di equivalenza.";
 	
 	/** Messaggi di errore vari */
 	public final static String MSG_ERRORE_CAMMINO = "Errore! Il cammino e' vuoto. Inserire nuovamente.";
@@ -97,8 +97,10 @@ public class InserimentoCammino {
 		else {
 			String valoreRilevazione = Util.okOrKo(MSG_VAL_RILEV);
 			Coppia nuova = new Coppia(camm, valoreRilevazione);
-			if(!ce.coppiaGiaPresente(nuova))
+			if(!ce.coppiaGiaPresente(nuova)) {
 				ce.addCoppia(nuova);
+				System.out.println(String.format(MSG_COPPIA_AGGIUNTA));
+			}
 			else
 				System.out.println(MSG_ERRORE_CO);
 			}

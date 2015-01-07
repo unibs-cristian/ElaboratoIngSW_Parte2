@@ -49,7 +49,7 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_INSERIMENTO_NODO_FINALE = "8 - Inserimento Nodo Finale";
 	public final static String MSG_SALVATAGGIO_MODELLO = "9 - Salvataggio Modello";
 
-	/** Messaggi di errori vari */
+	/** Messaggi di errore vari */
 	public final static String MSG_ERRORE = "L'opzione inserita e' inesistente. Inserire un'opzione valida.\n";
 	public final static String MSG_NO_AZIONE = "Errore! Non e' ancora presente nessuna azione nel modello.";
 	public final static String MSG_ERRORE_RAMI = "L'entita' ha gia' un ramo vuoto inserito. Impossibile creare piu' rami vuoti.\nInserire almeno un'entita' per il ramo corrente.";
@@ -61,7 +61,8 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_ERRORE_PRECONDIZIONE_4 = "Precondizione violata per il metodo inserimentoCiclo";
 	public final static String MSG_ERRORE_PRECONDIZIONE_5 = "Precondizione violata per il metodo inserimentoFork";
 	public final static String MSG_ERRORE_PRECONDIZIONE_6 = "Precondizione violata per il metodo inserimentoNodoFinale";
-
+	public final static String MSG_ERRORE_RAMI_FORK = "Attenzione. Non è possibile lasciare vuoto un ramo di un Fork.";
+	
 	/** Messaggi stampati a video quando si sta creando una nuova azione */
 	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo: ";
 	public final static String MSG_COMPOSTA_SI_NO = "L'azione e' composta?";
@@ -298,12 +299,24 @@ public class GestoreModello implements Serializable {
 						break;
 
 					case 2:  
-						inserimentoBranch(daGestire,i);
-						break;
+						if(mod.nessunaAzione()) {
+							System.out.println(MSG_NO_AZIONE);
+							break;
+						}
+						else {
+							inserimentoBranch(daGestire,i);
+							break;
+						}
 					
 					case 3 : 
-						inserimentoCiclo(daGestire,i);
-						break;
+						if(mod.nessunaAzione()) {
+							System.out.println(MSG_NO_AZIONE);
+							break;
+						}
+						else {
+							inserimentoCiclo(daGestire,i);
+							break;
+						}
 						
 					case 4 :
 						inserimentoFork(daGestire,i);
@@ -334,33 +347,12 @@ public class GestoreModello implements Serializable {
 						System.out.println(mod.toString()); 
 						break;
 					
-					case 7:   //Chiusura ramo corrente 
-						if(daGestire.getRami()[i].isEmpty()) { 
-						/*
-					 	* Se il ramo corrente e' vuoto, controlla i rami precedenti. Se ne trova
-					 	* uno vuoto, stampa a video un messaggio d'errore e impedisce di chiudere
-					 	* il ramo.
-						*/
-							if(i==0)
-								esci=true;
-							else {
-								for(int j=0; j<i; j++) {
-									if(daGestire.getRami()[j].isEmpty()) {
-										System.out.println(MSG_ERRORE_RAMI);
-										break;
-									}
-									if(j==i-1 && !daGestire.getRami()[j].isEmpty())
-										esci = true;
-								}
-							}
-							break;
-						}
-					//Se il ramo corrente non e' vuoto, esce dal ramo e passa al successivo.
-						else {
-							esci = true;
-							break;
-						}
-				
+					case 7:   
+					{
+						esci = esciRamoSiNo(daGestire,i);
+						break;
+					}
+					
 					default : System.out.println(MSG_ERRORE);	
 					}
 				} while(!esci);
@@ -385,6 +377,13 @@ public class GestoreModello implements Serializable {
 		}
 	}
 	
+	/** 
+	 * Metodo ausiliario che stampa a video il messaggio al termine dell'inserimento di un'entita'
+	 * complessa.
+	 *  
+	 * @param tipo : codice numerico che indica l'entita' da restituire
+	 * @return il titolo del menu' secondario.
+	 */
 	private void ottieniMessaggioChiusura(Entita e, int tipo) {
 		switch(tipo) {
 			case OPZ_BRANCH: System.out.println(String.format(MSG_CHIUSURA_BRANCH, e.getNome(), e.getId(), e.getId())); break;
@@ -419,6 +418,29 @@ public class GestoreModello implements Serializable {
 			opzioniMenu.add(MSG_CHIUSURA_RAMO);           //Voce 7 menu' inserimento secondario --> Chiudi ramo
 		
 		return opzioniMenu;
+	}
+	
+	private boolean esciRamoSiNo(Entita daGestire, int ramoCorrente) {
+		if(daGestire.getIdTipo().equals(Entita.ID_TIPO_FORK)) {
+			if(daGestire.getRami()[ramoCorrente].isEmpty()) {
+				System.out.println(MSG_ERRORE_RAMI_FORK);
+				return false;
+			}
+		}
+		else {
+			if(daGestire.getRami()[ramoCorrente].isEmpty()) {
+				for(int j=0; j<ramoCorrente; j++) {
+					if(daGestire.getRami()[j].isEmpty()) {
+						System.out.println(MSG_ERRORE_RAMI);
+						return false;
+					}
+				}
+				return true;
+			}
+			else 
+				return true;
+		}
+		return false;
 	}
 	
 	/**

@@ -37,7 +37,7 @@ public class Util
 	private final static String MSG_AMMISSIBILI1 = "Errore! I valori ammissibili sono " + "'" +  RISPOSTA_SI + " e '" + RISPOSTA_NO + "'";
 	
 	/** The Constant ERRORE_INTERO_MAGGIORE. */
-	private static final String ERRORE_INTERO_MAGGIORE = "Errore. Insere un numero maggiore di %s: ";
+	private static final String ERRORE_INTERO_MAGGIORE = "Errore. Insere un numero maggiore o uguale di %s: ";
 	 
 	/** The lettore. */
 	private static Scanner lettore = creaScanner();
