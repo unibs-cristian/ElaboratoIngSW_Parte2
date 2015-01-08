@@ -25,3 +25,7 @@ Consigli testing distanze : Provare con elenchi a distanza zero, azioni con la  
 La manutenzione correttiva comprende tutte le modifiche fatte per sistemare i problemi rilevati dal testing. La manutenzione perfettiva invece si fa solo se ci si accorge che qualcosa non viene fatto secondo le specifiche o se ci si è dimenticati di soddisfare qualche requisito. 
 
 
+Altre cose da fare/controllare : guardare la questione dei minimal hitting set; 
+                                 completare la documentazione Javadoc nei package dove manca.
+
+
