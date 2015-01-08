@@ -1,6 +1,7 @@
 Elaborato ingegneria del software - Parte 2 
 
 La documentazione su cui lavorare è quella condivisa su dropbox (Documentazione - Parte2). Ricordarsi di caricare le modifiche fatte e di non modificare contemporaneamente. 
+Per scrivere la documentazione ho usato Word 2010, spero che non dia problemi.
 
 Procedimento :
 
