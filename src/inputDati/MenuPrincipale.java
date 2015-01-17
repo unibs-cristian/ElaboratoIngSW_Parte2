@@ -309,7 +309,7 @@ public class MenuPrincipale {
 		else {
 			// Se il Test Suite non ha una diagnosi associata, viene stampato un messaggio d'errore ed il metodo si arresta.
 			// Viene inoltre impedita la creazione del report se il Test Suite attuale non e' corrispondente al modello attuale.
-			if(!TestSuite.getInstance().hasDiagnosi() || !tsCorrente.hasProbabilitaDistanze() || !(TestSuite.getInstance().getModello().isEqual(Modello.getInstance())))
+			if(!TestSuite.getInstance().hasDiagnosi() || !TestSuite.getInstance().hasProbabilitaDistanze() || !(TestSuite.getInstance().getModello().isEqual(Modello.getInstance())))
 				System.out.println(MSG_ERRORE_REPORT_2);
 			//Caso corretto (modello, ts e diagnosi presenti)
 			else {
