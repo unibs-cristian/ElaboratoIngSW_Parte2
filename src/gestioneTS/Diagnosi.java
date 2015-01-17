@@ -5,7 +5,6 @@ package gestioneTS;
 
 import java.io.Serializable;
 import java.util.Vector;
-
 import statisticheGuasti.ProbabilitaMetodo1;
 import statisticheGuasti.ProbabilitaMetodo2;
 import gestioneModello.Azione;
@@ -127,7 +126,7 @@ public class Diagnosi implements Serializable {
 
 	private void metto0AColonneCon0(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
 		
-		/** Elaboro la matrice (metto a 0 le colonne dove Ã¨ presente uno 0. */
+		/** Elaboro la matrice (metto a 0 le colonne dove ÃƒÂ¨ presente uno 0. */
 		for (int col=0; col<elencoAzioni.size(); col++) {
 			
 			boolean dueTrovato = false;
@@ -342,53 +341,4 @@ public class Diagnosi implements Serializable {
 		
 		return risultato.toString();
 	}
-	
-	/*public void stampaDiagnosi1(int i, ClasseEquivalenza classe) {		
-		System.out.println("DIAGNOSI METODO 1");
-		
-		
-		System.out.print("Diagnosi Minimali D" + i +" = {");
-		for(int dm=0; dm<risultatoAzioni.size(); dm++) {
-			if(risultatoAzioni.get(dm) == 1)
-				System.out.print("{" + elencoAzioni.get(dm).getNome() + "}");
-		}
-		System.out.println("}");
-		System.out.println("Cardinalita' D" + (i+1) + ": " + classe.getCardinalita() + "\n");		
-	}
-
-	public void stampaDiagnosi2() {
-		
-		System.out.println("\n\nDIAGNOSI METODO 2");
-		
-	}*/
-	
-	/*public String toString() {
-		
-		StringBuffer risultato = new StringBuffer();
-		risultato.append(MSG_DIAGNOSI_UTILIZZATA);
-		
-		for(int i=0; i<risultatoFinaleProbabilita.size(); i++) {
-			String action = elencoAzioni.get(i).getNome();
-			Float result = risultatoFinaleProbabilita.get(i);
-			
-			risultato.append(String.format(MSG_RISULTATO_PROBABILITA, i, action, result));
-		}  
-		return risultato.toString();
-	}*/
-	
-	/**
-	 * Stampa diagnosi.
-	 *
-	 * @param matrice the matrice
-	 *
-	public void stampaDiagnosi(int[][] matrice) {
-		for(int i=0; i<matrice.length; i++) {
-			for(int j=0; j<matrice[0].length; j++) {
-				
-				System.out.print(matrice[i][j]+"\t");
-			}
-			System.out.println("");
-		}
-		System.out.println("\n\n");
-	}*/
 }
