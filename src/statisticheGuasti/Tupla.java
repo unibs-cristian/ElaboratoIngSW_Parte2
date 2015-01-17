@@ -5,24 +5,23 @@ package statisticheGuasti;
 import java.io.Serializable;
 import java.util.Vector;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Tupla.
+ * La classe Tupla.
  */
 public class Tupla implements Serializable
 {
 	
-	/** The Constant serialVersionUID. */
+	/** La costanteserialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/** The probabilita. */
+	/** La probabilita. */
 	private float probabilita;
 	
-	/** The lista azioni. */
+	/** La lista azioni. */
 	private Vector<Integer> listaAzioni;
 
 	/**
-	 * Instantiates a new tupla.
+	 * Istanza di una nuova tupla.
 	 *
 	 * @param _probabilita the _probabilita
 	 * @param _listaAzioni the _lista azioni
@@ -34,9 +33,9 @@ public class Tupla implements Serializable
 	}
 	
 	/**
-	 * Gets the probabilita.
+	 * Get della probabilita.
 	 *
-	 * @return the probabilita
+	 * @return la probabilita
 	 */
 	public float getProbabilita()
 	{
@@ -44,9 +43,9 @@ public class Tupla implements Serializable
 	}
 
 	/**
-	 * Gets the lista azioni.
+	 * Get della lista azioni.
 	 *
-	 * @return the lista azioni
+	 * @return la lista azioni
 	 */
 	public Vector<Integer> getListaAzioni() 
 	{
@@ -54,9 +53,9 @@ public class Tupla implements Serializable
 	}
 
 	/**
-	 * Sets the lista azioni.
+	 * Set della lista azioni.
 	 *
-	 * @param listaAzioniDaSettare the new lista azioni
+	 * @param listaAzioniDaSettare la nuova lista azioni da "settare"
 	 */
 	public void setListaAzioni(Vector<Integer> listaAzioniDaSettare) 
 	{
