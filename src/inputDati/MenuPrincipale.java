@@ -272,7 +272,7 @@ public class MenuPrincipale {
 		}
 	}
 	
-	/**
+/**
 	 * Visualizzazione probabilita' e distanze (opzione 5).
 	 */
 	private static void visualizzaProbabilitaDistanze() {
@@ -284,12 +284,16 @@ public class MenuPrincipale {
 				System.out.println(MSG_NO_TS);
 			else
 			{	
-				TestSuite attuale = TestSuite.getInstance();
-				Diagnosi diagMin = new Diagnosi(attuale, true);
-				ProbabilitaMetodo1.stampaRisultati(diagMin.eseguiDiagnosiMetodo1());
-				ProbabilitaMetodo2.stampaRisultati(diagMin.eseguiDiagnosiMetodo2());
-				OrdinaElencoProbabilitaEIntervalliPosizione.elencoProbabilitaOrdinatoSenzaDoppioni(diagMin.eseguiDiagnosiMetodo1() );
-				OrdinaElencoProbabilitaEIntervalliPosizione.elencoProbabilitaOrdinatoSenzaDoppioni(diagMin.eseguiDiagnosiMetodo2() );
+				TestSuite ts = TestSuite.getInstance();
+				Diagnosi d = new Diagnosi(ts, true);
+				ProbabilitaMetodo1.stampaRisultati(d.eseguiDiagnosiMetodo1());
+				ProbabilitaMetodo2.stampaRisultati(d.eseguiDiagnosiMetodo2());
+				OrdinaElencoProbabilitaEIntervalliPosizione elenco1 = new OrdinaElencoProbabilitaEIntervalliPosizione( d.eseguiDiagnosiMetodo1(), 1 );
+				OrdinaElencoProbabilitaEIntervalliPosizione elenco2 = new OrdinaElencoProbabilitaEIntervalliPosizione( d.eseguiDiagnosiMetodo2(), 2 ); 
+				ts.setElencoProb1(elenco1);
+				ts.setElencoProb2(elenco2);
+				Distanze distanze = new Distanze(elenco1.intervalliiPosizione(), elenco2.intervalliiPosizione() );
+				ts.setDistanze(distanze);
 			}
 		}
 	}
@@ -305,7 +309,7 @@ public class MenuPrincipale {
 		else {
 			// Se il Test Suite non ha una diagnosi associata, viene stampato un messaggio d'errore ed il metodo si arresta.
 			// Viene inoltre impedita la creazione del report se il Test Suite attuale non e' corrispondente al modello attuale.
-			if(!TestSuite.getInstance().hasDiagnosi() || !(TestSuite.getInstance().getModello().isEqual(Modello.getInstance())))
+			if(!TestSuite.getInstance().hasDiagnosi() || !tsCorrente.hasProbabilitaDistanze() || !(TestSuite.getInstance().getModello().isEqual(Modello.getInstance())))
 				System.out.println(MSG_ERRORE_REPORT_2);
 			//Caso corretto (modello, ts e diagnosi presenti)
 			else {
