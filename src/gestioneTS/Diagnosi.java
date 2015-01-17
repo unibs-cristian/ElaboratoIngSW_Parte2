@@ -49,9 +49,7 @@ public class Diagnosi implements Serializable {
 		
 		calcoloDiagnosiMinimali();
 		
-		//ProbabilitaMetodo1() metodo1 = new ProbabilitaMetodo1();
 		return ProbabilitaMetodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
-		//risultatoFinaleProbabilitaM1 = metodo1.calcolaProbabilita(testSuite, risultatoClassiPerProbabilita);
 	}
 	
 	private void calcoloDiagnosiMinimali() {
@@ -108,12 +106,7 @@ public class Diagnosi implements Serializable {
 				}
 			}
 			
-		//	System.out.println("Creazione matrice base..");
-		//	stampaDiagnosi(matrice);
 			metto0AColonneCon0(insiemeDiCopertura, matrice);
-			
-		//	System.out.println("Generazione matrice elaborata..");
-		//	stampaDiagnosi(matrice);
 			
 			calcoloRisultato(insiemeDiCopertura, matrice);
 			
@@ -126,7 +119,7 @@ public class Diagnosi implements Serializable {
 
 	private void metto0AColonneCon0(Vector<Coppia> insiemeDiCopertura, int[][] matrice) {
 		
-		/** Elaboro la matrice (metto a 0 le colonne dove ÃƒÂ¨ presente uno 0. */
+		/** Elaboro la matrice (metto a 0 le colonne dove e' presente uno 0. */
 		for (int col=0; col<elencoAzioni.size(); col++) {
 			
 			boolean dueTrovato = false;
@@ -185,8 +178,6 @@ public class Diagnosi implements Serializable {
 			
 			/** Inserimento valore Azione in vettore risultatoAzioni specifico di una Classe */
 			risultatoAzioni.add(valoreAzione);
-
-		//	System.out.println("Valore Azione "+ elencoAzioni.get(s).getNome()+": "+valoreAzione);
 		}
 	}
 	
@@ -259,9 +250,6 @@ public class Diagnosi implements Serializable {
 				}
 			}
 			
-//			System.out.println("Creazione matrice base..");
-//			stampaDiagnosi(matrice);
-			
 			for(int c=0; c<insiemeDiCopertura.size(); c++) {
 				for(int a=0; a<elencoAzioni.size(); a++) {
 					if(matrice[c][a] == 2) {
@@ -274,17 +262,12 @@ public class Diagnosi implements Serializable {
 				}
 			}
 			
-//			System.out.println("Creazione matrice elaborata..");
-//			stampaDiagnosi(matrice);
-			
 			/** Inserimento deli risultati delle Azioni singole della Classe nel vettore risultatoClassiPerProbabilita. */
 			vettoreMatriciRisultato.add(matrice);
 		}
 		
 		/** Creazione matrice finale per passaggio risultati a ProbabilitaMetodo2. */
 		matriceClassiPerProbabilita2 = new int[righeMatriceFinale][elencoAzioni.size()];
-		
-//		System.out.println("Righe: "+matriceClassiPerProbabilita2.length+"\nColonne: "+matriceClassiPerProbabilita2[0].length);
 		
 		int ultimaRiga = 0;
 		int r;
@@ -311,13 +294,9 @@ public class Diagnosi implements Serializable {
 				cardinalita--;
 			} while (cardinalita!=0);
 		}
-		
-//		stampaDiagnosi(matriceClassiPerProbabilita2);
-		
+
 		/** Invio risultati. */
-		//ProbabilitaMetodo2 metodo2 = new ProbabilitaMetodo2();
 		return ProbabilitaMetodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
-		//risultatoFinaleProbabilitaM2.(testSuite, matriceClassiPerProbabilita2);
 	}
 	
 
