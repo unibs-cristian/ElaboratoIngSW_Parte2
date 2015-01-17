@@ -41,6 +41,13 @@ public class TestSuite implements Serializable {
 	/** Il Modello relativo al Test Suite */
 	private Modello modelloAssociato;
 	
+	/** Gli elenchi delle probabilita' */
+	private OrdinaElencoProbabilitaEIntervalliPosizione elencoProb1;
+	private OrdinaElencoProbabilitaEIntervalliPosizione elencoProb2;
+	
+	/** Le distanze */
+	private Distanze dist;
+	
 	/** L'istanza unica di Test Suite */
 	private static TestSuite instance = null;
 	
@@ -156,6 +163,18 @@ public class TestSuite implements Serializable {
 	}
 	
 	/**
+	 * Controlla se il Test Suite ha associate le probabilita' e le distanze.
+	 * 
+	 * @return true, se le probabilita' e le distanze sono null, false altrimenti
+	 */
+	public boolean hasProbabilitaDistanze() {
+		if(elencoProb1 == null || elencoProb2 == null || dist == null)
+			return false;
+		else
+			return true;
+	}
+	
+	/**
 	 * Inserisce le classi di equivalenza nel Test Suite
 	 * @param attuale : il test suite per cui effettuare l'inserimento.
 	 */
@@ -166,7 +185,7 @@ public class TestSuite implements Serializable {
 		do {
 			do {
 				System.out.println(String.format(MSG_INS_CLASSE_EQ, i));
-				//Inserimento cardinalita e creazione classe di equivalenza.
+				//Inserimento cardinalitaÂ e creazione classe di equivalenza.
 				int cardinalita = Util.leggiIntConMinimo(MSG_CARD_CE, 1);
 				ClasseEquivalenza daInserire = new ClasseEquivalenza(cardinalita);
 				//Inserimento Cammino Globale
@@ -208,6 +227,33 @@ public class TestSuite implements Serializable {
 	 */
 	public void setDiagnosi(Diagnosi d) {
 		diagnosiAssociata = d;
+	}
+	
+		/**
+	 * Setta l'istanza di Probabilita'
+	 * 
+	 * @param elenco1 : l'elenco di probabilita' col metodo 1 
+	 */
+	public void setElencoProb1(OrdinaElencoProbabilitaEIntervalliPosizione elenco1) {
+		elencoProb1 = elenco1;		
+	}
+	
+	/**
+	 * Setta l'istanza di Probabilita'
+	 * 
+	 * @param elenco2 : l'elenco di probabilita' col metodo 2 
+	 */
+	public void setElencoProb2(OrdinaElencoProbabilitaEIntervalliPosizione elenco2) {
+		elencoProb2 = elenco2;		
+	}
+	
+	/**
+	 * Setta le distanze
+	 * 
+	 * @param di : le distanze 
+	 */
+	public void setDistanze(Distanze di) {
+		dist = di;
 	}
 	
 	/**
