@@ -4,6 +4,7 @@
 package statisticheGuasti;
 
 import java.util.Vector;
+
 import gestioneModello.Azione;
 import gestioneModello.Modello;
 
@@ -35,6 +36,8 @@ public class Distanze {
 		this.vettoreMetodo1 = vettoreMetodo1;
 		this.vettoreMetodo2 = vettoreMetodo2;
 		risultatoDistanze = new Vector<Integer>();
+		
+		calcoloDistanze();
 	}
 	
 	/**
@@ -75,9 +78,8 @@ public class Distanze {
 			}
 		}
 		
-		stampaRisultatoDistanze();
-		stampaDistanzaTotale();
-		stampaDistanzaMedia();
+		System.out.println("\nRISULTATO DISTANZE");
+		System.out.print(toString());
 		
 		return risultatoDistanze;
 	}
@@ -85,37 +87,56 @@ public class Distanze {
 	/**
 	 * Stampa distanza totale.
 	 */
-	private void stampaDistanzaTotale() {
+	private StringBuffer stampaDistanzaTotale() {
+		StringBuffer risultato = new StringBuffer();
 		int distanzaTotale = 0;
 		for(int i=0; i<risultatoDistanze.size(); i++) {
 			distanzaTotale += risultatoDistanze.get(i);
 		}
 		
-		System.out.println("Distanza totale: " + distanzaTotale);
+		risultato.append("\n\nDistanza totale: " + distanzaTotale);
+		
+		return risultato;
 	}
 	
 	/**
 	 * Stampa distanza media.
 	 */
-	private void stampaDistanzaMedia() {
+	private StringBuffer stampaDistanzaMedia() {
+		StringBuffer risultato = new StringBuffer();
 		float distanzaMedia = 0;
 		for(int i=0; i<risultatoDistanze.size(); i++) {
 			distanzaMedia += risultatoDistanze.get(i);
 		}
 		distanzaMedia = distanzaMedia/risultatoDistanze.size();
 		
-		System.out.println("Distanza media: " + distanzaMedia);
+		risultato.append("\nDistanza media: " + distanzaMedia);
+		
+		return risultato;
 	}
 	
 	/**
 	 * Stampa risultato distanze.
 	 */
-	private void stampaRisultatoDistanze() {
+	private StringBuffer stampaRisultatoDistanze() {
+		StringBuffer risultato = new StringBuffer();
 		Modello mod = Modello.getInstance();
 		elencoAzioni = mod.getElencoAzioni();
 		
 		for(int i=0; i<risultatoDistanze.size(); i++) {
-			System.out.println("dis(" + elencoAzioni.get(i).getNome() + ") = " + risultatoDistanze.get(i));
+			risultato.append("\nDis(" + elencoAzioni.get(i).getNome() + ") = " + risultatoDistanze.get(i));
 		}
+		
+		return risultato;
+	}
+	
+	public String toString() {
+		StringBuffer risultato = new StringBuffer();
+		risultato.append(stampaRisultatoDistanze());
+		risultato.append(stampaDistanzaTotale());
+		risultato.append(stampaDistanzaMedia());
+		risultato.append("\n");
+		
+		return risultato.toString();
 	}
 }
