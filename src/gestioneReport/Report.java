@@ -36,6 +36,13 @@ public class Report implements Serializable{
 	/** La diagnosi */
 	private Diagnosi diag;
 	
+	/** Gli elenchi delle probabilita' */
+	private OrdinaElencoProbabilitaEIntervalliPosizione elencoProb1;
+	private OrdinaElencoProbabilitaEIntervalliPosizione elencoProb2;
+	
+	/** Le distanze */
+	private Distanze dist;
+	
 /** L'istanza unica di Report */
 private static Report instance = null;
 	
@@ -49,6 +56,9 @@ private static Report instance = null;
 		mod = _mod;
 		ts = _ts;
 		diag = ts.getDiagnosi();
+		elencoProb1 = ts.getElencoProb1();
+		elencoProb2 = ts.getElencoProb2();
+		dist = ts.getDistanze();
 	}
 	
 	/**
@@ -146,15 +156,19 @@ private static Report instance = null;
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(CORNICE_TO_STRING);
 		risultato.append(CORNICE_TO_STRING+"\n");
-		risultato.append(String.format(MSG_TITOLO_REPORT, nomeReport)+"\n");
+		risultato.append(String.format(MSG_TITOLO_REPORT, nome)+"\n");
 		risultato.append(CORNICE_TO_STRING);
 		risultato.append(CORNICE_TO_STRING+"\n");
 		risultato.append("MODELLO" + "\n" + "-----------------" + "\n");
 		risultato.append(mod.toString()+"\n\n");
 		risultato.append("TEST SUITE" + "\n" + "-----------------" + "\n");
 		risultato.append(ts.toString()+"\n\n");
-		risultato.append("INSIEME DELLE DIAGNOSI MINIMALI" + "\n");
 		risultato.append(diag.toString() + "\n");
+		risultato.append("ELENCHI DELLE PROBABILITA'" + "\n");
+		risultato.append(elencoProb1.toString() + "\n");
+		risultato.append(elencoProb2.toString() + "\n");
+		risultato.append("CALCOLO DELLE DISTANZE" + "\n");
+		risultato.append(dist.toString() + "\n");
 		return risultato.toString();
 	}
 }
