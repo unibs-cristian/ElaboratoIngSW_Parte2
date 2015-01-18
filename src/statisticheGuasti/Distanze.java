@@ -134,9 +134,30 @@ public class Distanze implements Serializable {
 		return risultato;
 	}
 	
+	private StringBuffer stampaRisultatoDistanze(Modello mod) {
+		StringBuffer risultato = new StringBuffer();
+		elencoAzioni = mod.getElencoAzioni();
+		
+		for(int i=0; i<risultatoDistanze.size(); i++) {
+			risultato.append("\nDis(" + elencoAzioni.get(i).getNome() + ") = " + risultatoDistanze.get(i));
+		}
+		
+		return risultato;
+	}
+	
 	public String toString() {
 		StringBuffer risultato = new StringBuffer();
 		risultato.append(stampaRisultatoDistanze());
+		risultato.append(stampaDistanzaTotale());
+		risultato.append(stampaDistanzaMedia());
+		risultato.append("\n");
+		
+		return risultato.toString();
+	}
+	
+	public String toString(Modello mod) {
+		StringBuffer risultato = new StringBuffer();
+		risultato.append(stampaRisultatoDistanze(mod));
 		risultato.append(stampaDistanzaTotale());
 		risultato.append(stampaDistanzaMedia());
 		risultato.append("\n");

@@ -171,7 +171,7 @@ private static Report instance = null;
 		risultato.append(elencoProb1.toString() + "\n");
 		risultato.append(elencoProb2.toString() + "\n");
 		risultato.append("CALCOLO DELLE DISTANZE" + "\n");
-		risultato.append(dist.toString() + "\n");
+		risultato.append(dist.toString(mod) + "\n");
 		return risultato.toString();
 	}
 }
