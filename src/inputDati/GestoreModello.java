@@ -401,7 +401,7 @@ public class GestoreModello implements Serializable {
 	 * @return
 	 */
 	private Vector <String> ottieniOpzioniMenu(int tipoMenu) {
-		Vector <String> opzioniMenu = new Vector<>();
+		Vector <String> opzioniMenu = new Vector();
 		opzioniMenu.add(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
 		opzioniMenu.add(MSG_INSERIMENTO_BRANCH);      //Voce 2 --> branch
 		opzioniMenu.add(MSG_INSERIMENTO_CICLO);       //Voce 3 --> ciclo
