@@ -1,149 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.7" icons="true" automaticImage="JPEG" always-add-relationships="false" 
-  generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <interface id="1" language="java" name="controlloCammino.StatoCammino" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/StatoCammino.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="142" width="265" x="373" y="-31"/>    
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <interface id="1" language="java" name="controlloCammino.StatoCammino" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/StatoCammino.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="320" x="358" y="178"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="2" language="java" name="controlloCammino.EntratoRamo" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/EntratoRamo.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="108" y="40"/>    
+  <class id="2" language="java" name="controlloCammino.EntratoRamo" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/EntratoRamo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="513" y="49"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="controlloCammino.Fermato" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/Fermato.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="108" y="211"/>    
+  <class id="3" language="java" name="controlloCammino.Fermato" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/Fermato.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="167" y="79"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="controlloCammino.FermatoDentro" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/FermatoDentro.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="404" y="244"/>    
+  <class id="4" language="java" name="controlloCammino.FermatoDentro" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/FermatoDentro.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="161" y="254"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="controlloCammino.PercorsoTutto" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/PercorsoTutto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="738" y="244"/>    
+  <class id="5" language="java" name="controlloCammino.PercorsoTutto" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/PercorsoTutto.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="164" y="432"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="controlloCammino.RamoNonPercorso" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/RamoNonPercorso.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="917" y="47"/>    
+  <class id="6" language="java" name="controlloCammino.RamoNonPercorso" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/RamoNonPercorso.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="520" y="440"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="controlloCammino.RamoPercorsoParz" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/RamoPercorsoParz.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="111" y="401"/>    
+  <class id="7" language="java" name="controlloCammino.RamoPercorsoParz" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/RamoPercorsoParz.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="878" y="423"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="controlloCammino.SaltatoBlocco" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/SaltatoBlocco.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="395" y="427"/>    
+  <class id="8" language="java" name="controlloCammino.SaltatoBlocco" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/SaltatoBlocco.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="884" y="247"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="controlloCammino.StatoNonOk" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/StatoNonOk.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="676" y="427"/>    
+  <class id="9" language="java" name="controlloCammino.StatoNonOk" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/StatoNonOk.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="160" width="320" x="736" y="-21"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="controlloCammino.StatoOk" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/StatoOk.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="973" y="430"/>    
+  <class id="10" language="java" name="controlloCammino.StatoOk" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/StatoOk.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="771" y="611"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="controlloCammino.StatoVuoto" project="ProgettoIngSW1" 
-    file="/ProgettoIngSW1/src/controlloCammino/StatoVuoto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1023" y="214"/>    
+  <class id="11" language="java" name="controlloCammino.StatoVuoto" project="ElaboratoIngSW_Parte2" 
+    file="/ElaboratoIngSW_Parte2/src/controlloCammino/StatoVuoto.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="326" y="623"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="true" protected="true" private="true" static="false"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <realization id="12">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <realization id="13">    
-    <bendpoint x="612" y="349"/>    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <realization id="14">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <realization id="15">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <realization id="16">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="17">    
+  <realization id="13">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="18">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <realization id="19">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <realization id="20">    
+  <realization id="14">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="21">    
+  <realization id="15">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="16">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="17">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="18">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="19">    
     <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="20">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="21">    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
-    <attributes public="true" package="true" protected="true" private="true" static="false"/>    
+    <attributes public="false" package="true" protected="true" private="true" static="false"/>    
     <operations public="true" package="true" protected="true" private="true" static="true"/>  
   </classifier-display>  
   <association-display labels="true" multiplicity="true"/>

@@ -81,7 +81,6 @@ public class InserimentoCammino {
 			
 			//Inserimento azioni e gestione stato del cammino. 
 			for(int i=1; i<Modello.getInstance().getEntita().size()-1; i++) {
-				//TODO fatto intervento manutenzione
 				if(Modello.getInstance().getEntita().get(i).isAzione())
 					gestisciStatoAzione(Modello.getInstance().getEntita().get(i), null, -1, -1);
 				else if(Modello.getInstance().getEntita().get(i).isComplessa())
