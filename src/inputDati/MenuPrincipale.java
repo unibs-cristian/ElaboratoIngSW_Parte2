@@ -54,7 +54,7 @@ public class MenuPrincipale {
 
 	/** Costante stringa per i metodi che operano sui report. */
 	public final static String MSG_ERRORE_REPORT_1 = "Attenzione! Per creare un report deve essere inserito un modello, un test suite e un insieme delle diagnosi minimali.";
-	public final static String MSG_ERRORE_REPORT_2 = "Attenzione! Per creare un report e' necessario associare al Test Suite un insieme delle diagnosi minimali, le probabilit‡ e aver caricato il modello corrispondente\na quello del Test Suite.";
+	public final static String MSG_ERRORE_REPORT_2 = "Attenzione! Per creare un report e' necessario associare al Test Suite un insieme delle diagnosi minimali, le probabilit√† e aver caricato il modello corrispondente\na quello del Test Suite.";
 	public final static String MSG_SOVRASCRIVI_REPORT = "Attenzione, esiste gia' un Report inserito. Si desidera sostituirlo?";
 	public final static String MSG_REPORT_INESISTENTE = "Errore. Nessun Report inserito";
 	public final static String MSG_INSERIMENTO_REPORT_ANNULLATO = "Inserimento Report annulato.";
@@ -184,7 +184,6 @@ public class MenuPrincipale {
 	/**
 	 * Inserimento nuovo modello (ozpione 1)
 	 */
-	//TODO eseguito intervento di manutenzione.
 	private static void inserimentoNuovoModello() {		
 		boolean esci = false;
 		//Se c'e' gia' un modello chiede di sovrascriverlo.
@@ -273,7 +272,7 @@ public class MenuPrincipale {
 		}
 	}
 	
-/**
+	/**
 	 * Visualizzazione probabilita' e distanze (opzione 5).
 	 */
 	private static void visualizzaProbabilitaDistanze() {
