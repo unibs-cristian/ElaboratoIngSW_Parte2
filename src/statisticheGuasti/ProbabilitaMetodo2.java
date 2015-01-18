@@ -3,7 +3,6 @@
  */
 package statisticheGuasti;
 
-import gestioneTS.TestSuite;
 import java.util.Vector;
 import java.io.Serializable;
 
@@ -19,11 +18,10 @@ public class ProbabilitaMetodo2 implements Serializable
 	/**
 	 * Calcola probabilita.
 	 *
-	 * @param testSuite il test suite
 	 * @param matriceRisultatiTestSuite la matrice risultati test suite
 	 * @return il  vettore delle probabilita'
 	 */
-	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, int[][] matriceRisultatiTestSuite)
+	public static Vector<Float> calcolaProbabilita (int[][] matriceRisultatiTestSuite)
 	{
 		Vector<Float> risultato = new Vector<Float>();
 		
@@ -45,9 +43,9 @@ public class ProbabilitaMetodo2 implements Serializable
 				default: break;
 				}
 			
-			float result = coefficienteOchiai(nKO, nOK, nKOv);
+			float coefficienteOchiai = coefficienteOchiai(nKO, nOK, nKOv);
 			
-			risultato.add(result);
+			risultato.add(coefficienteOchiai);
 				
 		}
 		return risultato;

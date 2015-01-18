@@ -14,17 +14,17 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	/** La costante serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	private Vector<Float> probabilitaTestSuite;
-	private int metodo;
-	private Vector<Tupla> elencoProbabilita;
+	private int metodoUtilizzato;
+	private Vector<Tupla> elencoProbabilitaOrdinatoSenzaDoppioni;
 	
 	/**
 	 * Fornisce l'istanza di OrdinaElencoProbabilitaEIntervalliPosizione.
 	 *
 	 */
-	public OrdinaElencoProbabilitaEIntervalliPosizione (Vector<Float> probabilitaTestSuite, int metodo)
+	public OrdinaElencoProbabilitaEIntervalliPosizione (Vector<Float> probabilitaTestSuite, int metodoUtilizzato)
 	{
 		this.probabilitaTestSuite = probabilitaTestSuite;
-		this.metodo = metodo;
+		this.metodoUtilizzato = metodoUtilizzato;
 		
 		elencoProbabilitaOrdinatoSenzaDoppioni();
 	}
@@ -36,8 +36,8 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 */
 	public Vector<Tupla> elencoProbabilitaOrdinatoSenzaDoppioni()
 	{
-		elencoProbabilita = rimuoviDoppioniElencoProbabilitaOrdinato(ordinaElencoProbabilita(elencoProbabilita(probabilitaTestSuite) ) );
-		return elencoProbabilita;
+		elencoProbabilitaOrdinatoSenzaDoppioni = rimuoviDoppioniElencoProbabilitaOrdinato(ordinaElencoProbabilita(elencoProbabilita(probabilitaTestSuite) ) );
+		return elencoProbabilitaOrdinatoSenzaDoppioni;
 	}
 	
 	/**
@@ -69,28 +69,28 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 */
 	private Vector<Tupla> ordinaElencoProbabilita(Vector<Tupla> elencoProbabilita)
 	{
-		Vector<Tupla> elencoProbabilitaT = elencoProbabilita;
+		Vector<Tupla> elencoProbabilitaOrdinato = elencoProbabilita;
 				//Ordino le tuple
 				Tupla temp;
-				for (int i = 0; i < elencoProbabilitaT.size()-1; i++)
+				for (int i = 0; i < elencoProbabilitaOrdinato.size()-1; i++)
 				{
 					int iMax = i;
-					Tupla tuplaConProbabilitaMassima = elencoProbabilitaT.get(i);
-					for (int j = i; j < elencoProbabilitaT.size(); j++)
+					Tupla tuplaConProbabilitaMassima = elencoProbabilitaOrdinato.get(i);
+					for (int j = i; j < elencoProbabilitaOrdinato.size(); j++)
 					{
-						if (tuplaConProbabilitaMassima.getProbabilita() < elencoProbabilitaT.get(j).getProbabilita() )
+						if (tuplaConProbabilitaMassima.getProbabilita() < elencoProbabilitaOrdinato.get(j).getProbabilita() )
 							{
-							tuplaConProbabilitaMassima = elencoProbabilitaT.get(j);
+							tuplaConProbabilitaMassima = elencoProbabilitaOrdinato.get(j);
 							iMax = j;
 							}
 					}
-				temp = elencoProbabilitaT.get(i);
-				elencoProbabilitaT.set(i, tuplaConProbabilitaMassima);
-				elencoProbabilitaT.set(iMax, temp);
+				temp = elencoProbabilitaOrdinato.get(i);
+				elencoProbabilitaOrdinato.set(i, tuplaConProbabilitaMassima);
+				elencoProbabilitaOrdinato.set(iMax, temp);
 				
 				
 				}
-		return elencoProbabilitaT;
+		return elencoProbabilitaOrdinato;
 	}
 
 	/**
@@ -99,16 +99,16 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	 * @param elencoProbabilita l'elenco probabilita da gestire
 	 * @return il vettore elencoProbabilita ordinato senza doppioni
 	 */
-	private Vector<Tupla> rimuoviDoppioniElencoProbabilitaOrdinato(Vector<Tupla> elencoProbabilita)
+	private Vector<Tupla> rimuoviDoppioniElencoProbabilitaOrdinato(Vector<Tupla> elencoProbabilitaOrdinato)
 	{
 		//Rimuovo i doppioni tenendo traccia di quali erano
 		Vector<Integer> tupleDaEliminare = new Vector<Integer>();
-			for (int j = 0; j < elencoProbabilita.size() - 1; j++)
+			for (int j = 0; j < elencoProbabilitaOrdinato.size() - 1; j++)
 			{
-				for (int k = j+1; k < elencoProbabilita.size(); k++)
-					if (elencoProbabilita.get(j).getProbabilita() == elencoProbabilita.get(k).getProbabilita() )
+				for (int k = j+1; k < elencoProbabilitaOrdinato.size(); k++)
+					if (elencoProbabilitaOrdinato.get(j).getProbabilita() == elencoProbabilitaOrdinato.get(k).getProbabilita() )
 					{
-						elencoProbabilita.get(j).getListaAzioni().add(elencoProbabilita.get(k).getListaAzioni().get(0) );
+						elencoProbabilitaOrdinato.get(j).getListaAzioni().add(elencoProbabilitaOrdinato.get(k).getListaAzioni().get(0) );
 						boolean tuplaDaEliminarePresente = false;
 						for (int t = 0; t < tupleDaEliminare.size(); t++)
 							if (k == tupleDaEliminare.get(t) )
@@ -121,10 +121,10 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 			for ( int i = tupleDaEliminare.size() - 1; i >= 0; i--)
 			{
 				int daEliminare = tupleDaEliminare.get(i);
-				elencoProbabilita.remove(daEliminare);
+				elencoProbabilitaOrdinato.remove(daEliminare);
 			}			
 			
-		return elencoProbabilita;
+		return elencoProbabilitaOrdinato;
 	}
 	
 	
@@ -149,6 +149,7 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 			posizioni[0]= posizione;
 			posizione += elencoProbabilitaOrdinatoSenzaDoppioni.get(i).getListaAzioni().size() - 1;
 			posizioni[1]= posizione;
+			
 			for (int j = 0; j < elencoProbabilitaOrdinatoSenzaDoppioni.get(i).getListaAzioni().size(); j++)
 				{
 				intervalliPosizione.add(posizioni);
@@ -187,15 +188,16 @@ public class OrdinaElencoProbabilitaEIntervalliPosizione implements Serializable
 	public StringBuffer stampaOrdinaElencoProbabilita() 
 	{
 		StringBuffer risultato = new StringBuffer();
-		risultato.append("ELENCO PROBABILITA' METODO " + metodo + " ORDINATO \n");
-		for(int i=0; i<elencoProbabilita.size(); i++) {
+		risultato.append("ELENCO PROBABILITA' METODO " + metodoUtilizzato + " ORDINATO \n");
+		
+		for(int i=0; i<elencoProbabilitaOrdinatoSenzaDoppioni.size(); i++) {
 			risultato.append("\nAzioni: ");
-			for (int j = 0; j < elencoProbabilita.get(i).getListaAzioni().size(); j++)
+			for (int j = 0; j < elencoProbabilitaOrdinatoSenzaDoppioni.get(i).getListaAzioni().size(); j++)
 			{
-				risultato.append(elencoProbabilita.get(i).getListaAzioni().get(j) + " ");
+				risultato.append(elencoProbabilitaOrdinatoSenzaDoppioni.get(i).getListaAzioni().get(j) + " ");
 			}
 		
-			risultato.append("| Probabilita': " + elencoProbabilita.get(i).getProbabilita() );
+			risultato.append("| Probabilita': " + elencoProbabilitaOrdinatoSenzaDoppioni.get(i).getProbabilita() );
 		}
 		return risultato;
 	}

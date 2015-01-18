@@ -28,7 +28,7 @@ public class ProbabilitaMetodo1 implements Serializable
 	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
 	{
 		Vector<ClasseEquivalenza> elencoClassiTestSuite = testSuite.getElencoClassi();
-		Vector<Float> risultato = new Vector<Float>();
+		Vector<Float> risultatoProbabilitaTestSuite = new Vector<Float>();
 		
 		Vector<Vector<Integer>> vettoreRisultatiProbabilitaClassi = new Vector<Vector<Integer>>();
 		for ( int i = 0; i < elencoClassiTestSuite.size(); i++)
@@ -44,9 +44,9 @@ public class ProbabilitaMetodo1 implements Serializable
 			vettoreRisultatiProbabilitaClassi.add(risultatoProbabilitaClasse);
 		}
 		
-		risultato = calcolaProbabilitaTestSuite(elencoClassiTestSuite, vettoreRisultatiProbabilitaClassi);
+		risultatoProbabilitaTestSuite = calcolaProbabilitaTestSuite(elencoClassiTestSuite, vettoreRisultatiProbabilitaClassi);
 		
-		return risultato;
+		return risultatoProbabilitaTestSuite;
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public class ProbabilitaMetodo1 implements Serializable
 	 */
 	private static Vector<Float> calcolaProbabilitaTestSuite(Vector<ClasseEquivalenza> elencoClassiTestSuite, Vector<Vector<Integer>> vettoreRisultatiProbabilitaClassi) 
 	{
-		Vector<Float> risultato = new Vector<Float>();
+		Vector<Float> risultatoProbabilitaTestSuite = new Vector<Float>();
 		Vector<Float> numeratoreClassi = new Vector<Float>();
 		Vector<Float> denominatoreClassi = new Vector<Float>();
 		
@@ -76,9 +76,9 @@ public class ProbabilitaMetodo1 implements Serializable
 					}
 			}
 			
-			risultato.add(i, numeratoreClassi.get(i) / denominatoreClassi.get(i));
+			risultatoProbabilitaTestSuite.add(i, numeratoreClassi.get(i) / denominatoreClassi.get(i));
 		}
-		return risultato;
+		return risultatoProbabilitaTestSuite;
 	}
 
 	/**
