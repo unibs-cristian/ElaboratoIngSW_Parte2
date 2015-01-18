@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="ProgettoIngSW1/parte-2.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/ProgettoIngSW1/JARdescription.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=ProgettoIngSW1/src&lt;mainProgram{ElaboratoParte1Main.java[ElaboratoParte1Main" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <folder path="/ProgettoIngSW1/doc"/>
+        <file path="/ProgettoIngSW1/.classpath"/>
+        <file path="/ProgettoIngSW1/report2.txt"/>
+        <file path="/ProgettoIngSW1/es2"/>
+        <file path="/ProgettoIngSW1/report1.txt"/>
+        <file path="/ProgettoIngSW1/.gitattributes"/>
+        <file path="/ProgettoIngSW1/ts1"/>
+        <file path="/ProgettoIngSW1/DIZIONARIO_ITALIANO.TXT"/>
+        <file path="/ProgettoIngSW1/report2"/>
+        <file path="/ProgettoIngSW1/ts2"/>
+        <file path="/ProgettoIngSW1/.gitignore"/>
+        <javaElement handleIdentifier="=ProgettoIngSW1/src"/>
+        <file path="/ProgettoIngSW1/README.md"/>
+        <file path="/ProgettoIngSW1/report1"/>
+        <file path="/ProgettoIngSW1/.project"/>
+        <file path="/ProgettoIngSW1/es1"/>
+        <file path="/ProgettoIngSW1/re1"/>
+        <file path="/ProgettoIngSW1/javadoc.xml"/>
+    </selectedElements>
+</jardesc>
