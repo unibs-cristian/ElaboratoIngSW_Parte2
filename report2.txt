@@ -1,0 +1,155 @@
+---------------------------------------------------
+---------------------------------------------------
+
+REPORT report2
+---------------------------------------------------
+---------------------------------------------------
+
+MODELLO
+-----------------
+NOME MODELLO : es2
+DESCRIZIONE MODELLO : Esercizio 2 Esempi Elaborato
+
+NODO_INIZIALE
+Azione A1
+
+< INIZIO CICLO C1 (ID = 2) - MERGE
+    C1 - ENTITA' RAMO N.1 (ATTIVITA' INIZIALI)
+    Nessuna
+    C1 - ENTITA RAMO N.2 (CONDIZIONE DI PERMANENZA NEL CICLO)
+    Azione A2
+FINE CICLO C1 (ID = 2) - BRANCH >
+
+Azione A3
+Azione A4
+
+{ INIZIO FORK F1 (ID = 6)
+    F1 - ENTITA' RAMO PARALLELO N. 1
+        
+    [ INIZIO BRANCH B1 (ID = 7)
+        B1 - ENTITA' RAMO N. 1
+        Azione A5
+        B1 - ENTITA' RAMO N. 2
+        Azione A6
+    FINE BRANCH B1 (ID = 7) ]
+
+    F1 - ENTITA' RAMO PARALLELO N. 2
+    Azione A7
+        
+    { INIZIO FORK F2 (ID = 11)
+        F2 - ENTITA' RAMO PARALLELO N. 1
+        Azione A8
+        F2 - ENTITA' RAMO PARALLELO N. 2
+        Azione A9
+    FINE FORK F2 (ID = 11) }
+
+FINE FORK F1 (ID = 6) }
+
+NODO_FINALE
+
+
+TEST SUITE
+-----------------
+**************************************
+*                                    *
+*  
+
+TEST SUITE PER IL MODELLO es2
+
+  *
+*                                    *
+**************************************
+
+
+- CLASSE DI EQUIVALENZA N.1
+Cardinalita' = 1
+Cammino Globale --> A1,A3,A4,A5,A7,A8,A9
+Coppia n.1
+Insieme del cammino ---> A1,A3,A4,A5,A7,A8,A9
+Valore della rilevazione ---> KO
+Coppia n.2
+Insieme del cammino ---> A1,A3,A4,A5
+Valore della rilevazione ---> OK
+Coppia n.3
+Insieme del cammino ---> A1,A3,A4,A7
+Valore della rilevazione ---> OK
+
+
+- CLASSE DI EQUIVALENZA N.2
+Cardinalita' = 1
+Cammino Globale --> A1,A3,A4,A5,A7,A8,A9
+Coppia n.1
+Insieme del cammino ---> A1,A3,A4,A5,A7,A8,A9
+Valore della rilevazione ---> KO
+Coppia n.2
+Insieme del cammino ---> A1,A3,A4,A5
+Valore della rilevazione ---> KO
+Coppia n.3
+Insieme del cammino ---> A1,A3,A4,A7
+Valore della rilevazione ---> OK
+
+
+- CLASSE DI EQUIVALENZA N.3
+Cardinalita' = 1
+Cammino Globale --> A1,A2,A3,A4,A6,A7,A8,A9
+Coppia n.1
+Insieme del cammino ---> A1,A2,A3,A4,A6,A7,A8,A9
+Valore della rilevazione ---> KO
+Coppia n.2
+Insieme del cammino ---> A1,A2
+Valore della rilevazione ---> OK
+Coppia n.3
+Insieme del cammino ---> A1,A2,A3,A4,A6
+Valore della rilevazione ---> OK
+
+
+
+ELENCO DIAGNOSI MINIMALI
+
+	CLASSE DI EQUIVALENZA N. 1
+	Cardinalita': 1
+	Diagnosi Minimali = {{A8}{A9}}
+
+	CLASSE DI EQUIVALENZA N. 2
+	Cardinalita': 1
+	Diagnosi Minimali = {{A5}}
+
+	CLASSE DI EQUIVALENZA N. 3
+	Cardinalita': 1
+	Diagnosi Minimali = {{A7}{A8}{A9}}
+
+
+ELENCHI DELLE PROBABILITA'
+ELENCO PROBABILITA' METODO 1 ORDINATO 
+
+Azioni: 8 9 | Probabilita': 0.6666667
+Azioni: 5 | Probabilita': 0.5
+Azioni: 7 | Probabilita': 0.33333334
+Azioni: 3 6 4 1 2 | Probabilita': 0.0
+
+ELENCO PROBABILITA' METODO 2 ORDINATO 
+
+Azioni: 8 9 | Probabilita': 0.8660254
+Azioni: 5 | Probabilita': 0.75
+Azioni: 4 3 | Probabilita': 0.70710677
+Azioni: 7 | Probabilita': 0.6708204
+Azioni: 1 | Probabilita': 0.6666667
+Azioni: 6 | Probabilita': 0.35355338
+Azioni: 2 | Probabilita': 0.28867513
+
+CALCOLO DELLE DISTANZE
+
+Dis(A1) = 0
+Dis(A2) = 0
+Dis(A3) = 0
+Dis(A4) = 0
+Dis(A5) = 0
+Dis(A6) = 0
+Dis(A7) = 2
+Dis(A8) = 0
+Dis(A9) = 0
+
+Distanza totale: 2
+Distanza media: 0.22222222
+
+
