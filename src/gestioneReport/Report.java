@@ -28,7 +28,7 @@ public class Report implements Serializable{
 	private static final String CORNICE_TO_STRING = "---------------------------------------------------\n";
 	
 	/** Il nome del report */
-	private String nomeReport;
+	private String nome;
 	
 	/** Il modello per il quale viene generato il Report */
 	private Modello mod;
@@ -112,7 +112,7 @@ private static Report instance = null;
 	 * @return il valore dell'attributo nome dell'istanza.
 	 */
 	public String getNomeReport() {
-		return nomeReport;
+		return nome;
 	}
 	
 	/**
@@ -141,7 +141,7 @@ private static Report instance = null;
 	 * @param unNome : il nome da dare al Report
 	 */
 	public void setNome(String unNome) {
-		nomeReport = unNome;
+		nome = unNome;
 	}
 	
 	/**

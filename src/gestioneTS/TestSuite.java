@@ -144,6 +144,33 @@ public class TestSuite implements Serializable {
 	}
 	
 	/**
+	 * Fornisce l'elenco probabilita' 1
+	 *
+	 * @return l'elenco probabilita' 1
+	 */
+	public OrdinaElencoProbabilitaEIntervalliPosizione getElencoProb1() {
+		return elencoProb1;
+	}
+	
+	/**
+	 * Fornisce l'elenco probabilita' 2
+	 *
+	 * @return l'elenco probabilita' 2
+	 */
+	public OrdinaElencoProbabilitaEIntervalliPosizione getElencoProb2() {
+		return elencoProb2;
+	}
+	
+	/**
+	 * Fornisce le distanze
+	 *
+	 * @return le distanze
+	 */
+	public Distanze getDistanze() {
+		return dist;
+	}
+	
+	/**
 	 * Fornisce il modello relativo al Test Suite
 	 *
 	 * @return il modello 
