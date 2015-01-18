@@ -296,7 +296,7 @@ public class Diagnosi implements Serializable {
 		}
 
 		/** Invio risultati. */
-		return ProbabilitaMetodo2.calcolaProbabilita(testSuite, matriceClassiPerProbabilita2);
+		return ProbabilitaMetodo2.calcolaProbabilita(matriceClassiPerProbabilita2);
 	}
 	
 
