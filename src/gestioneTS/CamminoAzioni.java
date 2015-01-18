@@ -21,6 +21,7 @@ public class CamminoAzioni implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/** Costanti stringa per messaggi d'errore */
+	public final static String MSG_CAMMINO_VUOTO = "Errore! Il cammino inserito e' vuoto.";
 	public final static String MSG_CAMMINO_NON_VALIDO = "Errore! Cammino non valido perche' %s .Inserire nuovamente.";
 	public final static String MSG_CAMMINO_INCORRETTO = "non corretto in base alla struttura del modello";
 	public final static String MSG_NON_SOTTOINSIEME = "non e' un sottoinsieme del cammino globale";
@@ -154,6 +155,10 @@ public class CamminoAzioni implements Serializable {
 	}
 	
 	public boolean isValid(ClasseEquivalenza classe) {
+		if(isEmpty()) {
+			System.out.println(MSG_CAMMINO_VUOTO);
+			return false;
+		}
 		if(!getStato().isValid()) {
 			System.out.println(String.format(MSG_CAMMINO_NON_VALIDO,MSG_CAMMINO_INCORRETTO));
 			return false;
