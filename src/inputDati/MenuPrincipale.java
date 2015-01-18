@@ -9,6 +9,7 @@ import gestioneTS.TestSuite;
 import java.io.File;
 import java.util.Vector;
 
+import statisticheGuasti.Distanze;
 import statisticheGuasti.OrdinaElencoProbabilitaEIntervalliPosizione;
 import statisticheGuasti.ProbabilitaMetodo1;
 import statisticheGuasti.ProbabilitaMetodo2;

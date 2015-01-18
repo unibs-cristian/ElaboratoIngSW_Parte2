@@ -7,6 +7,8 @@ import inputDati.InserimentoCammino;
 import java.io.Serializable;
 
 import gestioneModello.Modello;
+import statisticheGuasti.Distanze;
+import statisticheGuasti.OrdinaElencoProbabilitaEIntervalliPosizione;
 import utilita.Util;
 import utilita.UtilitaStringhe;
 

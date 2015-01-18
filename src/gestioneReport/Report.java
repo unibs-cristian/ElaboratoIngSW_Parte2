@@ -8,6 +8,9 @@ import gestioneTS.TestSuite;
 
 import java.io.Serializable;
 
+import statisticheGuasti.Distanze;
+import statisticheGuasti.OrdinaElencoProbabilitaEIntervalliPosizione;
+
 /**
  * Classe Report.
  * Un'istanza della classe Report e' una struttura contenente tutti i dati 
