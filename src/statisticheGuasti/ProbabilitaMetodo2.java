@@ -4,7 +4,6 @@
 package statisticheGuasti;
 
 import gestioneTS.TestSuite;
-
 import java.util.Vector;
 import java.io.Serializable;
 
@@ -46,11 +45,25 @@ public class ProbabilitaMetodo2 implements Serializable
 				default: break;
 				}
 			
-			float result = (float) (nKO/Math.sqrt(((nKO+nOK)*(nKO+nKOv))));
+			float result = coefficienteOchiai(nKO, nOK, nKOv);
+			
 			risultato.add(result);
 				
 		}
 		return risultato;
+	}
+	
+	/**
+	 * Calcola il coefficiente di Ochiai.
+	 *
+	 * @param nKO numero di KO
+	 * @param nOK numero di OK
+	 * @param nKOv numero di KO vuoti
+	 * @return il coefficiente di Ochiai
+	 */
+	public static float coefficienteOchiai(float nKO, float nOK,  float nKOv)
+	{
+		return (float) (nKO/Math.sqrt( ( (nKO+nOK)*(nKO+nKOv) ) ) );
 	}
 	
 	/**

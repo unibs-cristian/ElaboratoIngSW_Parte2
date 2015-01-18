@@ -3,7 +3,9 @@
  */
 package statisticheGuasti;
 
+import gestioneTS.ClasseEquivalenza;
 import gestioneTS.TestSuite;
+
 import java.util.Vector;
 import java.io.Serializable;
 
@@ -17,20 +19,22 @@ public class ProbabilitaMetodo1 implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Calcola probabilita.
+	 * Calcola la probabilita.
 	 *
 	 * @param testSuite il test suite
 	 * @param vettoreRisultatiTestSuite il vettore risultati test suite
 	 * @return il vettore delle probabilita'
 	 */
 	public static Vector<Float> calcolaProbabilita (TestSuite testSuite, Vector<Vector<Integer>> vettoreRisultatiTestSuite)
-	{		
-		Vector<Float> risultato = new Vector<Float>(); 
+	{
+		Vector<ClasseEquivalenza> elencoClassiTestSuite = testSuite.getElencoClassi();
+		Vector<Float> risultato = new Vector<Float>();
+		
 		Vector<Vector<Integer>> vettoreRisultatiProbabilitaClassi = new Vector<Vector<Integer>>();
-		for ( int i = 0; i < testSuite.getElencoClassi().size(); i++)
+		for ( int i = 0; i < elencoClassiTestSuite.size(); i++)
 		{
 			Vector<Integer> risultatoProbabilitaClasse = new Vector<Integer>();
-			int cardinalita = testSuite.getElencoClassi().get(i).getCardinalita();
+			int cardinalita = elencoClassiTestSuite.get(i).getCardinalita();
 						
 			if (cardinalita > 1)
 				risultatoProbabilitaClasse = calcolaProbabilitaClasse(cardinalita, vettoreRisultatiTestSuite.get(i) );
@@ -40,6 +44,21 @@ public class ProbabilitaMetodo1 implements Serializable
 			vettoreRisultatiProbabilitaClassi.add(risultatoProbabilitaClasse);
 		}
 		
+		risultato = calcolaProbabilitaTestSuite(elencoClassiTestSuite, vettoreRisultatiProbabilitaClassi);
+		
+		return risultato;
+	}
+	
+	/**
+	 * Calcola la probabilita del test suite.
+	 *
+	 * @param elencoClassiTestSuite l'elenco classi del test suite
+	 * @param vettoreRisultatiProbabilitaClassi il vettore dei risultati delle probabilita delle classi
+	 * @return il vettore delle probabilita' del test suite
+	 */
+	private static Vector<Float> calcolaProbabilitaTestSuite(Vector<ClasseEquivalenza> elencoClassiTestSuite, Vector<Vector<Integer>> vettoreRisultatiProbabilitaClassi) 
+	{
+		Vector<Float> risultato = new Vector<Float>();
 		Vector<Float> numeratoreClassi = new Vector<Float>();
 		Vector<Float> denominatoreClassi = new Vector<Float>();
 		
@@ -49,7 +68,7 @@ public class ProbabilitaMetodo1 implements Serializable
 			denominatoreClassi.add(i, (float) 0);
 			for (int j = 0; j < vettoreRisultatiProbabilitaClassi.size(); j++)
 			{
-				int cardinalita = testSuite.getElencoClassi().get(j).getCardinalita();			
+				int cardinalita = elencoClassiTestSuite.get(j).getCardinalita();			
 				if (vettoreRisultatiProbabilitaClassi.get(j).get(i) >= 0)
 					{
 						numeratoreClassi.set(i, numeratoreClassi.get(i) + vettoreRisultatiProbabilitaClassi.get(j).get(i) );
@@ -61,7 +80,7 @@ public class ProbabilitaMetodo1 implements Serializable
 		}
 		return risultato;
 	}
-	
+
 	/**
 	 * Calcola probabilita classe.
 	 *
