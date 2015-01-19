@@ -46,6 +46,7 @@ public class Azione implements Entita{
 	 * Costruttore per la classe Azione
 	 *
 	 * @param _titolo : il nome da assegnare all'azione
+	 * @param _compostaSiNo : se e' composta
 	 */
 	public Azione(String _titolo, boolean _compostaSiNo) {
 		titolo = _titolo;

@@ -40,7 +40,7 @@ public class Stream implements Serializable
 			/**
 			 * Carica file.
 			 *
-			 * @param f the f
+			 * @param daCaricare file da caricare
 			 * @param oggetto the oggetto
 			 * @return the object
 			 */
@@ -72,7 +72,7 @@ public class Stream implements Serializable
 			/**
 			 * Salva file.
 			 *
-			 * @param f the f
+			 * @param daSalvare file da salvare
 			 * @param oggetto the oggetto
 			 * @param controlloSovrascrittura the controllo sovrascrittura
 			 */
@@ -95,7 +95,7 @@ public class Stream implements Serializable
 			/**
 			 * Carica singolo oggetto.
 			 *
-			 * @param f the f
+			 * @param daCaricare file da caricare
 			 * @return the object
 			 */
 			public static Object caricaSingoloOggetto(File daCaricare) 

@@ -48,7 +48,7 @@ public class UtilitaStringhe
 	/**
 	 * Incornicia titolo.
 	 *
-	 * @param titolo the titolo
+	 * @param daIncorniciare titolo
 	 */
 	public static void incorniciaTitolo(String daIncorniciare)
 	{
@@ -101,16 +101,16 @@ public class UtilitaStringhe
 	/**
 	 * Indenta.
 	 *
-	 * @param testo the testo
-	 * @param carattere the carattere
-	 * @param profondita the profondita
+	 * @param daIndentare testo
+	 * @param carattereIndentazione the carattere
+	 * @param profonditaIndentazione the profondita
 	 * @return the string
 	 */
-	public static String indenta(String daIndentare, String carattereIndenazione, int profonditaIndentazione)
+	public static String indenta(String daIndentare, String carattereIndentazione, int profonditaIndentazione)
 	{
 		StringBuffer daRestituire = new StringBuffer();
 		for(int i = 0; i<profonditaIndentazione; i++)
-			daRestituire.append(carattereIndenazione);
+			daRestituire.append(carattereIndentazione);
 		daRestituire.append(daIndentare);
 		return daRestituire.toString();
 	}
@@ -152,7 +152,7 @@ public class UtilitaStringhe
 	/**
 	 * Incolonna.
 	 *
-	 * @param s the s
+	 * @param daIncolonnare da incolonnare
 	 * @param larghezza the larghezza
 	 * @return the string
 	 */
@@ -169,7 +169,7 @@ public class UtilitaStringhe
 	 /**
  	 * Centrata.
  	 *
- 	 * @param s the s
+ 	 * @param daCentrare da centrare
  	 * @param larghezza the larghezza
  	 * @return the string
  	 */
@@ -197,8 +197,8 @@ public class UtilitaStringhe
 	 /**
  	 * Ripeti char.
  	 *
- 	 * @param carattere the carattere
- 	 * @param lunghezza the lunghezza
+ 	 * @param charDaRipetere carattere da ripetere
+ 	 * @param ripetizioni  lunghezza
  	 * @return the string
  	 */
 	 public static String ripetiChar (char charDaRipetere, int ripetizioni)
@@ -214,8 +214,8 @@ public class UtilitaStringhe
 		/**
 		 * Ripeti stringa.
 		 *
-		 * @param stringa the stringa
-		 * @param lunghezza the lunghezza
+		 * @param daRipetere stringa da ripetere
+		 * @param ripetizioni quante volte
 		 * @return the string
 		 */
 	 public static String ripetiStringa(String daRipetere, int ripetizioni)

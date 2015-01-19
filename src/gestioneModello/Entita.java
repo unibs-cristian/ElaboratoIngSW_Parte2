@@ -91,7 +91,6 @@ public interface Entita extends Serializable {
 	/**
 	 * Dice se l'entita' e e' complessa
 	 * 
-	 * @param e : l'entita' da verificare.
 	 * @return true se complessa
 	 */
 	public boolean isComplessa();
@@ -99,7 +98,6 @@ public interface Entita extends Serializable {
 	/**
 	 * Dice se l'entita' e e' un'azione
 	 * 
-	 * @param e : l'entita' da verificare.
 	 * @return true se azione (semplice o composta)
 	 */
 	public boolean isAzione();
@@ -107,7 +105,6 @@ public interface Entita extends Serializable {
 	/**
 	 * Dice se l'entita' e e' un branch
 	 * 
-	 * @param e : l'entita' da verificare.
 	 * @return true se branch
 	 */
 	public boolean isBranch();
@@ -115,7 +112,6 @@ public interface Entita extends Serializable {
 	/**
 	 * Dice se l'entita' e e' un ciclo
 	 * 
-	 * @param e : l'entita' da verificare.
 	 * @return true se ciclo
 	 */
 	public boolean isCiclo();
@@ -123,7 +119,6 @@ public interface Entita extends Serializable {
 	/**
 	 * Dice se l'entita' e e' un fork
 	 * 
-	 * @param e : l'entita' da verificare.
 	 * @return true se fork
 	 */
 	public boolean isFork();

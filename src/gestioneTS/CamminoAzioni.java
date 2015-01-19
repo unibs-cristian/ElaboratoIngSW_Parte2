@@ -38,7 +38,7 @@ public class CamminoAzioni implements Serializable {
 	/**
 	 * Costruttore della classe CamminoAzioni
 	 *
-	 * @param tipo : se true, crea un cammino globale, altrimenti un insieme del cammino.
+	 * @param _globaleSiNo : se true, crea un cammino globale, altrimenti un insieme del cammino.
 	 */
 	public CamminoAzioni(boolean _globaleSiNo) {
 		globaleSiNo = _globaleSiNo;

@@ -108,8 +108,6 @@ public class ClasseEquivalenza implements Serializable {
 	}
 	
 	/** 
-	 * @param attuale : la classe di equivalenza per cui viene inserito l'insieme 
-	 * di copertura
 	 * @param numClasseEq : il numero della classe nel test suite
  	 */
 	public void inserisciInsiemeCopertura(int numClasseEq) {

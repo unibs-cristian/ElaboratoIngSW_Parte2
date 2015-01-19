@@ -95,7 +95,7 @@ public class TestSuite implements Serializable {
 	/**
 	 * Aggiunge la classe di equivalenza.
 	 *
-	 * @param clEq : la classe d'equivalenza da aggiungere alla struttura dati
+	 * @param daAggiungere : la classe d'equivalenza da aggiungere alla struttura dati
 	 */
 	public void addClasseEquivalenza(ClasseEquivalenza daAggiungere) {
 		//PRECONDIZIONE
@@ -112,7 +112,7 @@ public class TestSuite implements Serializable {
 	 * Controlla se una classe di equivalenza e' gia' presente nel Test Suite, per evitare
 	 * l'inserimento di doppioni
 	 *
-	 * @param ce : la classe d'equivalenza di cui verificare la presenza.
+	 * @param daVerificare : la classe d'equivalenza di cui verificare la presenza.
 	 * @return true, se la classe e' gia' presente, false altrimenti.
 	 */
 	public boolean classeGiaPresente(ClasseEquivalenza daVerificare) {
@@ -205,7 +205,6 @@ public class TestSuite implements Serializable {
 	
 	/**
 	 * Inserisce le classi di equivalenza nel Test Suite
-	 * @param attuale : il test suite per cui effettuare l'inserimento.
 	 */
 	public void inserisciClassiEquivalenza() {
 		int i=1;
