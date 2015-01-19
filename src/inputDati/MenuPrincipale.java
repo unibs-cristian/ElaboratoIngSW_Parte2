@@ -335,7 +335,7 @@ public class MenuPrincipale {
 					}
 					boolean salvataggioFileTestoSiNo = Util.yesOrNo(MSG_SALVATAGGIO_TESTO_REPORT);
 					if(salvataggioFileTestoSiNo) {
-						String nomeFileTesto = nomeReport + ".txt";
+						String nomeFileTesto = nomeReport + ".doc";
 						Stream.scriviSuFile(nomeFileTesto, nuovo.toString());
 						System.out.println(String.format(MSG_REPORT_SALVATO_TESTO,nomeReport));
 					}	
