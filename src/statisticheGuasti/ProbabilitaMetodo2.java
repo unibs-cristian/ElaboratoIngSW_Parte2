@@ -61,7 +61,13 @@ public class ProbabilitaMetodo2 implements Serializable
 	 */
 	public static float coefficienteOchiai(float nKO, float nOK,  float nKOv)
 	{
-		return (float) (nKO/Math.sqrt( ( (nKO+nOK)*(nKO+nKOv) ) ) );
+		float numeratore = nKO;
+		float denominatore = (float) Math.sqrt( ( (nKO+nOK)*(nKO+nKOv) ) );
+		float risultato;
+		if (denominatore != 0)
+			risultato =  numeratore / denominatore;
+		else risultato = 0;
+		return risultato;
 	}
 	
 	/**
