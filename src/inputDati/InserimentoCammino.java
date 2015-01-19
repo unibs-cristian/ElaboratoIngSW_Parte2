@@ -25,7 +25,7 @@ import gestioneTS.Coppia;
  * Classe InserimentoCammino.
  * Questa classe gestisce l'interazione con l'utente quando questo deve inserire un cammino
  * globale oppure un insieme del cammino. Vengono inoltre  inoltre gestito lo stato in base a 
- * quanto è stato inserito dall'utente.
+ * quanto Ã¨ stato inserito dall'utente.
  * 
  */
 public class InserimentoCammino {
@@ -72,7 +72,7 @@ public class InserimentoCammino {
 		else
 			System.out.println(MSG_INS_CAMMINO);
 		do {
-			//Toglie le eventuali azioni presenti nel cammino (utile per resettare il Vector di Azioni quando si è inserito un cammino errato.
+			//Toglie le eventuali azioni presenti nel cammino (utile per resettare il Vector di Azioni quando si Ã¨ inserito un cammino errato.
 			if(!(camm.isEmpty()))
 				camm.azzeraAzioni();		
 			//Ripristina lo stato iniziale a vuoto se non lo e' (puo' accadere per esempio dopo che ho inserito un cammino non valido)
@@ -274,24 +274,30 @@ public class InserimentoCammino {
 			int ramiPercorsiTutti = getRamiPercorsi(daControllare, StatoCammino.PERCORSO_TUTTO);
 			int ramiFermatoDentro = getRamiPercorsi(daControllare, StatoCammino.FERMATO_DENTRO);
 			int ramiFork = daControllare.getRami().length;
-			//Verifico che ci sia almeno un ramo percorso completamente.
-			//Se c'e' almeno un ramo percorso completamente, allora tutti i rami devono essere percorsi completamente.
-			if(ramiPercorsiTutti == ramiFork)   //Se tutti i rami sono percorsi completamente allora viene mantenuto lo stato attuale
-				return new StatoOk();
-			//Se c'e' almeno un ramo percorso tutto ma non tutti i rami sono percorsi tutti, allora lo stato diventa SALTATO_BLOCCO
-			else if(ramiPercorsiTutti >= 1 && ramiPercorsiTutti < ramiFork)
-				return new SaltatoBlocco();
-			//Se il cammino e' globale e c'e' almeno un ramo fermato dentro, allora il nuovo stato e' fermato dentro.
-			else if(camm.globaleSiNo() && ramiFermatoDentro >= 1)
-				return new FermatoDentro();
-			else if(!camm.globaleSiNo() && ramiFermatoDentro == 1)
-				return new FermatoDentro();
-			//Un insieme del cammino non puo' prevedere piu' rami del Fork percorsi parzialmente
-			else if(!camm.globaleSiNo() && ramiFermatoDentro > 1)
-				return new StatoNonOk();
-			else
-				return new FermatoDentro();
+			if(!camm.globaleSiNo()) {
+				if(ramiPercorsiTutti == ramiFork)   //Se tutti i rami sono percorsi completamente allora viene mantenuto lo stato attuale
+					return new StatoOk();
+				else if(ramiFermatoDentro > 1 || (ramiPercorsiTutti >= 1 && ramiPercorsiTutti < ramiFork))
+					return new StatoNonOk();
+				else if(ramiFermatoDentro == 1)
+					return new FermatoDentro();
+			}
+			else {
+				//Verifico che ci sia almeno un ramo percorso completamente.
+				//Se c'e' almeno un ramo percorso completamente, allora tutti i rami devono essere percorsi completamente.
+				if(ramiPercorsiTutti == ramiFork)   //Se tutti i rami sono percorsi completamente allora viene mantenuto lo stato attuale
+					return new StatoOk();
+				//Se c'e' almeno un ramo percorso tutto ma non tutti i rami sono percorsi tutti, allora lo stato diventa SALTATO_BLOCCO
+				else if(ramiPercorsiTutti >= 1 && ramiPercorsiTutti < ramiFork)
+					return new SaltatoBlocco();
+				//Se il cammino e' globale e c'e' almeno un ramo fermato dentro, allora il nuovo stato e' fermato dentro.
+				else if(camm.globaleSiNo() && ramiFermatoDentro >= 1)
+					return new FermatoDentro();
+				else
+					return new FermatoDentro();
+			}
 		}
+		return new StatoNonOk();
 	}
 	
 	/**
@@ -529,26 +535,6 @@ public class InserimentoCammino {
 		return counter;
 	}
 	
-	private boolean isComplessa(Entita daVerificare) {
-		return daVerificare.getIdTipo().equals(Entita.ID_TIPO_BRANCH) || daVerificare.getIdTipo().equals(Entita.ID_TIPO_CICLO) || daVerificare.getIdTipo().equals(Entita.ID_TIPO_FORK);
-	}
-	
-	private boolean isCiclo(Entita daControllare) {
-		return daControllare.getIdTipo().equals(Entita.ID_TIPO_CICLO);
-	}
-	
-	private boolean isBranch(Entita daControllare) {
-		return daControllare.getIdTipo().equals(Entita.ID_TIPO_BRANCH);
-	}
-	
-	private boolean isFork(Entita daControllare) {
-		return daControllare.getIdTipo().equals(Entita.ID_TIPO_FORK);
-	}
-	
-	private boolean isAzione(Entita daControllare) {
-		return daControllare.getIdTipo().equals(Entita.ID_TIPO_AZIONE) || daControllare.getIdTipo().equals(Entita.ID_TIPO_AZIONE_COMPOSTA);
-	}
-	
 	private void verificaPrecondizioni1(Entita e, String stringaStato) {
 		/*
 		 * PRECONDIZIONI
@@ -558,7 +544,7 @@ public class InserimentoCammino {
 		 */
 		
 		assert e!=null : "Violata precondizione metodo getRamiPercorsi. Passata entita' nulla";
-		assert isComplessa(e) : "Violata precondizione metodo getRamiPercorsi. Passata entita' diversa da fork, branch o ciclo.";
+		assert e.isComplessa() : "Violata precondizione metodo getRamiPercorsi. Passata entita' diversa da fork, branch o ciclo.";
 		assert stringaStato!=null : "Violata precondizione metodo getRamiPercorsi. Passata stringa stato nulla";
 	}
 	
@@ -584,20 +570,20 @@ public class InserimentoCammino {
 	private void verificaPrecondizioni3(Entita daControllare) {
 		//Precondizioni
 		assert daControllare!=null : "Violata precondizione metodo controllaCiclo. Passato ciclo nullo.";
-		assert isCiclo(daControllare) : "Violata precondizione metodo controllaCiclo. Passata entita' diversa da Ciclo";
+		assert daControllare.isCiclo() : "Violata precondizione metodo controllaCiclo. Passata entita' diversa da Ciclo";
 
 	}
 	
 	private void verificaPrecondizioni4(Entita daControllare) {
 		//Precondizioni
 		assert daControllare!=null : "Violata precondizione metodo controllaBranch. Passato branch nullo.";
-		assert isBranch(daControllare) : "Violata precondizione metodo controllaBranch. Passata entita' diversa da Branch";
+		assert daControllare.isBranch() : "Violata precondizione metodo controllaBranch. Passata entita' diversa da Branch";
 	}
 	
 	private void verificaPrecondizioni5(Entita daControllare) {
 		//Precondizioni
 		assert daControllare!=null : "Violata precondizione metodo controllaFork. Passato fork nullo.";
-		assert isFork(daControllare) : "Violata precondizione metodo controllaFork. Passata entita' diversa da Fork.";
+		assert daControllare.isFork() : "Violata precondizione metodo controllaFork. Passata entita' diversa da Fork.";
 	}
 	
 	private void verificaPrecondizioni6(Entita interna, Entita esterna, int numRamoEsterna, int posRamoEsterna) {
@@ -622,7 +608,7 @@ public class InserimentoCammino {
 		 * 3) Se l'entita' esterna non e' nulla, allora gli indici relativi al ramo e alla posizione nel ramo devono essere corretti
 		 */
 		assert eNull : "Violata precondizione metodo gestisciStatoAzione. Passata azione nulla.";
-		assert isAzione(interna) : "Violata precondizione metodo gestisciStatoAzione. Chiamato metodo con entita' diversa da azione.";
+		assert interna.isAzione() : "Violata precondizione metodo gestisciStatoAzione. Chiamato metodo con entita' diversa da azione.";
 		assert esternaNull || (!esternaNull && numRamoOk && posRamoOk) : "Violata precondizione sul metodo gestisciStatoAzione. Il numero del ramo o la posizione nel ramo non sono corretti.";
 	}
 }
