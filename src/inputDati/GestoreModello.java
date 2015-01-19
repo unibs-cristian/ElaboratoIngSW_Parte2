@@ -61,7 +61,7 @@ public class GestoreModello implements Serializable {
 	public final static String MSG_ERRORE_PRECONDIZIONE_4 = "Precondizione violata per il metodo inserimentoCiclo";
 	public final static String MSG_ERRORE_PRECONDIZIONE_5 = "Precondizione violata per il metodo inserimentoFork";
 	public final static String MSG_ERRORE_PRECONDIZIONE_6 = "Precondizione violata per il metodo inserimentoNodoFinale";
-	public final static String MSG_ERRORE_RAMI_FORK = "Attenzione. Non è possibile lasciare vuoto un ramo di un Fork.";
+	public final static String MSG_ERRORE_RAMI_FORK = "Attenzione. Non Ã¨ possibile lasciare vuoto un ramo di un Fork.";
 	
 	/** Messaggi stampati a video quando si sta creando una nuova azione */
 	public final static String MSG_TITOLO_AZIONE = "Digitare il titolo dell'azione che si sta inserendo: ";
@@ -401,7 +401,7 @@ public class GestoreModello implements Serializable {
 	 * @return
 	 */
 	private Vector <String> ottieniOpzioniMenu(int tipoMenu) {
-		Vector <String> opzioniMenu = new Vector();
+		Vector <String> opzioniMenu = new Vector <>();
 		opzioniMenu.add(MSG_INSERIMENTO_AZIONE);      //Voce 1 --> azione
 		opzioniMenu.add(MSG_INSERIMENTO_BRANCH);      //Voce 2 --> branch
 		opzioniMenu.add(MSG_INSERIMENTO_CICLO);       //Voce 3 --> ciclo
@@ -426,6 +426,8 @@ public class GestoreModello implements Serializable {
 				System.out.println(MSG_ERRORE_RAMI_FORK);
 				return false;
 			}
+			else 
+				return true;
 		}
 		else {
 			if(daGestire.getRami()[ramoCorrente].isEmpty()) {
@@ -440,7 +442,6 @@ public class GestoreModello implements Serializable {
 			else 
 				return true;
 		}
-		return false;
 	}
 	
 	/**
