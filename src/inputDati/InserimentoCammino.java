@@ -274,30 +274,22 @@ public class InserimentoCammino {
 			int ramiPercorsiTutti = getRamiPercorsi(daControllare, StatoCammino.PERCORSO_TUTTO);
 			int ramiFermatoDentro = getRamiPercorsi(daControllare, StatoCammino.FERMATO_DENTRO);
 			int ramiFork = daControllare.getRami().length;
-			if(!camm.globaleSiNo()) {
-				if(ramiPercorsiTutti == ramiFork)   //Se tutti i rami sono percorsi completamente allora viene mantenuto lo stato attuale
-					return new StatoOk();
-				else if(ramiFermatoDentro > 1 || (ramiPercorsiTutti >= 1 && ramiPercorsiTutti < ramiFork))
-					return new StatoNonOk();
-				else if(ramiFermatoDentro == 1)
-					return new FermatoDentro();
-			}
-			else {
-				//Verifico che ci sia almeno un ramo percorso completamente.
-				//Se c'e' almeno un ramo percorso completamente, allora tutti i rami devono essere percorsi completamente.
-				if(ramiPercorsiTutti == ramiFork)   //Se tutti i rami sono percorsi completamente allora viene mantenuto lo stato attuale
-					return new StatoOk();
-				//Se c'e' almeno un ramo percorso tutto ma non tutti i rami sono percorsi tutti, allora lo stato diventa SALTATO_BLOCCO
-				else if(ramiPercorsiTutti >= 1 && ramiPercorsiTutti < ramiFork)
-					return new SaltatoBlocco();
-				//Se il cammino e' globale e c'e' almeno un ramo fermato dentro, allora il nuovo stato e' fermato dentro.
-				else if(camm.globaleSiNo() && ramiFermatoDentro >= 1)
-					return new FermatoDentro();
-				else
-					return new FermatoDentro();
-			}
+			
+			//Verifico che ci sia almeno un ramo percorso completamente.
+			// Se c'e' almeno un ramo percorso completamente, allora tutti i rami devono essere percorsi completamente.
+			if(ramiPercorsiTutti == ramiFork) // Se tutti i rami sono percorsi completamente, allora viene mantenuto lo stato attuale.
+				return new StatoOk();
+			else if(ramiPercorsiTutti >= 1 && ramiPercorsiTutti < ramiFork) //Se c'e' almeno un ramo percorso tutto ma non tutti i rami sono percorsi tutti, allora lo stato diventa SALTATO_BLOCCO
+				return new SaltatoBlocco();
+			else if(camm.globaleSiNo() && ramiFermatoDentro >= 1) //Se il cammino e' globale e c'e' almeno un ramo fermato dentro, allora il nuovo stato e' fermato dentro.
+				return new FermatoDentro();
+			else if(!camm.globaleSiNo() && ramiFermatoDentro == 1)
+				return new FermatoDentro();
+			else if(!camm.globaleSiNo() && ramiFermatoDentro > 1) //Un insieme del cammino non puo' prevedere piu' rami del Fork percorsi parzialmente.
+				return new StatoNonOk();
+			else
+				return new FermatoDentro();
 		}
-		return new StatoNonOk();
 	}
 	
 	/**
